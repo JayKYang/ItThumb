@@ -1,0 +1,2 @@
+## src/messages.txt => src/messages.properties
+## error.input.user = 테스트 이렇게 쓰면 됨[messages.properties에 복사 붙여 넣기]

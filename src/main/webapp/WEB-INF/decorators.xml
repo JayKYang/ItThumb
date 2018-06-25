@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+
+<decorators defaultdir="/decorator">
+  <decorator name="main" page="decorator.jsp">
+     <pattern>*.jsy</pattern>
+  </decorator>
+  <!-- layout 설정을 제외 함. -->
+  <excludes>
+  </excludes>
+</decorators>
