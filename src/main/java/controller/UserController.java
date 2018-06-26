@@ -42,6 +42,7 @@ public class UserController {
 		return mav;
 	}
 	
+	
 	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
 	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
