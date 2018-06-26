@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <html>
@@ -27,22 +27,23 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-theme-l1">구디아카데미</a>
+  <div class="w3-bar w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button ">구디아카데미</a>
     <c:if test="${empty sessionScope.loginUser }">
-    	<a href="${path }/user/login.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-white">로그인 </a>
+    	<a href="${path }/user/login.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">로그인 </a>
     </c:if>
     <c:if test="${!empty sessionScope.loginUser }">
-    	<a href="${path }/user/logout.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-white">${sessionScope.loginUser.userId }님! 로그아웃 </a>
+    	<a href="${path }/user/logout.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">${sessionScope.loginUser.userId }님! 로그아웃 </a>
     </c:if>
-	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
-	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/item/list.shop">상품관리</a>
-	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/board/list.shop">게시판</a>
-	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/item/list.shop">상품관리</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/board/list.shop">게시판</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
 	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
-	  	<a class="w3-bar-item w3-button w3-hover-black" href="${path }/admin/admin.shop">관리자</a>
+	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.shop">관리자</a>
 	  </c:if>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy">포트폴리오</a>
   </div>
 </div>
 
