@@ -62,6 +62,7 @@
 				exception.CartEmptyException=exception
 				 -->
 				<!-- exception.CartEmptyException이 발생하면  exception.jsp로 가-->
+				exception.JsyException=exception
 			</value>
 		</property>
 	</bean>
