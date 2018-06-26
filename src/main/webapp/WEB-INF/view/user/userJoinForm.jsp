@@ -20,7 +20,7 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                    $('#aa').attr('src', e.target.result);
+                    $('#profilephoto').attr('src', e.target.result);
                 }
 
               reader.readAsDataURL(input.files[0]);
@@ -44,8 +44,7 @@
 			<td align="center">사진</td>
 			<td>
 				<div id="profile">
-					
-						<img id="aa" src="../photo/defaultphoto.png"  style="height:400px; width:350px;"alt="your image">
+					<img id="profilephoto" src="../photo/defaultphoto.png"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
 				</div>
 				<input type="file" name="image" id="image"/>
 			</td>

@@ -30,7 +30,6 @@ public class UserController {
 	@RequestMapping(value="user/joinForm", method=RequestMethod.GET)
 	public ModelAndView JoinForm(HttpServletRequest request) {
 		String kind = request.getParameter("kind");
-		System.out.println(kind);
 		ModelAndView mav = new ModelAndView();
 		if(kind.equals("1")) {
 			mav.setViewName("user/userJoinForm");
