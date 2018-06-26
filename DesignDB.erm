@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>72</x>
-	<y>-3</y>
+	<y>361</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2018-06-25 09:10:53</creation_date>
-			<updated_date>2018-06-26 14:13:11</updated_date>
+			<updated_date>2018-06-26 15:10:48</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -792,8 +792,8 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>lock</logical_name>
-			<physical_name>lock</physical_name>
+			<logical_name>locking</logical_name>
+			<physical_name>locking</physical_name>
 			<type></type>
 		</word>
 		<word>
@@ -5725,7 +5725,7 @@
 			</color>
 			<connections>
 			</connections>
-			<physical_name>member</physical_name>
+			<physical_name>user</physical_name>
 			<logical_name>새 테이블</logical_name>
 			<description></description>
 			<constraint></constraint>
