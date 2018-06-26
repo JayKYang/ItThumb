@@ -48,6 +48,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <a class="w3-bar-item w3-button w3-hover-black" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="${path }/item/list.shop">상품관리</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="${path }/board/list.shop">게시판</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/portfolio.jsy">포트폴리오</a>
   <c:if test="${sessionScope.loginUser.userId=='admin' }">
   	<a class="w3-bar-item w3-button w3-hover-black" href="${path }/admin/admin.shop">관리자</a>
   </c:if>
