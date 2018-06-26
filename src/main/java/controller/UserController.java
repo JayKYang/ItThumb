@@ -21,16 +21,29 @@ public class UserController {
 	@Autowired
 	JsyService service;
 	
-	@RequestMapping(value="user/normalJoinForm", method=RequestMethod.GET)
-	public ModelAndView nomalJoinForm() {
+	@RequestMapping("user/selectJoin")
+	public ModelAndView selectJoin() {
 		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
+	
+	@RequestMapping(value="user/joinForm", method=RequestMethod.GET)
+	public ModelAndView JoinForm(HttpServletRequest request) {
+		String kind = request.getParameter("kind");
+		System.out.println(kind);
+		ModelAndView mav = new ModelAndView();
+		if(kind.equals("1")) {
+			mav.setViewName("user/userJoinForm");
+		}else {
+			mav.setViewName("user/companyJoinForm");
+		}
 		User user = new User();
 		mav.addObject("user", user);
 		return mav;
 	}
 	
-	@RequestMapping(value="user/normalJoinForm", method=RequestMethod.POST)
-	public ModelAndView nomalJoin(@Valid User user, BindingResult bindingResult) {
+	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
+	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());

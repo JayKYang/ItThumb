@@ -31,8 +31,8 @@ public class User implements Serializable{
 	private String introduce;
 	private Date modifydate;
 	private String address;
+	private String companyserial;
 	private int locking;
-	
 	public String getMemberid() {
 		return memberid;
 	}
@@ -129,11 +129,17 @@ public class User implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getLock() {
+	public String getCompanyserial() {
+		return companyserial;
+	}
+	public void setCompanyserial(String companyserial) {
+		this.companyserial = companyserial;
+	}
+	public int getLocking() {
 		return locking;
 	}
-	public void setLock(int lock) {
-		this.locking = lock;
+	public void setLocking(int locking) {
+		this.locking = locking;
 	}
 	@Override
 	public String toString() {
@@ -141,7 +147,7 @@ public class User implements Serializable{
 				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
 				+ image + ", birth=" + birth + ", industy=" + industy + ", site=" + site + ", region=" + region
 				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
-				+ address + ", locking=" + locking + "]";
+				+ address + ", companyserial=" + companyserial + ", locking=" + locking + "]";
 	}
 	
 	
