@@ -36,11 +36,18 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <c:if test="${!empty sessionScope.loginUser }">
     	<a href="${path }/user/logout.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-white">${sessionScope.loginUser.userId }님! 로그아웃 </a>
     </c:if>
+	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
+	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/item/list.shop">상품관리</a>
+	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/board/list.shop">게시판</a>
+	  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
+	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
+	  	<a class="w3-bar-item w3-button w3-hover-black" href="${path }/admin/admin.shop">관리자</a>
+	  </c:if>
   </div>
 </div>
 
 <!-- Sidebar -->
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+<%-- <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
     <i class="fa fa-remove"></i>
   </a>
@@ -52,16 +59,16 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <c:if test="${sessionScope.loginUser.userId=='admin' }">
   	<a class="w3-bar-item w3-button w3-hover-black" href="${path }/admin/admin.shop">관리자</a>
   </c:if>
-</nav>
+</nav> --%>
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-<div class="w3-main" style="margin-left:250px">
-
+<div class="w3-main">
   <div class="w3-row w3-padding-64">
-    <decorator:body></decorator:body>
+	<decorator:body></decorator:body>
+    
   </div>
 
   <footer id="myFooter">
