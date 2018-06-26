@@ -21,7 +21,7 @@ public class UserController {
 	@Autowired
 	JsyService service;
 	
-	@RequestMapping(value="user/nomalJoinForm", method=RequestMethod.GET)
+	@RequestMapping(value="user/normalJoinForm", method=RequestMethod.GET)
 	public ModelAndView nomalJoinForm() {
 		ModelAndView mav = new ModelAndView();
 		User user = new User();
@@ -29,8 +29,8 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value="user/nomalJoinForm", method=RequestMethod.POST)
-	public ModelAndView nomalJoin(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+	@RequestMapping(value="user/normalJoinForm", method=RequestMethod.POST)
+	public ModelAndView nomalJoin(@Valid User user, BindingResult bindingResult) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());

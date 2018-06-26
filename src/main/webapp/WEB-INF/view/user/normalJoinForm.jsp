@@ -8,7 +8,7 @@
 <title>일반유저가입</title>
 </head>
 <body>
-<form:form modelAttribute="user" action="nomalJoinForm.jsy" method="post" enctype="multipart/form-data">
+<form:form modelAttribute="user" action="normalJoinForm.jsy" method="post">
 	<spring:hasBindErrors name="user">
 		<font color="red">
 			<c:forEach items="${errors.globalErrors }" var="error">
@@ -17,12 +17,6 @@
 		</font>
 	</spring:hasBindErrors>
 	<table border="1" cellpadding="0" cellspacing="0">
-		<tr>
-			<td align="center">사진</td>
-			<td>
-				<input type="file" name="image"/>
-			</td>
-		</tr>
 		<tr>
 			<td align="center">이메일</td>
 			<td>
