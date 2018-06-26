@@ -7,6 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>일반유저가입</title>
+<style type="text/css">
+	#profile{
+		 background-image: url('../photo/defaultphoto.png'); 
+		 height: 100px; 
+		 width: 80px;"
+	}
+</style>
 </head>
 <body>
 <form:form modelAttribute="user" action="normalJoinForm.jsy" method="post" enctype="multipart/form-data">
@@ -21,9 +28,8 @@
 		<tr>
 			<td align="center">사진</td>
 			<td>
-				<div style="background-image: url('../photo/defaultphoto.png'); height: 100px; width: 80px;">
+				<div id="profile">
 				</div>
-				<!-- <img src="../photo/defaultphoto.png" width="100" height="100"> -->
 				<input type="file" name="image"/>
 			</td>
 		</tr>
