@@ -27,7 +27,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-top w3-left-align w3-large">
+  <div class="w3-bar w3-top w3-left-align w3-large w3-theme-l1">
     <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
     <a href="#" class="w3-bar-item w3-button ">구디아카데미</a>
     <c:if test="${empty sessionScope.loginUser }">
@@ -43,7 +43,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
 	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.shop">관리자</a>
 	  </c:if>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy">포트폴리오</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy">마이페이지</a>
   </div>
 </div>
 

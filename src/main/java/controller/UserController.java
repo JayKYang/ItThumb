@@ -55,4 +55,9 @@ public class UserController {
 		}
 		return mav;
 	}
+	@RequestMapping("user/mypage")
+	public ModelAndView mypage() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 }

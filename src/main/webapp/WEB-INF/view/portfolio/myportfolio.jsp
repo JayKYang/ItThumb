@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>잇썸 > 포트폴리오</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -63,7 +63,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </div>
 
 <!-- Page Content -->
-<div class="w3-padding-large" id="main">
+<div class="" id="main">
   <!-- Header/Home -->
   <header class="w3-container w3-padding-32 w3-center w3-black" id="about">
     <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> John Doe.</h1>
