@@ -23,4 +23,3 @@ create table user(
 	address varchar(50),
 	locking int(2)
 )
-
