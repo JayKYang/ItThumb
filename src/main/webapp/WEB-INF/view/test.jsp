@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>최강귀요미양진규</h2>
+<h2>ITTHUMB!</h2>
 </body>
 </html>

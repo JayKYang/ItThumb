@@ -31,7 +31,7 @@ public class User implements Serializable{
 	private String introduce;
 	private Date modifydate;
 	private String address;
-	private int lock;
+	private int locking;
 	
 	public String getMemberid() {
 		return memberid;
@@ -130,10 +130,10 @@ public class User implements Serializable{
 		this.address = address;
 	}
 	public int getLock() {
-		return lock;
+		return locking;
 	}
 	public void setLock(int lock) {
-		this.lock = lock;
+		this.locking = lock;
 	}
 	@Override
 	public String toString() {
@@ -141,7 +141,7 @@ public class User implements Serializable{
 				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
 				+ image + ", birth=" + birth + ", industy=" + industy + ", site=" + site + ", region=" + region
 				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
-				+ address + ", lock=" + lock + "]";
+				+ address + ", locking=" + locking + "]";
 	}
 	
 	
