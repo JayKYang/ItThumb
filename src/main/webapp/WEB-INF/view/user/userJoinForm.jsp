@@ -7,13 +7,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>일반유저가입</title>
-<style type="text/css">
-	#profile{
-		 background-image: url('../photo/defaultphoto.png'); 
-		 height: 100px; 
-		 width: 80px;"
-	}
-</style>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+        $(function() {
+            $("#image").on('change', function(){
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $('#aa').attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
 </head>
 <body>
 <form:form modelAttribute="user" action="normalJoinForm.jsy" method="post" enctype="multipart/form-data">
@@ -29,8 +44,10 @@
 			<td align="center">사진</td>
 			<td>
 				<div id="profile">
+					
+						<img id="aa" src="../photo/defaultphoto.png"  style="height:400px; width:350px;"alt="your image">
 				</div>
-				<input type="file" name="image"/>
+				<input type="file" name="image" id="image"/>
 			</td>
 		</tr>
 		<tr>
