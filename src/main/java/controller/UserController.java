@@ -61,4 +61,9 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
+	@RequestMapping("user/selectJoin")
+	public ModelAndView test3() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 }
