@@ -55,25 +55,4 @@ public class UserController {
 		}
 		return mav;
 	}
-
-	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
-	public ModelAndView test10(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		if(bindingResult.hasErrors()) {
-			mav.getModel().putAll(bindingResult.getModel());
-			return mav;
-		}
-		try {
-		}catch (DataIntegrityViolationException e) {
-			bindingResult.reject("error.duplicate.user");
-		}
-		return mav;
-	}
-
-	@RequestMapping("user/selectJoin")
-	public ModelAndView test1() {
-		ModelAndView mav = new ModelAndView();
-		return mav;
-	}
-
 }
