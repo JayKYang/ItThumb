@@ -24,27 +24,27 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
   <!-- Avatar image in top left corner -->
   <img src="../photo/defaultphoto.png" style="width:50%">
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <i class="fa fa-user w3-xxlarge"></i>
     <p>ABOUT</p>
   </a>
-  <a href="#history" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#history" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <i class="fa fa-document w3-xxlarge"></i>
     <p>HISTORY</p>
   </a>
-  <a href="#SKILL" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#SKILL" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <i class="fa fa-document w3-xxlarge"></i>
     <p>SKILL</p>
   </a>
-  <a href="#license" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#license" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <i class="fa fa-document w3-xxlarge"></i>
     <p>LICENSE</p>
   </a>
-  <a href="#portfolio" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#portfolio" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <i class="fa fa-eye w3-xxlarge"></i>
     <p>PORTFOLIO</p>
   </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <i class="fa fa-envelope w3-xxlarge"></i>
     <p>CONTACT</p>
   </a>
