@@ -6,8 +6,11 @@ import java.util.Date;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.sun.istack.internal.NotNull;
 
 public class User implements Serializable{
 	@Email(message="메일 형식이 아닙니다.")
@@ -28,13 +31,13 @@ public class User implements Serializable{
 	private String industy;
 	@URL(message="URL형식이 아닙니다.")
 	private String site;
-	private String region;
 	private String slogun;
 	private String introduce;
 	private Date modifydate;
 	private String address;
 	private String companyserial;
 	private int locking;
+	private int createpf;
 	public String getMemberid() {
 		return memberid;
 	}
@@ -107,12 +110,6 @@ public class User implements Serializable{
 	public void setSite(String site) {
 		this.site = site;
 	}
-	public String getRegion() {
-		return region;
-	}
-	public void setRegion(String region) {
-		this.region = region;
-	}
 	public String getSlogun() {
 		return slogun;
 	}
@@ -149,13 +146,19 @@ public class User implements Serializable{
 	public void setLocking(int locking) {
 		this.locking = locking;
 	}
+	public int getCreatepf() {
+		return createpf;
+	}
+	public void setCreatepf(int createpf) {
+		this.createpf = createpf;
+	}
 	@Override
 	public String toString() {
 		return "User [memberid=" + memberid + ", password=" + password + ", name=" + name + ", regdate=" + regdate
 				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
 				+ image + ", imageUrl=" + imageUrl + ", birth=" + birth + ", industy=" + industy + ", site=" + site
-				+ ", region=" + region + ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate="
-				+ modifydate + ", address=" + address + ", companyserial=" + companyserial + ", locking=" + locking
+				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
+				+ address + ", companyserial=" + companyserial + ", locking=" + locking + ", createpf=" + createpf
 				+ "]";
 	}
 	

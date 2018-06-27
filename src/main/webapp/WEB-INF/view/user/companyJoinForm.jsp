@@ -1,14 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<c:set var="path" value="${pageContact.request.contextPath }"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회사관계자가입</title>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+        $(function() {
+            $("#image").on('change', function(){
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $('#profilephoto').attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+    </script>
 </head>
 <body>
-<form:form modelAttribute="user" action="normalJoinForm.jsy" method="post" enctype="multipart/form-data">
+<form:form modelAttribute="user" action="joinForm.jsy" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="kind" value="${kind }">
 	<spring:hasBindErrors name="user">
 		<font color="red">
 			<c:forEach items="${errors.globalErrors }" var="error">
@@ -18,9 +42,12 @@
 	</spring:hasBindErrors>
 	<table border="1" cellpadding="0" cellspacing="0">
 		<tr>
-			<td align="center">회사로고</td>
+			<td align="center">로고</td>
 			<td>
-				<input type="file" name="image"/>
+				<div id="profile">
+					<img id="profilephoto" src="../photo/defaultphoto.png"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
+				</div>
+				<input type="file" name="image" id="image"/>
 			</td>
 		</tr>
 		<tr>
@@ -44,10 +71,45 @@
 			</td>
 		</tr>
 		<tr>
-			<td align="center">이름</td>
+			<td align="center">기업명</td>
 			<td>
 				<form:input path="name"/>
 				<font color="red"><form:errors path="name"/></font>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">사업자번호</td>
+			<td>
+				<form:input path="companyserial"/>
+				<font color="red"><form:errors path="companyserial"/></font>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">설립일</td>
+			<td>
+				<form:input path="birth"/>
+				<font color="red"><form:errors path="birth"/></font>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">업종</td>
+			<td>
+				<form:input path="industy"/>
+				<font color="red"><form:errors path="industy"/></font>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">사이트</td>
+			<td>
+				<form:input path="site"/>
+				<font color="red"><form:errors path="site"/></font>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">지역</td>
+			<td>
+				<form:input path="address"/>
+				<font color="red"><form:errors path="address"/></font>
 			</td>
 		</tr>
 		<tr>

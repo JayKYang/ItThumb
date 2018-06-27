@@ -14,7 +14,12 @@ public class UserDaoImpl implements UserDao{
 	private final String NS = "dao.mapper.UserMapper.";
 	@Override
 	public void createNormalUser(User user) {
-		sqlSession.getMapper(UserMapper.class).insert(user);
+		sqlSession.getMapper(UserMapper.class).normalInsert(user);
+		
+	}
+	@Override
+	public void createCompanyUser(User user) {
+		sqlSession.getMapper(UserMapper.class).companyInsert(user);
 		
 	}
 }
