@@ -40,5 +40,6 @@ public class BoardDaoImpl implements BoardDao{
 		
 		return SqlSession.selectList(NS+"hirelist", map);
 	}
+	//####
 
 }
