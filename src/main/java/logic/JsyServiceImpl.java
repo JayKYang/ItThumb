@@ -36,5 +36,15 @@ public class JsyServiceImpl implements JsyService{
 		
 	}
 
+	@Override
+	public void createCompanyUser(User user, HttpServletRequest request) {
+		if(user.getImage() != null && !user.getImage().isEmpty()) {
+			uploadUserImageCreate(user.getImage(), request);
+			user.setImageUrl(user.getImage().getOriginalFilename());
+		}
+		userDao.createCompanyUser(user);
+		
+	}
+
 	
 }

@@ -6,4 +6,6 @@ public interface UserDao {
 
 	void createNormalUser(User user);
 
+	void createCompanyUser(User user);
+
 }
