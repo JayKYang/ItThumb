@@ -16,12 +16,12 @@ create table user(
 	birth datetime,
 	industy varchar(50),
 	site varchar(50),
-	region varchar(50),
 	slogun varchar(100),
 	introduce varchar(500),
 	modifydate datetime,
 	address varchar(50),
-	locking int(2)
+	locking int(2),
+	createpf int(2)
 )
 
 create table hireboard(
