@@ -18,14 +18,14 @@ var c = "";
 		$('input[name="bbb"]:checked').each(function(){
 			
 			a.push($(this).val());
-			$('input[name="searchContent"]').val(a)
+			$('input[name="searchRegion"]').val(a)
 		})
 	})
 	
 	$("#levelofedu").change(function(){
 		b = $("#levelofedu option:selected").val();
 
-		$('input[name=searchContent]').val(b);
+		$('input[name="searchEdu"]').val(b);
 	})
 	
 	$('input[name="ccc"]').click(function(){
