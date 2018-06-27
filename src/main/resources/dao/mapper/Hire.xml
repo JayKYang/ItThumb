@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.mapper.BoardMapper">	
-	
+<mapper namespace="dao.mapper.HireMapper">	
+		<select id="count" resultType="Integer" parameterType="map">
+			select count(*) from hireboard where 1=1
+			<if test="searchRegion !=null">
+		and	region = '%${searchRegion}%'
+			</if>
+			<if test="searchEdu !=null">
+		and	qualification = '%${searchEdu}%'
+			</if>
+			<if test="searchCarr !=null">
+		and	hirestatus = '%${searchCarr}%'
+			</if>
+		</select>
+		<select id="hirelist" resultType="Hire" parameterType="map">
+		select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image, content, region from hireboard where 1=1
+		<if test="hireno != null">
+		and hireno = #{hireno}
+		</if>
+		<if test="searchRegion !=null">
+		and	region = '%${searchRegion}%'
+			</if>
+			<if test="searchEdu !=null">
+		and	qualification = '%${searchEdu}%'
+			</if>
+			<if test="searchCarr !=null">
+		and	hirestatus = '%${searchCarr}%'
+			</if>
+			order by hireno
+		</select>
 </mapper>

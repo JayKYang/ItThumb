@@ -10,4 +10,8 @@ public interface JsyService {
 
 	User getUser(String memberid);
 
+	int boardcount(String searchRegion, String searchEdu, String searchCarr);
+
+	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
+
 }

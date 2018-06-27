@@ -10,24 +10,29 @@
 <script>
 
 $(document).ready(function(){
-var rr= [];
-var aa=[];	
+var a=[];	
+var b = "";
+var c = "";
 	$('input[name="bbb"]').click(function(i){
-		rr=[]
+		a=[]
 		$('input[name="bbb"]:checked').each(function(){
 			
-			rr.push($(this).val());
-			console.log(rr);
-			$('input[name="searchContent"]').val(rr)
+			a.push($(this).val());
+			$('input[name="searchContent"]').val(a)
 		})
 	})
-	var aa = "";
+	
 	$("#levelofedu").change(function(){
-		aa = $("#levelofedu option:selected").val();
+		b = $("#levelofedu option:selected").val();
 
-		$('input[name=searchContent]').val(aa);
+		$('input[name=searchContent]').val(b);
 	})
-
+	
+	$('input[name="ccc"]').click(function(){
+		var c = $('input[name="ccc"]:checked').val();
+		$('input[name=searchCarr]').val(c)
+	})
+	
 })
 </script>
 <style type="text/css">
@@ -41,11 +46,11 @@ var aa=[];
 
 <div id="aa">
 <h6>지역</h6>
-<input type="checkbox"  name="bbb" id="bbb1" value="1">서울
-<input type="checkbox"  name="bbb" id="bbb2" value="2">경기
-<input type="checkbox"  name="bbb" id="bbb3" value="3">충청도
-<input type="checkbox"  name="bbb" id="bbb4" value="4">강원도
-<input type="checkbox"  name="bbb" id="bbb5" value="5">경상도
+<input type="checkbox"  name="bbb" id="bbb1" value="서울">서울
+<input type="checkbox"  name="bbb" id="bbb2" value="경기">경기
+<input type="checkbox"  name="bbb" id="bbb3" value="충청">충청도
+<input type="checkbox"  name="bbb" id="bbb4" value="강원">강원도
+<input type="checkbox"  name="bbb" id="bbb5" value="경상">경상도
 </div>
 <div>
 <h6>학력</h6>
@@ -57,16 +62,20 @@ var aa=[];
 	<option>박사 졸업</option>
 </select>
 </div>
+<div>
+<input type="checkbox" name="ccc" id="ccc1" value="new">신입
+<input type="checkbox" name="ccc" id="ccc2" value="career">경력
+
+</div>
 <br>
 <table width="90%" border="1" cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="5" align="center">
 	<form action="hirelist.jsy" method="post" name="searchform" onsubmit="return list(1)">
 		<input type="hidden" name="pageNum" value="1">
-			<input type="text" name="searchRegion" value="${param.searchContent}">
-				<input type="text" name="searchRegion" value="${param.searchContent}"> 
-			
-			<input type="text" name="searchRegion" value="${param.searchContent}">
+			<input type="text" name="searchRegion" value="${param.searchRegion}">
+			<input type="text" name="searchEdu" value="${param.searchEdu}">
+			<input type="text" name="searchCarr" value="${param.searchCarr}">
 			
 			<input type="submit" value="Search">
 	</form>
@@ -80,13 +89,13 @@ var aa=[];
 			<th width="17 %" height="26">공고기간</th>
 		</tr>
 		
-		<c:forEach var="hireboard" items="${hireboardlist}">
+		<c:forEach var="hireboard" items="${boardlist}">
 		<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.backgroundColor='#5CD1E5'" onmouseout="this.style.backgroundColor=''">
 			<td>
 					${hireboard.memberid}			
 			</td>
 			<td>
-					<a href="detail.jsy?num=${hireboard.num}&pageNum=${pageNum}">${hireboard.subject}</a>
+					<a href="detail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>
 			</td>
 				<td align="left">${hireboard.qualification}</td>
 				<td align="center">${hireboard.hirestatus}</td>
