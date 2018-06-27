@@ -46,5 +46,10 @@ public class JsyServiceImpl implements JsyService{
 		
 	}
 
+	@Override
+	public User getUser(String memberid) {
+		return userDao.selectUser(memberid);
+	}
+
 	
 }

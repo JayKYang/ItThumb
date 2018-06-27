@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,5 +24,11 @@ public class UserDaoImpl implements UserDao{
 	public void createCompanyUser(User user) {
 		sqlSession.getMapper(UserMapper.class).companyInsert(user);
 		
+	}
+	@Override
+	public User selectUser(String memberid) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberid", memberid);
+		return sqlSession.selectOne(NS+"getUser", map);
 	}
 }

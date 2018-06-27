@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.mapper.UserMapper">	
-
+	<select id="getUser" resultType="User" parameterType="map">
+		select * from user
+		<if test="memberid != null">
+			where memberid=#{memberid}
+		</if>
+	</select>
 </mapper>

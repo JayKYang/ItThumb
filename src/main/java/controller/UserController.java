@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class UserController {
 	@Autowired
 	JsyService service;
 	
-	@RequestMapping("main.jsy")
+	@RequestMapping("main")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
 		return mav;
@@ -127,10 +128,37 @@ public class UserController {
 		return mav;
 	}
 	
+	@RequestMapping(value="user/login", method=RequestMethod.POST)
+	public ModelAndView login(@Valid User user, BindingResult bindingResult, HttpSession session) {
+		ModelAndView mav = new ModelAndView("user/login");
+		if(bindingResult.hasErrors()) {
+			mav.getModel().putAll(bindingResult.getModel());
+			return mav;
+		}
+
+		User dbUser = service.getUser(user.getMemberid());
+		
+		if(dbUser == null) {
+			bindingResult.reject("error.login.user");
+			mav.getModel().putAll(bindingResult.getModel());
+			return mav;
+		}
+		if (dbUser.getPassword().equals(user.getPassword())) {
+			mav.addObject("dbUser", dbUser);
+			mav.setViewName("main.jsy");
+			session.setAttribute("login", dbUser);
+		} else {
+			bindingResult.reject("error.loginpassword.user");
+			mav.getModel().putAll(bindingResult.getModel());
+			return mav;
+		}
+
+		return mav;
+	}
+	
 	@RequestMapping("user/mypage")
 	public ModelAndView mypage() {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-	//#####
 }

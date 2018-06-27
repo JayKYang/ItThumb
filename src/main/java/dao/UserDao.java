@@ -8,4 +8,6 @@ public interface UserDao {
 
 	void createCompanyUser(User user);
 
+	User selectUser(String memberid);
+
 }

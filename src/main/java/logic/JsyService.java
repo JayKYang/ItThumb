@@ -8,4 +8,6 @@ public interface JsyService {
 
 	void createCompanyUser(User user, HttpServletRequest request);
 
+	User getUser(String memberid);
+
 }
