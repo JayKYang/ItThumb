@@ -1,3 +1,4 @@
 ## src/messages.txt => src/messages.properties
 ## error.input.user = 테스트 이렇게 쓰면 됨[messages.properties에 복사 붙여 넣기]
 error.duplicate.user = 중복된 아이디 입니다.
+error.join.password = 패스워드가 불일치 합니다.

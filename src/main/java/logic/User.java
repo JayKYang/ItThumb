@@ -7,6 +7,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.web.multipart.MultipartFile;
 
 public class User implements Serializable{
 	@Email(message="메일 형식이 아닙니다.")
@@ -20,7 +21,8 @@ public class User implements Serializable{
 	private String tel;
 	private int membergrade;
 	private int recognizecode;
-	private String image;
+	private MultipartFile image;
+	private String imageUrl;
 	@Past(message="과거 날짜만 가능합니다.")
 	private Date birth;
 	private String industy;
@@ -75,11 +77,17 @@ public class User implements Serializable{
 	public void setRecognizecode(int recognizecode) {
 		this.recognizecode = recognizecode;
 	}
-	public String getImage() {
+	public MultipartFile getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public Date getBirth() {
 		return birth;
@@ -145,10 +153,10 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [memberid=" + memberid + ", password=" + password + ", name=" + name + ", regdate=" + regdate
 				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
-				+ image + ", birth=" + birth + ", industy=" + industy + ", site=" + site + ", region=" + region
-				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
-				+ address + ", companyserial=" + companyserial + ", locking=" + locking + "]";
+				+ image + ", imageUrl=" + imageUrl + ", birth=" + birth + ", industy=" + industy + ", site=" + site
+				+ ", region=" + region + ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate="
+				+ modifydate + ", address=" + address + ", companyserial=" + companyserial + ", locking=" + locking
+				+ "]";
 	}
-	
 	
 }

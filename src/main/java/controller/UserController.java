@@ -38,17 +38,38 @@ public class UserController {
 		}
 		User user = new User();
 		mav.addObject("user", user);
+		mav.addObject("kind", kind);
 		return mav;
 	}
 
 	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
 	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+		String kind = request.getParameter("kind");
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user", user);
+			mav.setViewName("user/userJoinForm.jsp?kind="+kind);
+			return mav;
+		}
+		if(!user.getPassword().equals(request.getParameter("passconfirm"))) {
+			bindingResult.reject("error.join.password");
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user", user);
+			mav.setViewName("user/userJoinForm.jsp?kind="+kind);
 			return mav;
 		}
 		try {
+			if(kind.equals("1")) {
+				user.setMembergrade(1);
+				user.setRecognizecode((int)(Math.random()*10000)+1000);
+				user.setLocking(0);
+				service.createNormalUser(user, request);
+				mav.setViewName("user/userComfirm");
+				mav.addObject("user", user);
+			}else {
+				
+			}
 		}catch (DataIntegrityViolationException e) {
 			bindingResult.reject("error.duplicate.user");
 		}

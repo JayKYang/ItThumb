@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" isErrorPage="true"%>
-<%-- isErrorPage="true" : ÇöÀç ÆäÀÌÁö°¡ ¿¹¿Ü ÆäÀÌÁöÀÓ --%>
-<%-- exception °´Ã¼´Â exception.CartEmptyException °´Ã¼°¡ Àü´ÞµÊ --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isErrorPage="true"%>
+<%-- isErrorPage="true" : í˜„ìž¬ íŽ˜ì´ì§€ê°€ ì˜ˆì™¸ íŽ˜ì´ì§€ìž„ --%>
+<%-- exception ê°ì²´ëŠ” exception.CartEmptyException ê°ì²´ê°€ ì „ë‹¬ë¨ --%>
 <script>
 	alert('${exception.message}');
 	location.href="${exception.url}";

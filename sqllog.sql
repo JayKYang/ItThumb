@@ -11,7 +11,7 @@ create table user(
 	regdate datetime,
 	tel varchar(15),
 	membergrade int(2),
-	recgnizecode int(5),
+	recognizecode int(5),
 	image varchar(50),
 	birth datetime,
 	industy varchar(50),
