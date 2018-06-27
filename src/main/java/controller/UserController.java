@@ -21,6 +21,11 @@ public class UserController {
 	@Autowired
 	JsyService service;
 	
+	@RequestMapping("main.jsy")
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 	@RequestMapping("user/selectJoin")
 	public ModelAndView selectJoin() {
 		ModelAndView mav = new ModelAndView();
