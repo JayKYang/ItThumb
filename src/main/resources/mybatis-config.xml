@@ -3,8 +3,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="logic.User" alias="User"/>
+		<typeAlias type="logic.Hire" alias="Hire"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>
+		<mapper resource="dao/mapper/Hire.xml"/>
 	</mappers>
 </configuration>

@@ -38,7 +38,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     </c:if>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/item/list.shop">상품관리</a>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/board/list.shop">게시판</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/hire/hirelist.jsy">채용공고</a>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
 	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
 	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.shop">관리자</a>

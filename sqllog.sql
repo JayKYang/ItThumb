@@ -33,5 +33,8 @@ create table hireboard(
 	memberid varchar(30),
 	hide int(2),
 	deadline datetime,
-	readcnt int
+	readcnt int,
+	subject varchar(100),
+	image varchar(200),
+	content varchar(2000)
 )
