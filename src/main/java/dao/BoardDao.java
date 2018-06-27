@@ -9,5 +9,7 @@ public interface BoardDao {
 	int count(String searchRegion, String searchEdu, String searchCarr);
 
 	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
+	
+	//###
 
 }
