@@ -23,3 +23,15 @@ create table user(
 	address varchar(50),
 	locking int(2)
 )
+
+create table hireboard(
+	hireno int PRIMARY KEY,
+	qualification varchar(100),
+	hirestatus varchar(20),
+	salary int,
+	workday varchar(20),
+	memberid varchar(30),
+	hide int(2),
+	deadline datetime,
+	readcnt int
+)
