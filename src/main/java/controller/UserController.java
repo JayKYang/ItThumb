@@ -157,7 +157,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("user/mypage")
-	public ModelAndView mypage() {
+	public ModelAndView mypage(@Valid User user, BindingResult bindingResult) {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
