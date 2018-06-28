@@ -1,9 +1,23 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -21,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.JsyException;
 import logic.JsyService;
+import logic.Mail;
 import logic.User;
 
 
@@ -56,9 +71,23 @@ public class UserController {
 		mav.addObject("kind", kind);
 		return mav;
 	}
+	
+	//mail 내부클래스
+	private final class MyAuthenticator extends Authenticator{
+	      private String id;
+	      private String pw;
+	      public MyAuthenticator(String id, String pw) {
+	         this.id = id;
+	         this.pw = pw;
+	      }
+	      @Override
+	      protected PasswordAuthentication getPasswordAuthentication() {
+	         return new PasswordAuthentication(id,pw);
+	      }
+	}
 
 	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
-	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request, Mail mail) {
 		String kind = request.getParameter("kind");
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
@@ -91,6 +120,14 @@ public class UserController {
 				user.setLocking(0);
 				user.setCreatepf(0);
 				service.createNormalUser(user, request);
+				//메일 셋팅
+				mail.setNaverid("raytion07@naver.com");
+				mail.setNaverpass("tmdgysl07");
+				mail.setRecipient(user.getName()+"<"+user.getMemberid()+">");
+				mail.setMtype("text/html;charset=utf-8");
+				mail.setTitle("Itthumb 인증 메일 입니다.");
+				mail.setContents("sucess");
+				adminMailSend(mail);
 				mav.addObject("msg","회원가입이 완료되었습니다.");
 				mav.addObject("url","login.jsy");
 				mav.setViewName("alert");
@@ -115,6 +152,49 @@ public class UserController {
 		}
 		return mav;
 	}
+	
+	 private void adminMailSend(Mail mail) {
+		  //입력된 네이버 이메일 주소, 또는 아이디
+	      String naverid = mail.getNaverid();
+	      System.out.println(mail.getNaverid()+"@@@@"+mail.getNaverpass()+"@@@@"+mail.getRecipient()+"@@@@"+mail.getMtype()+"@@@@"+mail.getTitle()+"@@@@"+mail.getContents());
+	      //입력된 네이버 비밀번호
+	      String naverpass= mail.getNaverpass();
+	      MyAuthenticator auth = new MyAuthenticator(naverid, naverpass);
+	      Properties prop = new Properties(); //맵으로 되어있음
+	      FileInputStream fis = null;
+	      try {
+	    	 //자기 url로 바꿀것
+	         File f= new File("C:\\Users\\Winhyoni\\git\\ItThumb\\mail.properties");
+	         fis = new FileInputStream(f);
+	         prop.load(fis);
+	      }catch(IOException e) {
+	         e.printStackTrace();
+	      }
+	      System.out.println(prop);
+	      Session session = Session.getInstance(prop, auth);
+	      //메일 전송 객체
+	      MimeMessage msg = new MimeMessage(session);
+	      try {
+	    	 //보내는 사람 설정
+	         msg.setFrom(new InternetAddress(naverid));
+	         //받는 사람 설정
+	         try {
+				InternetAddress inadd = new InternetAddress(new String(mail.getRecipient().getBytes("utf-8"),"8859_1"));
+				msg.setRecipient(Message.RecipientType.TO, inadd);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+	        
+	         //보낸 날짜
+	         msg.setSentDate(new Date());
+	         msg.setSubject(mail.getTitle());
+	         MimeBodyPart message = new MimeBodyPart();
+	         message.setContent(mail.getContents(),mail.getMtype());
+	         Transport.send(msg);
+	      }catch(MessagingException me) {
+	         me.printStackTrace();
+	      }
+	   }
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -144,6 +224,13 @@ public class UserController {
 			mav.getModel().putAll(bindingResult.getModel());
 			return mav;
 		}
+		
+		if(dbUser.getLocking() == 0 && dbUser.getMembergrade() == 1) {
+			throw new JsyException("인증하고 로그인 해주세요.", "login.jsy");
+		}else if(dbUser.getLocking() == 0 && dbUser.getMembergrade() == 2) {
+			throw new JsyException("인증이 되지 않았습니다. 관리자에게 문의해주세요", "login.jsy");
+		}
+		
 		if (dbUser.getPassword().equals(user.getPassword())) {
 			mav.setViewName("redirect:../main.jsy");
 			session.setAttribute("login", dbUser);
