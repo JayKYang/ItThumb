@@ -132,7 +132,7 @@ public class UserController {
 	public ModelAndView login(@Valid User user, BindingResult bindingResult, HttpSession session) {
 		ModelAndView mav = new ModelAndView("user/login");
 		if(bindingResult.hasErrors()) {
-			mav.getModel().putAll(bindingResult.getModel());
+			mav.getModel().putAll(bindingResult.getModel());//
 			return mav;
 		}
 
