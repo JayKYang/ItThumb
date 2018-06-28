@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Update;
 
@@ -15,5 +16,8 @@ public interface UserMapper {
 
 	@Update("update user set name=#{name}, modifydate=now(), tel=#{tel}, membergrade=#{membergrade}, birth=#{birth}, image=#{imageUrl}, createpf=#{createpf}, slogun=#{slogun}, introduce=#{introduce}, site=#{site}, address=#{address} where memberid=#{memberid}")
 	void userUpdate(User user);
+
+	@Delete("delete from user where memberid=#{value}")
+	void userDelete(String id);
 
 }

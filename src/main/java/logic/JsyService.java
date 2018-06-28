@@ -18,5 +18,7 @@ public interface JsyService {
 
 	void updateUser(User user);
 
+	void deleteUser(String id);
+
 
 }

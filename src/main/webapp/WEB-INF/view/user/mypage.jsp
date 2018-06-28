@@ -111,7 +111,7 @@ function openMypage(mypageName) {
 						<td>자기 소개</td><td><form:input path="introduce" class="w3-input"/><font color="red"><form:errors path="introduce"/></font></td>
 					</tr>
 					<tr>
-						<td class="w3-center"><input class="w3-button" type="button" value="회원탈퇴" onclick=""></td>
+						<td class="w3-center"><input class="w3-button" type="button" value="회원탈퇴" onclick="location.href='delete.jsy?id=${login.memberid}'"></td>
 						<td class="w3-center"><input class="w3-button" type="submit" value="수정"></td>
 					</tr>
 				</table>
