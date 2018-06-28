@@ -166,6 +166,7 @@ public class UserController {
 	         File f= new File("C:\\Users\\Winhyoni\\git\\ItThumb\\mail.properties");
 	         fis = new FileInputStream(f);
 	         prop.load(fis);
+	         
 	      }catch(IOException e) {
 	         e.printStackTrace();
 	      }
