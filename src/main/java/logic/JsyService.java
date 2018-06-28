@@ -16,4 +16,9 @@ public interface JsyService {
 
 	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
 
+	void updateUser(User user);
+
+	void deleteUser(String id);
+
+
 }

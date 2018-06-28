@@ -35,12 +35,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.JsyException;
 import logic.JsyService;
-import logic.Mail;
 import logic.User;
+import util.HashPass;
+import util.SendMail;
 
 
 @Controller
 public class UserController {
+	
+	HashPass hp = new HashPass();
+	SendMail sm = new SendMail();
 	
 	@Autowired
 	JsyService service;
@@ -50,6 +54,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
+	
 	@RequestMapping("user/selectJoin")
 	public ModelAndView selectJoin() {
 		ModelAndView mav = new ModelAndView();
@@ -70,23 +75,9 @@ public class UserController {
 		mav.addObject("kind", kind);
 		return mav;
 	}
-	
-	//mail 내부클래스
-	private final class MyAuthenticator extends Authenticator{
-	      private String id;
-	      private String pw;
-	      public MyAuthenticator(String id, String pw) {
-	         this.id = id;
-	         this.pw = pw;
-	      }
-	      @Override
-	      protected PasswordAuthentication getPasswordAuthentication() {
-	         return new PasswordAuthentication(id,pw);
-	      }
-	}
 
 	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
-	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request, Mail mail) {
+	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		String kind = request.getParameter("kind");
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
@@ -120,15 +111,10 @@ public class UserController {
 				user.setCreatepf(0);
 				service.createNormalUser(user, request);
 				//메일 셋팅
-				mail.setNaverid("raytion07@naver.com");
-				mail.setNaverpass("tmdgysl07");
-				mail.setRecipient(user.getName()+"<"+user.getMemberid()+">");
-				mail.setMtype("text/html;charset=utf-8");
-				mail.setTitle("Itthumb 인증 메일 입니다.");
-				mail.setContents("sucess");
-				adminMailSend(mail);
+				sm.senmail(user.getMemberid());
+				
 				mav.addObject("msg","회원가입이 완료되었습니다.");
-				mav.addObject("url","login.jsy");
+				mav.addObject("url","../main.jsy");
 				mav.setViewName("alert");
 			}else {
 				user.setMembergrade(2);
@@ -151,50 +137,6 @@ public class UserController {
 		}
 		return mav;
 	}
-	
-	 private void adminMailSend(Mail mail) {
-		  //입력된 네이버 이메일 주소, 또는 아이디
-	      String naverid = mail.getNaverid();
-	      System.out.println(mail.getNaverid()+"@@@@"+mail.getNaverpass()+"@@@@"+mail.getRecipient()+"@@@@"+mail.getMtype()+"@@@@"+mail.getTitle()+"@@@@"+mail.getContents());
-	      //입력된 네이버 비밀번호
-	      String naverpass= mail.getNaverpass();
-	      MyAuthenticator auth = new MyAuthenticator(naverid, naverpass);
-	      Properties prop = new Properties(); //맵으로 되어있음
-	      FileInputStream fis = null;
-	      try {
-	    	 //자기 url로 바꿀것
-	         File f= new File("C:\\Users\\Winhyoni\\git\\ItThumb\\mail.properties");
-	         fis = new FileInputStream(f);
-	         prop.load(fis);
-	         
-	      }catch(IOException e) {
-	         e.printStackTrace();
-	      }
-	      System.out.println(prop);
-	      Session session = Session.getInstance(prop, auth);
-	      //메일 전송 객체
-	      MimeMessage msg = new MimeMessage(session);
-	      try {
-	    	 //보내는 사람 설정
-	         msg.setFrom(new InternetAddress(naverid));
-	         //받는 사람 설정
-	         try {
-				InternetAddress inadd = new InternetAddress(new String(mail.getRecipient().getBytes("utf-8"),"8859_1"));
-				msg.setRecipient(Message.RecipientType.TO, inadd);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-	        
-	         //보낸 날짜
-	         msg.setSentDate(new Date());
-	         msg.setSubject(mail.getTitle());
-	         MimeBodyPart message = new MimeBodyPart();
-	         message.setContent(mail.getContents(),mail.getMtype());
-	         Transport.send(msg);
-	      }catch(MessagingException me) {
-	         me.printStackTrace();
-	      }
-	   }
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -219,7 +161,6 @@ public class UserController {
 		}
 
 		User dbUser = service.getUser(user.getMemberid());
-		
 		if(dbUser == null) {
 			bindingResult.reject("error.login.user");
 			mav.getModel().putAll(bindingResult.getModel());
@@ -233,9 +174,8 @@ public class UserController {
 		}
 		
 		if (dbUser.getPassword().equals(user.getPassword())) {
-			mav.addObject("dbUser", dbUser);
-			mav.setViewName("main");
-			session.setAttribute("login", dbUser.getMemberid());
+			mav.setViewName("redirect:../main.jsy");
+			session.setAttribute("login", dbUser);
 		} else {
 			bindingResult.reject("error.loginpassword.user");
 			mav.getModel().putAll(bindingResult.getModel());
@@ -245,9 +185,93 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping("user/mypage")
-	public ModelAndView mypage(@Valid User user, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping("user/logout")
+	public ModelAndView logout(HttpSession session) {
+		ModelAndView mav = new ModelAndView("redirect:/user/login.jsy");
+
+		session.removeAttribute("login");
+		session.invalidate();
+
 		return mav;
 	}
+	
+	@RequestMapping(value = "user/delete", method = RequestMethod.GET)
+	public ModelAndView delete(String id, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.getUser(id);
+		mav.addObject("user", user);
+		return mav; // 뷰이름만 리턴
+	}
+	
+	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
+	public ModelAndView delete(String id, HttpSession session, String password) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User) session.getAttribute("login");
+		User user = service.getUser(id);
+		if (user == null) {
+			throw new JsyException("삭제 대상 사용자가 존재하지 않습니다.", "delete.jsy?id=" + id);
+		}
+		if (loginUser.getMemberid().equals("admin")) { // 관리자인 경우
+			if (!loginUser.getPassword().equals(password)) {
+				throw new JsyException("관리자 비밀번호가 틀립니다.", "delete.jsy?id=" + id);
+			}
+		} else { // 일반사용자의 경우
+			if (!user.getPassword().equals(password)) {
+				throw new JsyException("비밀번호가 틀립니다.", "delete.jsy?id=" + id);
+			}
+		}
+		try {
+			service.deleteUser(id);
+			if (loginUser.getMemberid().equals("admin")) {
+				mav.addObject("msg",id+"회원 탈퇴가 완료되었습니다.");
+				mav.addObject("url","../admin/admin.jsy");
+				mav.setViewName("alert");
+				return mav;
+			} else { // 일반사용자로 로그인시 삭제 성공
+				session.invalidate(); // 로그아웃
+				mav.addObject("msg","탈퇴가 완료되었습니다.");
+				mav.addObject("url","login.jsy");
+				mav.setViewName("alert");
+				return mav;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new JsyException("삭제시 오류 발생", "../user/mypage.shop?id=" + id);
+		}
+	}
+
+
+	@RequestMapping(value = "user/mypage", method = RequestMethod.GET)
+	public ModelAndView updateForm(String id) {
+		ModelAndView mav = new ModelAndView();
+		User user = service.getUser(id);
+		mav.addObject("user", user);
+		return mav; // 뷰이름만 리턴
+	}
+	
+	@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
+	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User)session.getAttribute("login");
+		User dbUser = service.getUser(user.getMemberid());
+		if (loginUser.getMemberid().equals("admin")) {
+			if (!user.getPassword().equals(loginUser.getPassword())) {
+				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage.jsy?id=" + user.getMemberid());
+			}
+		} else {
+			if (!user.getPassword().equals(dbUser.getPassword())) {
+				throw new JsyException("비밀번호가 틀립니다.", "mypage.jsy?id=" + user.getMemberid());
+			}
+		}
+		try {
+			service.updateUser(user);
+			mav.addObject("msg","수정이 완료되었습니다.");
+			mav.addObject("url","mypage.jsy?id=" + user.getMemberid());
+			mav.setViewName("alert");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
 }
