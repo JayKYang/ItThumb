@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.JsyException;
 import logic.JsyService;
 import logic.User;
 
@@ -34,6 +35,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
+	
 	@RequestMapping("user/selectJoin")
 	public ModelAndView selectJoin() {
 		ModelAndView mav = new ModelAndView();
@@ -137,16 +139,14 @@ public class UserController {
 		}
 
 		User dbUser = service.getUser(user.getMemberid());
-		
 		if(dbUser == null) {
 			bindingResult.reject("error.login.user");
 			mav.getModel().putAll(bindingResult.getModel());
 			return mav;
 		}
 		if (dbUser.getPassword().equals(user.getPassword())) {
-			mav.addObject("dbUser", dbUser);
-			mav.setViewName("main");
-			session.setAttribute("login", dbUser.getMemberid());
+			mav.setViewName("redirect:../main.jsy");
+			session.setAttribute("login", dbUser);
 		} else {
 			bindingResult.reject("error.loginpassword.user");
 			mav.getModel().putAll(bindingResult.getModel());
@@ -156,9 +156,57 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping("user/mypage")
-	public ModelAndView mypage(@Valid User user, BindingResult bindingResult) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping("user/logout")
+	public ModelAndView logout(HttpSession session) {
+		ModelAndView mav = new ModelAndView("redirect:/user/login.jsy");
+
+		session.removeAttribute("login");
+		session.invalidate();
+
 		return mav;
 	}
+
+
+	@RequestMapping(value = "user/mypage", method = RequestMethod.GET)
+	public ModelAndView updateForm(String id) {
+//		System.out.println(id);
+		ModelAndView mav = new ModelAndView();
+//		System.out.println(service.getUser(id));
+		User user = service.getUser(id);
+		mav.addObject("user", user);
+//		System.out.println(user);
+		return mav; // 뷰이름만 리턴
+	}
+	
+	@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
+	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpSession session) {
+		System.out.println(user);
+		ModelAndView mav = new ModelAndView();
+//		if (bindingResult.hasErrors()) {
+//			mav.getModel().putAll(bindingResult.getModel());
+//			return mav;
+//		}
+		User loginUser = (User)session.getAttribute("login");
+		User dbUser = service.getUser(user.getMemberid());
+		if (loginUser.getMemberid().equals("admin")) {
+			if (!user.getPassword().equals(loginUser.getPassword())) {
+				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage.jsy?id=" + user.getMemberid());
+			}
+		} else {
+			if (!user.getPassword().equals(dbUser.getPassword())) {
+				throw new JsyException("비밀번호가 틀립니다.", "mypage.jsy?id=" + user.getMemberid());
+			}
+		}
+		try {
+			service.updateUser(user);
+//			mav.setViewName("redirect:mypage.jsy?id=" + user.getMemberid());
+			mav.addObject("msg","수정이 완료되었습니다.");
+			mav.addObject("url","mypage.jsy?id=" + user.getMemberid());
+			mav.setViewName("alert");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
 }

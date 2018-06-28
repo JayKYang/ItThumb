@@ -31,4 +31,8 @@ public class UserDaoImpl implements UserDao{
 		map.put("memberid", memberid);
 		return sqlSession.selectOne(NS+"getUser", map);
 	}
+	@Override
+	public void updateUser(User user) {
+		sqlSession.getMapper(UserMapper.class).userUpdate(user);
+	}
 }

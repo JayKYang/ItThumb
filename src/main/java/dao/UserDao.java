@@ -10,4 +10,6 @@ public interface UserDao {
 
 	User selectUser(String memberid);
 
+	void updateUser(User user);
+
 }

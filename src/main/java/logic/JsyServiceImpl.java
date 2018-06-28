@@ -68,5 +68,10 @@ public class JsyServiceImpl implements JsyService{
 		return boardDao.hirelist(searchRegion, searchEdu, searchCarr, pageNum, limit);
 	}
 
+	@Override
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+
 	
 }

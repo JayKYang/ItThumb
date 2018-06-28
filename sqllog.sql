@@ -13,7 +13,7 @@ create table user(
 	membergrade int(2),
 	recognizecode int(5),
 	image varchar(50),
-	birth datetime,
+	birth date,
 	industy varchar(50),
 	site varchar(50),
 	slogun varchar(100),
