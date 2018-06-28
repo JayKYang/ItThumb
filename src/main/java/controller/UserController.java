@@ -145,8 +145,8 @@ public class UserController {
 		}
 		if (dbUser.getPassword().equals(user.getPassword())) {
 			mav.addObject("dbUser", dbUser);
-			mav.setViewName("main.jsy");
-			session.setAttribute("login", dbUser);
+			mav.setViewName("main");
+			session.setAttribute("login", dbUser.getMemberid());
 		} else {
 			bindingResult.reject("error.loginpassword.user");
 			mav.getModel().putAll(bindingResult.getModel());
