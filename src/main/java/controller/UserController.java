@@ -129,7 +129,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="user/login", method=RequestMethod.POST)
-	public ModelAndView login(@Valid User user, BindingResult bindingResult, HttpSession session) {
+	public ModelAndView login(@Valid User user, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("user/login");
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());//
@@ -157,7 +157,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("user/mypage")
-	public ModelAndView mypage() {
+	public ModelAndView mypage(@Valid User user, BindingResult bindingResult, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
