@@ -1,23 +1,9 @@
 package controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -111,7 +97,7 @@ public class UserController {
 				user.setCreatepf(0);
 				service.createNormalUser(user, request);
 				//메일 셋팅
-				sm.senmail(user.getMemberid());
+				sm.senmail(user.getMemberid(), user.getRecognizecode());
 				
 				mav.addObject("msg","회원가입이 완료되었습니다.");
 				mav.addObject("url","../main.jsy");
@@ -144,6 +130,30 @@ public class UserController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 	
+	@RequestMapping(value="confirm", method=RequestMethod.GET)
+	public ModelAndView confirmCode(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String memberid = request.getParameter("id");
+		String code = request.getParameter("code");
+		User user = new User();
+		User dbUser = service.getUser(memberid);
+		user.setRecognizecode(Integer.parseInt(code));
+		user.setMemberid(memberid);
+		System.out.println(user);
+		if(Integer.parseInt(code)==dbUser.getRecognizecode()) {
+			service.confirmCode(user);
+			mav.addObject("msg","인증성공 로그인해주세요");
+			mav.addObject("url","user/login.jsy");
+		}else {
+			mav.addObject("msg","인증실패");
+			mav.addObject("url","user/login.jsy");
+			// 메일 재전송
+		}
+//		User user = new User();
+//		mav.addObject("user", user);
+		mav.setViewName("alert");
+		return mav;
+	}
 	@RequestMapping(value="user/login", method=RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();

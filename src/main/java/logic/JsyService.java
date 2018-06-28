@@ -20,5 +20,7 @@ public interface JsyService {
 
 	void deleteUser(String id);
 
+	void confirmCode(User user);
+
 
 }

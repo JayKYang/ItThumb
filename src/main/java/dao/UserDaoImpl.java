@@ -39,4 +39,8 @@ public class UserDaoImpl implements UserDao{
 	public void deleteUser(String id) {
 		sqlSession.getMapper(UserMapper.class).userDelete(id);
 	}
+	@Override
+	public void confirmCode(User user) {
+		sqlSession.getMapper(UserMapper.class).confirmCode(user);
+	}
 }

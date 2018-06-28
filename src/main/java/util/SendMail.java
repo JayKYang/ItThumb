@@ -13,7 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendMail {
-	public void senmail(String email){
+	public void senmail(String email, int recognizeCode){
 		Properties p = System.getProperties();
 		p.put("mail.smtp.starttls.enable","true"); // gmail은 무조건 true 고정
 		p.put("mail.smtp.host","smtp.gmail.com"); // smtp 서버 주소
@@ -38,9 +38,10 @@ public class SendMail {
 			InternetAddress to = new InternetAddress(email);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			// 이메일 제목
-			msg.setSubject("메일 전송 테스트", "UTF-8");
+			msg.setSubject("[ITThumb] 가입 인증 메일입니다.", "UTF-8");
 			// 이메일 내용
-			msg.setText("내용", "UTF-8");
+			msg.setText("링크를 누르시면 인증이 완료됩니다.<br>"
+					+ "<a href='http://localhost:8080/itthumb/confirm.jsy?id="+email+"&code="+recognizeCode+"'>인증완료</a>", "UTF-8");
 			// 이메일 헤더
 			msg.setHeader("content-Type", "text/html");
 			// 메일보내기

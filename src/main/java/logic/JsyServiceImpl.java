@@ -78,5 +78,10 @@ public class JsyServiceImpl implements JsyService{
 		userDao.deleteUser(id);
 	}
 
+	@Override
+	public void confirmCode(User user) {
+		userDao.confirmCode(user);
+	}
+
 	
 }

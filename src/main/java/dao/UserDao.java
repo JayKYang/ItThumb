@@ -14,4 +14,6 @@ public interface UserDao {
 
 	void deleteUser(String id);
 
+	void confirmCode(User user);
+
 }
