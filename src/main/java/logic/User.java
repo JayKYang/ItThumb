@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sun.istack.internal.NotNull;
 
 public class User implements Serializable{
+	@NotEmpty(message="아이디를 입력해주세요")
 	@Email(message="메일 형식이 아닙니다.")
 	private String memberid;
 	@Size(min=4, message="비밀번호는 4글자이상 입니다.")
