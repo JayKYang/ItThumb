@@ -40,42 +40,54 @@ function openMypage(mypageName) {
 			</div>
 		</div><hr>
 		<div id="info" class="mypage w3-animate-bottom">
-			<form>
+			<form:form modelAttribute="user" method="post" action="update.shop">
+				<spring:hasBindErrors name="user">
+					<font color="red">
+						<c:forEach items="${errors.globalErrors }" var="error">
+							<spring:message code="${error.code }"/>
+						</c:forEach>
+					</font>
+				</spring:hasBindErrors>
 				<table class="w3-table">
 					<tr>
-						<td>사진</td>
-						<td><input type="button" value="사진첨부" name="image"/></td>
+						<td align="center">사진</td>
+						<td>
+							<div id="profile">
+								<img id="profilephoto" src="../photo/defaultphoto.png"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
+							</div>
+							<input type="file" name="image" id="image"/>
+						</td>
 					</tr>
 					<tr>
-						<td>이름</td><td><input class="w3-input" type="text" name="name"/></td>
+						<td>아이디</td><td><form:input path="memberid" class="w3-input"/><font color="red"><form:errors path="memberid" readonly="true"/></font></td>
 					</tr>
 					<tr>
-						<td>비밀번호</td><td><input class="w3-input" type="password" name="pass"/></td>
+						<td>이름</td><td><form:input path="name" class="w3-input" /><font color="red"><form:errors path="name"/></font></td>
 					</tr>
 					<tr>
-						<td>생일</td><td><input class="w3-input" type="date" name="birth"/></td>
-					</tr>				
+						<td>패스워드</td><td><form:password path="password" class="w3-input"/><font color="red"><form:errors path="password"/></font></td>
+					</tr>
 					<tr>
-						<td>연락처</td><td><input class="w3-input" type="text" name="tel"/></td>
-					</tr>				
+						<td>포트폴리오 link</td><td><form:input class="w3-input" path="site"/><font color="red"><form:errors path="site"/></font></td>
+					</tr>	
 					<tr>
-						<td>포트폴리오 link</td><td><input class="w3-input" type="text" name="link"/></td>
-					</tr>				
+						<td>연락처</td><td><form:input path="tel" class="w3-input" /><font color="red"><form:errors path="tel"/></font></td>
+					</tr>
 					<tr>
-						<td>거주 지역</td><td><input class="w3-input" type="text" name="address"/></td>
-					</tr>				
+						<td>거주 지역</td><td><form:input path="address" class="w3-input"/><font color="red"><form:errors path="address"/></font></td>
+					</tr>
 					<tr>
-						<td>소개 한 마디</td><td><input class="w3-input" type="text" name="slogun"/></td>
-					</tr>				
+						<td>소개 한 마디</td><td><form:input path="slogun" class="w3-input"/><font color="red"><form:errors path="slogun"/></font></td>
+					</tr>
 					<tr>
-						<td>자기 소개</td><td><textarea class="w3-input"  name="introduce"></textarea></td>
-					</tr>				
+						<td>자기 소개</td><td><form:input path="introduce" class="w3-input"/><font color="red"><form:errors path="introduce"/></font></td>
+					</tr>
 					<tr>
 						<td class="w3-center"><input class="w3-button" value="회원탈퇴"></td>
 						<td class="w3-center"><input class="w3-button" value="수정"></td>
 					</tr>
 				</table>
-			</form>
+			</form:form>
 		</div>
 		
 		<div id="portfolio" class="mypage w3-animate-bottom" style="display:none">
