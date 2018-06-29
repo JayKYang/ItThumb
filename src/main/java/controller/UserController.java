@@ -28,7 +28,7 @@ import util.SendMail;
 
 @Controller
 public class UserController {
-	
+	//
 	HashPass hp = new HashPass();
 	SendMail sm = new SendMail();
 	
