@@ -3,14 +3,20 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.JsyException;
 import logic.Hire;
 import logic.JsyService;
+import logic.User;
 
 @Controller
 public class BoardController {
@@ -47,4 +53,43 @@ public class BoardController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="hire/hirewrite", method=RequestMethod.GET)
+	public ModelAndView hirewrite(HttpSession session) {
+	ModelAndView mav = new ModelAndView();
+	String id = (String)session.getAttribute("login");
+	User user = new User();
+	user = service.getUser(id);
+	Hire hire = new Hire();
+	mav.addObject("user", user);
+	mav.addObject("hire", hire);
+		return mav;
+	}
+	
+	@RequestMapping(value="hire/hirewrite", method=RequestMethod.POST)
+	public ModelAndView hirewrite(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String salary = (String)request.getParameter("salary");
+		hire.setSalary(Integer.parseInt(salary));
+		hire.setMemberid((String)session.getAttribute("login"));
+		if(bindingResult.hasErrors()) {
+			System.out.println(bindingResult);
+			mav.getModel().putAll(bindingResult.getModel());
+			return mav;
+		}
+		try {
+			
+			System.out.println(hire);
+			System.out.println(salary);
+			service.hireWrite(hire,request);
+			mav.setViewName("redirect:/hire/hirelist.jsy");
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new JsyException("채용공고 등록 실패","hirewrite.jsy");
+		}
+		return mav;
+		
+	}
+	
+	
 }

@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8
+"
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>ITThumb Ã¤¿ë °ø°í</title>
+<title>ITThumb ì±„ìš© ê³µê³ </title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
@@ -45,26 +46,26 @@ var c = "";
 <body>
 
 <div id="aa">
-<h6>Áö¿ª</h6>
-<input type="checkbox"  name="bbb" id="bbb1" value="¼­¿ï">¼­¿ï
-<input type="checkbox"  name="bbb" id="bbb2" value="°æ±â">°æ±â
-<input type="checkbox"  name="bbb" id="bbb3" value="ÃæÃ»">ÃæÃ»µµ
-<input type="checkbox"  name="bbb" id="bbb4" value="°­¿ø">°­¿øµµ
-<input type="checkbox"  name="bbb" id="bbb5" value="°æ»ó">°æ»óµµ
+<h6>ì§€ì—­</h6>
+<input type="checkbox"  name="bbb" id="bbb1" value="ì„œìš¸">ì„œìš¸
+<input type="checkbox"  name="bbb" id="bbb2" value="ê²½ê¸°">ê²½ê¸°
+<input type="checkbox"  name="bbb" id="bbb3" value="ì¶©ì²­">ì¶©ì²­ë„
+<input type="checkbox"  name="bbb" id="bbb4" value="ê°•ì›">ê°•ì›ë„
+<input type="checkbox"  name="bbb" id="bbb5" value="ê²½ìƒ">ê²½ìƒë„
 </div>
 <div>
-<h6>ÇÐ·Â</h6>
+<h6>í•™ë ¥</h6>
 <select name="levelofedu" id="levelofedu">
-	<option>°íµîÇÐ±³ Á¹¾÷</option>
-	<option>´ëÇÐ Á¹¾÷(2,3³â) ÀÌ»ó</option>
-	<option>´ëÇÐ Á¹¾÷(4³â)ÀÌ»ó</option>
-	<option>¼®»ç Á¹¾÷</option>
-	<option>¹Ú»ç Á¹¾÷</option>
+	<option>ê³ ë“±í•™êµ ì¡¸ì—…</option>
+	<option>ëŒ€í•™ ì¡¸ì—…(2,3ë…„) ì´ìƒ</option>
+	<option>ëŒ€í•™ ì¡¸ì—…(4ë…„)ì´ìƒ</option>
+	<option>ì„ì‚¬ ì¡¸ì—…</option>
+	<option>ë°•ì‚¬ ì¡¸ì—…</option>
 </select>
 </div>
 <div>
-<input type="checkbox" name="ccc" id="ccc1" value="new">½ÅÀÔ
-<input type="checkbox" name="ccc" id="ccc2" value="career">°æ·Â
+<input type="checkbox" name="ccc" id="ccc1" value="new">ì‹ ìž…
+<input type="checkbox" name="ccc" id="ccc2" value="career">ê²½ë ¥
 
 </div>
 <br>
@@ -82,11 +83,11 @@ var c = "";
 		</td>
 	</tr>
 	<tr align="center" valign="middle" bordercolor="#212121">
-			<th width="8%" height="26">±â¾÷¸í</th>
-			<th width="50%" height="26">Á¦¸ñ</th>
-			<th width="14%" height="26">Áö¿øÀÚ°Ý</th>
-			<th width="11%" height="26">±Ù¹«Á¶°Ç</th>
-			<th width="17 %" height="26">°ø°í±â°£</th>
+			<th width="8%" height="26">ê¸°ì—…ëª…</th>
+			<th width="50%" height="26">ì œëª©</th>
+			<th width="14%" height="26">ì§€ì›ìžê²©</th>
+			<th width="11%" height="26">ê·¼ë¬´ì¡°ê±´</th>
+			<th width="17 %" height="26">ê³µê³ ê¸°ê°„</th>
 		</tr>
 		
 		<c:forEach var="hireboard" items="${boardlist}">
@@ -124,12 +125,12 @@ var c = "";
 		
 			<c:if test="${listcount==0}">
 		<tr>
-			<td colspan="5">µî·ÏµÈ Ã¤¿ë°ø°í °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td>
+			<td colspan="5">ë“±ë¡ëœ ì±„ìš©ê³µê³  ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td>
 		</tr>
 	</c:if>
 		<tr>
 		<td align="right" colspan="5">
-			<a href="hireWrite.jsy">WRITE</a>
+			<a href="hirewrite.jsy">WRITE</a>
 		</td>
 	</tr>
 		

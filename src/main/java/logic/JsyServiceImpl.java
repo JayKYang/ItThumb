@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +67,31 @@ public class JsyServiceImpl implements JsyService{
 	public List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit) {
 	
 		return boardDao.hirelist(searchRegion, searchEdu, searchCarr, pageNum, limit);
+	}
+
+	@Override
+	public void hireWrite(Hire hire, HttpServletRequest request) {
+		if(hire.getImage() != null && !hire.getImage().isEmpty()) {
+			uploadhireImageCreate(hire.getImage(),request);
+			hire.setImageUrl(hire.getImage().getOriginalFilename());
+		}
+		
+		int num = boardDao.maxNum();
+		hire.setHireno(++num);
+		
+		boardDao.hireWrite(hire);
+	}
+
+	private void uploadhireImageCreate(MultipartFile image, HttpServletRequest request) {
+		String uploadPath = request.getServletContext().getRealPath("/") + "/file/";  
+		
+		String orgFile = image.getOriginalFilename();
+		try {
+			image.transferTo(new File(uploadPath + orgFile));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	

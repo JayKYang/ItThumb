@@ -1,10 +1,12 @@
 package logic;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
-public class Hire {
+public class Hire implements Serializable{
 	private int hireno;
 	@NotEmpty(message="지원조건을 입력해주세요.")
 	private String qualification;
@@ -15,17 +17,20 @@ public class Hire {
 	private String workday;
 	private String memberid;
 	private int hide;
-	@NotEmpty(message="공고기간을 입력해주세요")
 	private Date deadline;
 	private int readcnt;
 	@NotEmpty(message="제목을 입력해주세요")
 	private String subject;
-	private String image;
+	private MultipartFile image;
 	@NotEmpty(message="공고신청 내용을 입력해주세요")
 	private String content;
+	@NotEmpty(message="근무지역을 입력해주세요")
+	private String region;
+	private String imageUrl;
 	
 	
 	//getter,setter, toString
+	
 	public int getHireno() {
 		return hireno;
 	}
@@ -86,10 +91,10 @@ public class Hire {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getImage() {
+	public MultipartFile getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
 	public String getContent() {
@@ -98,13 +103,29 @@ public class Hire {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
 	@Override
 	public String toString() {
 		return "Hire [hireno=" + hireno + ", qualification=" + qualification + ", hirestatus=" + hirestatus
 				+ ", salary=" + salary + ", workday=" + workday + ", memberid=" + memberid + ", hide=" + hide
 				+ ", deadline=" + deadline + ", readcnt=" + readcnt + ", subject=" + subject + ", image=" + image
-				+ ", content=" + content + "]";
+				+ ", content=" + content + ", region=" + region + ", imageUrl=" + imageUrl + "]";
 	}
 	
 	
+	
+	
+		
 }

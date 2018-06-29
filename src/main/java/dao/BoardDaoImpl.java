@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dao.mapper.HireMapper;
 import logic.Hire;
 
 @Repository
@@ -39,6 +40,19 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("limit", limit);
 		
 		return SqlSession.selectList(NS+"hirelist", map);
+	}
+
+	@Override
+	public int maxNum() {
+		
+		int maxnum = SqlSession.getMapper(HireMapper.class).maxNum();
+		
+		return 0;
+	}
+
+	@Override
+	public void hireWrite(Hire hire) {
+		SqlSession.getMapper(HireMapper.class).insert(hire);
 	}
 
 }
