@@ -16,11 +16,20 @@ public interface JsyService {
 
 	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
 
+	void hireWrite(Hire hire, HttpServletRequest request);
+
 	void updateUser(User user, HttpServletRequest request);
 
 	void deleteUser(String id);
 
 	void confirmCode(User user);
+
+	Hire getHire(Integer hireno);
+
+	void readCntplus(Integer hireno);
+
+	void boardScrap(Scrap scrap);
+
 
 
 }

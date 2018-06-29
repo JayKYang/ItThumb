@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +70,29 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
+	public void hireWrite(Hire hire, HttpServletRequest request) {
+		if(hire.getImage() != null && !hire.getImage().isEmpty()) {
+			uploadhireImageCreate(hire.getImage(),request);
+			hire.setImageUrl(hire.getImage().getOriginalFilename());
+		}
+		
+		int num = boardDao.maxNum();
+		hire.setHireno(++num);
+		
+		boardDao.hireWrite(hire);
+	}
+
+	private void uploadhireImageCreate(MultipartFile image, HttpServletRequest request) {
+		String uploadPath = request.getServletContext().getRealPath("/") + "/hireimg/";  
+		
+		String orgFile = image.getOriginalFilename();
+		try {
+			image.transferTo(new File(uploadPath + orgFile));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
 	public void updateUser(User user, HttpServletRequest request) {
 		if(user.getImage() != null && !user.getImage().isEmpty()) {
 			uploadUserImageCreate(user.getImage(), request);
@@ -85,6 +109,26 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void confirmCode(User user) {
 		userDao.confirmCode(user);
+	}
+
+	@Override
+	public Hire getHire(Integer hireno) {
+		
+		return boardDao.getHire(hireno);
+	}
+
+	@Override
+	public void readCntplus(Integer hireno) {
+		boardDao.readCntplus(hireno);
+	}
+
+	@Override
+	public void boardScrap(Scrap scrap) {
+		
+		int num = boardDao.scrapMaxnum();
+		scrap.setScrap(++num);
+		
+		boardDao.boardScrap(scrap);
 	}
 
 	
