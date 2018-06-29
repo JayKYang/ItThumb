@@ -275,6 +275,7 @@ public class UserController {
 		}
 		try {
 			service.updateUser(user);
+			session.setAttribute("login", user);
 			mav.addObject("msg","수정이 완료되었습니다.");
 			mav.addObject("url","mypage.jsy?id=" + user.getMemberid());
 			mav.setViewName("alert");
@@ -283,5 +284,6 @@ public class UserController {
 		}
 		return mav;
 	}
+	
 	
 }

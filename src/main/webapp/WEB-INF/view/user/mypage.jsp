@@ -39,30 +39,49 @@ function openMypage(mypageName) {
             birth = document.getElementById("datePicker").value
             document.getElementById("birth").value = birth
        }
+       
+       function eventOccur(evEle, evType){
+    	   if (evEle.fireEvent) {
+    	   evEle.fireEvent('on' + evType);
+    	   } else {
+    	   //MouseEvents가 포인트 그냥 Events는 안됨~ ??
+    	   var mouseEvent = document.createEvent('MouseEvents');
+    	   /* API문서 initEvent(type,bubbles,cancelable) */
+    	   mouseEvent.initEvent(evType, true, false);
+    	   var transCheck = evEle.dispatchEvent(mouseEvent);
+    	   if (!transCheck) {
+    	   //만약 이벤트에 실패했다면
+    	   console.log("클릭 이벤트 발생 실패!");
+    	   }
+    	   }
+    	  }
+    	  /** 대체버튼 클릭시 강제 이벤트 발생**/
+    	  function fileUpload(){
+    	   eventOccur(document.getElementById('image'),'click');
+    	   /* alert(orgFile.value); 이벤트 처리가 끝나지 않은 타이밍이라 값 확인 안됨! 시간차 문제 */
+    	  }
 </script>
 </head>
 <body>
 	<div class="w3-container w3-padding-32" style="width:70%; margin-left:15%;">
-		<div class="w3-cell-row ">
+		<div class="w3-cell-row">
 			<p>마이페이지</p>
 		</div>
 		<div class="w3-cell-row">
-			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('info')">
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('info')" style="width:200px; float:left;">
 			  <p>회원정보</p>
 			</div>
-			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('portfolio')">
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('portfolio')" style="width:200px; float:left;">
 			  <p>포트폴리오 관리</p>
 			</div>
-			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('study')">
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('study')" style="width:200px; float:left;">
 			  <p>스터디 관리</p>
 			</div>
-			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('employment')">
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('employment')" style="width:200px; float:left;">
 			  <p>채용공고 스크랩</p>
 			</div>
-			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('message')">
-			  <p>쪽지함</p>
-			</div>
-		</div><hr>
+		</div>
+		<hr>
 		<div id="info" class="mypage">
 			<form:form modelAttribute="user" method="post" action="mypage.jsy">
 				<spring:hasBindErrors name="user">
@@ -77,9 +96,9 @@ function openMypage(mypageName) {
 						<td align="center">사진</td>
 						<td>
 							<div id="profile">
-								<img id="profilephoto" src="../photo/defaultphoto.png"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
+								<img class="w3-button" id="profilephoto" src="../photo/defaultphoto.png"  style="width:15%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
 							</div>
-							<input type="file" name="image" id="image"/>
+							<input type="file" name="image" id="image" style="display:none"/>
 						</td>
 					</tr>
 					<tr>
@@ -119,7 +138,13 @@ function openMypage(mypageName) {
 		</div>
 		
 		<div id="portfolio" class="mypage" style="display:none">
-			<h2>포트폴리오 관리</h2>
+			<c:if test="${sessionScope.login.createpf == 0 }">
+				등록된 포트폴리오가 없습니다.<br>
+				<button onclick="javascript:location.href='portfolio/portfolioform.jsy?id=${sessionScope.login.memberid}'">포트폴리오 작성</button>
+			</c:if>
+			<c:if test="${sessionScope.login.createpf == 1 }">
+				포트폴리오 목록
+			</c:if>
 		</div>
 		<div id="study" class="mypage" style="display:none">
 			<h2>스터디 관리</h2>
@@ -127,9 +152,7 @@ function openMypage(mypageName) {
 		<div id="employment" class="mypage" style="display:none">
 			<h2>채용공고 스크랩</h2>
 		</div>
-		<div id="message" class="mypage" style="display:none">
-			<h2>쪽지함</h2>
-		</div>
+
 	</div>
 </body>
 </html>
