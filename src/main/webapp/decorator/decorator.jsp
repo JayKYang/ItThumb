@@ -29,21 +29,23 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <div class="w3-top">
   <div class="w3-bar w3-top w3-left-align w3-large w3-theme-l1">
     <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button ">구디아카데미</a>
-    <c:if test="${empty sessionScope.loginUser }">
-    	<a href="${path }/user/login.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">로그인 </a>
+    <a href="${path }/main.jsy" class="w3-bar-item w3-button ">구디아카데미</a>
+    <c:if test="${empty sessionScope.login }">
+    	<a href="${path }/user/login.jsy" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">로그인 </a>
     </c:if>
-    <c:if test="${!empty sessionScope.loginUser }">
-    	<a href="${path }/user/logout.shop" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">${sessionScope.loginUser.userId }님! 로그아웃 </a>
+    <c:if test="${!empty sessionScope.login }">
+    	<a href="${path }/user/logout.jsy" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">${sessionScope.login.memberid }님! 로그아웃 </a>
     </c:if>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/item/list.shop">상품관리</a>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/hire/hirelist.jsy">채용공고</a>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
 	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
 	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.shop">관리자</a>
 	  </c:if>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy">마이페이지</a>
+	  <c:if test="${!empty sessionScope.login }">
+		  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy?id=${sessionScope.login.memberid}">마이페이지</a>
+	  </c:if>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/">스터디</a>
+  	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/">쪽지함</a>
   </div>
 </div>
 

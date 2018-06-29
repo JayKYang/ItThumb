@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,6 +15,30 @@ function openMypage(mypageName) {
     }
     document.getElementById(mypageName).style.display = "block"; 
 }
+</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+        $(function() {
+            $("#image").on('change', function(){
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $('#profilephoto').attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+       function change_date(){
+            birth = document.getElementById("datePicker").value
+            document.getElementById("birth").value = birth
+       }
 </script>
 </head>
 <body>
@@ -39,55 +63,71 @@ function openMypage(mypageName) {
 			  <p>쪽지함</p>
 			</div>
 		</div><hr>
-		<div id="info" class="mypage w3-animate-bottom">
-			<form>
+		<div id="info" class="mypage">
+			<form:form modelAttribute="user" method="post" action="mypage.jsy">
+				<spring:hasBindErrors name="user">
+					<font color="red">
+						<c:forEach items="${errors.globalErrors }" var="error">
+							<spring:message code="${error.code }"/>
+						</c:forEach>
+					</font>
+				</spring:hasBindErrors>
 				<table class="w3-table">
 					<tr>
-						<td>사진</td>
-						<td><input type="button" value="사진첨부" name="image"/></td>
+						<td align="center">사진</td>
+						<td>
+							<div id="profile">
+								<img id="profilephoto" src="../photo/defaultphoto.png"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
+							</div>
+							<input type="file" name="image" id="image"/>
+						</td>
 					</tr>
 					<tr>
-						<td>이름</td><td><input class="w3-input" type="text" name="name"/></td>
+						<td>아이디</td><td><form:input path="memberid" class="w3-input" readonly="true"/><font color="red"><form:errors path="memberid" readonly="true"/></font></td>
 					</tr>
 					<tr>
-						<td>비밀번호</td><td><input class="w3-input" type="password" name="pass"/></td>
+						<td>이름</td><td><form:input path="name" class="w3-input" /><font color="red"><form:errors path="name" id="name"/></font></td>
 					</tr>
 					<tr>
-						<td>생일</td><td><input class="w3-input" type="date" name="birth"/></td>
-					</tr>				
+						<td>패스워드</td><td><form:password path="password" class="w3-input"/><font color="red"><form:errors path="password"/></font></td>
+					</tr>
 					<tr>
-						<td>연락처</td><td><input class="w3-input" type="text" name="tel"/></td>
-					</tr>				
+						<td>생일</td><td><input type="date" id="datePicker" class="w3-input" onchange="change_date()"><form:hidden id="birth" path="birth" class="w3-input" value=""/><font color="red"><form:errors path="birth"/></font></td>
+					</tr>
+					<script>document.getElementById("datePicker").value =  document.getElementById("birth").value</script>
 					<tr>
-						<td>포트폴리오 link</td><td><input class="w3-input" type="text" name="link"/></td>
-					</tr>				
+						<td>연락처</td><td><form:input path="tel" class="w3-input" /><font color="red"><form:errors path="tel"/></font></td>
+					</tr>
 					<tr>
-						<td>거주 지역</td><td><input class="w3-input" type="text" name="address"/></td>
-					</tr>				
+						<td>거주 지역</td><td><form:input path="address" class="w3-input"/><font color="red"><form:errors path="address"/></font></td>
+					</tr>
 					<tr>
-						<td>소개 한 마디</td><td><input class="w3-input" type="text" name="slogun"/></td>
-					</tr>				
+						<td>포트폴리오 link</td><td><form:input class="w3-input" path="site"/><font color="red"><form:errors path="site"/></font></td>
+					</tr>	
 					<tr>
-						<td>자기 소개</td><td><textarea class="w3-input"  name="introduce"></textarea></td>
-					</tr>				
+						<td>소개 한 마디</td><td><form:input path="slogun" class="w3-input"/><font color="red"><form:errors path="slogun"/></font></td>
+					</tr>
 					<tr>
-						<td class="w3-center"><input class="w3-button" value="회원탈퇴"></td>
-						<td class="w3-center"><input class="w3-button" value="수정"></td>
+						<td>자기 소개</td><td><form:input path="introduce" class="w3-input"/><font color="red"><form:errors path="introduce"/></font></td>
+					</tr>
+					<tr>
+						<td class="w3-center"><input class="w3-button" type="button" value="회원탈퇴" onclick="location.href='delete.jsy?id=${login.memberid}'"></td>
+						<td class="w3-center"><input class="w3-button" type="submit" value="수정"></td>
 					</tr>
 				</table>
-			</form>
+			</form:form>
 		</div>
 		
-		<div id="portfolio" class="mypage w3-animate-bottom" style="display:none">
+		<div id="portfolio" class="mypage" style="display:none">
 			<h2>포트폴리오 관리</h2>
 		</div>
-		<div id="study" class="mypage w3-animate-bottom" style="display:none">
+		<div id="study" class="mypage" style="display:none">
 			<h2>스터디 관리</h2>
 		</div>
-		<div id="employment" class="mypage w3-animate-bottom" style="display:none">
+		<div id="employment" class="mypage" style="display:none">
 			<h2>채용공고 스크랩</h2>
 		</div>
-		<div id="message" class="mypage w3-animate-bottom" style="display:none">
+		<div id="message" class="mypage" style="display:none">
 			<h2>쪽지함</h2>
 		</div>
 	</div>

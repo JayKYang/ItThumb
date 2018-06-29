@@ -4,9 +4,11 @@
 	<typeAliases>
 		<typeAlias type="logic.User" alias="User"/>
 		<typeAlias type="logic.Hire" alias="Hire"/>
+		<typeAlias type="logic.Scrap" alias="Scrap"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>
 		<mapper resource="dao/mapper/Hire.xml"/>
+		<mapper resource="dao/mapper/Scrap.xml"/>
 	</mappers>
 </configuration>

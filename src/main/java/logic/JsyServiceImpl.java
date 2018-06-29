@@ -83,7 +83,7 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	private void uploadhireImageCreate(MultipartFile image, HttpServletRequest request) {
-		String uploadPath = request.getServletContext().getRealPath("/") + "/file/";  
+		String uploadPath = request.getServletContext().getRealPath("/") + "/hireimg/";  
 		
 		String orgFile = image.getOriginalFilename();
 		try {
@@ -91,7 +91,40 @@ public class JsyServiceImpl implements JsyService{
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
 		
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+
+	@Override
+	public void deleteUser(String id) {
+		userDao.deleteUser(id);
+	}
+
+	@Override
+	public void confirmCode(User user) {
+		userDao.confirmCode(user);
+	}
+
+	@Override
+	public Hire getHire(Integer hireno) {
+		
+		return boardDao.getHire(hireno);
+	}
+
+	@Override
+	public void readCntplus(Integer hireno) {
+		boardDao.readCntplus(hireno);
+	}
+
+	@Override
+	public void boardScrap(Scrap scrap) {
+		
+		int num = boardDao.scrapMaxnum();
+		scrap.setScrap(++num);
+		
+		boardDao.boardScrap(scrap);
 	}
 
 	

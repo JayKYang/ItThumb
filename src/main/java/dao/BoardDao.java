@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import logic.Hire;
+import logic.Scrap;
 
 public interface BoardDao {
 
@@ -13,5 +14,13 @@ public interface BoardDao {
 	int maxNum();
 
 	void hireWrite(Hire hire);
+
+	Hire getHire(Integer hireno);
+
+	void readCntplus(Integer hireno);
+
+	int scrapMaxnum();
+
+	void boardScrap(Scrap scrap);
 
 }

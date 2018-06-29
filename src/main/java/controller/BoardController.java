@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import exception.JsyException;
 import logic.Hire;
 import logic.JsyService;
+import logic.Scrap;
 import logic.User;
 
 @Controller
@@ -35,12 +36,17 @@ public class BoardController {
 		
 		int limit = 10;
 		List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,pageNum, limit);
+		
+				
+		
 		int maxpage = (int)((double)listcount/limit + 0.95);
 		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
 		int endpage = maxpage + 9;
 		
 		if(endpage > maxpage) endpage = maxpage;
 		int boardcnt = listcount - (pageNum -1) * limit;
+		
+		
 		
 		mav.addObject("pageNum",pageNum);
 		mav.addObject("maxpage", maxpage);
@@ -57,8 +63,8 @@ public class BoardController {
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.GET)
 	public ModelAndView hirewrite(HttpSession session) {
 	ModelAndView mav = new ModelAndView();
-	String id = (String)session.getAttribute("login");
-	User user = new User();
+	User user = (User)session.getAttribute("login");
+	String id = user.getMemberid();
 	user = service.getUser(id);
 	Hire hire = new Hire();
 	mav.addObject("user", user);
@@ -71,7 +77,10 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		String salary = (String)request.getParameter("salary");
 		hire.setSalary(Integer.parseInt(salary));
-		hire.setMemberid((String)session.getAttribute("login"));
+		
+		User user = (User)session.getAttribute("login");
+		String id = user.getMemberid();
+		hire.setMemberid(id);
 		if(bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 			mav.getModel().putAll(bindingResult.getModel());
@@ -79,8 +88,6 @@ public class BoardController {
 		}
 		try {
 			
-			System.out.println(hire);
-			System.out.println(salary);
 			service.hireWrite(hire,request);
 			mav.setViewName("redirect:/hire/hirelist.jsy");
 		} catch(Exception e) {
@@ -91,5 +98,41 @@ public class BoardController {
 		
 	}
 	
+	@RequestMapping(value="hire/hiredetail", method=RequestMethod.GET)
+	public ModelAndView hiredetail(Integer hireno, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Hire hire = new Hire();
+		if(hireno != null) {
+			hire = service.getHire(hireno);
+			service.readCntplus(hireno);
+		}
+		User user = service.getUser(hire.getMemberid());
+		mav.addObject("user",user);
+		mav.addObject("hire", hire);
+		
+		return mav;
+	}
 	
+	@RequestMapping(value="hire/scrap", method=RequestMethod.POST)
+	public ModelAndView scrap(HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		Integer hireno = Integer.parseInt(request.getParameter("hireno"));
+		
+		System.out.println(hireno);
+		System.out.println(pageNum);
+		User user = (User)session.getAttribute("login");
+		String memberid = user.getMemberid();
+		try {
+			Scrap scrap = new Scrap();
+			scrap.setHireno(hireno);
+			scrap.setMemberid(memberid);
+			service.boardScrap(scrap);
+			mav.setViewName("redirect:/hire/hiredetail.jsy?hireno=" + hireno+"&pageNum=" +pageNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
 }

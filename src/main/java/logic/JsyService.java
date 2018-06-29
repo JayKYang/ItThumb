@@ -18,4 +18,18 @@ public interface JsyService {
 
 	void hireWrite(Hire hire, HttpServletRequest request);
 
+	void updateUser(User user);
+
+	void deleteUser(String id);
+
+	void confirmCode(User user);
+
+	Hire getHire(Integer hireno);
+
+	void readCntplus(Integer hireno);
+
+	void boardScrap(Scrap scrap);
+
+
+
 }

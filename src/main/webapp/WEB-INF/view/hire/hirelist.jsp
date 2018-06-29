@@ -96,7 +96,7 @@ var c = "";
 					${hireboard.memberid}			
 			</td>
 			<td>
-					<a href="detail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>
+					<a href="hiredetail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>
 			</td>
 				<td align="left">${hireboard.qualification}</td>
 				<td align="center">${hireboard.hirestatus}</td>

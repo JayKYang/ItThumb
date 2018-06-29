@@ -27,6 +27,6 @@
 			<if test="searchCarr !=null">
 		and	hirestatus = '%${searchCarr}%'
 			</if>
-			order by hireno
+			order by hireno limit #{startrow}, #{limit}
 		</select>
 </mapper>
