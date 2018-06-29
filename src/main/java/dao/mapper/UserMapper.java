@@ -20,7 +20,7 @@ public interface UserMapper {
 	@Delete("delete from user where memberid=#{value}")
 	void userDelete(String id);
 
-	@Update("update user set locking=1 where memberid=#{memberid} and recognizecode=#{recognizecode}")
+	@Update("update user set locking=1, recognizecode=null where memberid=#{memberid} and recognizecode=#{recognizecode}")
 	void confirmCode(User user);
 
 }

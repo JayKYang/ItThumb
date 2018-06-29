@@ -69,7 +69,11 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUser(User user, HttpServletRequest request) {
+		if(user.getImage() != null && !user.getImage().isEmpty()) {
+			uploadUserImageCreate(user.getImage(), request);
+			user.setImageUrl(user.getImage().getOriginalFilename());
+		}
 		userDao.updateUser(user);
 	}
 

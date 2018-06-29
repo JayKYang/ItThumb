@@ -262,9 +262,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
-	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpSession session) {
+	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		User loginUser = (User)session.getAttribute("login");
+		User loginUser = (User)request.getSession().getAttribute("login");
 		User dbUser = service.getUser(user.getMemberid());
 		if (loginUser.getMemberid().equals("admin")) {
 			if (!user.getPassword().equals(loginUser.getPassword())) {
@@ -276,8 +276,9 @@ public class UserController {
 			}
 		}
 		try {
-			service.updateUser(user);
-			session.setAttribute("login", user);
+			System.out.println(user);
+			service.updateUser(user,request);
+			request.getSession().setAttribute("login", user);
 			mav.addObject("msg","수정이 완료되었습니다.");
 			mav.addObject("url","mypage.jsy?id=" + user.getMemberid());
 			mav.setViewName("alert");

@@ -83,7 +83,7 @@ function openMypage(mypageName) {
 		</div>
 		<hr>
 		<div id="info" class="mypage">
-			<form:form modelAttribute="user" method="post" action="mypage.jsy">
+			<form:form modelAttribute="user" method="post" action="mypage.jsy" enctype="multipart/form-data">
 				<spring:hasBindErrors name="user">
 					<font color="red">
 						<c:forEach items="${errors.globalErrors }" var="error">
@@ -96,9 +96,14 @@ function openMypage(mypageName) {
 						<td align="center">사진</td>
 						<td>
 							<div id="profile">
-								<img class="w3-button" id="profilephoto" src="../photo/defaultphoto.png"  style="width:15%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+								<c:if test="${empty sessionScope.login.imageUrl }">
+									<img class="w3-button" id="profilephoto" src="../photo/defaultphoto.png"  style="width:15%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+								</c:if>
+								<c:if test="${!empty sessionScope.login.imageUrl }" >
+									<img class="w3-button" id="profilephoto" src="../photo/${sessionScope.login.imageUrl }"  style="width:15%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+								</c:if>
+								<input type="file" name="image" id="image" style="display:none" value="${sessionScope.login.imageUrl }"/>
 							</div>
-							<input type="file" name="image" id="image" style="display:none"/>
 						</td>
 					</tr>
 					<tr>
