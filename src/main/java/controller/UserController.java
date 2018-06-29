@@ -28,7 +28,7 @@ import util.SendMail;
 
 @Controller
 public class UserController {
-	
+	//
 	HashPass hp = new HashPass();
 	SendMail sm = new SendMail();
 	
@@ -99,8 +99,8 @@ public class UserController {
 				//메일 셋팅
 				sm.senmail(user.getMemberid(), user.getRecognizecode());
 				
-				mav.addObject("msg","회원가입이 완료되었습니다.");
-				mav.addObject("url","../main.jsy");
+				mav.addObject("msg","회원가입이 완료되었습니다. 메일에서 인증해주세요.");
+				mav.addObject("url","login.jsy");
 				mav.setViewName("alert");
 			}else {
 				user.setMembergrade(2);
@@ -139,7 +139,6 @@ public class UserController {
 		User dbUser = service.getUser(memberid);
 		user.setRecognizecode(Integer.parseInt(code));
 		user.setMemberid(memberid);
-		System.out.println(user);
 		if(Integer.parseInt(code)==dbUser.getRecognizecode()) {
 			service.confirmCode(user);
 			mav.addObject("msg","인증성공 로그인해주세요");
@@ -184,7 +183,10 @@ public class UserController {
 		}
 		
 		if (dbUser.getPassword().equals(user.getPassword())) {
-			mav.setViewName("redirect:../main.jsy");
+			//mav.setViewName("redirect:../main.jsy");
+			mav.addObject("msg","로그인 되었습니다.");
+			mav.addObject("url","../main.jsy");
+			mav.setViewName("alert");
 			session.setAttribute("login", dbUser);
 		} else {
 			bindingResult.reject("error.loginpassword.user");
