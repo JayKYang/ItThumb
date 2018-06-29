@@ -8,7 +8,7 @@ create table user(
 	memberid varchar(30) PRIMARY KEY,
 	password varchar(255),
 	name varchar(10),
-	regdate datetime,
+	regdate date,
 	tel varchar(15),
 	membergrade int(2),
 	recognizecode int(5),
@@ -18,7 +18,7 @@ create table user(
 	site varchar(50),
 	slogun varchar(100),
 	introduce varchar(500),
-	modifydate datetime,
+	modifydate date,
 	address varchar(50),
 	locking int(2),
 	createpf int(2)
