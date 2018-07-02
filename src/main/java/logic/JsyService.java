@@ -30,6 +30,8 @@ public interface JsyService {
 
 	void boardScrap(Scrap scrap);
 
+	List<History> getHistory(String memberid);
+
 
 
 }

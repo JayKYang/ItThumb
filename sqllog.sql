@@ -38,3 +38,14 @@ create table hireboard(
 	image varchar(200),
 	content varchar(2000)
 )
+
+-- 자기소개 연혁 및 스킬 테이블
+create table history(
+	historyno int primary key,
+	memberid varchar(30) not null,
+	content varchar(50),
+	skillful int,
+	getdate date,
+	enddate date,
+	kindno int
+)

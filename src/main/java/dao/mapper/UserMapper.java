@@ -1,9 +1,13 @@
 package dao.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import logic.History;
 import logic.User;
 
 public interface UserMapper {
@@ -22,5 +26,9 @@ public interface UserMapper {
 
 	@Update("update user set locking=1, recognizecode=null where memberid=#{memberid} and recognizecode=#{recognizecode}")
 	void confirmCode(User user);
+
+	@Select("select * from history where memberid=#{value} order by getdate")
+	List<History> getHistory(String memberid);
+
 
 }

@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
+import logic.History;
 import logic.User;
 
 @Repository
@@ -18,12 +20,10 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void createNormalUser(User user) {
 		sqlSession.getMapper(UserMapper.class).normalInsert(user);
-		
 	}
 	@Override
 	public void createCompanyUser(User user) {
 		sqlSession.getMapper(UserMapper.class).companyInsert(user);
-		
 	}
 	@Override
 	public User selectUser(String memberid) {
@@ -42,5 +42,9 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void confirmCode(User user) {
 		sqlSession.getMapper(UserMapper.class).confirmCode(user);
+	}
+	@Override
+	public List<History> getHistory(String memberid) {
+		return (List<History>) sqlSession.getMapper(UserMapper.class).getHistory(memberid);
 	}
 }

@@ -49,16 +49,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <!-- Page Content -->
   <!-- Header/Home -->
 <div class="w3-content w3-container" id="about">
-	<h3 class="w3-center"><a class="w3-xxxlarge">${sessionScope.login.slogun }</a><a class="w3-large"></a></h3>
+	<h3 class="w3-center"><a class="w3-xxxlarge">${sessionScope.login.slogun }</a></h3>
+	<p class="w3-center"><a class="w3-xlarge">${sessionScope.login.introduce }</a></p>
 	<div class="w3-content w3-container w3-padding-32">
 		<table style="width:98%">
 			<tr class="w3-center">
 				<td rowspan="7" style="width:40%;">
 					<c:if test="${empty sessionScope.login.imageUrl }">
-						<img src="../../photo/defaultphoto.png" style="width:70%">
+						<img class="w3-circle w3-card" src="../../photo/defaultphoto.png" style="width:70%">
 					</c:if>
 					<c:if test="${!empty sessionScope.login.imageUrl }" >
-						<img src="../../photo/${sessionScope.login.imageUrl }" style="width:70%">
+						<img class="w3-circle w3-card" src="../../photo/${sessionScope.login.imageUrl }" style="width:70%">
 					</c:if>
 				</td>
 			</tr>
@@ -84,56 +85,37 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 			</tr>
 			<tr>
 				<td><i class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.site }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity" href="http://${sessionScope.login.site }">${sessionScope.login.site }</a></td>
 			</tr>
 		</table>
 	</div>
   	<hr>
-	  <h3 class="w3-center"><a class="w3-xxxlarge">SW SKILL</a><a class="w3-large"> &nbsp; 보유기술</a></h3>
-	  <div class="w3-content w3-container w3-padding-30" style="padding-bottom:50px;">
-		  <div class="w3-content w3-container" style="width:30%; float:left;">
-			  <p class="w3-large w3-center w3-padding-16"><i class="material-icons" style="font-size:15px;">language</i> LANGUAGE</p>
-			  <p class="w3-wide">C</p>
-			  <div class="w3-light-grey">
-			  	<div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:95%">95%</div>
-			  </div>
-			  <p class="w3-wide">JAVA</p>
-			  <div class="w3-light-grey">
-			    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:85%">85%</div>
-			  </div>
-			  <p class="w3-wide">SQL</p>
-			  <div class="w3-light-grey">
-			    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:90%">90%</div>
+  	<div class="w3-row">
+		<div class="w3-container w3-half" style="padding-bottom:50px; width:50%; float:left;">
+		  <h3 class="w3-center"><a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a></h3>
+			  <div class="w3-container" style="float:left;">
+			  	<c:forEach items="${sessionScope.login.historyList }" var="history">
+			  		<c:if test="${history.kindno == 0 }">
+			  			<fmt:formatDate value="${history.getdate }" type="both" pattern="yyyy-MM-dd"/>
+					  		<c:if test="${history.enddate != null }">
+				  			 ~ <fmt:formatDate value="${history.enddate }" type="both" pattern="yyyy-MM-dd"/>
+							</c:if>
+							 : ${history.content }<br>
+					</c:if>
+			  	</c:forEach>
 			  </div>
 		  </div>
-		  <div class="w3-content w3-container" style="width:30%; float:left;">
-			  <p class="w3-large w3-center w3-padding-16"><i class="material-icons" style="font-size:15px;">inbox</i> DATABASE</p>
-			  <p class="w3-wide">Oracle</p>
-			  <div class="w3-light-grey">
-			    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:90%">90%</div>
-			  </div>
-			  <p class="w3-wide">Mysql</p>
-			  <div class="w3-light-grey">
-			    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:85%">85%</div>
-			  </div>
-		  </div>
-	  </div>
-	  <p class="w3-center"><em>I love photography</em></p>
-	  <p>We have created a fictional "personal" website/blog, and our fictional character is a hobby photographer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-	    qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	  <div class="w3-row">
-	    <div class="w3-col m6 w3-center w3-padding-large">
-	      <p><b><i class="fa fa-user w3-margin-right"></i>JayK에게 물어보세요</b></p><br>
-	      <img src="${path }/images/avatar2.png" class="w3-round w3-image w3-opacity w3-hover-opacity-off" alt="Photo of Me" width="160">
-	    </div>
-	
-	    <!-- Hide this text on small devices -->
-	    <div class="w3-col m6 w3-hide-small w3-padding-large">
-	      <p>Welcome to my website. I am lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-	        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
-	        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	    </div>
+		  <div class="w3-container w3-half" style="padding-bottom:50px; width:50%;">
+		  	<h3 class="w3-center"><a class="w3-xxxlarge">SW SKILL</a><a class="w3-large"></a></h3>
+			  <div class="w3-container" style="width:30%; float:left;">
+				  <c:forEach items="${sessionScope.login.historyList }" var="history">
+			  		<c:if test="${history.kindno == 1 }">
+						<p class="w3-large w3-center w3-padding-16"><i class="fa fa-keyboard-o fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> SW PROGRAMMING</p>
+			  			<p class="w3-wide">${history.content }</p>
+				  	</c:if>
+			  	  </c:forEach>
+		  	</div>
+		</div>
 	</div>
 </div>
   

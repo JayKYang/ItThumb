@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,12 +45,14 @@ public class UserController {
 	
 	@RequestMapping("user/selectJoin")
 	public ModelAndView selectJoin() {
+		System.out.println("[UserController] => user/selectJoin");
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 	
 	@RequestMapping(value="user/joinForm", method=RequestMethod.GET)
 	public ModelAndView JoinForm(HttpServletRequest request) {
+		System.out.println("[UserController] => user/joinForm[GET]");
 		String kind = request.getParameter("kind");
 		ModelAndView mav = new ModelAndView();
 		if(kind.equals("1")) {
@@ -64,6 +68,7 @@ public class UserController {
 
 	@RequestMapping(value="user/joinForm", method=RequestMethod.POST)
 	public ModelAndView Join(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+		System.out.println("[UserController] => user/joinForm[POST]");
 		String kind = request.getParameter("kind");
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
@@ -90,6 +95,7 @@ public class UserController {
 			return mav;
 		}
 		try {
+			user.setPassword(hp.password(user.getPassword()));
 			if(kind.equals("1")) {
 				user.setMembergrade(1);
 				user.setRecognizecode((int)(Math.random()*10000)+1000);
@@ -120,6 +126,10 @@ public class UserController {
 				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
 			}
 			return mav;
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return mav;
 	}
@@ -132,6 +142,7 @@ public class UserController {
 	
 	@RequestMapping(value="confirm", method=RequestMethod.GET)
 	public ModelAndView confirmCode(HttpServletRequest request) {
+		System.out.println("[UserController] => user/confirm");
 		ModelAndView mav = new ModelAndView();
 		String memberid = request.getParameter("id");
 		String code = request.getParameter("code");
@@ -155,6 +166,7 @@ public class UserController {
 	}
 	@RequestMapping(value="user/login", method=RequestMethod.GET)
 	public ModelAndView login() {
+		System.out.println("[UserController] => user/login[GET]");
 		ModelAndView mav = new ModelAndView();
 		User user = new User();
 		mav.addObject("user", user);
@@ -163,30 +175,41 @@ public class UserController {
 	
 	@RequestMapping(value="user/login", method=RequestMethod.POST)
 	public ModelAndView login(@Valid User user, BindingResult bindingResult, HttpSession session) {
+		System.out.println("[UserController] => user/login[POST]");
 		ModelAndView mav = new ModelAndView("user/login");
+		String password = null;
+		try {
+			password = hp.password(user.getPassword());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
 			return mav;
 		}
-
 		User dbUser = service.getUser(user.getMemberid());
+
 		if(dbUser == null) {
 			bindingResult.reject("error.login.user");
 			mav.getModel().putAll(bindingResult.getModel());
 			return mav;
 		}
-		
+		dbUser.setHistoryList(service.getHistory(user.getMemberid()));
+	
 		if(dbUser.getLocking() == 0 && dbUser.getMembergrade() == 1) {
 			throw new JsyException("인증하고 로그인 해주세요.", "login.jsy");
 		}else if(dbUser.getLocking() == 0 && dbUser.getMembergrade() == 2) {
 			throw new JsyException("인증이 되지 않았습니다. 관리자에게 문의해주세요", "login.jsy");
 		}
 		
-		if (dbUser.getPassword().equals(user.getPassword())) {
+		if (dbUser.getPassword().equals(password)) {
 			//mav.setViewName("redirect:../main.jsy");
 			mav.addObject("msg","로그인 되었습니다.");
 			mav.addObject("url","../main.jsy");
 			mav.setViewName("alert");
+			System.out.println(dbUser);
 			session.setAttribute("login", dbUser);
 		} else {
 			bindingResult.reject("error.loginpassword.user");
@@ -199,6 +222,7 @@ public class UserController {
 	
 	@RequestMapping("user/logout")
 	public ModelAndView logout(HttpSession session) {
+		System.out.println("[UserController] => user/logout");
 		ModelAndView mav = new ModelAndView("redirect:/user/login.jsy");
 
 		session.removeAttribute("login");
@@ -209,6 +233,7 @@ public class UserController {
 	
 	@RequestMapping(value = "user/delete", method = RequestMethod.GET)
 	public ModelAndView delete(String id, HttpSession session) {
+		System.out.println("[UserController] => user/delete[GET]");
 		ModelAndView mav = new ModelAndView();
 		User user = service.getUser(id);
 		mav.addObject("user", user);
@@ -217,6 +242,7 @@ public class UserController {
 	
 	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
 	public ModelAndView delete(String id, HttpSession session, String password) {
+		System.out.println("[UserController] => user/delete[POST]");
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("login");
 		User user = service.getUser(id);
@@ -255,6 +281,7 @@ public class UserController {
 
 	@RequestMapping(value = "user/mypage", method = RequestMethod.GET)
 	public ModelAndView updateForm(String id) {
+		System.out.println("[UserController] => user/mypage[GET]");
 		ModelAndView mav = new ModelAndView();
 		User user = service.getUser(id);
 		mav.addObject("user", user);
@@ -263,6 +290,7 @@ public class UserController {
 	
 	@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
 	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+		System.out.println("[UserController] => user/mypage[POST]");
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
 		User dbUser = service.getUser(user.getMemberid());
@@ -276,7 +304,6 @@ public class UserController {
 			}
 		}
 		try {
-			System.out.println(user);
 			service.updateUser(user,request);
 			request.getSession().setAttribute("login", user);
 			mav.addObject("msg","수정이 완료되었습니다.");

@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.List;
+
+import logic.History;
 import logic.User;
 
 public interface UserDao {
@@ -15,5 +18,8 @@ public interface UserDao {
 	void deleteUser(String id);
 
 	void confirmCode(User user);
+
+	List<History> getHistory(String memberid);
+
 
 }

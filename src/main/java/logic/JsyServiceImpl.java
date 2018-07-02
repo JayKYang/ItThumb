@@ -56,7 +56,12 @@ public class JsyServiceImpl implements JsyService{
 	public User getUser(String memberid) {
 		return userDao.selectUser(memberid);
 	}
-
+	
+	@Override
+	public List<History> getHistory(String memberid) {
+		return userDao.getHistory(memberid);
+	}
+	
 	@Override
 	public int boardcount(String searchRegion, String searchEdu, String searchCarr) {
 		
