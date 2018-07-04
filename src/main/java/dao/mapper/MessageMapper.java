@@ -21,7 +21,7 @@ public interface MessageMapper {
 	@Insert("insert into message (messageno,sender, receiver, subject, content, senddate, senddelete, receivedelete, confirm) VALUES (#{messageno},#{sender},#{receiver},#{subject},#{content},now(),0,0,0)")
 	void messageWrite(Message message);
 
-	@Select("select count(*) from message")
+	@Select("select ifnull(max(messageno),0) from message")
 	int messageMax();
 
 }

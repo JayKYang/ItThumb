@@ -8,7 +8,7 @@ import logic.Scrap;
 
 public interface ScrapMapper {
 
-	@Select("select count(*) from scrap")
+	@Select("select ifnull(max(scrap),0) from scrap")
 	int scrapMaxNum();
 
 	@Insert("insert into scrap (scrap,memberid,studyno) VALUES (#{scrap},#{memberid},#{studyno})")

@@ -8,7 +8,7 @@ import logic.StudyGroup;
 
 public interface StudyGroupMapper {
 
-	@Select("select count(*) from studygroup")
+	@Select("select ifnull(max(groupno),0) from studygroup")
 	int studyGroupMaxNum();
 
 	@Insert("insert into studygroup (groupno,studyno,leadermember,regmember,state) VALUES (#{groupno},#{studyno},#{leadermember},#{regmember},#{state})")
