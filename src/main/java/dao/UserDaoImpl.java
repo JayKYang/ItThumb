@@ -63,4 +63,12 @@ public class UserDaoImpl implements UserDao{
 	public void updateHistory(History history) {
 		sqlSession.getMapper(UserMapper.class).updateHistory(history);
 	}
+	@Override
+	public void updateUserAboutMe(User user) {
+		sqlSession.getMapper(UserMapper.class).updateUserAboutMe(user);
+	}
+	@Override
+	public void deleteportfolio(String id) {
+		sqlSession.getMapper(UserMapper.class).deleteportfolio(id);
+	}
 }

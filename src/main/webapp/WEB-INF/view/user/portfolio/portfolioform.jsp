@@ -42,7 +42,7 @@
 			inputtext = '<table><tr><td style="width:15%"><input id="getdate_'+count1+'" class="w3-input" type="date" placeholder="시작날짜" name="getdate" style="width:80px;font-size:10px;"/></td>'
 					+ '<td style="width:15%"><input id="enddate_'+count1+'" class="w3-input" type="date" placeholder="종료일자" name="enddate" style="width:80px;font-size:10px;"/></td>'
 					+ '<td style="width:60%"><input id="content_'+count1+'" class="w3-input" type="text" placeholder="내용" name="content" style="font-size:10px;"/></td>'
-					+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count1 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count1 + '_0\')">v</a></td>'
+					+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count1 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count1 + '_0\')"><i class="fa fa-file-text-o"></i></a></td>'
 					+ '<td style="width:5%"><a id="delete_'+addedFormDiv.id +'_'+ count1 + '" class="w3-button" onclick="deleteForm(\''+ addedFormDiv.id +'_'+ count1
 					+ '\')">x</a></td></tr></table><input id="chk_'+addedFormDiv.id +'_'+ count1 + '" type="checkbox" style="display:none"><hr>';
 					
@@ -62,7 +62,7 @@
 		else if(addedFormDiv.id=='skillform'){
 			inputtext = '<table><tr><td style="width:15%"><input id="content_'+count2+'" class="w3-input" type="text" placeholder="기술명" name="content" style="font-size:10px;"/></td>'
 				+ '<td style="width:15%"><input id="skillful_'+count2+'" class="w3-input" type="text" placeholder="숙련도(0~100)" name="skillful" value="${history.skillful }" style="font-size:10px;"/></td>'
-				+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count2 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count2 + '_1\')">v</a></td>'
+				+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count2 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count2 + '_1\')"><i class="fa fa-file-text-o"></i></a></td>'
 				+ '<td style="width:5%"><a id="delete_'+addedFormDiv.id +'_'+ count2 + '" class="w3-button" onclick="deleteForm(\''+ addedFormDiv.id +'_'+ count2
 				+ '\')">x</a></td></tr></table><input id="chk_'+addedFormDiv.id +'_'+ count2 + '" type="checkbox" style="display:none"><hr>';
 				
@@ -82,7 +82,7 @@
 		else{
 			inputtext = '<table><tr><td style="width:20%"><input id="getdate_'+count3+'" class="w3-input" type="date" placeholder="취득일자" name="getdate" style="width:80px;font-size:10px;"/></td>'
 				+ '<td style="width:30%"><input id="content_'+count3+'" class="w3-input" type="text" placeholder="내용" name="content" style="font-size:10px;"/></td>'
-				+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count3 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count3 + '_2\')">v</a></td>'
+				+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count3 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count3 + '_2\')"><i class="fa fa-file-text-o"></i></a></td>'
 				+ '<td style="width:5%"><a id="delete_'+addedFormDiv.id +'_'+ count3 + '" class="w3-button" onclick="deleteForm(\''+ addedFormDiv.id +'_'+ count3
 				+ '\')">x</a></td></tr></table><input id="chk_'+addedFormDiv.id +'_'+ count3 + '" type="checkbox" style="display:none"><hr>';
 				
@@ -99,19 +99,12 @@
 				alert('이전 작업이 완료되지 않았습니다.');
 			}
 		}
-		//alert($("#chk_"+addedFormDiv.id+"_"+(count-1)).attr('checked'));
 		
 	}
 	
 	// Insert Experience
 	function insertExperience(cnt1) {  
-		//alert(cnt1);
-		//cnt1 = cnt1.substring(0,cnt1.lastIndexOf("_"));
-		//kindno1 = cnt1.substring(cnt1.lastIndexOf("_")+1);
-		
 		id1 = cnt1.split('_'); // id2[0] = 폼네임 , id2[1] = count, id2[2] = kindno
-		//alert(cnt1+","+id2+"@@");
-		//alert(id2[0]+","+id2[1]+","+id2[2]);
 		
 		var getdate = null;
 		var enddate = null;
@@ -123,8 +116,6 @@
 		if($('#content_'+id1[1]).length != 0) content = $("#content_"+id1[1]).val();
 		if($('#skillful_'+id1[1]).length != 0) skillful = $("#skillful_"+id1[1]).val();
 		
-		//alert(getdate + "," + enddate +"," + content+ "," +skillful +","+kindno );
-		
 		// unchecked일때 insert 실행
 		if( $("#chk_"+id1[0]+"_"+id1[1]).attr('checked') != 'checked'){
 			$.ajax({
@@ -132,12 +123,9 @@
 		        type : "POST",
 		        data : {"getdate":getdate, "enddate":enddate, "content":content, "skillful":skillful, "kindno" : id1[2]},
 		        success : function (data) {
-		            //alert('성공');
-		            //alert(data);
 		        	if(data.success == 'success'){
-		        		//alert('성공');
 			            $("#chk_"+id1[0]+"_"+id1[1]).attr('checked','checked');
-			            $("#insert_"+id1[0]+"_"+id1[1]).text('R');
+			            $("#insert_"+id1[0]+"_"+id1[1]).html('<i class="fa fa-edit"></i>');
 			            $("#insert_"+id1[0]+"_"+id1[1]).attr('onclick','insertExperience(\'' + id1[0] +'v_'+ data.historyno + '_'+id1[2]+'\')');
 			            $("#delete_"+id1[0]+"_"+id1[1]).attr('onclick','deleteForm(\'' + id1[0] +'v_'+ data.historyno+'\')');
 			            $("#insert_"+id1[0]+"_"+id1[1]).attr('id','insert_' + id1[0] +'v_'+ data.historyno);
@@ -149,19 +137,14 @@
 						
 					}
 		        },error:function(request,status,error){
-		        	//alert('실패');
-		            // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
 		        }
 		    });
 		}else{ // checked 일땐 update 실행
-			//alert('update');
 			$.ajax({
 		        url : "updateExperience.jsy",
 		        type : "POST",
 		        data : {"getdate":getdate, "enddate":enddate, "content":content, "skillful":skillful, "kindno" : id1[2], "historyno" : id1[1]},
 		        success : function (data) {
-		            //alert('성공');
-		            //alert(data);
 		        	if(data.success == 'success'){
 		        		alert('수정되었습니다.');
 					}else{
@@ -178,19 +161,10 @@
 	
 	// Delete Experience
 	function deleteForm(cnt2) {
-		//cnt2 = cnt2.substring(0,cnt2.lastIndexOf("_"));
-		//kindno2 = cnt2.substring(cnt2.lastIndexOf("_")+1);
-		
 		id2 = cnt2.split('_'); // id2[0] = 폼네임 , id2[1] = historyno
 		
 		var deleteFormDiv = null;
 		var thisDiv = document.getElementById(id2[0]+"_"+id2[1]);
-		
-		//deleteFormDiv = document.getElementById(id2[0].substring(-1));
-		
-		//alert(id2[0].slice(0,-1));
-		//alert($("#chk_"+id2[0]+"_"+id2[1]).attr('checked'));
-		//alert("#chk_"+id2[0]+"_"+id2[1]);
 		
 		// data checked상태. -> db제거 후 form 제거
 		if( $("#chk_"+id2[0]+"_"+id2[1]).attr('checked') == 'checked' ){
@@ -201,32 +175,22 @@
 		        type : "POST",
 		        data : {"historyno":id2[1]},
 		        success : function (data) {
-		            //alert('성공');
-		           // alert(data);
 		        	if(data.success == 'success'){
-		        		//alert('성공');
-			            $("#chk_"+id1[0]+"_"+id1[1]).attr('checked','checked');			 
-			            $("#a_"+id1[0]+"_"+id1[1]).text('R');
 					}else{
 						
 					}
 		        },error:function(request,status,error){
-		        	//alert('실패');
-		            // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
 		        }
 		    });  
 			
 		}else{ // data unchecked상태. -> form 만 제거
 			deleteFormDiv = document.getElementById(id2[0]);
-			//alert('form만 제거');
 		} 
-		
 		deleteFormDiv.removeChild(thisDiv);
-		
 	}
-	
+
 	//페이지 이탈 시 이벤트발생 
-	jQuery(document).ready(function($) {
+	/* jQuery(document).ready(function($) {
 	    var checkload = true;
 	    $("#submit-btn").click(function () {
 	        checkload = false;
@@ -234,8 +198,7 @@
 	    $(window).on("beforeunload", function () {
 	        if (checkload == true) return "";
 	    });
-	    
-	});
+	}); */
 </script>
 </head>
 <style>
@@ -264,7 +227,7 @@ body, h1, h2, h3, h4, h5, h6 {
 </style>
 <body class="w3-black">
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
 		<!-- Avatar image in top left corner -->
 		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"	onclick="openPortfolio('about')"><i class="fa fa-user w3-xxlarge"></i>
 			<p>ABOUT ME</p>
@@ -274,62 +237,78 @@ body, h1, h2, h3, h4, h5, h6 {
 	</nav>
 	<!-- Page Content -->
 	<!-- Header/Home -->
-	<div class="portfoliopage w3-content w3-container" id="about">
-		<h3 class="w3-center">
-			<a class="w3-xxxlarge"><input class="w3-input" type="text" placeholder="포트폴리오 이름" name="slogun" value="${sessionScope.login.slogun }"/></a><td><input type="checkbox" style="display:none"></td>
-		</h3>
+	<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
+		<form:form modelAttribute="user" action="updateAboutMe.jsy" method="post" enctype="multipart/form-data" name="f">
 		<div class="w3-content w3-container w3-padding-32">
+		<form:hidden path="imageUrl" />
+		<form:hidden class="w3-input" path="password" value="passwordddddd"/>
+		<h3 class="w3-center">
+			<a class="w3-xxxlarge"><form:input class="w3-input" type="text" placeholder="포트폴리오 이름" path="slogun"/><font color="red"><form:errors path="slogun"/></font></a><input type="checkbox" style="display:none">
+		</h3>
+			<spring:hasBindErrors name="user">
+				<font color="red">
+					<c:forEach items="${errors.globalErrors }" var="error">
+						<spring:message code="${error.code }"></spring:message>
+					</c:forEach>
+				</font>
+			</spring:hasBindErrors>
 			<table style="width: 98%">
 				<tr class="w3-center">
 					<td rowspan="7" style="width: 40%;">
-						<c:if
-							test="${empty sessionScope.login.imageUrl }">
-							<img class="w3-circle w3-card" src="../../photo/defaultphoto.png" style="width: 70%">
+						<c:if test="${empty sessionScope.login.imageUrl }">
+							<img class="w3-circle w3-card" src="../../photo/defaultphoto.png" style="width:70%">
 						</c:if> 
 						<c:if test="${!empty sessionScope.login.imageUrl }">
-							<img class="w3-circle w3-card" src="../../photo/${sessionScope.login.imageUrl }" style="width: 70%">
+							<img class="w3-circle w3-card" src="../../photo/${sessionScope.login.imageUrl }" style="width:70%">
 						</c:if>
+						<input type="file" name="image" id="image" style="display:none"/>
 					</td>
 				</tr>
 				<tr>
 					<td style="width: 5%;"><i class="fa fa-user fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td style="width: 60%;"><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.name }</a></td>
+					<td style="width: 60%;"><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.name }</a><form:hidden path="name"/></td>
 					<td><input type="checkbox" style="display:none"></td>
 				</tr>
 				<tr>
 					<td><i class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"><input type="date" id="datePicker" class="w3-input" onchange="change_date()">
-					<input type="hidden" id="birth"	name="birth" class="w3-input" value="" /></a></td>
-					<script>
+					<td><a class="w3-xlarge w3-hover-opacity">
+					<!-- <input type="date" id="datePicker" class="w3-input" onchange="change_date()"> -->
+					<form:input type="text" path="birth" class="w3-input"></form:input><font color="red"><form:errors path="birth"/></font>
+					<%-- <form:hidden id="birth" class="w3-input" path="birth" placeholder="생일"/><font color="red"><form:errors path="birth"/></font> --%></a></td>
+					<!-- <script>
 						document.getElementById("datePicker").value = document.getElementById("birth").value
-					</script>
+					</script> -->
 					<td><input type="checkbox" style="display:none"></td>
 				</tr>
 				<tr>
 					<td><i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"><input class="w3-input" type="text" placeholder="지역" name="address" /></a></td>
+					<td><a class="w3-xlarge w3-hover-opacity"><form:input class="w3-input" path="address" placeholder="거주지"/><font color="red"><form:errors path="address"/></font></a></td>
 					<td><input type="checkbox" style="display:none"></td>
 				</tr>
 				<tr>
 					<td><i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"><input class="w3-input" type="text" placeholder="연락처" name="tel" /></a></td>
+					<td><a class="w3-xlarge w3-hover-opacity"><form:input class="w3-input" path="tel" placeholder="연락처"/><font color="red"><form:errors path="tel"/></font></a></td>
 					<td><input type="checkbox" style="display:none"></td>
 				</tr>
 				<tr>
 					<td><i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.memberid }</a></td>
+					<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.memberid }</a><form:hidden path="memberid"/></td>
 					<td><input type="checkbox" style="display:none"></td>
 				</tr>
 				<tr>
-					<td><i class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"><input class="w3-input" type="text" placeholder="링크" name="site" /></a></td>
+					<td><i class="fa fa-paperclip fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
+					<td><a class="w3-xlarge w3-hover-opacity"><form:input class="w3-input" path="site" placeholder="링크주소"/><font color="red"><form:errors path="site"/></font></a></td>
 					<td><input type="checkbox" style="display:none"></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<p class="w3-center">
+							<a class="w3-xlarge"><form:textarea class="w3-input" cols="50" rows="10" placeholder="자기소개" path="introduce" value=""></form:textarea><font color="red"><form:errors path="introduce"/></font></a><input type="checkbox" style="display:none">
+						</p>
+					</td>
 				</tr>
 			</table>
 		</div>
-		<p class="w3-center">
-			<a class="w3-xlarge"><textarea class="w3-input" cols="50" rows="10" placeholder="자기소개" name="introduce"></textarea></a><input type="checkbox" style="display:none">
-		</p>
 		<hr>
 		<div class="w3-row">
 			<div class="w3-container w3-half" style="padding-bottom: 50px; width: 50%; float: left;">
@@ -348,7 +327,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												<td style="width:20%"><input class="w3-input" type="text" id="getdate_${history.historyno}" placeholder="시작날짜" name="getdate" value="${getdate }" style="width:80px;font-size:10px;""/></td>
 												<td style="width:20%"><input class="w3-input" type="text" id="enddate_${history.historyno}" placeholder="종료일자" name="enddate" value="${enddate }" style="width:80px;font-size:10px;"/></td>
 												<td style="width:30%"><input class="w3-input" type="text" id="content_${history.historyno}" placeholder="내용" name="content" value="${history.content }" style="font-size:10px;"/></td>
-												<td style="width:5%"><a id="insert_experienceformv_${history.historyno }" class="w3-button" onclick="insertExperience('experienceformv_${history.historyno}_0')">R</a></td>
+												<td style="width:5%"><a id="insert_experienceformv_${history.historyno }" class="w3-button" onclick="insertExperience('experienceformv_${history.historyno}_0')"><i class="fa fa-edit"></i></a></td>
 												<td style="width:5%"><a id="delete_experienceformv_${history.historyno }" class="w3-button" onclick="deleteForm('experienceformv_${history.historyno}')">x</a><input id="chk_experienceformv_${history.historyno}" type="checkbox" checked="checked" style="display:none"></td>
 											</tr>
 										</table><hr>
@@ -357,7 +336,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						</c:forEach>
 					</div>
 					<h3>
-						<a class="w3-button w3-center" onclick="javascript:addForm(experienceform)">+</a>
+						<a class="w3-button w3-center" onclick="javascript:addForm(experienceform)"><i class="fa fa-plus-square-o"></i></a>
 					</h3>
 				</div>
 				<div class="w3-container" style="padding-bottom: 50px; width: 100%; float: left;">
@@ -375,7 +354,7 @@ body, h1, h2, h3, h4, h5, h6 {
 												<tr>
 													<td style="width:20%"><input class="w3-input" id="getdate_${history.historyno}" type="text" placeholder="취득일자" name="getdate" value="${getdate }" style="width:80px;font-size:10px;"/></td>
 													<td style="width:30%"><input class="w3-input" id="content_${history.historyno}" type="text" placeholder="내용" name="content" value="${history.content }" style="font-size:10px;"/></td>
-													<td style="width:5%"><a class="w3-button" onclick="insertExperience('licenseformv_${history.historyno}_2')">R</a></td>
+													<td style="width:5%"><a class="w3-button" onclick="insertExperience('licenseformv_${history.historyno}_2')"><i class="fa fa-edit"></i></a></td>
 													<td style="width:5%"><a class="w3-button" onclick="deleteForm('licenseformv_${history.historyno}')">x</a><input id="chk_licenseformv_${history.historyno}" type="checkbox" checked="checked" style="display:none"></td>
 												</tr>
 											</table><hr>
@@ -384,14 +363,14 @@ body, h1, h2, h3, h4, h5, h6 {
 							</c:forEach>
 						</div>
 						<h3>
-							<a class="w3-button w3-center" onclick="javascript:addForm(licenseform)">+</a>
+							<a class="w3-button w3-center" onclick="javascript:addForm(licenseform)"><i class="fa fa-plus-square-o"></i></a>
 						</h3>
 					</div>
 				</div>
 			</div>
 			<div class="w3-container w3-half" style="padding-bottom: 50px; width: 50%;">
 				<h3 class="w3-center">
-					<a class="w3-xxxlarge">SW SKILL</a><a class="w3-large"></a>
+					<a class="w3-xxxlarge">SKILLS</a><a class="w3-large"></a>
 				</h3>
 				<div class="w3-container w3-center" style="width: 100%">
 					<div id="skillform" style="width: 100%">
@@ -403,7 +382,7 @@ body, h1, h2, h3, h4, h5, h6 {
 										<tr>
 											<td style="width:15%"><input class="w3-input" id="content_${history.historyno}" type="text" placeholder="기술명" name="content" value="${history.content }" style="font-size:10px;"/></td>
 											<td style="width:15%"><input class="w3-input" id="skillful_${history.historyno}" type="text" placeholder="숙련도(0~100)" name="skillful" value="${history.skillful }" style="font-size:10px;"/></td>
-											<td style="width:5%"><a id="insert_skillformv_${history.historyno }" class="w3-button" onclick="insertExperience('skillformv_${history.historyno}_1')">R</a></td>
+											<td style="width:5%"><a id="insert_skillformv_${history.historyno }" class="w3-button" onclick="insertExperience('skillformv_${history.historyno}_1')"><i class="fa fa-edit"></i></a></td>
 											<td style="width:5%"><a class="w3-button" onclick="deleteForm('skillformv_${history.historyno}')">x</a><input  id="chk_skillformv_${history.historyno}" type="checkbox" checked="checked" style="display:none"></td>
 										</tr>
 									</table><hr>
@@ -412,123 +391,26 @@ body, h1, h2, h3, h4, h5, h6 {
 						</c:forEach>
 					</div>
 					<h3>
-						<a class="w3-button w3-center" onclick="javascript:addForm(skillform)">+</a>
+						<a class="w3-button w3-center" onclick="javascript:addForm(skillform)"><i class="fa fa-plus-square-o"></i></a>
 					</h3>
 				</div>
 			</div>
 		</div>
+		<table style="width: 98%">
+			<tr>
+				<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</a></td>
+			</tr>
+		</table>
+		</form:form>
 	</div>
 
 
 
-	<div class="portfoliopage w3-content w3-container" id="project" style="display: none">
+	<div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display: none">
 		<h3 class="w3-center">
 			<a class="w3-xxxlarge">프로젝트</a>
 		</h3>
-		<p class="w3-center">
-			<a class="w3-xlarge">${sessionScope.login.introduce }</a>
-		</p>
-		<div class="w3-content w3-container w3-padding-32">
-			<table style="width: 98%">
-				<tr class="w3-center">
-					<td rowspan="7" style="width: 40%;"><c:if
-							test="${empty sessionScope.login.imageUrl }">
-							<img class="w3-circle w3-card" src="../../photo/defaultphoto.png"
-								style="width: 70%">
-						</c:if> <c:if test="${!empty sessionScope.login.imageUrl }">
-							<img class="w3-circle w3-card"
-								src="../../photo/${sessionScope.login.imageUrl }"
-								style="width: 70%">
-						</c:if></td>
-				</tr>
-				<tr>
-					<td style="width: 5%;"><i
-						class="fa fa-user fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td style="width: 60%;"><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.name }</a></td>
-				</tr>
-				<tr>
-					<td><i class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="yyyy" /></a>년<a
-						class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="MM" /></a>월
-						<a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="DD" /></a>일</td>
-				</tr>
-				<tr>
-					<td><i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.address }</a>거주
-					</td>
-				</tr>
-				<tr>
-					<td><i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.tel }</a></td>
-				</tr>
-				<tr>
-					<td><i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.memberid }</a></td>
-				</tr>
-				<tr>
-					<td><i class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity" href="http://${sessionScope.login.site }">${sessionScope.login.site }</a></td>
-				</tr>
-			</table>
-		</div>
-		<hr>
-		<div class="w3-row">
-			<div class="w3-container w3-half"
-				style="padding-bottom: 50px; width: 50%; float: left;">
-				<h3 class="w3-center">
-					<a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a>
-				</h3>
-				<div class="w3-container" style="float: left;">
-					<c:forEach items="${sessionScope.login.historyList }" var="history">
-						<c:if test="${history.kindno == 0 }">
-							<fmt:formatDate value="${history.getdate }" type="both"
-								pattern="yyyy-MM-dd" />
-							<c:if test="${history.enddate != null }">
-				  			 ~ <fmt:formatDate value="${history.enddate }" type="both"
-									pattern="yyyy-MM-dd" />
-							</c:if>
-							 : ${history.content }<br>
-						</c:if>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="w3-container w3-half"
-				style="padding-bottom: 50px; width: 50%;">
-				<h3 class="w3-center">
-					<a class="w3-xxxlarge">SW SKILL</a><a class="w3-large"></a>
-				</h3>
-				<div class="w3-container" style="width: 30%; float: left;">
-					<c:forEach items="${sessionScope.login.historyList }" var="history">
-						<c:if test="${history.kindno == 1 }">
-							<p class="w3-large w3-center w3-padding-16">
-								<i
-									class="fa fa-keyboard-o fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i>
-								SW PROGRAMMING
-							</p>
-							<p class="w3-wide">${history.content }</p>
-						</c:if>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
-		<div class="w3-row">
-			<div class="w3-container w3-half" style="padding-bottom: 50px; width: 50%; float: left;">
-				<h3 class="w3-center">
-					<a class="w3-xxxlarge">LICENSE</a><a class="w3-large"></a>
-				</h3>
-				<div class="w3-container" style="float: left;">
-					<c:forEach items="${sessionScope.login.historyList }" var="history">
-						<c:if test="${history.kindno == 2 }">
-							<fmt:formatDate value="${history.getdate }" type="both"
-								pattern="yyyy-MM-dd" />
-							 : ${history.content }<br>
-						</c:if>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="w3-container w3-half" style="padding-bottom: 50px; width: 50%;">
-			</div>
-		</div>
+		
 	</div>
 
 	<!-- Footer -->

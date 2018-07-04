@@ -155,5 +155,19 @@ public class JsyServiceImpl implements JsyService{
 	public void updateHistory(History history) {
 		userDao.updateHistory(history);
 	}
+
+	@Override
+	public void updateUserAboutMe(User user, HttpServletRequest request) {
+		if(user.getImage() != null && !user.getImage().isEmpty()) {
+			uploadUserImageCreate(user.getImage(), request);
+			user.setImageUrl(user.getImage().getOriginalFilename());
+		}
+		userDao.updateUserAboutMe(user);
+	}
+
+	@Override
+	public void deleteportfolio(String id) {
+		userDao.deleteportfolio(id);
+	}
 	
 }

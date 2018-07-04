@@ -22,6 +22,19 @@
 	    document.getElementById(pageName).style.display = "block"; 
 	}
 	</script>
+	<style>
+		.skills {
+		  text-align: right;
+		  padding-right: 20px;
+		  line-height: 40px;
+		  color: white;
+		}
+		
+		.fullbar {
+		  width: 100%;
+		  background-color: #ddd;
+		}
+	</style>
 </head>
 <style>
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
@@ -34,7 +47,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </style>
 <body class="w3-black">
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
   <!-- Avatar image in top left corner -->
   <a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
     <i class="fa fa-user w3-xxlarge"></i>
@@ -47,44 +60,44 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </nav>
 <!-- Page Content -->
   <!-- Header/Home -->
-<div class="portfoliopage w3-content w3-container" id="about">
-	<h3 class="w3-center"><a class="w3-xxxlarge">${sessionScope.login.slogun }</a></h3>
-	<p class="w3-center"><a class="w3-xlarge">${sessionScope.login.introduce }</a></p>
+<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
+	<h3 class="w3-center"><a class="w3-xxxlarge">${user.slogun }</a></h3>
+	<p class="w3-center"><a class="w3-xlarge">${user.introduce }</a></p>
 	<div class="w3-content w3-container w3-padding-32">
 		<table style="width:98%">
 			<tr class="w3-center">
 				<td rowspan="7" style="width:40%;">
-					<c:if test="${empty sessionScope.login.imageUrl }">
+					<c:if test="${empty user.imageUrl }">
 						<img class="w3-circle w3-card" src="../../photo/defaultphoto.png" style="width:70%">
 					</c:if>
-					<c:if test="${!empty sessionScope.login.imageUrl }" >
-						<img class="w3-circle w3-card" src="../../photo/${sessionScope.login.imageUrl }" style="width:70%">
+					<c:if test="${!empty user.imageUrl }" >
+						<img class="w3-circle w3-card" src="../../photo/${user.imageUrl }" style="width:70%">
 					</c:if>
 				</td>
 			</tr>
 			<tr>
 				<td style="width:5%;"><i class="fa fa-user fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td style="width:60%;"><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.name }</a></td>
+				<td style="width:60%;"><a class="w3-xlarge w3-hover-opacity">${user.name }</a></td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="yyyy"/></a>년<a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="MM"/></a>월 <a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="DD"/></a>일</td>
+				<td><a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${user.birth}" type="both" pattern="yyyy"/></a>년<a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${user.birth}" type="both" pattern="MM"/></a>월 <a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${user.birth}" type="both" pattern="dd"/></a>일</td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.address }</a>거주 </td>
+				<td><a class="w3-xlarge w3-hover-opacity">${user.address }</a>거주 </td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.tel }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity">${user.tel }</a></td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.memberid }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity">${user.memberid }</a></td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity" href="http://${sessionScope.login.site }">${sessionScope.login.site }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity" href="http://${user.site }">${user.site }</a></td>
 			</tr>
 		</table>
 	</div>
@@ -93,7 +106,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 		<div class="w3-container w3-half" style="padding-bottom:50px; width:50%; float:left;">
 		  <h3 class="w3-center"><a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a></h3>
 			  <div class="w3-container" style="float:left;">
-			  	<c:forEach items="${sessionScope.login.historyList }" var="history">
+			  	<c:forEach items="${user.historyList }" var="history">
 			  		<c:if test="${history.kindno == 0 }">
 			  			<fmt:formatDate value="${history.getdate }" type="both" pattern="yyyy-MM-dd"/>
 					  		<c:if test="${history.enddate != null }">
@@ -105,12 +118,14 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 			  </div>
 		  </div>
 		  <div class="w3-container w3-half" style="padding-bottom:50px; width:50%;">
-		  	<h3 class="w3-center"><a class="w3-xxxlarge">SW SKILL</a><a class="w3-large"></a></h3>
-			  <div class="w3-container" style="width:30%; float:left;">
-				  <c:forEach items="${sessionScope.login.historyList }" var="history">
+		  	<h3 class="w3-center"><a class="w3-xxxlarge">SKILLS</a><a class="w3-large"></a></h3>
+			  <div class="w3-container" style="width:100%; float:left;">
+				  <c:forEach items="${user.historyList }" var="history">
 			  		<c:if test="${history.kindno == 1 }">
-						<p class="w3-large w3-center w3-padding-16"><i class="fa fa-keyboard-o fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> SW PROGRAMMING</p>
 			  			<p class="w3-wide">${history.content }</p>
+						<div class="fullbar">
+						  <div class="skills" style="width:${history.skillful }%; background-color: #808080;">${history.skillful }%</div>
+						</div>
 				  	</c:if>
 			  	  </c:forEach>
 		  	</div>
@@ -118,44 +133,44 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 	</div>
 </div>
 
-<div class="portfoliopage w3-content w3-container" id="project" style="display:none">
+<div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display:none">
 	<h3 class="w3-center"><a class="w3-xxxlarge">프로젝트</a></h3>
-	<p class="w3-center"><a class="w3-xlarge">${sessionScope.login.introduce }</a></p>
+	<p class="w3-center"><a class="w3-xlarge">${user.introduce }</a></p>
 	<div class="w3-content w3-container w3-padding-32">
 		<table style="width:98%">
 			<tr class="w3-center">
 				<td rowspan="7" style="width:40%;">
-					<c:if test="${empty sessionScope.login.imageUrl }">
+					<c:if test="${empty user.imageUrl }">
 						<img class="w3-circle w3-card" src="../../photo/defaultphoto.png" style="width:70%">
 					</c:if>
-					<c:if test="${!empty sessionScope.login.imageUrl }" >
-						<img class="w3-circle w3-card" src="../../photo/${sessionScope.login.imageUrl }" style="width:70%">
+					<c:if test="${!empty user.imageUrl }" >
+						<img class="w3-circle w3-card" src="../../photo/${user.imageUrl }" style="width:70%">
 					</c:if>
 				</td>
 			</tr>
 			<tr>
 				<td style="width:5%;"><i class="fa fa-user fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td style="width:60%;"><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.name }</a></td>
+				<td style="width:60%;"><a class="w3-xlarge w3-hover-opacity">${user.name }</a></td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="yyyy"/></a>년<a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="MM"/></a>월 <a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${sessionScope.login.birth}" type="both" pattern="DD"/></a>일</td>
+				<td><a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${user.birth}" type="both" pattern="yyyy"/></a>년<a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${user.birth}" type="both" pattern="MM"/></a>월 <a class="w3-xlarge w3-hover-opacity"><fmt:formatDate value="${user.birth}" type="both" pattern="DD"/></a>일</td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.address }</a>거주 </td>
+				<td><a class="w3-xlarge w3-hover-opacity">${user.address }</a>거주 </td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.tel }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity">${user.tel }</a></td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity">${sessionScope.login.memberid }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity">${user.memberid }</a></td>
 			</tr>
 			<tr>
 				<td><i class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-				<td><a class="w3-xlarge w3-hover-opacity" href="http://${sessionScope.login.site }">${sessionScope.login.site }</a></td>
+				<td><a class="w3-xlarge w3-hover-opacity" href="http://${user.site }">${user.site }</a></td>
 			</tr>
 		</table>
 	</div>
@@ -164,7 +179,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 		<div class="w3-container w3-half" style="padding-bottom:50px; width:50%; float:left;">
 		  <h3 class="w3-center"><a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a></h3>
 			  <div class="w3-container" style="float:left;">
-			  	<c:forEach items="${sessionScope.login.historyList }" var="history">
+			  	<c:forEach items="${user.historyList }" var="history">
 			  		<c:if test="${history.kindno == 0 }">
 			  			<fmt:formatDate value="${history.getdate }" type="both" pattern="yyyy-MM-dd"/>
 					  		<c:if test="${history.enddate != null }">
@@ -178,7 +193,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 		  <div class="w3-container w3-half" style="padding-bottom:50px; width:50%;">
 		  	<h3 class="w3-center"><a class="w3-xxxlarge">SW SKILL</a><a class="w3-large"></a></h3>
 			  <div class="w3-container" style="width:30%; float:left;">
-				  <c:forEach items="${sessionScope.login.historyList }" var="history">
+				  <c:forEach items="${user.historyList }" var="history">
 			  		<c:if test="${history.kindno == 1 }">
 						<p class="w3-large w3-center w3-padding-16"><i class="fa fa-keyboard-o fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> SW PROGRAMMING</p>
 			  			<p class="w3-wide">${history.content }</p>

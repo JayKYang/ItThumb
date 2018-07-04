@@ -29,5 +29,9 @@ public interface UserDao {
 
 	void updateHistory(History history);
 
+	void updateUserAboutMe(User user);
+
+	void deleteportfolio(String id);
+
 
 }

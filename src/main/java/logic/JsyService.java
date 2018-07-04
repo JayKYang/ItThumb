@@ -40,5 +40,9 @@ public interface JsyService {
 
 	void updateHistory(History history);
 
+	void updateUserAboutMe(User user, HttpServletRequest request);
+
+	void deleteportfolio(String id);
+
 
 }

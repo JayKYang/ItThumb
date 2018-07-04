@@ -155,12 +155,10 @@ public class UserController {
 			mav.addObject("msg","인증성공 로그인해주세요");
 			mav.addObject("url","user/login.jsy");
 		}else {
-			mav.addObject("msg","인증실패");
+			mav.addObject("msg","인증실패 메일 재전송 만들기");
 			mav.addObject("url","user/login.jsy");
 			// 메일 재전송
 		}
-//		User user = new User();
-//		mav.addObject("user", user);
 		mav.setViewName("alert");
 		return mav;
 	}
@@ -257,9 +255,9 @@ public class UserController {
 		if (user == null) {
 			throw new JsyException("삭제 대상 사용자가 존재하지 않습니다.", "delete.jsy?id=" + id);
 		}
-		if (loginUser.getMemberid().equals("admin")) { // 관리자인 경우
+		if (loginUser.getMembergrade()==0) { // 관리자인 경우
 			if (!loginUser.getPassword().equals(pw)) {
-				throw new JsyException("관리자 비밀번호가 틀립니다.", "delete.jsy?id=" + id);
+				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage.jsy?id=" + id); // id = 탈퇴시킬 아이디 
 			}
 		} else { // 일반사용자의 경우
 			if (!user.getPassword().equals(pw)) {
@@ -268,9 +266,9 @@ public class UserController {
 		}
 		try {
 			service.deleteUser(id);
-			if (loginUser.getMemberid().equals("admin")) {
+			if (loginUser.getMembergrade()==0) { // 관리자인경우
 				mav.addObject("msg",id+"회원 탈퇴가 완료되었습니다.");
-				mav.addObject("url","../admin/admin.jsy");
+				mav.addObject("url","mypage.jsy?id="+id);
 				mav.setViewName("alert");
 				return mav;
 			} else { // 일반사용자로 로그인시 삭제 성공
@@ -282,7 +280,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new JsyException("삭제시 오류 발생", "../user/mypage.shop?id=" + id);
+			throw new JsyException("삭제시 오류 발생", "mypage.jsy?id=" + id);
 		}
 	}
 
@@ -292,6 +290,7 @@ public class UserController {
 		System.out.println("[UserController] => user/mypage[GET]");
 		ModelAndView mav = new ModelAndView();
 		User user = service.getUser(id);
+		System.out.println(user);
 		mav.addObject("user", user);
 		return mav; // 뷰이름만 리턴
 	}
@@ -311,7 +310,7 @@ public class UserController {
 			e1.printStackTrace();
 		}
 		
-		if (loginUser.getMemberid().equals("admin")) {
+		if (loginUser.getMembergrade()==0) { // 관리자인 경우
 			if (!user.getPassword().equals(loginUser.getPassword())) {
 				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage.jsy?id=" + user.getMemberid());
 			}
