@@ -35,11 +35,14 @@ function openMypage(mypageName) {
               reader.readAsDataURL(input.files[0]);
             }
         }
-       function change_date(){
+       
+        // input date 타입 사용시 폼 전달
+       /* function change_date(){
             birth = document.getElementById("datePicker").value
             document.getElementById("birth").value = birth
-       }
+       }  */
        
+       // 사진 파일추가버튼 없이 이미지눌렀을 때 클릭이벤트 발생시키는 자바스크립트
        function eventOccur(evEle, evType){
     	   if (evEle.fireEvent) {
     	   evEle.fireEvent('on' + evType);
@@ -116,7 +119,7 @@ function openMypage(mypageName) {
 					<tr>
 						<td>패스워드</td><td><form:password path="password" class="w3-input"/><font color="red"><form:errors path="password"/></font></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td>생일</td><td><input type="date" id="datePicker" class="w3-input" onchange="change_date()"><form:hidden id="birth" path="birth" class="w3-input" value=""/><font color="red"><form:errors path="birth"/></font></td>
 					</tr>
 					<script>document.getElementById("datePicker").value =  document.getElementById("birth").value</script>
@@ -134,7 +137,7 @@ function openMypage(mypageName) {
 					</tr>
 					<tr>
 						<td>자기 소개</td><td><form:input path="introduce" class="w3-input"/><font color="red"><form:errors path="introduce"/></font></td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<td class="w3-center"><input class="w3-button" type="button" value="회원탈퇴" onclick="location.href='delete.jsy?id=${login.memberid}'"></td>
 						<td class="w3-center"><input class="w3-button" type="submit" value="수정"></td>

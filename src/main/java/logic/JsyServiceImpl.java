@@ -136,5 +136,24 @@ public class JsyServiceImpl implements JsyService{
 		boardDao.boardScrap(scrap);
 	}
 
+	@Override
+	public void insertHistory(History history) {
+		userDao.insertHistory(history);
+	}
+
+	@Override
+	public int maxHistoryno() {
+		return userDao.maxHistoryno();
+	}
+
+	@Override
+	public void deleteHistory(int historyno) {
+		userDao.deleteHistory(historyno);
+	}
+
+	@Override
+	public void updateHistory(History history) {
+		userDao.updateHistory(history);
+	}
 	
 }

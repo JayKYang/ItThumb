@@ -21,5 +21,13 @@ public interface UserDao {
 
 	List<History> getHistory(String memberid);
 
+	void insertHistory(History history);
+
+	int maxHistoryno();
+
+	void deleteHistory(int historyno);
+
+	void updateHistory(History history);
+
 
 }

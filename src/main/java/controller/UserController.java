@@ -246,15 +246,23 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User) session.getAttribute("login");
 		User user = service.getUser(id);
+		String pw = null;
+		try {
+			pw = hp.password(password);
+		} catch (NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		if (user == null) {
 			throw new JsyException("삭제 대상 사용자가 존재하지 않습니다.", "delete.jsy?id=" + id);
 		}
 		if (loginUser.getMemberid().equals("admin")) { // 관리자인 경우
-			if (!loginUser.getPassword().equals(password)) {
+			if (!loginUser.getPassword().equals(pw)) {
 				throw new JsyException("관리자 비밀번호가 틀립니다.", "delete.jsy?id=" + id);
 			}
 		} else { // 일반사용자의 경우
-			if (!user.getPassword().equals(password)) {
+			if (!user.getPassword().equals(pw)) {
 				throw new JsyException("비밀번호가 틀립니다.", "delete.jsy?id=" + id);
 			}
 		}
@@ -294,6 +302,15 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
 		User dbUser = service.getUser(user.getMemberid());
+		
+		try {
+			user.setPassword(hp.password(user.getPassword()));
+		} catch (NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		if (loginUser.getMemberid().equals("admin")) {
 			if (!user.getPassword().equals(loginUser.getPassword())) {
 				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage.jsy?id=" + user.getMemberid());

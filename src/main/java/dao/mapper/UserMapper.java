@@ -30,5 +30,15 @@ public interface UserMapper {
 	@Select("select * from history where memberid=#{value} order by getdate")
 	List<History> getHistory(String memberid);
 
+	@Insert("insert into history(historyno,memberid,content,skillful,getdate,enddate,kindno) values(#{historyno},#{memberid},#{content},#{skillful},#{getdate},#{enddate},#{kindno})")
+	void insertHistory(History history);
 
+	@Select("select ifnull(max(historyno),0) from history")
+	int maxHistoryno();
+
+	@Delete("delete from history where historyno=#{value}")
+	void deleteHistory(int historyno);
+
+	@Update("update history set memberid=#{memberid}, content=#{content}, skillful=#{skillful}, getdate=#{getdate}, enddate=#{enddate}, kindno=#{kindno} where historyno=#{historyno}")
+	void updateHistory(History history);
 }
