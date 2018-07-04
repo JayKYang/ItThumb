@@ -38,3 +38,39 @@ create table hireboard(
 	image varchar(200),
 	content varchar(2000)
 )
+
+create table message(
+	messageno int PRIMARY KEY,
+	sender varchar(20),
+	receiver varchar(20),
+	subject varchar(100),
+	content varchar(500),
+	senddate datetime,
+	senddelete int(2),
+	receivedelete int(2),
+	confirm int(2)
+)
+
+create table study(
+	studyno int PRIMARY KEY,
+	memberid varchar(30),
+	region varchar(50),
+	studyname varchar(50),
+	regdate datetime,
+	nowmember int(4),
+	limitmember int(4),
+	content varchar(5000),
+	weekday varchar(20),
+	starttime varchar(10),
+	endtime varchar(10),
+	membername varchar(20)
+)
+create table studygroup(
+	groupno int PRIMARY KEY,
+	studyno int,
+	leadermember varchar(20),
+	regmember varchar(20),
+	state int
+)
+
+

@@ -44,8 +44,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	  <c:if test="${!empty sessionScope.login }">
 		  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy?id=${sessionScope.login.memberid}">마이페이지</a>
 	  </c:if>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/">스터디</a>
-  	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/">쪽지함</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/study/studySearchList.jsy">스터디 검색</a>
+  	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/message/messageList.jsy?sort=1')">쪽지함</a>
   </div>
 </div>
 
@@ -84,6 +84,11 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 </div>
 
 <script>
+
+// 쪽지 관련 스크립트 지우지 말것
+function message_open(url) {
+	window.open(url,"message", "width=600, height=600, left=100, top=100");
+}
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
 

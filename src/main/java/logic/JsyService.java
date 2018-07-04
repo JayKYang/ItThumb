@@ -22,5 +22,46 @@ public interface JsyService {
 
 	void confirmCode(User user);
 
+	int messagecount(String searchType, String searchContent, String sort, String memberid);
+
+	List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, String sort, String memberid);
+
+	Message messageSelect(Integer messageno);
+
+	void messageConfirm(Integer messageno);
+
+	void messagedelete(String messageno, Integer sort);
+
+	void messageDBdelete(String messageno);
+
+	void messageWrite(Message message);
+
+	int messageMax();
+
+	int studycount(String searchType, String searchContent);
+
+	List<Study> studylist(String searchType, String searchContent, Integer pageNum, int limit);
+
+	int studyMaxNum();
+
+	void studyWrite(Study study);
+
+	Study studySelect(Integer studyno);
+
+	Scrap scrapComfirm(int studyno, String memberid);
+
+	int ScrapMaxnum();
+
+	void studyScrapInsert(Scrap insertScrap);
+
+	void studyScrapDelete(int scrap);
+
+	StudyGroup studyGroupComfirm(int studyno, String regmember);
+
+	int studyGroupMaxNum();
+
+	void studyGroupInsert(StudyGroup studyGroupInsert);
+
+	void studyGroupDelete(int groupno);
 
 }
