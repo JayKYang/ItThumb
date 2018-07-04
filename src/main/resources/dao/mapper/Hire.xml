@@ -14,7 +14,7 @@
 			</if>
 		</select>
 		<select id="hirelist" resultType="Hire" parameterType="map">
-		select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image, content, region from hireboard where 1=1
+		select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region from hireboard where 1=1
 		<if test="hireno != null">
 		and hireno = #{hireno}
 		</if>
@@ -27,6 +27,6 @@
 			<if test="searchCarr !=null">
 		and	hirestatus = '%${searchCarr}%'
 			</if>
-			order by hireno
+			order by hireno limit #{startrow}, #{limit}
 		</select>
 </mapper>

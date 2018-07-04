@@ -16,7 +16,9 @@ public interface JsyService {
 
 	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
 
-	void updateUser(User user);
+	void hireWrite(Hire hire, HttpServletRequest request);
+
+	void updateUser(User user, HttpServletRequest request);
 
 	void deleteUser(String id);
 
@@ -63,5 +65,26 @@ public interface JsyService {
 	void studyGroupInsert(StudyGroup studyGroupInsert);
 
 	void studyGroupDelete(int groupno);
+
+	Hire getHire(Integer hireno);
+
+	void readCntplus(Integer hireno);
+
+	void boardScrap(Scrap scrap);
+
+	List<History> getHistory(String memberid);
+
+	void insertHistory(History history);
+
+	int maxHistoryno();
+
+	void deleteHistory(int historyno);
+
+	void updateHistory(History history);
+
+	void updateUserAboutMe(User user, HttpServletRequest request);
+
+	void deleteportfolio(String id);
+
 
 }

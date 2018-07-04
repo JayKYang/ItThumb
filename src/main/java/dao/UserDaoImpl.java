@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
+import logic.History;
 import logic.User;
 
 @Repository
@@ -18,12 +20,10 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void createNormalUser(User user) {
 		sqlSession.getMapper(UserMapper.class).normalInsert(user);
-		
 	}
 	@Override
 	public void createCompanyUser(User user) {
 		sqlSession.getMapper(UserMapper.class).companyInsert(user);
-		
 	}
 	@Override
 	public User selectUser(String memberid) {
@@ -42,5 +42,33 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void confirmCode(User user) {
 		sqlSession.getMapper(UserMapper.class).confirmCode(user);
+	}
+	@Override
+	public List<History> getHistory(String memberid) {
+		return (List<History>) sqlSession.getMapper(UserMapper.class).getHistory(memberid);
+	}
+	@Override
+	public void insertHistory(History history) {
+		sqlSession.getMapper(UserMapper.class).insertHistory(history);
+	}
+	@Override
+	public int maxHistoryno() {
+		return 	sqlSession.getMapper(UserMapper.class).maxHistoryno();
+	}
+	@Override
+	public void deleteHistory(int historyno) {
+		sqlSession.getMapper(UserMapper.class).deleteHistory(historyno);
+	}
+	@Override
+	public void updateHistory(History history) {
+		sqlSession.getMapper(UserMapper.class).updateHistory(history);
+	}
+	@Override
+	public void updateUserAboutMe(User user) {
+		sqlSession.getMapper(UserMapper.class).updateUserAboutMe(user);
+	}
+	@Override
+	public void deleteportfolio(String id) {
+		sqlSession.getMapper(UserMapper.class).deleteportfolio(id);
 	}
 }

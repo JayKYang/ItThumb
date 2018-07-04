@@ -78,13 +78,6 @@
 			</td>
 		</tr>
 		<tr>
-			<td align="center">연락처</td>
-			<td>
-				<form:input path="tel"/>
-				<font color="red"><form:errors path="tel"/></font>
-			</td>
-		</tr>
-		<tr>
 			<td align="center" colspan="2">
 				<input type="submit" value="JOIN">
 			</td>

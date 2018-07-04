@@ -1,6 +1,7 @@
 package logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,7 +68,12 @@ public class JsyServiceImpl implements JsyService{
 	public User getUser(String memberid) {
 		return userDao.selectUser(memberid);
 	}
-
+	
+	@Override
+	public List<History> getHistory(String memberid) {
+		return userDao.getHistory(memberid);
+	}
+	
 	@Override
 	public int boardcount(String searchRegion, String searchEdu, String searchCarr) {
 		
@@ -81,7 +87,34 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void hireWrite(Hire hire, HttpServletRequest request) {
+		if(hire.getImage() != null && !hire.getImage().isEmpty()) {
+			uploadhireImageCreate(hire.getImage(),request);
+			hire.setImageUrl(hire.getImage().getOriginalFilename());
+		}
+		
+		int num = boardDao.maxNum();
+		hire.setHireno(++num);
+		
+		boardDao.hireWrite(hire);
+	}
+
+	private void uploadhireImageCreate(MultipartFile image, HttpServletRequest request) {
+		String uploadPath = request.getServletContext().getRealPath("/") + "/hireimg/";  
+		
+		String orgFile = image.getOriginalFilename();
+		try {
+			image.transferTo(new File(uploadPath + orgFile));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
+	public void updateUser(User user, HttpServletRequest request) {
+		if(user.getImage() != null && !user.getImage().isEmpty()) {
+			uploadUserImageCreate(user.getImage(), request);
+			user.setImageUrl(user.getImage().getOriginalFilename());
+		}
 		userDao.updateUser(user);
 	}
 
@@ -93,6 +126,55 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void confirmCode(User user) {
 		userDao.confirmCode(user);
+	}
+
+	@Override
+	public Hire getHire(Integer hireno) {
+		
+		return boardDao.getHire(hireno);
+	}
+
+	@Override
+	public void readCntplus(Integer hireno) {
+		boardDao.readCntplus(hireno);
+	}
+
+	@Override
+	public void boardScrap(Scrap scrap) {
+		
+		int num = boardDao.scrapMaxnum();
+		scrap.setScrap(++num);
+		
+		boardDao.boardScrap(scrap);
+	}
+
+	@Override
+	public void insertHistory(History history) {
+		userDao.insertHistory(history);
+	}
+
+	@Override
+	public int maxHistoryno() {
+		return userDao.maxHistoryno();
+	}
+
+	@Override
+	public void deleteHistory(int historyno) {
+		userDao.deleteHistory(historyno);
+	}
+
+	@Override
+	public void updateHistory(History history) {
+		userDao.updateHistory(history);
+	}
+
+	@Override
+	public void updateUserAboutMe(User user, HttpServletRequest request) {
+		if(user.getImage() != null && !user.getImage().isEmpty()) {
+			uploadUserImageCreate(user.getImage(), request);
+			user.setImageUrl(user.getImage().getOriginalFilename());
+		}
+		userDao.updateUserAboutMe(user);
 	}
 
 	@Override
@@ -209,5 +291,9 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 
+	@Override
+	public void deleteportfolio(String id) {
+		userDao.deleteportfolio(id);
+	}
 	
 }
