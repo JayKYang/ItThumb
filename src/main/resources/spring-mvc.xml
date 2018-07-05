@@ -63,6 +63,7 @@
 				 -->
 				<!-- exception.CartEmptyException이 발생하면  exception.jsp로 가-->
 				exception.JsyException=exception
+				exception.MessageException=msgclose
 			</value>
 		</property>
 	</bean>

@@ -47,5 +47,9 @@ public class StudyDaoImpl implements StudyDao{
 	public Study studySelect(Integer studyno) {
 		return sqlSession.getMapper(StudyMapper.class).studySelect(studyno);
 	}
+	@Override
+	public void studyDelete(Integer studyno) {
+		sqlSession.getMapper(StudyMapper.class).studyDelete(studyno);
+	}
 
 }

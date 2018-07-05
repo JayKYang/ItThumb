@@ -86,5 +86,7 @@ public interface JsyService {
 
 	void deleteportfolio(String id);
 
+	void studyDelete(Integer studyno);
+
 
 }

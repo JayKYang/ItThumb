@@ -295,5 +295,10 @@ public class JsyServiceImpl implements JsyService{
 	public void deleteportfolio(String id) {
 		userDao.deleteportfolio(id);
 	}
+
+	@Override
+	public void studyDelete(Integer studyno) {
+		studyDao.studyDelete(studyno);
+	}
 	
 }

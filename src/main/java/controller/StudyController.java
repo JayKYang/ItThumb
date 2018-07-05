@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class StudyController {
 	JsyService service;
 	
 	@RequestMapping("study/studySearchList")
-	public ModelAndView studySearchList(HttpServletRequest request,Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView logconstudySearchList(HttpSession session,Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		
 		if(pageNum == null || pageNum.toString().equals("")) {
@@ -200,5 +201,22 @@ public class StudyController {
 			 map.put("success", "delete");
 		 }
 		 return map;
+	}
+	
+	@RequestMapping("study/studyDelete")
+	public ModelAndView delConstudyDelete(HttpSession session, String memberid, Integer studyno, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			service.studyDelete(studyno);
+			mav.addObject("msg","삭제 성공");
+			mav.addObject("url","studySearchList.jsy?pageNum="+pageNum);
+			mav.setViewName("alert");
+		}catch (Exception e) {
+			mav.addObject("msg","삭제 실패");
+			mav.addObject("url","studyInfo.jsy?pageNum="+pageNum+"&studyno="+studyno);
+			mav.setViewName("alert");
+			return mav;
+		}
+		return mav;
 	}
 }
