@@ -10,7 +10,9 @@
 <script>
 	$(document).ready(function(){
 		url = document.URL.split("#");
-		openMypage(url[1])
+		if(url[1]!=null){
+			openMypage(url[1]);
+		}
 	});
 	function openMypage(mypageName) {
 	    var i;
@@ -103,7 +105,7 @@
 			</div>
 		</div>
 		<hr>
-		<div id="info" class="mypage">
+		<div id="info" class="mypage" style="display:block;">
 			<form:form modelAttribute="user" method="post" action="mypage.jsy" enctype="multipart/form-data">
 				<form:hidden path="imageUrl" />
 				<spring:hasBindErrors name="user">

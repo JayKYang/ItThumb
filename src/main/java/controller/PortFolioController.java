@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import logic.History;
 import logic.JsyService;
+import logic.Project;
 import logic.User;
 
 @Controller
@@ -43,7 +45,8 @@ public class PortFolioController {
 		User loginUser = (User) request.getSession().getAttribute("login");
 		dbUser.setHistoryList(service.getHistory(id));
 		request.getSession().setAttribute("user", dbUser);
-		
+		List<Project> project = service.getProject(id);
+		mav.addObject("projectList",project);
 		if(dbUser.getCreatepf()==0) {
 			if(id.equals(loginUser.getMemberid())) {
 				mav.addObject("msg","포트폴리오가 없습니다. 작성페이지로 이동합니다.");
@@ -66,8 +69,11 @@ public class PortFolioController {
 		User dbUser = service.getUser(id);
 		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
 		request.getSession().setAttribute("login", dbUser);
+		List<Project> project = service.getProject(id);
+		
 		if(id.equals(loginUser.getMemberid())) {
 			mav.addObject("user", dbUser);
+			mav.addObject("projectList",project);
 		}else {
 			mav.addObject("msg","해당 경로로 접근이 불가합니다.");
 			mav.addObject("url","../../main.jsy?id="+id);
@@ -271,6 +277,61 @@ public class PortFolioController {
 		request.getSession().setAttribute("login", loginUser);
 		
 		return map;
+	}
+	
+	@RequestMapping(value = "user/portfolio/projectform", method = RequestMethod.GET)
+	public ModelAndView projectform(String id, String projectno, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[PortFolioController] => user/portfolio/projectform[GET]");
+		User dbUser = service.getUser(id);
+		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
+		request.getSession().setAttribute("login", dbUser);
+		Project project = new Project();
+		System.out.println(projectno);
+		if(projectno != null) {
+			project = service.getProject(id,projectno);
+			mav.addObject("pno",projectno);
+		}
+		mav.addObject("project",project);
+		System.out.println(project);
+		mav.addObject("user", dbUser);
+		return mav;
+	}
+	@RequestMapping(value = "user/portfolio/projectform", method = RequestMethod.POST)
+	public ModelAndView insertproject(Project project, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[PortFolioController] => user/portfolio/projectform[POST]");
+		User loginUser = (User) request.getSession().getAttribute("login"); 
+
+		System.out.println(project);
+		if(project.getProjectno()==0) { // insert
+			int pno = service.maxProjectno();
+			project.setProjectno(++pno);
+			service.insertproject(project,request);
+			mav.addObject("msg","등록 완료.");
+		}else {
+			service.updateproject(project,request);
+			mav.addObject("msg","수정 완료.");
+		}
+		
+		mav.addObject("url","portfolioform.jsy?id="+loginUser.getMemberid()+"#project");
+		mav.setViewName("alert");
+		
+		return mav;
+	}
+	
+	@RequestMapping("user/portfolio/deleteproject")
+	public ModelAndView deleteproject(String id, String projectno, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[PortFolioController] => user/portfolio/deleteproject");
+		User dbUser = service.getUser(id);
+		request.getSession().setAttribute("login", dbUser);
+		service.deleteProject(projectno);
+//		mav.addObject("user", dbUser);
+		mav.addObject("msg","삭제 완료.");
+		mav.addObject("url","portfolioform.jsy?id="+id+"#project");
+		mav.setViewName("alert");
+		return mav;
 	}
 }
 

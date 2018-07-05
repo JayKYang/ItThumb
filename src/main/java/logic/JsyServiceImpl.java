@@ -15,6 +15,7 @@ import dao.CommunityDao;
 import dao.FilerepDao;
 import dao.MessageDao;
 import dao.ReplyDao;
+import dao.PortFolioDao;
 import dao.ScrapDao;
 import dao.StudyDao;
 import dao.StudyGroupDao;
@@ -24,6 +25,8 @@ import dao.UserDao;
 public class JsyServiceImpl implements JsyService{
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private PortFolioDao portfolioDao;
 	@Autowired
 	private BoardDao boardDao;
 	@Autowired
@@ -62,7 +65,7 @@ public class JsyServiceImpl implements JsyService{
 		}
 		
 	}
-
+	
 	@Override
 	public void createCompanyUser(User user, HttpServletRequest request) {
 		if(user.getImage() != null && !user.getImage().isEmpty()) {
@@ -80,7 +83,7 @@ public class JsyServiceImpl implements JsyService{
 	
 	@Override
 	public List<History> getHistory(String memberid) {
-		return userDao.getHistory(memberid);
+		return portfolioDao.getHistory(memberid);
 	}
 	
 	@Override
@@ -159,22 +162,22 @@ public class JsyServiceImpl implements JsyService{
 
 	@Override
 	public void insertHistory(History history) {
-		userDao.insertHistory(history);
+		portfolioDao.insertHistory(history);
 	}
 
 	@Override
 	public int maxHistoryno() {
-		return userDao.maxHistoryno();
+		return portfolioDao.maxHistoryno();
 	}
 
 	@Override
 	public void deleteHistory(int historyno) {
-		userDao.deleteHistory(historyno);
+		portfolioDao.deleteHistory(historyno);
 	}
 
 	@Override
 	public void updateHistory(History history) {
-		userDao.updateHistory(history);
+		portfolioDao.updateHistory(history);
 	}
 
 	@Override
@@ -183,7 +186,7 @@ public class JsyServiceImpl implements JsyService{
 			uploadUserImageCreate(user.getImage(), request);
 			user.setImageUrl(user.getImage().getOriginalFilename());
 		}
-		userDao.updateUserAboutMe(user);
+		portfolioDao.updateUserAboutMe(user);
 	}
 
 	@Override
@@ -302,7 +305,22 @@ public class JsyServiceImpl implements JsyService{
 
 	@Override
 	public void deleteportfolio(String id) {
-		userDao.deleteportfolio(id);
+		portfolioDao.deleteportfolio(id);
+	}
+
+	@Override
+	public List<Project> getProject(String id) {
+		return portfolioDao.getProject(id);
+	}
+
+	@Override
+	public Project getProject(String id, String projectno) {
+		return portfolioDao.getProjectone(id,projectno);
+	}
+
+	@Override
+	public void deleteProject(String projectno) {
+		 portfolioDao.deleteProject(projectno);
 	}
 
 	@Override
@@ -315,4 +333,37 @@ public class JsyServiceImpl implements JsyService{
 		studyDao.studyUpdate(study);
 	}
 	
+	private void uploadprojectImageCreate(MultipartFile image, HttpServletRequest request) {
+		String uploadPath = request.getServletContext().getRealPath("/") + "/projectimg/";  
+		
+		String orgFile = image.getOriginalFilename();
+		try {
+			image.transferTo(new File(uploadPath + orgFile));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public void insertproject(Project project, HttpServletRequest request) {
+		if(project.getImagefile() != null && !project.getImagefile().isEmpty()) {
+			uploadprojectImageCreate(project.getImagefile(),request);
+			project.setImagefileUrl(project.getImagefile().getOriginalFilename());
+		}
+		portfolioDao.insertproject(project);
+	}
+
+	@Override
+	public int maxProjectno() {
+		return portfolioDao.maxProjectno();
+	}
+
+	@Override
+	public void updateproject(Project project, HttpServletRequest request) {
+		if(project.getImagefile() != null && !project.getImagefile().isEmpty()) {
+			uploadprojectImageCreate(project.getImagefile(),request);
+			project.setImagefileUrl(project.getImagefile().getOriginalFilename());
+		}
+		 portfolioDao.updateproject(project);
+	}
+
 }
