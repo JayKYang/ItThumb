@@ -6,9 +6,7 @@ public class Scrap {
 	private int hireno;
 	private int studyno;
 	private String scrapmember;
-	
-	
-	//getter,setter,toString
+
 	public int getScrap() {
 		return scrap;
 	}
@@ -39,8 +37,7 @@ public class Scrap {
 	public void setScrapmember(String scrapmember) {
 		this.scrapmember = scrapmember;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Scrap [scrap=" + scrap + ", memberid=" + memberid + ", hireno=" + hireno + ", studyno=" + studyno
