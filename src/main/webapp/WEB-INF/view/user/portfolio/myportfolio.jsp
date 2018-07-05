@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <title>잇썸 > 포트폴리오</title>
@@ -20,6 +18,9 @@
 	        x[i].style.display = "none"; 
 	    }
 	    document.getElementById(pageName).style.display = "block"; 
+	}
+	function message_open(url) {
+		window.open(url, "message","width=40%, height=80%, left=100, top=100");
 	}
 	</script>
 	<style>
@@ -131,6 +132,20 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 		  	</div>
 		</div>
 	</div>
+	<c:if test="${sessionScope.login.memberid == user.memberid }">
+		<table style="width: 98%">
+				<tr>
+					<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'"><i class="fa fa-edit"></i> 수정하기</a></td>
+				</tr>
+		</table>
+	</c:if>
+	<c:if test="${sessionScope.login.memberid != user.memberid }">
+		<table style="width: 98%">
+				<tr>
+					<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:message_open('../../message/messageWrite.jsy?memberid=${user.memberid}')">메세지보내기<i class="fa fa-commenting"></i></a></td>
+				</tr>
+		</table>
+	</c:if>
 </div>
 
 <div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display:none">

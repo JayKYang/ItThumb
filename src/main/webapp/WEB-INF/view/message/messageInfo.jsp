@@ -13,7 +13,7 @@
 </style>
 <body>
 
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+<nav class="w3-sidebar w3-bar-block w3-small w3-center">
   <a href="messageList.jsy?sort=1" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
     <p class="w3-text-light-grey">받은 쪽지함</p>
   </a>
@@ -24,14 +24,6 @@
     <p class="w3-text-light-grey">쪽지 보내기</p>
   </a>
 </nav>
-
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="messageList.jsy?sort=1" class="w3-bar-item w3-button" style="width:25% !important">받은 쪽지함</a>
-    <a href="messageList.jsy?sort=2" class="w3-bar-item w3-button" style="width:25% !important">보낸 족지함</a>
-    <a href="messagewrite.jsy" class="w3-bar-item w3-button" style="width:25% !important">쪽지 보내기</a>
-  </div>
-</div>
 
 <div class="w3-container" id="main">
 	<div>
