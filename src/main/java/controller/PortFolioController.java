@@ -59,10 +59,13 @@ public class PortFolioController {
 	
 	@RequestMapping("user/portfolio/portfolioform")
 	public ModelAndView portfolioform(HttpServletRequest request) {
+		System.out.println("[PortFolioController] => user/portfolio/portfolioform");
 		ModelAndView mav = new ModelAndView();
 		String id = request.getParameter("id");
 		User loginUser = (User) request.getSession().getAttribute("login");
 		User dbUser = service.getUser(id);
+		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
+		request.getSession().setAttribute("login", dbUser);
 		if(id.equals(loginUser.getMemberid())) {
 			mav.addObject("user", dbUser);
 		}else {
@@ -70,6 +73,8 @@ public class PortFolioController {
 			mav.addObject("url","../../main.jsy?id="+id);
 			mav.setViewName("alert");
 		}
+		
+		
 		return mav;
 	}
 	@RequestMapping("user/portfolio/deleteportfolio")
@@ -106,7 +111,7 @@ public class PortFolioController {
 		System.out.println(user);
 		User loginUser = (User)request.getSession().getAttribute("login");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:portfolioform.jsy?id=test@test.test");
+		mav.setViewName("redirect:portfolioform.jsy?id="+user.getMemberid());
 //		if(bindingResult.hasErrors()) {
 //			System.out.println("[PortFolioController] => user/portfolio/updateAboutMe[POST] => bindingResult Err");
 //			mav.getModel().putAll(bindingResult.getModel());
