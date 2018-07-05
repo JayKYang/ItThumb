@@ -286,10 +286,12 @@ public class UserController {
 
 
 	@RequestMapping(value = "user/mypage", method = RequestMethod.GET)
-	public ModelAndView updateForm(String id) {
+	public ModelAndView updateForm(String id, HttpServletRequest request) {
 		System.out.println("[UserController] => user/mypage[GET]");
 		ModelAndView mav = new ModelAndView();
 		User user = service.getUser(id);
+		user.setHistoryList(service.getHistory(user.getMemberid()));
+		request.getSession().setAttribute("login", user);
 		System.out.println(user);
 		mav.addObject("user", user);
 		return mav; // 뷰이름만 리턴
