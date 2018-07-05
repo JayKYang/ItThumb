@@ -3,6 +3,8 @@ package logic;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Future;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +19,7 @@ public class Hire implements Serializable{
 	private String workday;
 	private String memberid;
 	private int hide;
+	@Future(message="미래날짜를 적어주세요")
 	private Date deadline;
 	private int readcnt;
 	@NotEmpty(message="제목을 입력해주세요")
@@ -24,13 +27,20 @@ public class Hire implements Serializable{
 	private MultipartFile image;
 	@NotEmpty(message="공고신청 내용을 입력해주세요")
 	private String content;
-	@NotEmpty(message="근무지역을 입력해주세요")
+	@NotEmpty(message="근무지역을 선택해주세요")
 	private String region;
 	private String imageUrl;
+	private String company;
+	@NotEmpty(message="나머지 근무지역을 입력해주세요.")
+	private String regionetc;
+	private Date regdate;
+	@NotEmpty(message="경력을 선택해 주세요.")
+	private String career;
+	private String careerdate;
+	@NotEmpty(message="구를 선택해주세요.")
+	private String regiongu;
 	
-	
-	//getter,setter, toString
-	
+	//getter, setter, toString
 	public int getHireno() {
 		return hireno;
 	}
@@ -115,14 +125,56 @@ public class Hire implements Serializable{
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getRegionetc() {
+		return regionetc;
+	}
+	public void setRegionetc(String regionetc) {
+		this.regionetc = regionetc;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	public String getCareer() {
+		return career;
+	}
+	public void setCareer(String career) {
+		this.career = career;
+	}
+	public String getCareerdate() {
+		return careerdate;
+	}
+	public void setCareerdate(String careerdate) {
+		this.careerdate = careerdate;
+	}
+	public String getRegiongu() {
+		return regiongu;
+	}
+	public void setRegiongu(String regiongu) {
+		this.regiongu = regiongu;
+	}
 	@Override
 	public String toString() {
 		return "Hire [hireno=" + hireno + ", qualification=" + qualification + ", hirestatus=" + hirestatus
 				+ ", salary=" + salary + ", workday=" + workday + ", memberid=" + memberid + ", hide=" + hide
 				+ ", deadline=" + deadline + ", readcnt=" + readcnt + ", subject=" + subject + ", image=" + image
-				+ ", content=" + content + ", region=" + region + ", imageUrl=" + imageUrl + "]";
+				+ ", content=" + content + ", region=" + region + ", imageUrl=" + imageUrl + ", company=" + company
+				+ ", regionetc=" + regionetc + ", regdate=" + regdate + ", career=" + career + ", careerdate="
+				+ careerdate + ", regiongu=" + regiongu + "]";
 	}
+	
+	
+
+	
+	
 	
 	
 	

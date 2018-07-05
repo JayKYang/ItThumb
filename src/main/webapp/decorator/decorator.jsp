@@ -38,8 +38,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     </c:if>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/hire/hirelist.jsy">채용공고</a>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
-	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
-	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.shop">관리자</a>
+	  <c:if test="${sessionScope.login.memberid=='admin@admin.com' }">
+	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.jsy">관리자</a>
 	  </c:if>
 	  <c:if test="${!empty sessionScope.login }">
 		  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy?id=${sessionScope.login.memberid}">마이페이지</a>

@@ -6,5 +6,8 @@
 		<if test="memberid != null">
 			where memberid=#{memberid}
 		</if>
+		<if test="membergrade != null">
+			where membergrade = #{membergrade}
+		</if> 
 	</select>
 </mapper>

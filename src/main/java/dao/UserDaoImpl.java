@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,5 +43,11 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void confirmCode(User user) {
 		sqlSession.getMapper(UserMapper.class).confirmCode(user);
+	}
+	@Override
+	public List<User> userList(Integer membergrade) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("membergrade", membergrade);
+		return sqlSession.selectList(NS+"getUser",map);
 	}
 }

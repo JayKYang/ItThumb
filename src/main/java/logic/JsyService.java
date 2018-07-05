@@ -12,9 +12,9 @@ public interface JsyService {
 
 	User getUser(String memberid);
 
-	int boardcount(String searchRegion, String searchEdu, String searchCarr);
+	int boardcount(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate);
 
-	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
+	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate,  Integer pageNum, int limit);
 
 	void hireWrite(Hire hire, HttpServletRequest request);
 
@@ -28,7 +28,28 @@ public interface JsyService {
 
 	void readCntplus(Integer hireno);
 
-	void boardScrap(Scrap scrap);
+	void boardScrap(Scrap scrap, Integer hireno);
+
+	String selectScrap(Integer hireno, String memberid);
+
+	void deleteScrap(Integer hireno, String memberid);
+
+	List<User> userList(Integer membergrade);
+
+	int popBoardcount();
+
+	List<Hire> popHirelist(int popLimit);
+
+	List<Hire> getHirelist();
+
+	void updateHide(int hireno);
+
+
+
+
+
+	
+
 
 
 
