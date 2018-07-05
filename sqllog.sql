@@ -38,3 +38,66 @@ create table hireboard(
 	image varchar(200),
 	content varchar(2000)
 )
+
+create table studygroup(
+	groupno int PRIMARY KEY,
+	studyno int,
+	leadermember varchar(20),
+	regmember varchar(20),
+	state int
+)
+
+create table scrap (
+   scrap int not null primary key,
+   memberid varchar(30) not null,
+   hireno int,
+   studyno int,
+   scrapmember varchar(30)
+)
+
+create table hireboard(
+   hireno int PRIMARY KEY,
+   qualification varchar(100),
+   hirestatus varchar(20),
+   salary int,
+   workday varchar(20),
+   memberid varchar(30),
+   hide int(2),
+   deadline datetime,
+   readcnt int,
+   subject varchar(100),
+   image varchar(200),
+   content varchar(2000),
+   region varchar(10),
+   company varchar(20),
+   regionetc varchar(30),
+   regdate datetime,
+   career varchar(5),
+   careerdate varchar(20)   
+)
+
+create table study(
+	studyno int PRIMARY KEY,
+	memberid varchar(30),
+	region varchar(50),
+	studyname varchar(50),
+	regdate date,
+	nowmember int,
+	limitmember int,
+	content varchar(5000),
+	weekday varchar(20),
+	starttime varchar(10),
+	endtime varchar(10),
+	membername(20)
+)
+create table message(
+	messageno int PRIMARY KEY,
+	sender varchar(20),
+	receiver varchar(20),
+	subject varchar(100),
+	content varchar(500),
+	senddate datetime,
+	senddelete int(2),
+	receivedelete int(2),
+	confirm int(2)
+)
