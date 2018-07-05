@@ -43,32 +43,4 @@ public class UserDaoImpl implements UserDao{
 	public void confirmCode(User user) {
 		sqlSession.getMapper(UserMapper.class).confirmCode(user);
 	}
-	@Override
-	public List<History> getHistory(String memberid) {
-		return (List<History>) sqlSession.getMapper(UserMapper.class).getHistory(memberid);
-	}
-	@Override
-	public void insertHistory(History history) {
-		sqlSession.getMapper(UserMapper.class).insertHistory(history);
-	}
-	@Override
-	public int maxHistoryno() {
-		return 	sqlSession.getMapper(UserMapper.class).maxHistoryno();
-	}
-	@Override
-	public void deleteHistory(int historyno) {
-		sqlSession.getMapper(UserMapper.class).deleteHistory(historyno);
-	}
-	@Override
-	public void updateHistory(History history) {
-		sqlSession.getMapper(UserMapper.class).updateHistory(history);
-	}
-	@Override
-	public void updateUserAboutMe(User user) {
-		sqlSession.getMapper(UserMapper.class).updateUserAboutMe(user);
-	}
-	@Override
-	public void deleteportfolio(String id) {
-		sqlSession.getMapper(UserMapper.class).deleteportfolio(id);
-	}
 }

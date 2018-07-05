@@ -12,9 +12,27 @@
 <head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script>
+	$(document).ready(function(){
+		url = document.URL.split("#");
+		if(url[1]!=null){
+			openPortfolio(url[1]);
+		}
+	});
+	
+	function openPortfolio(mypageName) {
+	    var i;
+	    var x = document.getElementsByClassName("portfoliopage");
+	    for (i = 0; i < x.length; i++) {
+	        x[i].style.display = "none"; 
+	    }
+	    document.getElementById(mypageName).style.display = "block"; 
+	}
+</script>
+<script>
 	var count1 = 500;
 	var count2 = 600;
 	var count3 = 700;
+	var count4 = 800;
 
 	function openPortfolio(pageName) {
 		var i;
@@ -77,7 +95,7 @@
 				alert('이전 작업이 완료되지 않았습니다.');
 			}
 		}
-		else{
+		else if(addedFormDiv.id=='licenseform'){
 			inputtext = '<table><tr><td style="width:20%"><input id="getdate_'+count3+'" class="w3-input" type="date" placeholder="취득일자" name="getdate" style="width:80px;font-size:10px;"/></td>'
 				+ '<td style="width:30%"><input id="content_'+count3+'" class="w3-input" type="text" placeholder="내용" name="content" style="font-size:10px;"/></td>'
 				+ '<td style="width:5%"><a id="insert_'+addedFormDiv.id +'_'+ count3 + '" class="w3-button" onclick="insertExperience(\'' + addedFormDiv.id+'_'+ count3 + '_2\')"><i class="fa fa-file-text-o"></i></a></td>'
@@ -87,16 +105,28 @@
 			if( $("#chk_"+addedFormDiv.id+"_"+(count3-1)).length == 0 || $("#chk_"+addedFormDiv.id+"_"+(count3-1)).attr('checked') == 'checked' ){
 				var addedDiv = document.createElement("div");
 				addedDiv.setAttribute("id", addedFormDiv.id + "_" + count3);
-				addedDiv.innerHTML = inputtext;
-		
-				addedFormDiv.appendChild(addedDiv);
-		
+				addedDiv.innerHTML = inputtext;		
+				addedFormDiv.appendChild(addedDiv);		
 				count3++;			
 			}
 			else{
 				alert('이전 작업이 완료되지 않았습니다.');
 			}
 		}
+		/* else{ // projectform
+			inputtext='<h3>프로젝트</h3><input id="chk_'+addedFormDiv.id +'_'+ count4 + '" type="checkbox" style="display:none"><hr>';
+			
+			if( $("#chk_"+addedFormDiv.id+"_"+(count4-1)).length == 0 || $("#chk_"+addedFormDiv.id+"_"+(count4-1)).attr('checked') == 'checked' ){
+				var addedDiv = document.createElement("div");
+				addedDiv.setAttribute("id", addedFormDiv.id + "_" + count4);
+				addedDiv.innerHTML = inputtext;		
+				addedFormDiv.appendChild(addedDiv);		
+				count4++;			
+			}
+			else{
+				alert('이전 작업이 완료되지 않았습니다.');
+			}
+		} */
 		
 	}
 	
@@ -197,6 +227,27 @@
 	        if (checkload == true) return "";
 	    });
 	}); */
+	
+	 // 사진 파일추가버튼 없이 이미지눌렀을 때 클릭이벤트 발생시키는 자바스크립트
+    function eventOccur(evEle, evType){
+ 	   if (evEle.fireEvent) {
+ 	   evEle.fireEvent('on' + evType);
+ 	   } else {
+ 	   //MouseEvents가 포인트 그냥 Events는 안됨~ ??
+ 	   var mouseEvent = document.createEvent('MouseEvents');
+ 	   /* API문서 initEvent(type,bubbles,cancelable) */
+ 	   mouseEvent.initEvent(evType, true, false);
+ 	   var transCheck = evEle.dispatchEvent(mouseEvent);
+ 	   if (!transCheck) {
+ 	   //만약 이벤트에 실패했다면
+ 	   console.log("클릭 이벤트 발생 실패!");
+ 	   }
+ 	   }
+ 	  }
+	 function fileUpload(){
+ 	   eventOccur(document.getElementById('imagefile'),'click');
+ 	   /* alert(orgFile.value); 이벤트 처리가 끝나지 않은 타이밍이라 값 확인 안됨! 시간차 문제 */
+ 	  }
 </script>
 </head>
 <style>
@@ -227,9 +278,12 @@ body, h1, h2, h3, h4, h5, h6 {
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
 		<!-- Avatar image in top left corner -->
-		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"	onclick="openPortfolio('about')"><i class="fa fa-user w3-xxlarge"></i>
-			<p>ABOUT ME</p>
-		</a> <a class="w3-bar-item w3-button w3-padding-large w3-hover-gray" onclick="openPortfolio('project')"><i class="fa fa-eye w3-xxlarge"></i>
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
+		    <i class="fa fa-user w3-xxlarge"></i>
+		    <p>ABOUT ME</p>
+	    </a>
+		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('project')">
+			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
 	</nav>
@@ -395,9 +449,9 @@ body, h1, h2, h3, h4, h5, h6 {
 			</div>
 		</div>
 		<table style="width: 98%">
-			<tr>
-				<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</a></td>
-			</tr>
+				<tr>
+					<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</a></td>
+				</tr>
 		</table>
 		</form:form>
 	</div>
@@ -408,7 +462,18 @@ body, h1, h2, h3, h4, h5, h6 {
 		<h3 class="w3-center">
 			<a class="w3-xxxlarge">프로젝트</a>
 		</h3>
-		
+		<div class="w3-content w3-container w3-padding-32 w3-center">
+			<c:if test="${!empty projectList }">
+				<table style="width:70%;" class="">
+					<tr><th>제목</th><th></th></tr>
+					<c:forEach items="${projectList }" var="project">
+						<tr><td>${project.subject }</td><td><a href="projectform.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">수정</a>
+						<a href="deleteproject.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">삭제</a></td></tr>
+					</c:forEach>
+					<tr><td colspan="2" align="center"><a href="projectform.jsy?id=${sessionScope.login.memberid }">글쓰기</a></td></tr>
+				</table>
+			</c:if>
+		</div>
 	</div>
 
 	<!-- Footer -->

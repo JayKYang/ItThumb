@@ -101,3 +101,16 @@ create table message(
 	receivedelete int(2),
 	confirm int(2)
 )
+
+CREATE TABLE project
+(
+	projectno int primary key,
+	memberid varchar(30) NOT NULL,
+	subject varchar(10) NOT NULL,
+	imagefile varchar(100),
+	term varchar(50),
+	content varchar(4000) NOT NULL,
+	role varchar(100),
+	link varchar(100),
+	skills varchar(500)
+);

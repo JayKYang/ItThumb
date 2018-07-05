@@ -86,5 +86,17 @@ public interface JsyService {
 
 	void deleteportfolio(String id);
 
+	List<Project> getProject(String id);
+
+	Project getProject(String id, String projectno);
+
+	void deleteProject(String projectno);
+
+	int maxProjectno();
+
+	void updateproject(Project project, HttpServletRequest request);
+
+	void insertproject(Project project, HttpServletRequest request);
+
 
 }
