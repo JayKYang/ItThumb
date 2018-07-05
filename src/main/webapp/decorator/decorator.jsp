@@ -45,6 +45,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 		  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy?id=${sessionScope.login.memberid}">마이페이지</a>
 	  </c:if>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/study/studySearchList.jsy">스터디 검색</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/community/communityBoard.jsy?communitykind=1">커뮤니티</a>
   	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/message/messageList.jsy?sort=1')">쪽지함</a>
   </div>
 </div>

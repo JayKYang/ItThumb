@@ -60,6 +60,13 @@
 			return;
 		}
 	}
+	function updateConfirm(pageNum, studyno, memberid) {
+		if(confirm("수정 할까요?") == true){
+			location.href="studyUpdate.jsy?pageNum="+pageNum+"&studyno="+studyno+"&memberid="+memberid;
+		}else{
+			return;
+		}
+	}
 </script>
 </head>
 <body>
@@ -82,6 +89,7 @@
 			<td colspan="2">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:message_open('../message/messageWrite.jsy?memberid=${study.memberid}')" value="작성자에게 쪽지보내기">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='studySearchList.jsy?pageNum=${pageNum}'" value="목록">
+				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:updateConfirm('${pageNum}','${study.studyno}','${study.memberid}')" value="수정">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:deleteConfirm('${pageNum}','${study.studyno}','${study.memberid}')" value="삭제">
 			</td>
 		</tr>

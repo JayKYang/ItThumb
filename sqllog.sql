@@ -101,3 +101,28 @@ create table message(
 	receivedelete int(2),
 	confirm int(2)
 )
+
+create table community(
+	communityno int PRIMARY KEY,
+	memberid varchar(30),
+	subject varchar(30),
+	content varchar(5000),
+	regdate datetime,
+	communitykind int
+)
+create table filerep(
+	fileno int PRIMARY KEY,
+	communityno int,
+	fname varchar(50)
+)
+create table reply(
+	replyno int PRIMARY KEY,
+	memberid varchar(30),
+	name varchar(20),
+	content varchar(1000),
+	regdate datetime,
+	ref int,
+	reflevel int,
+	refstep int,
+	communityno int
+)

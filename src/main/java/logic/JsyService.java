@@ -88,5 +88,7 @@ public interface JsyService {
 
 	void studyDelete(Integer studyno);
 
+	void studyUpdate(Study study);
+
 
 }

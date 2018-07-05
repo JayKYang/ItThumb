@@ -130,6 +130,49 @@ public class StudyController {
 		return mav;
 	}
 	
+	@RequestMapping(value="study/studyUpdate", method=RequestMethod.GET)
+	public ModelAndView studyConstudyUpdate(HttpSession session, String memberid, Integer studyno, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			Study study = service.studySelect(studyno);
+			mav.addObject("study", study);
+			mav.addObject("pageNum", pageNum);
+		}catch (Exception e) {
+			mav.addObject("msg","수정 실패");
+			mav.addObject("url","studyInfo.jsy?pageNum="+pageNum+"&studyno="+studyno);
+			mav.setViewName("alert");
+			return mav;
+		}
+		return mav;
+	}
+	@RequestMapping(value="study/studyUpdate", method=RequestMethod.POST)
+	public ModelAndView studyUpdateReg(@Valid Study study, BindingResult bindingResult, HttpServletRequest request, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		if(bindingResult.hasErrors()) {
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("memberid", study.getMemberid());
+			mav.addObject("studyno", study.getStudyno());
+			mav.addObject("pageNum", pageNum);
+			mav.addObject("study", study);
+			return mav;
+		}
+		
+		//스터디번호
+		try {
+			service.studyUpdate(study);
+			mav.addObject("msg","수정 성공");
+			mav.addObject("url","studyInfo.jsy?pageNum="+pageNum+"&studyno="+study.getStudyno());
+			mav.setViewName("alert");
+		}catch (Exception e) {
+			mav.addObject("study", study);
+			mav.addObject("msg","수정 실패");
+			mav.addObject("url","studyUpdate.jsy?pageNum="+pageNum+"&studyno="+study.getStudyno()+"&memberid="+study.getMemberid());
+			mav.setViewName("alert");
+			return mav;
+		}
+		return mav;
+	}
+	
 	@RequestMapping("study/studyScrap")
 	@ResponseBody
 	public HashMap<String, String> studyScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
@@ -204,7 +247,7 @@ public class StudyController {
 	}
 	
 	@RequestMapping("study/studyDelete")
-	public ModelAndView delConstudyDelete(HttpSession session, String memberid, Integer studyno, Integer pageNum) {
+	public ModelAndView studyConstudyDelete(HttpSession session, String memberid, Integer studyno, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			service.studyDelete(studyno);

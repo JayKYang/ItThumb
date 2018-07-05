@@ -41,7 +41,7 @@ public class AopAspect {
 	 }
 	 
 	 //study게시물 작성자 & 세션 id 비교 검사
-	 @Around("execution(* controller.Study*.delCon*(..))") //study컨트롤러에  delCon으로 시작되는 메서드
+	 @Around("execution(* controller.Study*.studyCon*(..))") //study컨트롤러에  delCon으로 시작되는 메서드
 	 public Object deleteConfirmCheck(ProceedingJoinPoint joinPoint) throws Throwable{
 		
 		HttpSession session = (HttpSession)joinPoint.getArgs()[0];//session
@@ -52,7 +52,7 @@ public class AopAspect {
 		User login = (User)session.getAttribute("login");//로그인 아이디
 		
 		if(!memberid.equals(login.getMemberid()) && login.getMembergrade()!= 0) {
-				throw new JsyException("삭제 권한이 없습니다.", "../study/studyInfo.jsy?pageNum="+pageNum+"&studyno="+studyno);
+				throw new JsyException("권한이 없습니다.", "../study/studyInfo.jsy?pageNum="+pageNum+"&studyno="+studyno);
 	    }
 		Object ret = joinPoint.proceed();
 		return ret;

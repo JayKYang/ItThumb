@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dao.BoardDao;
+import dao.CommunityDao;
+import dao.FilerepDao;
 import dao.MessageDao;
+import dao.ReplyDao;
 import dao.ScrapDao;
 import dao.StudyDao;
 import dao.StudyGroupDao;
@@ -31,6 +34,12 @@ public class JsyServiceImpl implements JsyService{
 	private ScrapDao scrapDao;
 	@Autowired
 	private StudyGroupDao studyGroupDao;
+	@Autowired
+	private CommunityDao communityDao;
+	@Autowired
+	private FilerepDao filerepDao;
+	@Autowired
+	private ReplyDao replydao;
 	
 	
 	@Override
@@ -299,6 +308,11 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void studyDelete(Integer studyno) {
 		studyDao.studyDelete(studyno);
+	}
+
+	@Override
+	public void studyUpdate(Study study) {
+		studyDao.studyUpdate(study);
 	}
 	
 }
