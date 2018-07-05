@@ -88,7 +88,7 @@ create table study(
 	weekday varchar(20),
 	starttime varchar(10),
 	endtime varchar(10),
-	membername(20)
+	membername varchar(20)
 )
 create table message(
 	messageno int PRIMARY KEY,
