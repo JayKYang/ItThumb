@@ -6,17 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>IT Thumb > 마이 페이지</title>
-<script>
-function openMypage(mypageName) {
-    var i;
-    var x = document.getElementsByClassName("mypage");
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none"; 
-    }
-    document.getElementById(mypageName).style.display = "block"; 
-}
-</script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script>
+	$(document).ready(function(){
+		url = document.URL.split("#");
+		openMypage(url[1])
+	});
+	function openMypage(mypageName) {
+	    var i;
+	    var x = document.getElementsByClassName("mypage");
+	    for (i = 0; i < x.length; i++) {
+	        x[i].style.display = "none"; 
+	    }
+	    document.getElementById(mypageName).style.display = "block"; 
+	}
+</script>
 <script type="text/javascript">
         $(function() {
             $("#image").on('change', function(){
@@ -70,7 +74,7 @@ function openMypage(mypageName) {
 		<div class="w3-cell-row">
 			<p>마이페이지</p>
 		</div>
-		<div class="w3-cell-row">
+		<!-- <div class="w3-cell-row">
 			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('info')" style="width:200px; float:left;">
 			  <p>회원정보</p>
 			</div>
@@ -82,6 +86,20 @@ function openMypage(mypageName) {
 			</div>
 			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('employment')" style="width:200px; float:left;">
 			  <p>채용공고 스크랩</p>
+			</div>
+		</div> -->
+		<div class="w3-cell-row">
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('info')" style="width:200px; float:left;">
+			  <a href="#info" class="w3-button"><p>회원정보</p></a>
+			</div>
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('portfolio')" style="width:200px; float:left;">
+			  <a href="#portfolio" class="w3-button"><p>포트폴리오 관리</p></a>
+			</div>
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('study')" style="width:200px; float:left;">
+			  <a href="#study" class="w3-button"><p>스터디 관리</p></a>
+			</div>
+			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('employment')" style="width:200px; float:left;">
+			  <a href="#employment" class="w3-button"><p>채용공고 스크랩</p></a>
 			</div>
 		</div>
 		<hr>
