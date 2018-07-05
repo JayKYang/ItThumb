@@ -16,4 +16,6 @@ public interface StudyDao {
 
 	Study studySelect(Integer studyno);
 
+	void studyDelete(Integer studyno);
+
 }

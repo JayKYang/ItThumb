@@ -86,6 +86,8 @@ public interface JsyService {
 
 	void deleteportfolio(String id);
 
+	void studyDelete(Integer studyno);
+	
 	List<Project> getProject(String id);
 
 	Project getProject(String id, String projectno);
@@ -97,6 +99,5 @@ public interface JsyService {
 	void updateproject(Project project, HttpServletRequest request);
 
 	void insertproject(Project project, HttpServletRequest request);
-
 
 }

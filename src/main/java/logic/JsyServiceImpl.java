@@ -313,6 +313,11 @@ public class JsyServiceImpl implements JsyService{
 	public void deleteProject(String projectno) {
 		 portfolioDao.deleteProject(projectno);
 	}
+
+	@Override
+	public void studyDelete(Integer studyno) {
+		studyDao.studyDelete(studyno);
+	}
 	
 	private void uploadprojectImageCreate(MultipartFile image, HttpServletRequest request) {
 		String uploadPath = request.getServletContext().getRealPath("/") + "/projectimg/";  

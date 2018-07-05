@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class MessageController {
 	JsyService service;
 	
 	@RequestMapping("message/messageList")
-	public ModelAndView messageList(HttpServletRequest request,Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView mesLogConmessageList(HttpSession session,HttpServletRequest request,Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		String sort = request.getParameter("sort");
 		sort = sort.substring(0, 1);
@@ -85,7 +86,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="message/messageWrite", method=RequestMethod.GET)
-	public ModelAndView messageWrite(String memberid) {
+	public ModelAndView mesLogConmessageWrite(HttpSession session,String memberid) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberid", memberid);
 		mav.addObject("message", new Message());

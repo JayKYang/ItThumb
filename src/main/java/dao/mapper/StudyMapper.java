@@ -1,5 +1,6 @@
 package dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +16,9 @@ public interface StudyMapper {
 
 	@Select("select * from study where studyno=#{studyno}")
 	Study studySelect(Integer studyno);
+
+	@Delete("delete from study where studyno=#{studyno}")
+	void studyDelete(Integer studyno);
 
 
 
