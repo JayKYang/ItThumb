@@ -18,7 +18,7 @@
 	예시
 	<context:component-scan base-package="controller,dao,logic,aop"/>  이 패키지 애들을 객체화를 먼저시켜줘 
 	-->
-	<context:component-scan base-package="controller, dao, logic"/>
+	<context:component-scan base-package="controller, dao, logic, aop"/>
 	<!-- 유효성 검증을 어노테이션으로 처리 하도록 설정 -->
 	<mvc:annotation-driven/>
 	<aop:aspectj-autoproxy/>

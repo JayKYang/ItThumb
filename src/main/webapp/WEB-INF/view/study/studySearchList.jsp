@@ -50,7 +50,9 @@
 					</td>
 					<td align="center">${study.weekday }</td>
 					<td align="center">${study.starttime} ~ ${study.endtime}</td>
-					<td align="center">${study.nowmember} / ${study.limitmember}</td>
+					<td align="center">
+						${study.nowmember} / <c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if> 
+					</td>
 					<td align="center">${study.region}</td>
 					<td align="center">${study.memberid }(${study.membername})</td>
 					<fmt:formatDate value="${study.regdate}" pattern="yyyy-MM-dd" var="regnow" />

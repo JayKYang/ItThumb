@@ -35,7 +35,6 @@ public class MessageController {
 		int limit = 10;
 		
 		int messagecount = service.messagecount(searchType, searchContent, sort, memberid);
-		
 		List<Message> messagelist = service.messagelist(searchType, searchContent, pageNum, limit, sort, memberid);
 		
 		int maxpage = (int)((double)messagecount/limit + 0.95);

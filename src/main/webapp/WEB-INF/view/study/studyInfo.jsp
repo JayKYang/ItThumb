@@ -72,6 +72,7 @@
 			<td colspan="2">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:message_open('../message/messageWrite.jsy?memberid=${study.memberid}')" value="작성자에게 쪽지보내기">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='studySearchList.jsy?pageNum=${pageNum}'" value="목록">
+				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='#'" value="삭제">
 			</td>
 		</tr>
 	</table>
@@ -84,7 +85,9 @@
 		</tr>
 		<tr>
 			<th>가능인원/최대인원</th>
-			<td>${study.nowmember}/${study.limitmember}</td>
+			<td>
+				${study.nowmember}/<c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if>
+			</td>
 		</tr>
 		<tr>
 			<th>요 일</th>
