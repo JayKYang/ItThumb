@@ -45,8 +45,9 @@
 				<tr>
 					<td align="center">${studynum}</td>
 					<c:set var="studynum" value="${studynum - 1 }"></c:set>
+					<c:set var="subjectText" value="${study.studyname}"/>
 					<td align="center">
-						<a href="studyInfo.jsy?pageNum=${pageNum}&studyno=${study.studyno}">${study.studyname}</a>
+						<a href="studyInfo.jsy?pageNum=${pageNum}&studyno=${study.studyno}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
 					</td>
 					<td align="center">${study.weekday }</td>
 					<td align="center">${study.starttime} ~ ${study.endtime}</td>

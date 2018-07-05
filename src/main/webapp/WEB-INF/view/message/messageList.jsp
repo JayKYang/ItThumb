@@ -71,7 +71,8 @@
     <tr>
       <td align="center">${sendmesnum}</td>
       <c:set var="sendmesnum" value="${sendmesnum - 1 }"></c:set>
-      <td align="center"><a href="messageInfo.jsy?sort=${sort}&messageno=${mes.messageno}&pageNum=${pageNum}">${mes.subject}</a></td>
+      <c:set var="subjectText" value="${mes.subject}"/>
+      <td align="center"><a href="messageInfo.jsy?sort=${sort}&messageno=${mes.messageno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a></td>
       <fmt:formatDate value="${mes.senddate}" pattern="yyyy-MM-dd" var="regnow"/>
       <td align="center">${regnow}</td>
       <c:if test="${mes.confirm==0}">

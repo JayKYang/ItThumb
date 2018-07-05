@@ -87,7 +87,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 // 쪽지 관련 스크립트 지우지 말것
 function message_open(url) {
-	window.open(url,"message", "width=600, height=600, left=100, top=100");
+	var h = screen.height*(3/4);
+	var w = screen.width*(1.3/3);
+	window.open(url,"message", "width="+w+", height="+h+", left=100, top=100");
 }
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
