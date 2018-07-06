@@ -126,3 +126,14 @@ CREATE TABLE project
 	link varchar(100),
 	skills varchar(500)
 );
+
+create table history(
+	historyno int primary key,
+	memberid varchar(30) not null,
+	content varchar(50),
+	skillful int,
+	getdate date,
+	enddate date,
+	kindno int
+);
+

@@ -20,8 +20,6 @@ public interface BoardDao {
 
 	void readCntplus(Integer hireno);
 
-
-
 	void updateScrapNum(Integer hireno);
 
 	void scrapNumMinus(Integer hireno);
@@ -35,8 +33,6 @@ public interface BoardDao {
 	void updateHide(int hireno);
 
 	void deleteHire(int hireno);
-
-
 
 
 

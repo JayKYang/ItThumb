@@ -96,9 +96,6 @@ public class JsyServiceImpl implements JsyService{
 
 	@Override
 	public List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,String searchCareerDate,Integer pageNum, int limit) {
-	
-		
-		
 		return boardDao.hirelist(searchRegion, searchEdu, searchCarr,searchCareer,searchCareerDate, pageNum, limit);
 	}
 
@@ -166,7 +163,6 @@ public class JsyServiceImpl implements JsyService{
 	public void readCntplus(Integer hireno) {
 		boardDao.readCntplus(hireno);
 	}
-
 	@Override
 	public List<User> userList(Integer membergrade) {
 		
@@ -189,23 +185,10 @@ public class JsyServiceImpl implements JsyService{
 	public List<Hire> getHirelist() {
 		return boardDao.getHirelist();
 	}
-
 	@Override
-	public void updateHide(int hireno) {
-		
+	public void updateHide(int hireno) {	
 		boardDao.updateHide(hireno);
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 	@Override
 	public void insertHistory(History history) {
@@ -412,8 +395,6 @@ public class JsyServiceImpl implements JsyService{
 		}
 		 portfolioDao.updateproject(project);
 	}
-
-	
 	@Override
 	public Scrap hireScrapSelect(int hireno, String memberid) {
 		
@@ -431,6 +412,17 @@ public class JsyServiceImpl implements JsyService{
 		scrapDao.hireDeleteScrap(scrap);
 		
 	}
+	
+	@Override
+	public void updateRecognize(User user) {
+		userDao.updateRecognize(user);
+	}
+
+	@Override
+	public void repassword(User user) {
+		userDao.repassword(user);
+	}
+
 
 	@Override
 	public void deleteHire(int hireno) {

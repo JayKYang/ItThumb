@@ -325,7 +325,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<td><i class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
 					<td><a class="w3-xlarge w3-hover-opacity">
 					<!-- <input type="date" id="datePicker" class="w3-input" onchange="change_date()"> -->
-					<form:input type="text" path="birth" class="w3-input"></form:input><font color="red"><form:errors path="birth"/></font>
+					<form:input type="text" path="birth" class="w3-input" placeholder="생일"></form:input><font color="red"><form:errors path="birth"/></font>
 					<%-- <form:hidden id="birth" class="w3-input" path="birth" placeholder="생일"/><font color="red"><form:errors path="birth"/></font> --%></a></td>
 					<!-- <script>
 						document.getElementById("datePicker").value = document.getElementById("birth").value
@@ -463,16 +463,16 @@ body, h1, h2, h3, h4, h5, h6 {
 			<a class="w3-xxxlarge">프로젝트</a>
 		</h3>
 		<div class="w3-content w3-container w3-padding-32 w3-center">
-			<c:if test="${!empty projectList }">
 				<table style="width:70%;" class="">
 					<tr><th>제목</th><th></th></tr>
+			<c:if test="${!empty projectList }">
 					<c:forEach items="${projectList }" var="project">
 						<tr><td>${project.subject }</td><td><a href="projectform.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">수정</a>
 						<a href="deleteproject.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">삭제</a></td></tr>
 					</c:forEach>
+			</c:if>
 					<tr><td colspan="2" align="center"><a href="projectform.jsy?id=${sessionScope.login.memberid }">글쓰기</a></td></tr>
 				</table>
-			</c:if>
 		</div>
 	</div>
 

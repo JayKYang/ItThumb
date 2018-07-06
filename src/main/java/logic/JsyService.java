@@ -80,13 +80,6 @@ public interface JsyService {
 
 	void updateHide(int hireno);
 
-
-
-
-
-	
-
-
 	List<History> getHistory(String memberid);
 
 	void insertHistory(History history);
@@ -116,6 +109,10 @@ public interface JsyService {
 	void updateproject(Project project, HttpServletRequest request);
 
 	void insertproject(Project project, HttpServletRequest request);
+
+	void updateRecognize(User user);
+
+	void repassword(User user);
 
 	Scrap hireScrapSelect(int hireno, String memberid);
 

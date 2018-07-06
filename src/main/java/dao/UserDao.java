@@ -18,6 +18,10 @@ public interface UserDao {
 
 	void confirmCode(User user);
 
+	void updateRecognize(User user);
+
+	void repassword(User user);
+
 	List<User> userList(Integer membergrade);
 
 }

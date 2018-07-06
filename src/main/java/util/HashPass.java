@@ -14,12 +14,8 @@ public class HashPass {
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		hash = md.digest(pass.getBytes());
 		for (byte b : hash) {
-			//System.out.printf("%02X", b);
 			hash_password += String.format("%02X", b);
 		}
-//		System.out.println();
-//		System.out.println(hash_password);
-		
 		return hash_password;
 	}
 }

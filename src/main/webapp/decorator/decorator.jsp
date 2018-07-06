@@ -49,6 +49,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/study/studySearchList.jsy">스터디 검색</a>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/community/communityBoard.jsy?communitykind=1">커뮤니티</a>
   	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/message/messageList.jsy?sort=1')">쪽지함</a>
+	  <c:if test="${empty sessionScope.login }">
+	  	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/user/findpassword.jsy')">비밀번호찾기</a>
+	  </c:if>
   </div>
 </div>
 
@@ -91,6 +94,11 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 // 쪽지 관련 스크립트 지우지 말것
 function message_open(url) {
 	var h = screen.height*(3/4);
+	var w = screen.width*(1.3/3);
+	window.open(url,"message", "width="+w+", height="+h+", left=100, top=100");
+}
+function find_password(url) {
+	var h = screen.height*(1/4);
 	var w = screen.width*(1.3/3);
 	window.open(url,"message", "width="+w+", height="+h+", left=100, top=100");
 }
