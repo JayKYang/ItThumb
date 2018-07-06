@@ -34,6 +34,8 @@ public interface BoardDao {
 
 	void updateHide(int hireno);
 
+	void deleteHire(int hireno);
+
 
 
 

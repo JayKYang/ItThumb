@@ -207,7 +207,7 @@ public class JsyServiceImpl implements JsyService{
 
 
 
-
+	@Override
 	public void insertHistory(History history) {
 		portfolioDao.insertHistory(history);
 	}
@@ -413,6 +413,7 @@ public class JsyServiceImpl implements JsyService{
 		 portfolioDao.updateproject(project);
 	}
 
+	
 	@Override
 	public Scrap hireScrapSelect(int hireno, String memberid) {
 		
@@ -429,6 +430,18 @@ public class JsyServiceImpl implements JsyService{
 	public void hireDeleteScrap(int scrap) {
 		scrapDao.hireDeleteScrap(scrap);
 		
+	}
+
+	@Override
+	public void deleteHire(int hireno) {
+		boardDao.deleteHire(hireno);
+		
+	}
+
+	@Override
+	public List<Scrap> scrapHirelist(Integer hireno, String memberid) {
+	
+		return scrapDao.scrapHirelist(hireno, memberid);
 	}
 
 }

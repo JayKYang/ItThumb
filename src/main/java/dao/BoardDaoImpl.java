@@ -118,6 +118,12 @@ public class BoardDaoImpl implements BoardDao{
 		SqlSession.getMapper(HireMapper.class).updateHide(hireno);
 	}
 
+	@Override
+	public void deleteHire(int hireno) {
+		SqlSession.getMapper(HireMapper.class).deleteHire(hireno);
+		
+	}
+
 
 
 

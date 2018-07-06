@@ -123,4 +123,8 @@ public interface JsyService {
 
 	void hireDeleteScrap(int scrap);
 
+	void deleteHire(int hireno);
+
+	List<Scrap> scrapHirelist(Integer hireno, String memberid);
+
 }

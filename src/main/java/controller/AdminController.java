@@ -39,14 +39,6 @@ public class AdminController {
 		int limit = 10;
 		pageNum = 1;
 		List<Hire> hirelist = service.hirelist(searchRegion, searchEdu, searchCarr, searchCareer, searchCareerDate, pageNum, limit);
-		List companylist = new ArrayList();
-		for(int i=0; i<hirelist.size(); i++) {
-			User name = service.getUser(hirelist.get(i).getMemberid());
-			String company = name.getName();
-			companylist.add(company);
-		}
-		System.out.println(companylist);
-		mav.addObject("companylist",companylist);
 		mav.addObject("pageNum",pageNum);
 		mav.addObject("hirelist",hirelist);
 		
@@ -55,14 +47,31 @@ public class AdminController {
 	
 	@RequestMapping(value="admin/recognizeHire")
 	@ResponseBody
-	public HashMap<String, Object> recognizeHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
+	public HashMap<String,Object> recognizeHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
+		HashMap <String,Object> map = new HashMap<String,Object>();
+		
+		int hireno = Integer.parseInt(request.getParameter("hireno"));
 		try {
+			service.updateHide(hireno);
+			map.put("success", "success");
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return map;
+	}
 	
-		map.put("success", "success");
+	@RequestMapping(value="admin/deleteHire")
+	@ResponseBody
+	public HashMap<String,Object> deleteHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
+		HashMap <String,Object> map = new HashMap<String,Object>();
+		
+		int hireno = Integer.parseInt(request.getParameter("hireno"));
+		
+		try {
+			service.deleteHire(hireno);
+			map.put("success", "success");
 		} catch(Exception e) {
 			e.printStackTrace();
-			map.put("success","fail");
 		}
 		
 		return map;

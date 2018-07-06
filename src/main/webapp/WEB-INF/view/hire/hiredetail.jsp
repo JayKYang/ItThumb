@@ -161,10 +161,10 @@ $(document).ready(function(){
 				<td colspan="4" align="center">
 			
 			<c:if test="${scrapComfirm==0}">
-				<td><a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> SCRAP</a></td>
+				<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> SCRAP</a>
 			</c:if>
 			<c:if test="${scrapComfirm==1}">
-				<td><a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a></td>
+				<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a>
 			</c:if>
 					<a href="hirelist.jsy?pageNum=${param.pageNum}">LIST</a>					
 				</td>

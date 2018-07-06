@@ -186,7 +186,8 @@ public class BoardController {
 	@RequestMapping("hire/hireScrap")
 	   @ResponseBody
 	   public HashMap<String, String> hireScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
-	       HashMap<String, String> map = new HashMap<String, String>();
+	
+		HashMap<String, String> map = new HashMap<String, String>();
 	       int hireno = Integer.parseInt(request.getParameter("hireno"));
 	       String memberid = request.getParameter("memberid");
 	       Scrap scrap = service.hireScrapSelect(hireno, memberid);
@@ -214,4 +215,27 @@ public class BoardController {
 	       return map;
 	   }
 
+	//	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
+	
+	@RequestMapping("hire/hireScrapList.jsy")
+	public ModelAndView hireScrapList(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		Integer hireno = null;
+		List<Scrap> scrap = service.scrapHirelist(hireno,memberid);
+		System.out.println(scrap);
+		List<Hire> scraphirelist = null;
+		for(int i=0; i<scrap.size(); i++) {
+			hireno = scrap.get(i).getHireno();
+			scraphirelist.add(service.getHire(hireno));
+		}
+		
+		mav.addObject("scraphirelist",scraphirelist);
+		
+		return null;
+		
+	}
+		
+	
 }
