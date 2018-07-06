@@ -15,7 +15,7 @@ $(document).ready(function(){
 		$.ajax({
 			url:"recognizeHire.jsy",
 			type : "POST",
-			data : {"hireno":'${hireno}'},
+			data : {"hirelist":'${hirelist}'},
 			success : function(data){
 				if(data.success == 'success'){
 					alert("승인이 완료되었습니다.");
@@ -41,6 +41,8 @@ $(document).ready(function(){
 			<th>승인하기</th>
 		</tr>
 		<c:forEach var="hirelist" items="${hirelist}">
+		
+	
 			<tr>
 					<td>
 						${hirelist.company}

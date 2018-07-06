@@ -20,15 +20,7 @@ public interface BoardDao {
 
 	void readCntplus(Integer hireno);
 
-	int scrapMaxnum();
 
-	void boardScrap(Scrap scrap);
-
-	String selectScrap(Integer hireno, String memberid);
-
-	void deleteScrap(Integer hireno, String memberid);
-
-	int hireScrapcount(Integer hireno);
 
 	void updateScrapNum(Integer hireno);
 

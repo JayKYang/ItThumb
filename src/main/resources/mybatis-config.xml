@@ -3,12 +3,27 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="logic.User" alias="User"/>
+		<typeAlias type="logic.History" alias="History"/>
+		<typeAlias type="logic.Project" alias="Project"/>
 		<typeAlias type="logic.Hire" alias="Hire"/>
+		<typeAlias type="logic.Message" alias="Message"/>
+		<typeAlias type="logic.Study" alias="Study"/>
 		<typeAlias type="logic.Scrap" alias="Scrap"/>
+		<typeAlias type="logic.StudyGroup" alias="StudyGroup"/>
+		<typeAlias type="logic.Community" alias="Community"/>
+		<typeAlias type="logic.Filerep" alias="Filerep"/>
+		<typeAlias type="logic.Reply" alias="Reply"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>
+		<mapper resource="dao/mapper/Portfolio.xml"/>
 		<mapper resource="dao/mapper/Hire.xml"/>
+		<mapper resource="dao/mapper/Message.xml"/>
+		<mapper resource="dao/mapper/Study.xml"/>
 		<mapper resource="dao/mapper/Scrap.xml"/>
+		<mapper resource="dao/mapper/StudyGroup.xml"/>
+		<mapper resource="dao/mapper/Community.xml"/>
+		<mapper resource="dao/mapper/Filerep.xml"/>
+		<mapper resource="dao/mapper/Reply.xml"/>
 	</mappers>
 </configuration>

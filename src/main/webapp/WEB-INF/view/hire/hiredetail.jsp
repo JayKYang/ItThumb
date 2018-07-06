@@ -7,6 +7,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+    $('#scrap').click(function() {
+        $.ajax({
+           url : "hireScrap.jsy",
+           type : "POST",
+           data : {"hireno":'${hire.hireno}',"memberid":'${hire.memberid}'},
+           success : function(data) {
+              if(data.success == 'success'){
+                 $("#scrap2").attr("class","fa fa-heart");
+                 alert("스크랩 되었습니다.");
+              }else{
+                 $("#scrap2").attr("class","fa fa-heart-o");
+                 alert("스크랩이 해제 되었습니다.");
+              }
+           }
+        });
+     });
+
+
+})
+</script>
 </head>
 <body>
 		<table border="1" cellpadding="0" cellspacing="0" align="center">
@@ -83,10 +106,10 @@
      	  <c:when test="${hire.salary==0}">
       	    협상 후 연봉결정
       		 </c:when>
-       		  <c:when test="${hire.salary==2200}">
+       		  <c:when test="${hire.salary=='2200'}">
            2200만원 이상
        </c:when>
-        <c:when test="${hire.salary==2400}">
+        <c:when test="${hire.salary=='2400'}">
            2400만원 이상
        </c:when>
            <c:when test="${hire.salary==2600}">
@@ -136,12 +159,14 @@
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
-					<form method="post" action="scrap.jsy" name="f">
-					<input type="hidden" name="pageNum" value="${param.pageNum}">
-					<input type="hidden" name="hireno" value="${hire.hireno}">
-					<a href="javascript:document.f.submit()" id="scrap">SCRAB</a>
+			
+			<c:if test="${scrapComfirm==0}">
+				<td><a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> SCRAP</a></td>
+			</c:if>
+			<c:if test="${scrapComfirm==1}">
+				<td><a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a></td>
+			</c:if>
 					<a href="hirelist.jsy?pageNum=${param.pageNum}">LIST</a>					
-					</form>
 				</td>
 			</tr>
 		</table>

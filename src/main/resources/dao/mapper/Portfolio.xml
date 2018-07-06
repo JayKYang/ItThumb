@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.PortfolioMapper">
+	<select id="select" resultType="Project" parameterType="map">
+		select projectno,memberid,subject,imagefile as imagefileUrl,term,content,role,link,skills from project where 1=1
+		<if test="memberid != null">
+			and memberid = '${memberid}'
+		</if>
+		<if test="projectno != null">
+			and projectno = ${projectno}
+		</if>
+	</select>
+</mapper>

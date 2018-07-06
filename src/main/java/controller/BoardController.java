@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.JsyException;
@@ -115,21 +118,21 @@ public class BoardController {
 	
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.GET)
 	public ModelAndView hirewrite(HttpSession session) {
-	ModelAndView mav = new ModelAndView();
-	User user = (User)session.getAttribute("login");
-	String id = user.getMemberid();
-	user = service.getUser(id);
-	Hire hire = new Hire();
-	mav.addObject("user", user);
-	mav.addObject("hire", hire);
+		ModelAndView mav = new ModelAndView();
+		User user = (User) session.getAttribute("login");
+		String id = user.getMemberid();
+		user = service.getUser(id);
+		mav.addObject("user", user);
+		mav.addObject("hire", new Hire());
 		return mav;
 	}
 	
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.POST)
 	public ModelAndView hirewrite(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request, HttpSession session) {
+		System.out.println(hire);
 		ModelAndView mav = new ModelAndView();
-		String salary = (String)request.getParameter("salary");
-		hire.setSalary(Integer.parseInt(salary));
+		String salary = request.getParameter("salary");
+		hire.setSalary(salary);
 		
 		User user = (User)session.getAttribute("login");
 		String id = user.getMemberid();
@@ -159,6 +162,15 @@ public class BoardController {
 	@RequestMapping(value="hire/hiredetail", method=RequestMethod.GET)
 	public ModelAndView hiredetail(Integer hireno, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+		User user2 = (User)request.getSession().getAttribute("login");
+		String memberid = user2.getMemberid();
+		
+		Scrap scrap = service.hireScrapSelect(hireno, memberid);
+	       if(scrap == null) {
+	          mav.addObject("scrapComfirm",0);
+	       }else {
+	          mav.addObject("scrapComfirm",1);
+	       }
 		Hire hire = new Hire();
 		if(hireno != null) {
 			hire = service.getHire(hireno);
@@ -171,34 +183,35 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="hire/scrap", method=RequestMethod.POST)
-	public ModelAndView scrap(HttpServletRequest request, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		Integer hireno = Integer.parseInt(request.getParameter("hireno"));
-		
-		
-		User user = (User)session.getAttribute("login");
-		String memberid = user.getMemberid();
-		try {
-			Scrap scrap = new Scrap();
-			String selectScrapno = service.selectScrap(hireno,memberid);
-			
-			if(selectScrapno != null) {
-				service.deleteScrap(hireno,memberid);
-				mav.addObject("msg","스크랩이 해제되었습니다.");
-			} else {
-			scrap.setHireno(hireno);
-			scrap.setMemberid(memberid);
-			service.boardScrap(scrap,hireno);
-			mav.addObject("msg","스크랩이 등록되었습니다.");
-			}
-			mav.addObject("url","/itthumb/hire/hiredetail.jsy?hireno=" + hireno+"&pageNum=" +pageNum);
-			mav.setViewName("alert");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return mav;
-	}
+	@RequestMapping("hire/hireScrap")
+	   @ResponseBody
+	   public HashMap<String, String> hireScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	       HashMap<String, String> map = new HashMap<String, String>();
+	       int hireno = Integer.parseInt(request.getParameter("hireno"));
+	       String memberid = request.getParameter("memberid");
+	       Scrap scrap = service.hireScrapSelect(hireno, memberid);
+	       if(scrap == null) {
+	          int scrapMaxnum = service.ScrapMaxnum()+1;
+	          Scrap insertScrap = new Scrap();
+	          insertScrap.setScrap(scrapMaxnum);
+	          insertScrap.setMemberid(memberid);
+	          insertScrap.setHireno(hireno);
+	          try {
+	        	  service.hireInsertScrap(insertScrap);
+	          }catch (Exception e) {
+	            e.printStackTrace();
+	          }
+	          map.put("success", "success");
+	       }else {
+	          try {
+	        	  service.hireDeleteScrap(scrap.getScrap());
+	          }catch (Exception e) {
+	            e.printStackTrace();
+	          }
+	          
+	          map.put("success", "delete");
+	       }
+	       return map;
+	   }
+
 }

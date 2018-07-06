@@ -49,23 +49,21 @@ public class AdminController {
 		mav.addObject("companylist",companylist);
 		mav.addObject("pageNum",pageNum);
 		mav.addObject("hirelist",hirelist);
+		
 		return mav;
 	}
 	
 	@RequestMapping(value="admin/recognizeHire")
 	@ResponseBody
-	public HashMap<String, String> recognizeHire(@RequestParam HashMap<String, String> params, HttpServletRequest request) {
-		HashMap<String,String> map = new HashMap<String,String>();
-		int hireno = Integer.parseInt(request.getParameter("hireno"));
-		Hire hire = new Hire();
+	public HashMap<String, Object> recognizeHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		try {
-		service.updateHide(hireno);
+	
 		map.put("success", "success");
 		} catch(Exception e) {
 			e.printStackTrace();
 			map.put("success","fail");
 		}
-		
 		
 		return map;
 	}

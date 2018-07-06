@@ -77,45 +77,7 @@ public class BoardDaoImpl implements BoardDao{
 		SqlSession.getMapper(HireMapper.class).readCntplus(hireno);
 	}
 
-	@Override
-	public int scrapMaxnum() {
-		
-		int maxnum = SqlSession.getMapper(ScrapMapper.class).scrapMaxnum();
-		
-		return maxnum;
-	}
 
-	@Override
-	public void boardScrap(Scrap scrap) {
-		SqlSession.getMapper(ScrapMapper.class).insert(scrap);
-	}
-
-	@Override
-	public String selectScrap(Integer hireno, String memberid) {
-		Map<Object, Object> map = new HashMap<Object,Object>();
-		map.put("hireno", hireno);
-		map.put("memberid", memberid);
-		
-		String ret = SqlSession.getMapper(ScrapMapper.class).selectScrap(map);
-		
-		return ret;
-	}
-
-	@Override
-	public void deleteScrap(Integer hireno, String memberid) {
-		Map<Object, Object> map = new HashMap<Object,Object>();
-		map.put("hireno", hireno);
-		map.put("memberid", memberid);
-		SqlSession.getMapper(ScrapMapper.class).deleteScrap(map);
-	}
-
-	@Override
-	public int hireScrapcount(Integer hireno) {
-		int hireScrapcount = SqlSession.getMapper(ScrapMapper.class).hireScrapcount(hireno);
-		
-		return hireScrapcount;
-		
-	}
 
 	@Override
 	public void updateScrapNum(Integer hireno) {

@@ -2,15 +2,15 @@ package logic;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.sun.istack.internal.NotNull;
 
 public class User implements Serializable{
 	@NotEmpty(message="아이디를 입력해주세요")
@@ -39,6 +39,23 @@ public class User implements Serializable{
 	private String companyserial;
 	private int locking;
 	private int createpf;
+	private List<History> historyList;
+
+	@Override
+	public String toString() {
+		return "User [memberid=" + memberid + ", password=" + password + ", name=" + name + ", regdate=" + regdate
+				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
+				+ image + ", imageUrl=" + imageUrl + ", birth=" + birth + ", industy=" + industy + ", site=" + site
+				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
+				+ address + ", companyserial=" + companyserial + ", locking=" + locking + ", createpf=" + createpf
+				+ ", historyList=" + historyList + "]";
+	}
+	public List<History> getHistoryList() {
+		return historyList;
+	}
+	public void setHistoryList(List<History> historyList) {
+		this.historyList = historyList;
+	}
 	public String getMemberid() {
 		return memberid;
 	}
@@ -152,15 +169,6 @@ public class User implements Serializable{
 	}
 	public void setCreatepf(int createpf) {
 		this.createpf = createpf;
-	}
-	@Override
-	public String toString() {
-		return "User [memberid=" + memberid + ", password=" + password + ", name=" + name + ", regdate=" + regdate
-				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
-				+ image + ", imageUrl=" + imageUrl + ", birth=" + birth + ", industy=" + industy + ", site=" + site
-				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
-				+ address + ", companyserial=" + companyserial + ", locking=" + locking + ", createpf=" + createpf
-				+ "]";
 	}
 	
 }

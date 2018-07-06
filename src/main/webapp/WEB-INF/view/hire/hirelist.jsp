@@ -1,26 +1,6 @@
 <%@page import="java.io.*,java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<%
-   FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
-  BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
-   String line = null;
-   br.readLine();
-   Map<String, Set<String>> sidomap = new TreeMap<String, Set<String>>();
-   while ((line = br.readLine()) != null) {
-      try {
-         String[] sido = line.split("\t");
-         String[] si = sido[1].split(" ");
-         Set<String> silist = sidomap.get(si[0]);
-         if (silist == null) {
-            silist = new TreeSet<String>();
-         }
-         silist.add(si[1]);
-         sidomap.put(si[0], silist);
-      } catch (ArrayIndexOutOfBoundsException e) {
-      }
-   }
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +41,7 @@ $(document).ready(function(){
 
 	
 	var d =["신입","경력"];
-	var e = ['6개월 이상','1년 이상','3년 이상','5년 이상'];
+	var e = ['6개월 이하','1년 이하','3년 이하','5년 이하'];
 	var html4 ="";
 	html4 += "<br>";
 	for(var i=0; i<d.length; i++){
@@ -220,7 +200,7 @@ $(document).ready(function(){
 	
 	     	$(".classRegion").click(function(){
 	     		event.preventDefault();
-	    		def=[]
+	    		var def=[]
 	    		$('input[name="searchRegion"]').val(null);
 	    	    $('input[name="bbb"]').each(function(i,item) {
 	    		    if($('input[name="bbb"]').prop("checked")==true) {
@@ -229,41 +209,13 @@ $(document).ready(function(){
 	    	    })
 	    		$('input[name="searchRegion"]').val(def);
 	    	    })
-	    	    
-	    	    
-	    	$(".classEdu").click(function(){
-	    		event.preventDefault();
-	    		var b = $("#levelofedu option:selected").val();
-	    		
-	    		if(b == '선택하세요'){
-	    	 		b="";
-	    	 		alert("학력을 선택해 주세요.");
-	    	 	}
-	    	 	$('input[name="searchEdu"]').val(b);
-	    	       var i=0;
-	    			for(i=0;i<idx;i++) {
-	    				if(divchkarr[i].indexOf("졸업") > 0) {
-	    					console.log($( this ).val()+","+ i+",b="+b);
-	    			         divchkarr.splice(i,1, b);
-	    			         break;
-	    				}
-	    			}
-	    			console.log("i=" + i + ",idx=" + idx)
-	    	      if( i == idx) {
-	    		         divchkarr[idx++] = b;
-	    	      }   
-	    		
-	    		
-	    		
-	    	})
 	    	
-	    	
-	    	
-			
-	
-	
-
+	    	    $(".classCarr").click(function(){
+	    	    	event.preventDefault();
+	    	    })
 })
+
+
 function divchkdisp(classname) {
 	htmla = "";
 	for(var i =0; i<idx; i++){
@@ -271,6 +223,8 @@ function divchkdisp(classname) {
 	}
 	$("#divchk").html(htmla);	
 }
+
+
 function checkOn(check){
 	if(check.indexOf("졸업") != -1){
 		var abc = check;
@@ -285,15 +239,13 @@ function checkOn(check){
 		if(abc== divchkarr[i]) {
 	         divchkarr.splice(i,1);
 	         idx--;
-	         $('input[value="'+abc+'"]').trigger("click");
+	         $('input:checkbox[value="'+abc+'"]').trigger("click");
+	         $('select[value="'+abc+'"]').trigger("change");
 			break;
 		}
 		
 	}
  }
-</script>
-<script type="text/javascript">
-
 
 function hirelist(pageNum){
 	var searchRegion = document.searchform.searchRegion.value;
@@ -316,44 +268,6 @@ function hirelist(pageNum){
 	return false;
 	}
 </script>
-<script type="text/javascript">
-sies = new Array(
-<c:forEach items="<%=sidomap%>" var="si">
-      new Option("${si.key}"),
-</c:forEach>   
-);
-   gues = new Array();
-   <c:forEach items="<%=sidomap%>" var="si" varStatus="stat1">
-        gues[${stat1.index}] = new Array();
-        <c:forEach items="${si.value}" var="gu" varStatus="stat2">
-           gues[${stat1.index}][${stat2.index}] = new Option("${gu}"),
-        </c:forEach>   
-   </c:forEach>   
-   //html 시작시 호출되는 함수 설정
-   window.onload = function() {
-      document.f.si.options[0] = new Option("선택하세요");
-      document.f.gu.options[0] = new Option("선택하세요");
-      for (i = 1; i <= sies.length; i++) {
-         document.f.si.options[i] = sies[i-1];
-      }
-   }
-   //f : form 객체를 저장
-   function selectgu(f) {
-      var opcnt = f.gu.options.length
-      for (i = opcnt-1; i >= 0; i--) {
-         f.gu.options[i] = null; //기존 Option 객체 제거
-      }
-      
-      siidx = f.si.selectedIndex;
-      
-      document.f.gu.options[0] = new Option("선택하세요");
-      for (i = 0; i < gues[siidx].length; i++) {
-         document.f.gu.options[i+1] = gues[siidx-1][i];
-      }
-   }
-</script>
-
-
 <style type="text/css">
 #aa, #bb,#cc {
 	border: 1px solid #000000;
@@ -366,18 +280,6 @@ sies = new Array(
 
 <div name="aa">
 <h6 class="region">지역</h6>
-<form name="f">
- <select name="si" id="si" onchange="selectgu(this.form)">
-            </select>
-            <select name="gu" id="gu">
-            </select>
- <div id="sichk" name="sichk">
- 
- </div>
- <div id="guchk" name="guchk">
- 
- </div>
-</form>
 </div>
 <div name="bb">
 <h6>학력</h6>

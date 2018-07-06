@@ -16,7 +16,7 @@
          if (silist == null) {
             silist = new TreeSet<String>();
          }
-         silist.add("'"+si[1]+"'");
+         silist.add(si[1]);
          sidomap.put(si[0], silist);
       } catch (ArrayIndexOutOfBoundsException e) {
       }
@@ -51,8 +51,8 @@
         $(document).ready(function(){
   	
         	$('select[name="careerdate"]').attr('disabled',true);
-        	if($("#selectcareer").val()=='선택해주세요'){
-        		$("#selectcareer").val()==null;
+        	if($('select[name="selectcareer"]').val()=='선택해주세요'){
+        		$('select[name="selectcareer"]').val()==null;
         	}
         	
         var si ="";
@@ -64,32 +64,34 @@
         $("#gu").change(function(){
         	//siconvert();
         	gu = $("#gu option:selected").val();
-        	alert(gu);
+
         	$('input[name="regiongu"]').val(gu)
         })
-        var selcareer ="";
-        $("#selectcareer").change(function(){
-        	selcareer = $("#selectcareer option:selected").val();
+        
+        
+/*         var selcareer ="";
+        $('select[name="selectcareer"]').change(function(){
+        	selcareer = $('select[name="selectcareer"] option:selected').val();
 			if(selcareer=='경력'){
 				$('select[name="careerdate"]').attr('disabled',false);	
 			}else{
 				$('select[name="careerdate"]').attr('disabled',true);	
 			}
         	$('input[name="career"]').val(selcareer)
-        })
-        var qualification = "";
+        }) */
+      /*   var qualification = "";
         $("#qaulification").change(function(){
         	qualification = $("#qaulification option:selected").val();
         	$('input[name="qualification"]').val(qualification)
-        })
+        }) */
         
-        var hirestatus="";
-        $("#hirestatus").change(function(){
-        	hirestatus = $("#hirestatus option:selected").val();
+      /*   var hirestatus="";
+        $('select[name="hirestatus"]').change(function(){
+        	hirestatus = $('select[name="hirestatus"] option:selected').val();
         	$('input[name="hirestatus"]').val(hirestatus)
         })
         var workday="";
-        $("#workday").change(function(){
+        $("#workday").change(function(){ //////////////////////////////////////////
         	workday = $("#workday option:selected").val();
         	$('input[name="workday"]').val(workday)
         })
@@ -98,18 +100,14 @@
         $("#salary").change(function(){
         	salary = $("#salary option:selected").val();
         	$('input[name="salary"]').val(salary)        
-        })
+        }) */
         
-   		var deadlinetime ="";
+/*    		var deadlinetime ="";
         $("#deadlinetime").change(function(){
         	deadlinetime = $("#deadlinetime").val();
-        	/* convertString(deadlinetime) */
+        	/* convertString(deadlinetime) 
         	$('input[name="deadline"]').val(deadlinetime);
-   	})
-   	
- 
-
-   	
+   	})*/ 
  })
  
     function convertString(deadlinetime){
@@ -177,15 +175,15 @@ sies = new Array(
 			</tr>
 			<tr>
 				<td colspan="2">
-					<select id="qaulification">
-						<option value="">선택하세요</option>
-						<option>고등학교 졸업 이상</option>
-						<option>대학교(2,3년) 졸업 이상</option>
-						<option>대학교(4년) 졸업 이상</option>
-						<option>석사 졸업 이상</option>
-						<option>박사 졸업 이상</option>
-					</select>
-					<form:hidden path="qualification" /><font color="orange"><form:errors path="qualification" /></font>
+					<form:select path="qualification">
+					<form:option value="">선택하세요</form:option>
+					<form:option value="고등학교 졸업 이상">고등학교 졸업 이상</form:option>
+					<form:option value="대학교(2,3년) 졸업 이상">대학교(2,3년) 졸업 이상</form:option>
+					<form:option value="대학교(4년) 졸업 이상">대학교(4년) 졸업 이상</form:option>
+					<form:option value="석사 졸업 이상">석사 졸업 이상</form:option>
+					<form:option value="박사 졸업 이상">박사 졸업 이상</form:option>
+					</form:select>
+					<font color="orange"><form:errors path="qualification" /></font>
 				</td>
 			</tr>
 			<tr>
@@ -195,7 +193,6 @@ sies = new Array(
 			<tr>
 				<td><h6>마감일</h6></td>
 				<td>
-				<input type="date" id="deadlinetime" value=""> 
 				<form:input path="deadline" /><font color="orange"><form:errors path="deadline" /></font>
 				</td>
 				<td><h6>근무지역</h6></td>
@@ -210,10 +207,8 @@ sies = new Array(
  	<div id="guchk" name="guchk">
  </div>
 					<form:input path="region"/><font color="orange"><form:errors path="region" /></font>
-					<form:hidden path="regiongu"/><font color="orange"><form:errors path="regiongu"/></font>
+					<form:input path="regiongu"/><font color="orange"><form:errors path="regiongu"/></font>
 					<form:input path="regionetc"/><font color="orange"><form:errors path="regionetc"/></font>
-					<form name="f">
-	</form>
 					<br>
 					<label style="font-size:8pt;">세부주소를 같이 입력해주세요.</label>
 				</td>
@@ -221,26 +216,28 @@ sies = new Array(
 			<tr>
 				<td><h6>경력</h6></td>
 				<td>
-					<select id="selectcareer" name="selectcareer">
-							<option value="">선택해주세요</option>
-							<option id="opnew"value="신입">신입</option>
-							<option id="opcareer"value="경력">경력</option>
-					</select>
-					<form:hidden path="career" /><font color="orange"><form:errors path="career" /></font>
+				
+					<form:select path="career">
+					<form:option value="">선택하세요</form:option>
+					<form:option value="신입">신입</form:option>
+					<form:option value="경력">경력</form:option>
+					</form:select>
+					<font color="orange"><form:errors path="career" /></font>
 				</td>
 				<td><h6>고용형태</h6></td>
 				<td>
-					<select id="hirestatus">
-						<option value="">선택하세요</option>
-						<option>정규직</option>
-						<option>파견직</option>
-						<option>인턴직</option>
-						<option>계약직</option>
-						<option>위촉직</option>
-						<option>프리랜서</option>
-						<option>기타</option>
-					</select>
-					<form:hidden path="hirestatus" /><font color="orange"><form:errors path="hirestatus" /></font>
+				<form:select path="hirestatus">
+					<form:option value="">선택하세요</form:option>
+					<form:option value="정규직">정규직</form:option>
+					<form:option value="파견직">파견직</form:option>
+					<form:option value="인턴직">인턴직</form:option>
+					<form:option value="계약직">계약직</form:option>
+					<form:option value="위촉직">위촉직</form:option>
+					<form:option value="프리랜서">프리랜서</form:option>
+					<form:option value="기타">기타</form:option>
+				</form:select>
+					
+				<font color="orange"><form:errors path="hirestatus" /></font>
 				</td>
 			</tr>
 			<tr>
@@ -248,25 +245,23 @@ sies = new Array(
 				<td>
 					<select id="careerdate" name="careerdate">
 						<option>선택해주세요</option>
-						<option>6개월 이상</option>
-						<option>1년 이상</option>
-						<option>3년 이상</option>
-						<option>5년 이상</option>
+						<option>6개월 이하</option>
+						<option>1년 이하</option>
+						<option>3년 이하</option>
+						<option>5년 이하</option>
 					</select>
 				</td>
 				<td><h6>연봉</h6></td>
 				<td>
-				<select id="salary">
-						<option value="">선택하세요</option>
-						<option value="0">협상 후 연봉결정</option>
-						<option value="2200">2200만원 이상</option>
-						<option value="2400">2400만원 이상</option>
-						<option value="2600">2600만원 이상</option>
-						<option value="2800">2800만원 이상</option>
-						<option value="3000">3000만원 이상</option>
-						<option value="숫자를입력해주세요">직접입력</option>
-					</select>
-					<form:hidden path="salary" /><font color="orange"><form:errors path="salary" /></font>
+				<form:select path="salary">
+					<form:option value="">선택하세요</form:option>
+					<form:option value="2200">2200만원 이상</form:option>
+					<form:option value="2400">2400만원 이상</form:option>
+					<form:option value="2600">2600만원 이상</form:option>
+					<form:option value="2800">2800만원 이상</form:option>
+					<form:option value="3000">3000만원 이상</form:option>
+				</form:select>
+				<font color="orange"><form:errors path="salary" /></font>
 				</td>
 			</tr>
 			<tr>
@@ -276,15 +271,16 @@ sies = new Array(
 				</td>
 				<td><h6>근무일</h6></td>
 				<td>
-				<select id="workday">
-						<option value="">선택하세요</option>
-						<option value="주5일(월~금)">주5일(월~금)</option>
-						<option value="토요일 격주휴무(월~토)">토요일 격주휴무(월~토)</option>
-						<option value="주6일(월~토)">주6일(월~토)</option>
-						<option value="주3일(격일제)">주3일(격일제)</option>
-						<option value="탄력근무제">탄력근무제</option>
-					</select>
-					<form:hidden path="workday" /><font color="orange"><form:errors path="workday" /></font>
+
+					<form:select path="workday">
+					<form:option value="">선택하세요</form:option>
+					<form:option value="주5일(월~금)">주5일(월~금)</form:option>
+					<form:option value="토요일 격주휴무(월~토)">토요일 격주휴무(월~토)</form:option>
+					<form:option value="주6일(월~토)">주6일(월~토)</form:option>
+					<form:option value="주3일(격일제)">주3일(격일제)</form:option>
+					<form:option value="탄력근무제">탄력근무제</form:option>
+				</form:select>
+					<font color="orange"><form:errors path="workday" /></font>
 				</td>
 			</tr>
 			<tr>

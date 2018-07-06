@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dao.mapper.UserMapper;
+import logic.History;
 import logic.User;
 
 @Repository
@@ -19,12 +20,10 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void createNormalUser(User user) {
 		sqlSession.getMapper(UserMapper.class).normalInsert(user);
-		
 	}
 	@Override
 	public void createCompanyUser(User user) {
 		sqlSession.getMapper(UserMapper.class).companyInsert(user);
-		
 	}
 	@Override
 	public User selectUser(String memberid) {

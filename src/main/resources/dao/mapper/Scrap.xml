@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.mapper.ScrapMapper">	
-
+	<select id="scrapComfirmSelect" resultType="Scrap" parameterType="map">
+		select * from scrap where memberid=#{memberid}
+		<if test="studyno != null">
+			and studyno=#{studyno}
+		</if>
+	</select>
+		<select id="hireScrapSelect" resultType="Scrap" parameterType="map">
+			select * from scrap where memberid=#{memberid}
+		<if test="hireno != null">
+			and hireno=#{hireno}
+		</if>
+		</select>
 </mapper>

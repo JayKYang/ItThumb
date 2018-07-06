@@ -10,11 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Hire implements Serializable{
 	private int hireno;
-	@NotEmpty(message="지원조건을 입력해주세요.")
+	@NotEmpty(message="지원자격을 입력해주세요.")
 	private String qualification;
 	@NotEmpty(message="고용상태를 입력해주세요.")
 	private String hirestatus;
-	private int salary;
+	@NotEmpty(message="연봉을 선택해주세요")
+	private String salary;
 	@NotEmpty(message="근무일을 입력해주세요")
 	private String workday;
 	private String memberid;
@@ -39,8 +40,6 @@ public class Hire implements Serializable{
 	private String careerdate;
 	@NotEmpty(message="구를 선택해주세요.")
 	private String regiongu;
-	
-	//getter, setter, toString
 	public int getHireno() {
 		return hireno;
 	}
@@ -59,10 +58,10 @@ public class Hire implements Serializable{
 	public void setHirestatus(String hirestatus) {
 		this.hirestatus = hirestatus;
 	}
-	public int getSalary() {
+	public String getSalary() {
 		return salary;
 	}
-	public void setSalary(int salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 	public String getWorkday() {
@@ -171,13 +170,6 @@ public class Hire implements Serializable{
 				+ careerdate + ", regiongu=" + regiongu + "]";
 	}
 	
-	
 
 	
-	
-	
-	
-	
-	
-		
 }
