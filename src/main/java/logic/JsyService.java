@@ -102,4 +102,8 @@ public interface JsyService {
 
 	void insertproject(Project project, HttpServletRequest request);
 
+	void updateRecognize(User user);
+
+	void repassword(User user);
+
 }

@@ -3,5 +3,5 @@
 error.duplicate.user = 중복된 아이디 입니다.
 error.join.password = 패스워드가 불일치 합니다.
 typeMismatch.birth = YYYY-MM-DD 형식으로 입력해 주세요.
-error.login.user = 아이디가 일치하지 않습니다.
+error.login.user = 해당 아이디가 존재하지 않습니다.
 error.loginpassword.user = 비밀번호가 일치하지 않습니다.

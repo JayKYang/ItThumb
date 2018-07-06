@@ -366,4 +366,14 @@ public class JsyServiceImpl implements JsyService{
 		 portfolioDao.updateproject(project);
 	}
 
+	@Override
+	public void updateRecognize(User user) {
+		userDao.updateRecognize(user);
+	}
+
+	@Override
+	public void repassword(User user) {
+		userDao.repassword(user);
+	}
+
 }
