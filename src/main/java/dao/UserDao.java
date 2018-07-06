@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import logic.User;
 
 public interface UserDao {
@@ -19,5 +21,7 @@ public interface UserDao {
 	void updateRecognize(User user);
 
 	void repassword(User user);
+
+	List<User> userList(Integer membergrade);
 
 }

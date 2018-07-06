@@ -4,12 +4,13 @@ import java.util.List;
 
 import logic.Hire;
 import logic.Scrap;
+import logic.User;
 
 public interface BoardDao {
 
-	int count(String searchRegion, String searchEdu, String searchCarr);
+	int count(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate);
 
-	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
+	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate, Integer pageNum, int limit);
 
 	int maxNum();
 
@@ -19,8 +20,16 @@ public interface BoardDao {
 
 	void readCntplus(Integer hireno);
 
-	int scrapMaxnum();
+	void updateScrapNum(Integer hireno);
 
-	void boardScrap(Scrap scrap);
+	void scrapNumMinus(Integer hireno);
+
+	int popBoardcount();
+
+	List<Hire> popHirelist(int popLimit);
+
+	List<Hire> getHirelist();
+
+	void updateHide(int hireno);
 
 }

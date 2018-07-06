@@ -2,6 +2,8 @@ package logic;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -87,19 +89,30 @@ public class JsyServiceImpl implements JsyService{
 	}
 	
 	@Override
-	public int boardcount(String searchRegion, String searchEdu, String searchCarr) {
+	public int boardcount(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate) {
 		
-		return boardDao.count(searchRegion, searchEdu,searchCarr);
+		return boardDao.count(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate);
 	}
 
 	@Override
-	public List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit) {
-	
-		return boardDao.hirelist(searchRegion, searchEdu, searchCarr, pageNum, limit);
+	public List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,String searchCareerDate,Integer pageNum, int limit) {
+		return boardDao.hirelist(searchRegion, searchEdu, searchCarr,searchCareer,searchCareerDate, pageNum, limit);
 	}
 
 	@Override
 	public void hireWrite(Hire hire, HttpServletRequest request) {
+				
+		try {
+			Date deadline = hire.getDeadline();
+			   SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		   sourceDateFormat.format(deadline);
+		    hire.setDeadline(deadline);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		if(hire.getImage() != null && !hire.getImage().isEmpty()) {
 			uploadhireImageCreate(hire.getImage(),request);
 			hire.setImageUrl(hire.getImage().getOriginalFilename());
@@ -150,16 +163,32 @@ public class JsyServiceImpl implements JsyService{
 	public void readCntplus(Integer hireno) {
 		boardDao.readCntplus(hireno);
 	}
-
 	@Override
-	public void boardScrap(Scrap scrap) {
+	public List<User> userList(Integer membergrade) {
 		
-		int num = boardDao.scrapMaxnum();
-		scrap.setScrap(++num);
-		
-		boardDao.boardScrap(scrap);
+		return userDao.userList(membergrade);
 	}
 
+	@Override
+	public int popBoardcount() {
+		
+		return boardDao.popBoardcount();
+	}
+
+	@Override
+	public List<Hire> popHirelist(int popLimit) {
+	
+		return boardDao.popHirelist(popLimit);
+	}
+
+	@Override
+	public List<Hire> getHirelist() {
+		return boardDao.getHirelist();
+	}
+	@Override
+	public void updateHide(int hireno) {	
+		boardDao.updateHide(hireno);
+	}
 	@Override
 	public void insertHistory(History history) {
 		portfolioDao.insertHistory(history);
@@ -365,7 +394,25 @@ public class JsyServiceImpl implements JsyService{
 		}
 		 portfolioDao.updateproject(project);
 	}
+	
+	@Override
+	public Scrap hireScrapSelect(int hireno, String memberid) {
+		
+		return scrapDao.hireScrapSelect(hireno,memberid);
+	}
 
+	@Override
+	public void hireInsertScrap(Scrap insertScrap) {
+		scrapDao.hireInsertScrap(insertScrap);
+		
+	}
+
+	@Override
+	public void hireDeleteScrap(int scrap) {
+		scrapDao.hireDeleteScrap(scrap);
+		
+	}
+	
 	@Override
 	public void updateRecognize(User user) {
 		userDao.updateRecognize(user);
@@ -375,5 +422,6 @@ public class JsyServiceImpl implements JsyService{
 	public void repassword(User user) {
 		userDao.repassword(user);
 	}
+
 
 }

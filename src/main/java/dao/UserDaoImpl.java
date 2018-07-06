@@ -51,4 +51,10 @@ public class UserDaoImpl implements UserDao{
 	public void repassword(User user) {
 		sqlSession.getMapper(UserMapper.class).repassword(user);
 	}
+	@Override
+	public List<User> userList(Integer membergrade) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("membergrade", membergrade);
+		return sqlSession.selectList(NS+"getUser",map);
+	}
 }

@@ -12,9 +12,9 @@ public interface JsyService {
 
 	User getUser(String memberid);
 
-	int boardcount(String searchRegion, String searchEdu, String searchCarr);
+	int boardcount(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate);
 
-	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr, Integer pageNum, int limit);
+	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate,  Integer pageNum, int limit);
 
 	void hireWrite(Hire hire, HttpServletRequest request);
 
@@ -70,7 +70,15 @@ public interface JsyService {
 
 	void readCntplus(Integer hireno);
 
-	void boardScrap(Scrap scrap);
+	List<User> userList(Integer membergrade);
+
+	int popBoardcount();
+
+	List<Hire> popHirelist(int popLimit);
+
+	List<Hire> getHirelist();
+
+	void updateHide(int hireno);
 
 	List<History> getHistory(String memberid);
 
@@ -105,5 +113,11 @@ public interface JsyService {
 	void updateRecognize(User user);
 
 	void repassword(User user);
+
+	Scrap hireScrapSelect(int hireno, String memberid);
+
+	void hireInsertScrap(Scrap insertScrap);
+
+	void hireDeleteScrap(int scrap);
 
 }

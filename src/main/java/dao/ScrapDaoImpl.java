@@ -36,4 +36,22 @@ public class ScrapDaoImpl implements ScrapDao{
 		sqlSession.getMapper(ScrapMapper.class).studyScrapDelete(scrap);
 		
 	}
+	@Override
+	public Scrap hireScrapSelect(int hireno, String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("hireno", hireno);
+		param.put("memberid", memberid);
+		
+		return sqlSession.selectOne(NS+"hireScrapSelect", param);
+	}
+	@Override
+	public void hireInsertScrap(Scrap insertScrap) {
+		
+		sqlSession.getMapper(ScrapMapper.class).hireInsertScrap(insertScrap);
+	}
+	@Override
+	public void hireDeleteScrap(int scrap) {
+		sqlSession.getMapper(ScrapMapper.class).hireDeleteScrap(scrap);
+		
+	}
 }

@@ -12,4 +12,10 @@ public interface ScrapDao {
 
 	void studyScrapDelete(int scrap);
 
+	Scrap hireScrapSelect(int hireno, String memberid);
+
+	void hireInsertScrap(Scrap insertScrap);
+
+	void hireDeleteScrap(int scrap);
+
 }

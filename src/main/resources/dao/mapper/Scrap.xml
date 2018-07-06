@@ -7,4 +7,10 @@
 			and studyno=#{studyno}
 		</if>
 	</select>
+		<select id="hireScrapSelect" resultType="Scrap" parameterType="map">
+			select * from scrap where memberid=#{memberid}
+		<if test="hireno != null">
+			and hireno=#{hireno}
+		</if>
+		</select>
 </mapper>

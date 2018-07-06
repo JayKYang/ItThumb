@@ -37,10 +37,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     	<a href="${path }/user/logout.jsy" class="w3-bar-item w3-button w3-hide-small w3-hover-gray">${sessionScope.login.memberid }님! 로그아웃 </a>
     </c:if>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/hire/hirelist.jsy">채용공고</a>
+
+	  <c:if test="${sessionScope.login.membergrade=='0' }">
+	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.jsy">관리자</a>
+		</c:if>
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/portfolio/myportfolio.jsy?id=${sessionScope.login.memberid}">포트폴리오</a>
-	  <c:if test="${sessionScope.loginUser.userId=='admin' }">
-	  	<a class="w3-bar-item w3-button w3-hover-gray" href="${path }/admin/admin.shop">관리자</a>
-	  </c:if>
+
 	  <c:if test="${!empty sessionScope.login }">
 		  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage.jsy?id=${sessionScope.login.memberid}">마이페이지</a>
 	  </c:if>
