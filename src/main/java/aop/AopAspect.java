@@ -50,11 +50,34 @@ public class AopAspect {
 		Integer pageNum = (Integer) joinPoint.getArgs()[3]; //페이지 넘버
 		
 		User login = (User)session.getAttribute("login");//로그인 아이디
-		
+		if(login == null) {
+			 throw new JsyException("로그인을 해야합니다.", "../user/login.jsy");
+		}
 		if(!memberid.equals(login.getMemberid()) && login.getMembergrade()!= 0) {
 				throw new JsyException("권한이 없습니다.", "../study/studyInfo.jsy?pageNum="+pageNum+"&studyno="+studyno);
 	    }
 		Object ret = joinPoint.proceed();
 		return ret;
-	}
+	 }
+	//reply, community 게시물 작성자 & 세션 id 비교 검사
+	 @Around("execution(* controller.Community*.comreplyCon*(..))") //study컨트롤러에  delCon으로 시작되는 메서드
+	 public Object replyCheck(ProceedingJoinPoint joinPoint) throws Throwable{
+		HttpSession session = (HttpSession)joinPoint.getArgs()[0];//session
+		String memberid = (String) joinPoint.getArgs()[1]; //작성자
+		Integer communitykind = (Integer) joinPoint.getArgs()[2]; //게시물종류
+		Integer communityno = (Integer) joinPoint.getArgs()[3];//게시물번호
+		Integer pageNum = (Integer) joinPoint.getArgs()[4]; //페이지 넘버
+		
+		
+		User login = (User)session.getAttribute("login");//로그인 아이디
+		if(login == null) {
+			 throw new JsyException("로그인을 해야합니다.", "../user/login.jsy");
+		}
+		if(!memberid.equals(login.getMemberid()) && login.getMembergrade()!= 0) {
+				throw new JsyException("권한이 없습니다.", "../community/comInfo.jsy?communitykind="+communitykind+"&communityno="+communityno+"&pageNum="+pageNum);
+	    }
+		Object ret = joinPoint.proceed();
+		return ret;
+	 }
+	
 }

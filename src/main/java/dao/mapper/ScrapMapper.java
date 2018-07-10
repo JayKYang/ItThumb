@@ -16,11 +16,8 @@ public interface ScrapMapper {
 
 	@Delete("delete from scrap where scrap=#{scrap}")
 	void studyScrapDelete(int scrap);
-	
-	@Select("select ifnull(max(scrap),0) from scrap")
-	int scrapMaxnum();
-	
-	@Insert("insert into scrap(scrap, memberid,hireno) values (#{scrap},#{memberid},#{hireno})")
-	void insert(Scrap scrap);
+
+	@Delete("delete from scrap where studyno=#{studyno}")
+	void scrapAllDelete(Integer studyno);
 
 }

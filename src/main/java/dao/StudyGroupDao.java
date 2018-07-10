@@ -12,4 +12,6 @@ public interface StudyGroupDao {
 
 	void studyGroupDelete(int groupno);
 
+	void studyGroupAllDelete(Integer studyno);
+
 }

@@ -19,8 +19,4 @@ public interface BoardDao {
 
 	void readCntplus(Integer hireno);
 
-	int scrapMaxnum();
-
-	void boardScrap(Scrap scrap);
-
 }

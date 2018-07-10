@@ -12,4 +12,6 @@ public interface ScrapDao {
 
 	void studyScrapDelete(int scrap);
 
+	void scrapAllDelete(Integer studyno);
+
 }

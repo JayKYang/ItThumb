@@ -70,7 +70,6 @@ public interface JsyService {
 
 	void readCntplus(Integer hireno);
 
-	void boardScrap(Scrap scrap);
 
 	List<History> getHistory(String memberid);
 
@@ -101,5 +100,49 @@ public interface JsyService {
 	void updateproject(Project project, HttpServletRequest request);
 
 	void insertproject(Project project, HttpServletRequest request);
+
+	int Communitycount(String searchType, String searchContent, Integer communitykind, String memberid);
+
+	List<Community> communityLlist(String searchType, String searchContent, Integer pageNum, int limit, Integer communitykind, String memberid);
+
+	int comMaxNum();
+
+	void comCreate(Community community, HttpServletRequest request);
+
+	Community comSelect(Integer communityno);
+
+	List<Filerep> fileList(Integer communityno);
+
+	void comReadCount(Integer communityno);
+
+	List<Reply> replyList(Integer communityno);
+
+	int replyMaxNum();
+
+	void replyCreate(Reply reply);
+
+	Reply setlectReply(Integer replyno);
+
+	void insertReReply(Reply reply);
+
+	void updateRe(Reply replyUpdate);
+
+	void replyDelete(Integer replyno);
+
+	void communityDelete(Integer communityno);
+
+	void comReplyDelete(Integer communityno);
+
+	void comFileDelete(Integer communityno);
+
+	int fileMaxNum();
+
+	void comUpdate(Community community, HttpServletRequest request);
+
+	void fileupdate(Filerep filerep);
+
+	void studyGroupAllDelete(Integer studyno);
+
+	void scrapAllDelete(Integer studyno);
 
 }

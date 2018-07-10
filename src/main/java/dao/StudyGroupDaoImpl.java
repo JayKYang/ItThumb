@@ -37,4 +37,10 @@ public class StudyGroupDaoImpl implements StudyGroupDao{
 		sqlSession.getMapper(StudyGroupMapper.class).studyGroupDelete(groupno);
 		
 	}
+	@Override
+	public void studyGroupAllDelete(Integer studyno) {
+		sqlSession.getMapper(StudyGroupMapper.class).studyGroupAllDelete(studyno);
+		
+	}
+	
 }

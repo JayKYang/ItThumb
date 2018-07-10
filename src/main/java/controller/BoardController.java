@@ -113,26 +113,4 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="hire/scrap", method=RequestMethod.POST)
-	public ModelAndView scrap(HttpServletRequest request, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		Integer hireno = Integer.parseInt(request.getParameter("hireno"));
-		
-		System.out.println(hireno);
-		System.out.println(pageNum);
-		User user = (User)session.getAttribute("login");
-		String memberid = user.getMemberid();
-		try {
-			Scrap scrap = new Scrap();
-			scrap.setHireno(hireno);
-			scrap.setMemberid(memberid);
-			service.boardScrap(scrap);
-			mav.setViewName("redirect:/hire/hiredetail.jsy?hireno=" + hireno+"&pageNum=" +pageNum);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return mav;
-	}
 }

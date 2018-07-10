@@ -17,4 +17,8 @@ public interface StudyGroupMapper {
 	@Delete("delete from studygroup where groupno=#{groupno}")
 	void studyGroupDelete(int groupno);
 
+	@Delete("delete from studygroup where studyno=#{studyno}")
+	void studyGroupAllDelete(Integer studyno);
+
+
 }

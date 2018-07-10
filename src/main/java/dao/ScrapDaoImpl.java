@@ -36,4 +36,9 @@ public class ScrapDaoImpl implements ScrapDao{
 		sqlSession.getMapper(ScrapMapper.class).studyScrapDelete(scrap);
 		
 	}
+	@Override
+	public void scrapAllDelete(Integer studyno) {
+		sqlSession.getMapper(ScrapMapper.class).scrapAllDelete(studyno);
+		
+	}
 }

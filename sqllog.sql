@@ -102,14 +102,15 @@ create table message(
 	confirm int(2)
 )
 
-<<<<<<< HEAD
 create table community(
 	communityno int PRIMARY KEY,
 	memberid varchar(30),
 	subject varchar(30),
 	content varchar(5000),
 	regdate datetime,
-	communitykind int
+	communitykind int,
+	readcnt int
+	
 )
 create table filerep(
 	fileno int PRIMARY KEY,
