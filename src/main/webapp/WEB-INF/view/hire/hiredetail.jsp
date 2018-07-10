@@ -147,6 +147,7 @@ $(document).ready(function(){
 					<img src="../hireimg/${hire.imageUrl}" >
 				</td>
 			</tr>
+			<c:if test="${sessionScope.login.memberid == 'admin@admin' }">
 			<tr>
 				<td colspan="4">
 					<h6>내용</h6>
@@ -157,6 +158,7 @@ $(document).ready(function(){
 				${hire.content}
 				</td>
 			</tr>
+			</c:if>
 			<tr>
 				<td colspan="4" align="center">
 			
@@ -167,6 +169,9 @@ $(document).ready(function(){
 				<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a>
 			</c:if>
 					<a href="hirelist.jsy?pageNum=${param.pageNum}">LIST</a>					
+			<c:if test="${sessionScope.login.membergrade ==0 }">
+					<a href="../admin/superviseHire.jsy">채용관리</a>
+				</c:if>
 				</td>
 			</tr>
 		</table>

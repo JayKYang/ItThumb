@@ -20,6 +20,8 @@ public interface ScrapDao {
 
 	void hireDeleteScrap(int scrap);
 
-	List<Scrap> scrapHirelist(Integer hireno, String memberid);
+	List<Scrap> scrapHirelist(String memberid,Integer pageNum, int limit);
+
+	int scrapHireCount(String memberid);
 
 }

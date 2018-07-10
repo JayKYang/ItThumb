@@ -51,9 +51,7 @@
         $(document).ready(function(){
   	
         	$('select[name="careerdate"]').attr('disabled',true);
-        	if($('select[name="selectcareer"]').val()=='선택해주세요'){
-        		$('select[name="selectcareer"]').val()==null;
-        	}
+        	
         	
         var si ="";
         $("#si").change(function(){
@@ -68,46 +66,14 @@
         	$('input[name="regiongu"]').val(gu)
         })
         
-        
-/*         var selcareer ="";
-        $('select[name="selectcareer"]').change(function(){
-        	selcareer = $('select[name="selectcareer"] option:selected').val();
-			if(selcareer=='경력'){
-				$('select[name="careerdate"]').attr('disabled',false);	
-			}else{
-				$('select[name="careerdate"]').attr('disabled',true);	
-			}
-        	$('input[name="career"]').val(selcareer)
-        }) */
-      /*   var qualification = "";
-        $("#qaulification").change(function(){
-        	qualification = $("#qaulification option:selected").val();
-        	$('input[name="qualification"]').val(qualification)
-        }) */
-        
-      /*   var hirestatus="";
-        $('select[name="hirestatus"]').change(function(){
-        	hirestatus = $('select[name="hirestatus"] option:selected').val();
-        	$('input[name="hirestatus"]').val(hirestatus)
+        var careerdate ="";
+        $('select[name="career"]').change(function(){
+        	if($('select[name="career"]').val()=='경력'){
+        	$('select[name="careerdate"]').attr('disabled',false);
+        	} else if($('select[name="career"]').val()==null || $('select[name="career"]').val()==''){
+        		$('select[name="careerdate"]').attr('disabled',true);
+        	}
         })
-        var workday="";
-        $("#workday").change(function(){ //////////////////////////////////////////
-        	workday = $("#workday option:selected").val();
-        	$('input[name="workday"]').val(workday)
-        })
-        var salary="";
-        aa = "self";
-        $("#salary").change(function(){
-        	salary = $("#salary option:selected").val();
-        	$('input[name="salary"]').val(salary)        
-        }) */
-        
-/*    		var deadlinetime ="";
-        $("#deadlinetime").change(function(){
-        	deadlinetime = $("#deadlinetime").val();
-        	/* convertString(deadlinetime) 
-        	$('input[name="deadline"]').val(deadlinetime);
-   	})*/ 
  })
  
     function convertString(deadlinetime){

@@ -80,9 +80,9 @@ public class BoardDaoImpl implements BoardDao{
 
 
 	@Override
-	public void updateScrapNum(Integer hireno) {
+	public void hireUpdateScrapNum(int hireno) {
 	
-		SqlSession.getMapper(HireMapper.class).updateScrapNum(hireno);
+		SqlSession.getMapper(HireMapper.class).hireUpdateScrapNum(hireno);
 		
 	}
 
@@ -123,6 +123,23 @@ public class BoardDaoImpl implements BoardDao{
 		SqlSession.getMapper(HireMapper.class).deleteHire(hireno);
 		
 	}
+
+	@Override
+	public int suphirelistcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		Map<String, String> map = new HashMap<String,String>();
+		map.put("searchRegion", searchRegion);
+		map.put("searchEdu", searchEdu);
+		map.put("searchCarr", searchCarr);
+		map.put("searchCareer", searchCareer);
+		map.put("searchCareerDate", searchCareerDate);
+		
+		int ret = SqlSession.selectOne(NS+"suphirelistcount", map);
+		
+		return ret;
+	}
+
+
 
 
 

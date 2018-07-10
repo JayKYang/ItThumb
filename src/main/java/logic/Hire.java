@@ -170,6 +170,8 @@ public class Hire implements Serializable{
 				+ careerdate + ", regiongu=" + regiongu + "]";
 	}
 	
-
+	
+	
+	
 	
 }

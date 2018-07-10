@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.mapper.HireMapper">	
 		<select id="count" resultType="Integer" parameterType="map">
-			select count(*) from hireboard where 1=1
+			select count(*) from hireboard where hide =1
 			<if test="searchRegion !=null">
 		and	region in (${searchRegion})
 			</if>
@@ -41,12 +41,30 @@
 			</if>
 			order by regdate desc limit #{startrow}, #{limit}
 		</select>
-		
 		<select id="popBoardcount" resultType="Integer">
-			select count(*) from hireboard order by (scrapnum+readcnt) desc
+			select count(*) from hireboard where hide =1 order by (scrapnum+readcnt) desc
 		</select>
 		
 		<select id="popHirelist" resultType="Hire" parameterType="map">
-			select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard order by (scrapnum+readcnt) desc limit 0, 4
+			select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard where hide=1 order by (scrapnum+readcnt) desc limit 0, 4
+		</select>
+		
+		<select id="suphirelistcount" resultType="int" parameterType="map">
+			select count(*) from hireboard where 1=1
+		<if test="searchRegion !=null">
+		and	region in (${searchRegion})
+			</if>
+			<if test="searchEdu !=null">
+		and	qualification = #{searchEdu}
+			</if>
+			<if test="searchCarr !=null">
+		and	hirestatus in (${searchCarr})
+			</if>
+			<if test="searchCareer !=null">
+			and career in (${searchCareer})
+			</if>
+			<if test="searchCareerDate !=null">
+			and careerdate = #{searchCareerDate}
+			</if>
 		</select>
 </mapper>

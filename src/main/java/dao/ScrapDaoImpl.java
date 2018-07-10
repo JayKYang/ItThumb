@@ -56,10 +56,19 @@ public class ScrapDaoImpl implements ScrapDao{
 		
 	}
 	@Override
-	public List<Scrap> scrapHirelist(Integer hireno, String memberid) {
+	public List<Scrap> scrapHirelist(String memberid,Integer pageNum,int limit) {
+		int startrow = (pageNum -1) * limit;
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("hireno", hireno);
 		map.put("memberid", memberid);
+		map.put("startrow", startrow);
+		map.put("limit", limit);
 		return sqlSession.selectList(NS+"scrapHirelist",map);
+	}
+	@Override
+	public int scrapHireCount(String memberid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberid", memberid);
+		int ret = sqlSession.selectOne(NS+"scrapHireCount",map);
+		return ret;
 	}
 }
