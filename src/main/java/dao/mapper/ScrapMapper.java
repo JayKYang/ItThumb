@@ -1,5 +1,6 @@
 package dao.mapper;
 
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -19,5 +20,11 @@ public interface ScrapMapper {
 
 	@Delete("delete from scrap where studyno=#{studyno}")
 	void scrapAllDelete(Integer studyno);
+
+	@Insert("insert into scrap (scrap,memberid,hireno) values (#{scrap},#{memberid},#{hireno})")
+	void hireInsertScrap(Scrap insertScrap);
+
+	@Delete("delete from scrap where scrap = #{scrap}")
+	void hireDeleteScrap(int scrap);
 
 }

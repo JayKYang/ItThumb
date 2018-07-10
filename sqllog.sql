@@ -25,18 +25,26 @@ create table user(
 )
 
 create table hireboard(
-	hireno int PRIMARY KEY,
-	qualification varchar(100),
-	hirestatus varchar(20),
-	salary int,
-	workday varchar(20),
-	memberid varchar(30),
-	hide int(2),
-	deadline datetime,
-	readcnt int,
-	subject varchar(100),
-	image varchar(200),
-	content varchar(2000)
+   hireno int PRIMARY KEY,
+   qualification varchar(100),
+   hirestatus varchar(20),
+   salary varchar(15),
+   workday varchar(20),
+   memberid varchar(30),
+   hide int(2),
+   deadline datetime,
+   readcnt int,
+   subject varchar(100),
+   image varchar(200),
+   content varchar(2000),
+   region varchar(10),
+   company varchar(20),
+   regionetc varchar(30),
+   regdate datetime,
+   career varchar(5),
+   careerdate varchar(20),
+   scrapnum int,
+   regiongu varchar(5)
 )
 
 create table studygroup(
@@ -53,27 +61,6 @@ create table scrap (
    hireno int,
    studyno int,
    scrapmember varchar(30)
-)
-
-create table hireboard(
-   hireno int PRIMARY KEY,
-   qualification varchar(100),
-   hirestatus varchar(20),
-   salary int,
-   workday varchar(20),
-   memberid varchar(30),
-   hide int(2),
-   deadline datetime,
-   readcnt int,
-   subject varchar(100),
-   image varchar(200),
-   content varchar(2000),
-   region varchar(10),
-   company varchar(20),
-   regionetc varchar(30),
-   regdate datetime,
-   career varchar(5),
-   careerdate varchar(20)   
 )
 
 create table study(
@@ -141,3 +128,14 @@ CREATE TABLE project
 	link varchar(100),
 	skills varchar(500)
 );
+
+create table history(
+	historyno int primary key,
+	memberid varchar(30) not null,
+	content varchar(50),
+	skillful int,
+	getdate date,
+	enddate date,
+	kindno int
+);
+

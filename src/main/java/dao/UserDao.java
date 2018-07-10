@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import logic.User;
 
 public interface UserDao {
@@ -15,5 +17,11 @@ public interface UserDao {
 	void deleteUser(String id);
 
 	void confirmCode(User user);
+
+	void updateRecognize(User user);
+
+	void repassword(User user);
+
+	List<User> userList(Integer membergrade);
 
 }

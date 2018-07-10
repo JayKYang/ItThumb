@@ -101,7 +101,7 @@
 			  <a href="#study" class="w3-button"><p>스터디 관리</p></a>
 			</div>
 			<div class="w3-container w3-cell w3-cell-middle w3-button" onclick="openMypage('employment')" style="width:200px; float:left;">
-			  <a href="#employment" class="w3-button"><p>채용공고 스크랩</p></a>
+			  <a href="#" class="w3-button"><p>채용공고 스크랩</p></a>
 			</div>
 		</div>
 		<hr>

@@ -42,6 +42,11 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
+	@RequestMapping("close")
+	public ModelAndView close() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 	
 	@RequestMapping("user/selectJoin")
 	public ModelAndView selectJoin() {
@@ -103,7 +108,8 @@ public class UserController {
 				user.setCreatepf(0);
 				service.createNormalUser(user, request);
 				//메일 셋팅
-				sm.senmail(user.getMemberid(), user.getRecognizecode());
+				sm.senmail(user.getMemberid(), user.getRecognizecode(), "[ITThumb] 가입 인증 메일입니다.", "링크를 누르시면 인증이 완료됩니다.<br>"
+						+ "<a href='http://localhost:8080/itthumb/confirm.jsy?id="+user.getMemberid()+"&code="+user.getRecognizecode()+"'>인증완료</a>");
 				
 				mav.addObject("msg","회원가입이 완료되었습니다. 메일에서 인증해주세요.");
 				mav.addObject("url","login.jsy");
@@ -185,6 +191,7 @@ public class UserController {
 		}
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user",user);
 			return mav;
 		}
 		User dbUser = service.getUser(user.getMemberid());
@@ -192,6 +199,7 @@ public class UserController {
 		if(dbUser == null) {
 			bindingResult.reject("error.login.user");
 			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user",user);
 			return mav;
 		}
 		dbUser.setHistoryList(service.getHistory(user.getMemberid()));
@@ -212,6 +220,7 @@ public class UserController {
 		} else {
 			bindingResult.reject("error.loginpassword.user");
 			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user",user);
 			return mav;
 		}
 
@@ -298,7 +307,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
-	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView update(@Valid User user, HttpServletRequest request) {
 		System.out.println("[UserController] => user/mypage[POST]");
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
@@ -332,6 +341,108 @@ public class UserController {
 		}
 		return mav;
 	}
+	@RequestMapping(value = "user/findpassword", method = RequestMethod.GET)
+	public ModelAndView findpassword() {
+		System.out.println("[UserController] => user/findpassword[GET]");
+		ModelAndView mav = new ModelAndView();
+		User user = new User();
+		mav.addObject("user",user);
+		return mav; // 뷰이름만 리턴
+	}
 	
-	
+	@RequestMapping(value = "user/findpassword", method = RequestMethod.POST)
+	public ModelAndView findpassword(@Valid User user, BindingResult bindingResult) {
+		System.out.println("[UserController] => user/findpassword[POST]");
+		ModelAndView mav = new ModelAndView();
+
+		User dbUser = service.getUser(user.getMemberid());
+		
+		if(bindingResult.hasErrors()) {
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user", user);
+			System.out.println(mav);
+			return mav;
+		}
+		
+		
+		if(dbUser == null) {
+//			user.setMemberid(null);
+			bindingResult.reject("error.login.user");
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user", user);
+			return mav;
+		}
+		
+		//메일 셋팅
+		dbUser.setRecognizecode((int)(Math.random()*10000)+1000);
+		System.out.println(dbUser);
+		service.updateRecognize(dbUser); // 인증번호 재발급
+		sm.senmail(dbUser.getMemberid(), dbUser.getRecognizecode(), "[ITThumb] 비밀번호 분실확인 메일", "링크를 누르시면 비밀번호 변경화면으로 이동됩니다.<br>"
+				+ "<a href='http://localhost:8080/itthumb/passconfirm.jsy?id="+dbUser.getMemberid()+"&code="+dbUser.getRecognizecode()+"'>비밀번호 변경하로 가기</a>");
+		
+		mav.addObject("msg","메일 전송이 완료되었습니다. 이메일을 확인해주세요.");
+		mav.addObject("url","../close.jsy");
+		mav.setViewName("alert");
+		
+		return mav; // 뷰이름만 리턴
+	}
+	@RequestMapping(value="passconfirm", method=RequestMethod.GET)
+	public ModelAndView passconfirm(HttpServletRequest request) {
+		System.out.println("[UserController] => user/passconfirm");
+		ModelAndView mav = new ModelAndView();
+		String memberid = request.getParameter("id");
+		String code = request.getParameter("code");
+		User user = new User();
+		User dbUser = service.getUser(memberid);
+		user.setRecognizecode(Integer.parseInt(code));
+		user.setMemberid(memberid);
+		if(Integer.parseInt(code)==dbUser.getRecognizecode()) {
+			service.confirmCode(user);
+			mav.addObject("msg","인증성공, 비밀번호 변경 창으로 이동합니다.");
+			mav.addObject("url","user/repasswordform.jsy?id="+memberid);
+		}else {
+			mav.addObject("msg","인증실패 메일 재전송 만들기");
+			mav.addObject("url","user/login.jsy");
+			// 메일 재전송
+		}
+		mav.setViewName("alert");
+		return mav;
+	}
+	@RequestMapping(value="user/repasswordform", method=RequestMethod.GET)
+	public ModelAndView repasswordform(HttpServletRequest request) {
+		System.out.println("[UserController] => user/repasswordform[GET]");
+		ModelAndView mav = new ModelAndView();
+		User dbUser = service.getUser(request.getParameter("id"));
+		mav.addObject("user",dbUser);
+		return mav;
+	}
+	@RequestMapping(value="user/repasswordform", method=RequestMethod.POST)
+	public ModelAndView repassword(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+		System.out.println("[UserController] => user/repasswordform[POST]");
+		ModelAndView mav = new ModelAndView();
+
+		User dbUser = service.getUser(user.getMemberid());
+		
+		if(!user.getPassword().equals(request.getParameter("passconfirm"))) {
+			bindingResult.reject("error.join.password");
+			mav.getModel().putAll(bindingResult.getModel());
+			mav.addObject("user", user);			
+			return mav;
+		}
+		
+		try {
+			user.setPassword(hp.password(user.getPassword()));
+			service.repassword(user);
+			mav.addObject("msg","비밀번호 변경 성공. 로그인 해주세요.");
+			mav.addObject("url","login.jsy");
+			mav.setViewName("alert");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return mav;
+	}
 }

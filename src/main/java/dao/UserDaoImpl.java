@@ -43,4 +43,18 @@ public class UserDaoImpl implements UserDao{
 	public void confirmCode(User user) {
 		sqlSession.getMapper(UserMapper.class).confirmCode(user);
 	}
+	@Override
+	public void updateRecognize(User user) {
+		sqlSession.getMapper(UserMapper.class).updateRecognize(user);
+	}
+	@Override
+	public void repassword(User user) {
+		sqlSession.getMapper(UserMapper.class).repassword(user);
+	}
+	@Override
+	public List<User> userList(Integer membergrade) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("membergrade", membergrade);
+		return sqlSession.selectList(NS+"getUser",map);
+	}
 }
