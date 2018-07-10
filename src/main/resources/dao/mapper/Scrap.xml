@@ -19,4 +19,10 @@
 			and scrapmember=#{scrapid}
 		</if>
 	</select>
+	<select id="scrapHirelist" resultType="Scrap" parameterType="map">
+		select * from scrap where memberid =#{memberid}
+		<if test="hireno != null">
+			and hireno is not null
+		</if>
+	</select>
 </mapper>

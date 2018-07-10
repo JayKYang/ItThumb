@@ -2,6 +2,7 @@ package dao.mapper;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -25,8 +26,11 @@ public interface HireMapper {
 	@Update("update hireboard set scrapnum = scrapnum-1 where hireno =#{value} ")
 	void scrapNumMinus(Integer hireno);
 
-	@Update("update hideboard set hide = hide+1 where hireno = #{value}")
+	@Update("update hireboard set hide = hide+1 where hireno = #{value}")
 	void updateHide(int hireno);
+
+	@Delete("delete from hireboard where hireno = #{value}")
+	void deleteHire(int hireno);
 	
 	
 

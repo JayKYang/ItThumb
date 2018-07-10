@@ -77,8 +77,6 @@ public class BoardDaoImpl implements BoardDao{
 		SqlSession.getMapper(HireMapper.class).readCntplus(hireno);
 	}
 
-
-
 	@Override
 	public void updateScrapNum(Integer hireno) {
 	
@@ -125,6 +123,11 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("searchContent", searchContent);
 		map.put("hide", hide);
 		return SqlSession.selectOne(NS+"hirecount",map);
+	}
+	@Override
+	public void deleteHire(int hireno) {
+		SqlSession.getMapper(HireMapper.class).deleteHire(hireno);
+		
 	}
 
 	@Override

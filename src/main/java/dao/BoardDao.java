@@ -32,6 +32,8 @@ public interface BoardDao {
 
 	void updateHide(int hireno);
 
+	void deleteHire(int hireno);
+
 	int hirecount(String searchType, String searchContent, Integer hide);
 
 	List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide, int limit);

@@ -188,6 +188,7 @@ public class JsyServiceImpl implements JsyService{
 	public void updateHide(int hireno) {	
 		boardDao.updateHide(hireno);
 	}
+
 	@Override
 	public void insertHistory(History history) {
 		portfolioDao.insertHistory(history);
@@ -393,7 +394,6 @@ public class JsyServiceImpl implements JsyService{
 		}
 		 portfolioDao.updateproject(project);
 	}
-	
 	@Override
 	public Scrap hireScrapSelect(int hireno, String memberid) {
 		
@@ -463,4 +463,167 @@ public class JsyServiceImpl implements JsyService{
 		return studyGroupDao.studygrouplist(memberid);
 	}
 
+	@Override
+	public void deleteHire(int hireno) {
+		boardDao.deleteHire(hireno);
+		
+	}
+
+	@Override
+	public List<Scrap> scrapHirelist(Integer hireno, String memberid) {
+	
+		return scrapDao.scrapHirelist(hireno, memberid);
+	}
+
+	@Override
+	public int Communitycount(String searchType, String searchContent, Integer communitykind, String memberid) {
+		return communityDao.communitycount(searchType, searchContent, communitykind, memberid);
+	}
+
+	@Override
+	public List<Community> communityLlist(String searchType, String searchContent, Integer pageNum, int limit, Integer communitykind, String memberid) {
+		return communityDao.communityList(searchType, searchContent, pageNum, limit, communitykind, memberid);
+	}
+
+	@Override
+	public int comMaxNum() {
+		return communityDao.comMaxNum();
+	}
+
+	@Override
+	public void comCreate(Community community, HttpServletRequest request) {
+		for(MultipartFile mf : community.getFileList()) {
+			if(!mf.isEmpty()) {
+				uploadComFiles(mf, request, community.getCommunityno());
+			}
+		}
+		communityDao.comCreate(community);
+	}
+
+	private void uploadComFiles(MultipartFile mf, HttpServletRequest request, int communityno) {
+		String uploadPath = request.getServletContext().getRealPath("/")+"/comfiles/";
+		try {
+			
+				Filerep filerep = new Filerep();
+				int fileMaxNum = filerepDao.fileMaxNum()+1;
+				String orgFileName = mf.getOriginalFilename();
+				filerep.setFileno(fileMaxNum);
+				filerep.setCommunityno(communityno);
+				filerep.setFname(orgFileName);
+				filerepDao.fileCreate(filerep);
+				mf.transferTo(new File(uploadPath + orgFileName));
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public Community comSelect(Integer communityno) {
+		return communityDao.comSelect(communityno);
+	}
+
+	@Override
+	public List<Filerep> fileList(Integer communityno) {
+		return filerepDao.fileList(communityno);
+	}
+
+	@Override
+	public void comReadCount(Integer communityno) {
+		communityDao.comReadCount(communityno);
+		
+	}
+
+	@Override
+	public List<Reply> replyList(Integer communityno) {
+		return replydao.replyList(communityno);
+	}
+
+	@Override
+	public int replyMaxNum() {
+		return replydao.replyMaxNum();
+	}
+
+	@Override
+	public void replyCreate(Reply reply) {
+		replydao.replyCreate(reply);
+		
+	}
+
+	@Override
+	public Reply setlectReply(Integer replyno) {
+		return replydao.selectReply(replyno);
+	}
+
+	@Override
+	public void insertReReply(Reply reply) {
+		replydao.insertReReply(reply);
+	}
+
+	@Override
+	public void updateRe(Reply replyUpdate) {
+		replydao.updateRe(replyUpdate);
+		
+	}
+
+	@Override
+	public void replyDelete(Integer replyno) {
+		replydao.replyDelete(replyno);
+		
+	}
+
+	@Override
+	public void communityDelete(Integer communityno) {
+		communityDao.communityDelete(communityno);
+		
+	}
+
+	@Override
+	public void comReplyDelete(Integer communityno) {
+		replydao.comReplyDelete(communityno);
+		
+	}
+
+	@Override
+	public void comFileDelete(Integer communityno) {
+		filerepDao.comFileDelete(communityno);
+		
+	}
+
+	@Override
+	public int fileMaxNum() {
+		return filerepDao.fileMaxNum();
+	}
+
+	@Override
+	public void comUpdate(Community community, HttpServletRequest request) {
+		if(community.getFileList() != null) {
+			for(MultipartFile mf : community.getFileList()) {
+				if(!mf.isEmpty()) {
+					uploadComFiles(mf, request, community.getCommunityno());
+				}
+			}
+		}
+		communityDao.comUpdate(community);
+		
+	}
+
+	@Override
+	public void fileupdate(Filerep filerep) {
+		filerepDao.fileCreate(filerep);
+	}
+
+	@Override
+	public void studyGroupAllDelete(Integer studyno) {
+		studyGroupDao.studyGroupAllDelete(studyno);
+		
+	}
+
+	@Override
+	public void scrapAllDelete(Integer studyno) {
+		scrapDao.scrapAllDelete(studyno);
+		
+	}
+		
 }

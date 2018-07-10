@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -37,6 +38,10 @@ public class ScrapDaoImpl implements ScrapDao{
 		
 	}
 	@Override
+	public void scrapAllDelete(Integer studyno) {
+		sqlSession.getMapper(ScrapMapper.class).scrapAllDelete(studyno);
+	}
+	@Override
 	public Scrap hireScrapSelect(int hireno, String memberid) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("hireno", hireno);
@@ -53,6 +58,13 @@ public class ScrapDaoImpl implements ScrapDao{
 	public void hireDeleteScrap(int scrap) {
 		sqlSession.getMapper(ScrapMapper.class).hireDeleteScrap(scrap);
 		
+	}
+	@Override
+	public List<Scrap> scrapHirelist(Integer hireno, String memberid) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("hireno", hireno);
+		map.put("memberid", memberid);
+		return sqlSession.selectList(NS+"scrapHirelist",map);
 	}
 	@Override
 	public Scrap portfolioScrapConfirm(String loginid, String scrapid) {

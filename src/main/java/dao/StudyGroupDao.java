@@ -16,4 +16,5 @@ public interface StudyGroupDao {
 
 	List<StudyGroup> studygrouplist(String memberid);
 
+	void studyGroupAllDelete(Integer studyno);
 }

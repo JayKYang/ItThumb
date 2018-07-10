@@ -2,10 +2,13 @@ package logic;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Reply {
 	private int replyno;
 	private String memberid;
 	private String name;
+	@NotEmpty(message="내용을 입력해주세요")
 	private String content;
 	private Date regdate;
 	private int ref;
