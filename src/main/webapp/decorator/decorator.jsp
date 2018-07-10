@@ -52,35 +52,14 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	  <c:if test="${!empty sessionScope.login }">
 		  <a class="w3-bar-item w3-button w3-hover-gray" href="${path }/user/mypage/myInfo.jsy?id=${sessionScope.login.memberid}">마이페이지</a>
 	  </c:if>
-<<<<<<< HEAD
 	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/study/studySearchList.jsy">스터디 검색</a>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/community/communityBoard.jsy?communitykind=1">커뮤니티</a>
+	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/community/comList.jsy?communitykind=1">커뮤니티</a>
   	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/message/messageList.jsy?sort=1')">쪽지함</a>
-=======
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/study/studySearchList.jsy">���͵� �˻�</a>
-	  <a class="w3-bar-item w3-button w3-hover-gray" href="${path}/community/comList.jsy?communitykind=1">Ŀ�´�Ƽ</a>
-  	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/message/messageList.jsy?sort=1')">������</a>
->>>>>>> branch 'master' of https://github.com/JayKYang/ItThumb.git
 	  <c:if test="${empty sessionScope.login }">
 	  	  <a class="w3-bar-item w3-button w3-hover-gray" href="javascript:message_open('${path}/user/findpassword.jsy')">비밀번호찾기</a>
 	  </c:if>
   </div>
 </div>
-
-<!-- Sidebar -->
-<%-- <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
-    <i class="fa fa-remove"></i>
-  </a>
-  <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/user/mypage.shop?id=${loginUser.userId}">회원관리</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/item/list.shop">상품관리</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/hire/hirelist.jsy">채용공고</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="${path }/portfolio/myportfolio.jsy">포트폴리오</a>
-  <c:if test="${sessionScope.loginUser.userId=='admin' }">
-  	<a class="w3-bar-item w3-button w3-hover-black" href="${path }/admin/admin.shop">관리자</a>
-  </c:if>
-</nav> --%>
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>

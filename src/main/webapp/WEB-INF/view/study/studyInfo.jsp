@@ -12,7 +12,7 @@
 	$(document).ready(function() {
 		$('#scrap').click(function() {
 			$.ajax({
-				url : "portfolioScrap.jsy",
+				url : "studyScrap.jsy",
 				type : "POST",
 				data : {"studyno":'${studyno}',"memberid":'${memberid}'},
 				success : function(data) {
