@@ -31,7 +31,7 @@ public class MypageController {
 	
 	@Autowired
 	JsyService service;
-	
+	//
 	@RequestMapping(value="user/mypage/myInfo", method = RequestMethod.GET)
 	public ModelAndView main(String id) {
 		ModelAndView mav = new ModelAndView();
