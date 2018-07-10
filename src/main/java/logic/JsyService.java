@@ -80,7 +80,7 @@ public interface JsyService {
 
 	void updateHide(int hireno);
 
-	List<History> getHistory(String memberid);
+	List<History> getHistory(String memberid,String searchType, String searchContent);
 
 	void insertHistory(History history);
 
@@ -119,5 +119,21 @@ public interface JsyService {
 	void hireInsertScrap(Scrap insertScrap);
 
 	void hireDeleteScrap(int scrap);
+
+	int portfoliocount(String searchType, String searchContent);
+
+	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
+
+	Scrap portfolioScrapConfirm(String loginid, String scrapid);
+
+	int usercount(String searchType, String searchContent);
+
+	List<User> memberlist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
+
+	int hirecount(String searchType, String searchContent, Integer hide);
+
+	List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide, int limit);
+
+	List<StudyGroup> studygrouplist(String memberid);
 
 }

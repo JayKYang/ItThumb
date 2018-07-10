@@ -20,24 +20,24 @@
 			</if>
 		</select>
 		<select id="hirelist" resultType="Hire" parameterType="map">
-		select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard where 1=1
-		<if test="hireno != null">
-		and hireno = #{hireno}
-		</if>
-		<if test="searchRegion !=null">
-		and	region in (${searchRegion})
+			select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard where 1=1
+			<if test="hireno != null">
+				and hireno = #{hireno}
+			</if>
+			<if test="searchRegion !=null">
+				and	region in (${searchRegion})
 			</if>
 			<if test="searchEdu !=null">
-		and	qualification = ${searchEdu}
+				and	qualification = ${searchEdu}
 			</if>
 			<if test="searchCarr !=null">
-		and	hirestatus in (${searchCarr})
+				and	hirestatus in (${searchCarr})
 			</if>
 			<if test="searchCareer !=null">
-			and career in (${searchCareer})
+				and career in (${searchCareer})
 			</if>
 			<if test="searchCareerDate !=null">
-			and careerdate = ${searchCareerDate}
+				and careerdate = ${searchCareerDate}
 			</if>
 			order by regdate desc limit #{startrow}, #{limit}
 		</select>
@@ -48,5 +48,27 @@
 		
 		<select id="popHirelist" resultType="Hire" parameterType="map">
 			select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard order by (scrapnum+readcnt) desc limit 0, 4
+		</select>
+		
+		<!-- Mypage hire -->
+		<select id="hirecount" resultType="Integer" parameterType="map">
+			select count(*) from hireboard where 1=1
+			<if test="hide != null">
+				and hide = ${hide}
+			</if>
+			<if test="searchType != null and searchContent != null">
+				and ${searchType} like '%${searchContent}%'
+			</if>
+		</select>
+		
+		<select id="getMypageHireList" resultType="Hire" parameterType="map">
+		select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard where 1=1
+			<if test="hide != null">
+				and	hide = ${hide}
+			</if>
+			<if test="searchType != null and searchContent != null">
+				and ${searchType} like '%${searchContent}%'
+			</if>
+			order by hide,regdate desc limit #{startrow}, #{limit}
 		</select>
 </mapper>

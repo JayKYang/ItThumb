@@ -19,7 +19,7 @@ public interface PortFolioDao {
 
 	void deleteportfolio(String id);
 
-	List<History> getHistory(String memberid);
+	List<History> getHistory(String memberid,String searchType, String searchContent);
 
 	List<Project> getProject(String id);
 
@@ -32,6 +32,10 @@ public interface PortFolioDao {
 	int maxProjectno();
 
 	void updateproject(Project project);
+
+	int portfolioMax(String searchType, String searchContent);
+
+	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
 
 
 }

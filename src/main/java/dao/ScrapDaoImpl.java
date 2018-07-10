@@ -54,4 +54,12 @@ public class ScrapDaoImpl implements ScrapDao{
 		sqlSession.getMapper(ScrapMapper.class).hireDeleteScrap(scrap);
 		
 	}
+	@Override
+	public Scrap portfolioScrapConfirm(String loginid, String scrapid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("loginid", loginid);
+		param.put("scrapid", scrapid);
+		
+		return sqlSession.selectOne(NS+"portfolioScrapConfirm", param);
+	}
 }

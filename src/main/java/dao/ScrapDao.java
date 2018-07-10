@@ -18,4 +18,6 @@ public interface ScrapDao {
 
 	void hireDeleteScrap(int scrap);
 
+	Scrap portfolioScrapConfirm(String loginid, String scrapid);
+
 }

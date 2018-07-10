@@ -57,4 +57,25 @@ public class UserDaoImpl implements UserDao{
 		map.put("membergrade", membergrade);
 		return sqlSession.selectList(NS+"getUser",map);
 	}
+	@Override
+	public int usercount(String searchType, String searchContent) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("searchType", searchType);
+		map.put("searchContent", searchContent);
+		return sqlSession.selectOne(NS+"count",map);
+	}
+	@Override
+	public List<User> memberlist(String searchType, String searchContent, Integer membergrade, Integer pageNum,
+			int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = (pageNum - 1) * limit;
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		param.put("membergrade", membergrade);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		return sqlSession.selectList(NS+"memberlist", param);
+	}
 }

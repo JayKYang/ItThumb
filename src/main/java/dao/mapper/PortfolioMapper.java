@@ -14,8 +14,8 @@ import logic.User;
 public interface PortfolioMapper {
 
 
-	@Select("select * from history where memberid=#{value} order by getdate desc,skillful desc;")
-	List<History> getHistory(String memberid);
+	/*@Select("select * from history where memberid=#{value} order by getdate desc,skillful desc;")
+	List<History> getHistory(String memberid);*/
 
 	@Insert("insert into history(historyno,memberid,content,skillful,getdate,enddate,kindno) values(#{historyno},#{memberid},#{content},#{skillful},#{getdate},#{enddate},#{kindno})")
 	void insertHistory(History history);

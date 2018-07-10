@@ -16,8 +16,8 @@ import dao.BoardDao;
 import dao.CommunityDao;
 import dao.FilerepDao;
 import dao.MessageDao;
-import dao.ReplyDao;
 import dao.PortFolioDao;
+import dao.ReplyDao;
 import dao.ScrapDao;
 import dao.StudyDao;
 import dao.StudyGroupDao;
@@ -45,7 +45,6 @@ public class JsyServiceImpl implements JsyService{
 	private FilerepDao filerepDao;
 	@Autowired
 	private ReplyDao replydao;
-	
 	
 	@Override
 	public void createNormalUser(User user, HttpServletRequest request) {
@@ -84,8 +83,8 @@ public class JsyServiceImpl implements JsyService{
 	}
 	
 	@Override
-	public List<History> getHistory(String memberid) {
-		return portfolioDao.getHistory(memberid);
+	public List<History> getHistory(String memberid, String searchType, String searchContent) {
+		return portfolioDao.getHistory(memberid,searchType,searchContent);
 	}
 	
 	@Override
@@ -423,5 +422,45 @@ public class JsyServiceImpl implements JsyService{
 		userDao.repassword(user);
 	}
 
+	@Override
+	public int portfoliocount(String searchType, String searchContent) {
+		return portfolioDao.portfolioMax(searchType, searchContent);
+	}
+
+	@Override
+	public List<User> portfoliolist(String searchType, String searchContent,Integer membergrade, Integer pageNum, int limit) {
+		return portfolioDao.portfoliolist(searchType, searchContent, membergrade,pageNum, limit);
+	}
+
+	@Override
+	public Scrap portfolioScrapConfirm(String loginid, String scrapid) {
+		return scrapDao.portfolioScrapConfirm(loginid, scrapid);
+	}
+
+	@Override
+	public int usercount(String searchType, String searchContent) {
+		return userDao.usercount(searchType,searchContent);
+	}
+
+	@Override
+	public List<User> memberlist(String searchType, String searchContent, Integer membergrade, Integer pageNum,	int limit) {
+		return userDao.memberlist(searchType, searchContent, membergrade,pageNum, limit);
+	}
+
+	@Override
+	public int hirecount(String searchType, String searchContent, Integer hide) {
+		return boardDao.hirecount(searchType,searchContent, hide);
+	}
+
+	@Override
+	public List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide,
+			int limit) {
+		return boardDao.getMypageHireList(searchType,searchContent,pageNum,hide,limit);
+	}
+
+	@Override
+	public List<StudyGroup> studygrouplist(String memberid) {
+		return studyGroupDao.studygrouplist(memberid);
+	}
 
 }

@@ -10,4 +10,55 @@
 			and projectno = ${projectno}
 		</if>
 	</select>
+	<select id="count" resultType="Integer" parameterType="map">
+		select count(*) 
+		<!-- from user
+		<if test="searchType != null and searchContent != null">
+			where ${searchType} like '%${searchContent}%'
+		</if> -->
+		from user u
+		<if test="searchType != null">
+		, history h
+		where u.memberid = h.memberid
+		</if>
+		<if test="searchType != null and (!searchType.equals('2') and !searchType.equals('1')) and searchContent != null">
+			and h.kindno = ${searchType}
+			and h.content like '%${searchContent}%'
+		</if>
+	</select>
+	
+	<select id="history" resultType="History" parameterType="map">
+		select * from history where 1=1
+		<if test="memberid != null">
+		 and memberid='${memberid}'
+		</if>
+		<if test="searchType != null and (searchType == 2 or searchType == 1) and searchContent != null">
+			and kindno = ${searchType}
+			and content like '%${searchContent}%'
+		</if>
+		<if test="searchType != null and (searchType != 2 and searchType != 1) and searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+		order by getdate desc,skillful desc;
+	</select>
+	
+	<select id="list" resultType="User" parameterType="map">
+		select u.memberid, name, regdate, tel, membergrade, recognizecode, image as imageUrl, birth, industy, site, slogun, introduce, modifydate, address, locking, createpf 
+		from user u
+		<if test="searchType != null">
+		, history h
+		where u.memberid = h.memberid
+		</if>
+		<if test="membergrade != null">
+			where membergrade = ${membergrade}
+		</if>
+		<if test="searchType != null and (!searchType.equals('2') and !searchType.equals('1')) and searchContent != null">
+			and h.kindno = ${searchType}
+			and h.content like '%${searchContent}%'
+		</if>
+		<!-- <if test="searchType != null and (!searchType.equals('2') and !searchType.equals('1')) and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if> -->
+			order by memberid limit #{startrow}, #{limit}
+	</select>
 </mapper>

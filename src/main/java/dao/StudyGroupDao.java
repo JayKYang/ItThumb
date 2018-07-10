@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import logic.StudyGroup;
 
 public interface StudyGroupDao {
@@ -11,5 +13,7 @@ public interface StudyGroupDao {
 	void studyGroupInsert(StudyGroup studyGroupInsert);
 
 	void studyGroupDelete(int groupno);
+
+	List<StudyGroup> studygrouplist(String memberid);
 
 }

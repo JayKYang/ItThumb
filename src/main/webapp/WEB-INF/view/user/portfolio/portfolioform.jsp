@@ -160,6 +160,10 @@
 			            $("#delete_"+id1[0]+"_"+id1[1]).attr('id','delete_' + id1[0] +'v_'+ data.historyno);
 			            $("#"+id1[0] + "_" + id1[1]).attr('id',id1[0] +'v_'+ data.historyno);
 			            $("#chk_"+id1[0]+"_"+id1[1]).attr('id','chk_'+id1[0]+'v_'+data.historyno);
+			            $("#content_"+id1[1]).attr('id','content_'+data.historyno);
+			            $("#skillful_"+id1[1]).attr('id','skillful_'+data.historyno);
+			            $("#getdate_"+id1[1]).attr('id','getdate_'+data.historyno);
+			            $("#enddate_"+id1[1]).attr('id','enddate_'+data.historyno);
 			            alert('등록이 완료되었습니다.');
 					}else{
 						
@@ -325,7 +329,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<td><i class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
 					<td><a class="w3-xlarge w3-hover-opacity">
 					<!-- <input type="date" id="datePicker" class="w3-input" onchange="change_date()"> -->
-					<form:input type="text" path="birth" class="w3-input" placeholder="생일"></form:input><font color="red"><form:errors path="birth"/></font>
+					<form:input type="text" path="birth" class="w3-input" placeholder="생일(YYYY-MM-DD)"></form:input><font color="red"><form:errors path="birth"/></font>
 					<%-- <form:hidden id="birth" class="w3-input" path="birth" placeholder="생일"/><font color="red"><form:errors path="birth"/></font> --%></a></td>
 					<!-- <script>
 						document.getElementById("datePicker").value = document.getElementById("birth").value
