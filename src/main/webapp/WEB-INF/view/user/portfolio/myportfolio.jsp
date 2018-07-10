@@ -12,8 +12,27 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#scrap').click(function() {
+			$.ajax({
+				url : "portfolioScrap.jsy",
+				type : "POST",
+				data : {"memberid":'${sessionScope.login.memberid}',"memberid2":'${user.memberid}'},
+				success : function(data) {
+					if(data.success == 'success'){
+						$("#scrap2").attr("class","fa fa-heart w3-xxlarge");
+						alert("스크랩 되었습니다.");
+					}else{
+						$("#scrap2").attr("class","fa fa-heart-o w3-xxlarge");
+						alert("스크랩이 해제 되었습니다.");
+					}
+				}
+			});
+		})
+	})
+</script>
 <script>
 	$(document).ready(function() {
 		url = document.URL.split("#");
@@ -110,6 +129,24 @@ body, h1, h2, h3, h4, h5, h6 {
 				<i class="fa fa-commenting w3-xxlarge"></i>
 				<p>CONTACT</p>
 			</a>
+			<c:if test="${sessionScope.login.membergrade == 0 or sessionScope.login.membergrade == 2 }">
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray" 
+			onclick="javascript:location.href='portfoliolist.jsy'">
+				<i class="fa fa-align-justify w3-xxlarge"></i>
+				<p>List 돌아가기</p>
+			</a>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 0 or sessionScope.login.membergrade == 2 }">
+			<a id="scrap" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
+				<c:if test="${scrapConfirm==0}">
+					<i id="scrap2" class="fa fa-heart-o w3-xxlarge"></i>
+				</c:if>
+				<c:if test="${scrapConfirm==1}">
+					<i id="scrap2" class="fa fa-heart w3-xxlarge"></i>
+				</c:if>
+				<p>스크랩</p>
+			</a>
+			</c:if>
 		</c:if>
 	</nav>
 
@@ -175,12 +212,13 @@ body, h1, h2, h3, h4, h5, h6 {
 			</table>
 		</div>
 		<hr>
+		<c:if test="${!empty user.historyList }">
 		<div class="w3-row">
 			<div class="w3-container w3-half"
 				style="padding-bottom: 50px; width: 50%; float: left;">
-				<h3 class="w3-center">
-					<a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a>
-				</h3>
+					<h3 class="w3-center">
+						<a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a>
+					</h3>
 				<div class="w3-container" style="float: left; margin-bottom:50px;">
 					<c:forEach items="${user.historyList }" var="history">
 						<c:if test="${history.kindno == 0 }">
@@ -194,7 +232,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						</c:if>
 					</c:forEach>
 				</div>
-				<h3 class="w3-center">
+				<h3 class="w3-center" style="margin-top:110px;">
 					<a class="w3-xxxlarge">LICENSE</a>
 				</h3>
 				<div class="w3-container" style="width: 100%" style="float:left;">
@@ -227,55 +265,63 @@ body, h1, h2, h3, h4, h5, h6 {
 				</div>
 			</div>
 		</div>
+		</c:if>
 	</div>
 
-	<div class="portfoliopage w3-content w3-container w3-animate-left"
-		id="project" style="display: none">
-		<h3 class="w3-center">
-			<a class="w3-xxxlarge">프로젝트</a>
-		</h3>
+	<div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display: none">
+		<c:if test="${!empty projectList }">
+			<h3 class="w3-center">
+				<a class="w3-xxxlarge">프로젝트</a>
+			</h3>
+		</c:if>
+		<c:if test="${empty projectList }">
+			<h3 class="w3-center">
+				<a class="w3-xxxlarge">작성된 프로젝트가 없습니다.</a><br>
+				<button onclick="javascript:location.href='projectform.jsy?id=${sessionScope.login.memberid }'">작성하기</button>
+			</h3>
+		</c:if>
 		<c:forEach items="${projectList }" var="project">
-			<table style="width: 100%;">
+			<table style="width:100%;" cellspacing="0" cellpadding="0">
 				<tr>
-					<td style="width: 10%;">프로젝트 명</td>
-					<td style="width: 58%;">${project.subject }</td>
+					<td style="width: 10%; border-right:1px solid black;border-top:1px solid black;" align="right"><h4>프로젝트 명</h4></td>
+					<td style="width: 58%; border-top:1px solid black;">${project.subject }</td>
 				</tr>
 				<c:if test="${!empty project.term }">
 					<tr>
-						<td>프로젝트 기간</td>
-						<td>${project.term }</td>
+						<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>프로젝트 기간</h4></td>
+						<td style="border-top:1px solid black;">${project.term }</td>
 					</tr>
 				</c:if>
 				<tr>
-					<td>사용 기술</td>
-					<td>${project.skills }</td>
+					<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>사용 기술</h4></td>
+					<td style="border-top:1px solid black;">${project.skills }</td>
 				</tr>
 				<c:if test="${!empty project.role }">
 					<tr>
-						<td>맡은 역할</td>
-						<td>${project.role }</td>
+						<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>맡은 역할</h4></td>
+						<td style="border-top:1px solid black;">${project.role }</td>
 					</tr>
 				</c:if>
 				<c:if test="${!empty project.link }">
 					<tr>
-						<td>프로젝트 링크</td>
-						<td>${project.link }</td>
+						<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>프로젝트 링크</h4></td>
+						<td style="border-top:1px solid black;"><a href="${project.link }">${project.link }</a></td>
 					</tr>
 				</c:if>
 				<tr>
-					<td>대표 사진</td>
-					<td colspan="2" align="center"><c:if
+					<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>대표 사진</h4></td>
+					<td colspan="2" align="center" style="border-top:1px solid black;"><c:if
 							test="${empty project.imagefileUrl }">
 							<img id="profilephoto" style="width: 15%;"
 								src="../../photo/defaultphoto.png">
 						</c:if> <c:if test="${!empty project.imagefileUrl }">
-							<img id="profilephoto" style="width: 15%;"
-								src="../../photo/${project.imagefileUrl }">
+							<img id="profilephoto" style="width: 50%;"
+								src="../../projectimg/${project.imagefileUrl }">
 						</c:if> <input type="file" name="imagefile" id="imagefile"
 						style="display: none" /></td>
 				</tr>
 				<tr>
-					<td colspan="3">내용</td>
+					<td colspan="3" align="center" style="border-bottom:1px solid black; border-top:1px solid black;"><h4>내용</h4></td>
 				</tr>
 				<tr>
 					<td colspan="3">${project.content }</td>

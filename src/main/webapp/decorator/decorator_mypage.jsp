@@ -22,7 +22,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   bottom: 0;
   height: inherit;
 }
-#main {margin-left: 14%;}
 </style>
 <body>
 
@@ -67,8 +66,49 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="w3-main">
   <div class="w3-row w3-padding-64">
+	 <div class="w3-bar w3-left-align w3-large w3-theme-l1">
+	 	<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+			  <a href="myInfo.jsy?id=${sessionScope.login.memberid }" class="w3-button"><p>내 정보</p></a>
+			</div>
+			<c:if test="${sessionScope.login.membergrade == 1}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+					  <a href="mypageportfolio.jsy" class="w3-button"><p>포트폴리오 관리</p></a>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 2}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+					  <a href="#portfolio" class="w3-button"><p>관심 포트폴리오</p></a>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 0}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+				  <a href="manageuser.jsy" class="w3-button"><p>회원 관리</p></a>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 1}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+				  <a href="managestudy.jsy" class="w3-button"><p>스터디 관리</p></a>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 0}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+				  <a href="confirmHire.jsy" class="w3-button"><p>채용공고 승인</p></a>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 1}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+				  <a href="../../hire/hireScrapList.jsy" class="w3-button"><p>채용공고 스크랩</p></a>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.login.membergrade == 2}">
+				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
+				  <a href="#employment" class="w3-button"><p>내가 쓴 채용공고</p></a>
+				</div>
+			</c:if>
+	 </div>
+  </div>
+  <div class="w3-row w3-padding-64">
 	<decorator:body></decorator:body>
-    
   </div>
 
   <footer id="myFooter">

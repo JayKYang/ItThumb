@@ -3,11 +3,30 @@
 <mapper namespace="dao.mapper.UserMapper">	
 	<select id="getUser" resultType="User" parameterType="map">
 		select memberid, password, name, regdate, tel, membergrade, recognizecode, image as imageUrl, birth, industy, site, slogun, introduce, modifydate, address, locking, createpf from user
+		where 1=1
 		<if test="memberid != null">
-			where memberid=#{memberid}
+			and memberid=#{memberid}
 		</if>
 		<if test="membergrade != null">
-			where membergrade = #{membergrade}
+			and membergrade = #{membergrade}
 		</if> 
+	</select>
+	
+	<select id="count" resultType="Integer" parameterType="map">
+		select count(*) from user where 1=1
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+	</select>
+	<select id="memberlist" resultType="User" parameterType="map">
+		select u.memberid, name, regdate, tel, membergrade, recognizecode, image as imageUrl, birth, industy, site, slogun, introduce, modifydate, address, locking, createpf 
+		from user u where 1=1
+		<if test="membergrade != null">
+			and membergrade = ${membergrade}
+		</if>
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+			order by memberid limit #{startrow}, #{limit}
 	</select>
 </mapper>

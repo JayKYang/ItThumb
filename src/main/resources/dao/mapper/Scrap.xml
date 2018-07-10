@@ -7,12 +7,9 @@
 			and studyno=#{studyno}
 		</if>
 	</select>
-		<select id="hireScrapSelect" resultType="Scrap" parameterType="map">
-			select * from scrap where memberid=#{memberid}
-		<if test="hireno != null">
-			and hireno=#{hireno}
-		</if>
-		</select>
+	<select id="hireScrapSelect" resultType="Scrap" parameterType="map">
+		select * from scrap where memberid=#{memberid} and hireno=#{hireno}
+	</select>
 		<select id="scrapHirelist" resultType="Scrap" parameterType="map">
 			select * from scrap where memberid =#{memberid} and hireno is not null
 			order by scrap desc limit #{startrow}, #{limit}
@@ -23,4 +20,11 @@
 			and memberid = #{memberid}
 		</if>
 		</select>		
+
+	<select id="portfolioScrapConfirm" resultType="Scrap" parameterType="map">
+		select * from scrap where memberid=#{loginid}
+		<if test="hireno != null">
+			and scrapmember=#{scrapid}
+		</if>
+	</select>
 </mapper>

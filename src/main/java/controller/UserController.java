@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.JsyException;
+import logic.Hire;
 import logic.JsyService;
 import logic.User;
 import util.HashPass;
@@ -30,7 +32,6 @@ import util.SendMail;
 
 @Controller
 public class UserController {
-	//
 	HashPass hp = new HashPass();
 	SendMail sm = new SendMail();
 	
@@ -81,9 +82,9 @@ public class UserController {
 			mav.addObject("user", user);
 			mav.addObject("kind", kind);
 			if(kind.equals("1")) {
-				mav.setViewName("user/userJoinForm.jsp?kind="+kind);
+				mav.setViewName("user/userJoinForm.jsy?kind="+kind);
 			}else {
-				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
+				mav.setViewName("user/companyJoinForm.jsy?kind="+kind);
 			}
 			return mav;
 		}
@@ -93,9 +94,9 @@ public class UserController {
 			mav.addObject("user", user);
 			mav.addObject("kind", kind);
 			if(kind.equals("1")) {
-				mav.setViewName("user/userJoinForm.jsp?kind="+kind);
+				mav.setViewName("user/userJoinForm.jsy?kind="+kind);
 			}else {
-				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
+				mav.setViewName("user/companyJoinForm.jsy?kind="+kind);
 			}
 			return mav;
 		}
@@ -127,9 +128,9 @@ public class UserController {
 			mav.addObject("user", user);
 			mav.addObject("kind", kind);
 			if(kind.equals("1")) {
-				mav.setViewName("user/userJoinForm.jsp?kind="+kind);
+				mav.setViewName("user/userJoinForm.jsy?kind="+kind);
 			}else {
-				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
+				mav.setViewName("user/companyJoinForm.jsy?kind="+kind);
 			}
 			return mav;
 		} catch (NoSuchAlgorithmException e) {
@@ -202,7 +203,7 @@ public class UserController {
 			mav.addObject("user",user);
 			return mav;
 		}
-		dbUser.setHistoryList(service.getHistory(user.getMemberid()));
+		dbUser.setHistoryList(service.getHistory(user.getMemberid(),null,null));
 	
 		if(dbUser.getLocking() == 0 && dbUser.getMembergrade() == 1) {
 			throw new JsyException("인증하고 로그인 해주세요.", "login.jsy");
@@ -277,7 +278,7 @@ public class UserController {
 			service.deleteUser(id);
 			if (loginUser.getMembergrade()==0) { // 관리자인경우
 				mav.addObject("msg",id+"회원 탈퇴가 완료되었습니다.");
-				mav.addObject("url","mypage.jsy?id="+id);
+				mav.addObject("url","mypage.jsy?id="+loginUser.getMemberid());
 				mav.setViewName("alert");
 				return mav;
 			} else { // 일반사용자로 로그인시 삭제 성공
@@ -294,19 +295,54 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "user/mypage", method = RequestMethod.GET)
-	public ModelAndView updateForm(String id, HttpServletRequest request) {
+	/*@RequestMapping(value = "user/mypage", method = RequestMethod.GET)
+	public ModelAndView updateForm(String id,String membergrade2,HttpServletRequest request, Integer pageNum) {
 		System.out.println("[UserController] => user/mypage[GET]");
 		ModelAndView mav = new ModelAndView();
+		
+		Hire hire = new Hire();
+		
 		User user = service.getUser(id);
-		user.setHistoryList(service.getHistory(user.getMemberid()));
+		Integer membergrade = null;
+		if(membergrade2 != null) {
+			membergrade=Integer.parseInt(membergrade2);
+		}
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		List<User> userlist = service.portfoliolist(null, null, membergrade, pageNum, 10);
+		user.setHistoryList(service.getHistory(user.getMemberid(),null,null));
 		request.getSession().setAttribute("login", user);
+		////////////////////
+		int limit = 10;
+		int usercount = service.usercount(null, null);
+		int maxpage = (int)((double)usercount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1 ;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int usernum = usercount - (pageNum - 1) * limit;
+		
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("usercount", usercount);
+		mav.addObject("usernum", usernum);
+		mav.addObject("pageNum", pageNum);
+		//////////////////////////
 		System.out.println(user);
 		mav.addObject("user", user);
+		mav.addObject("userlist",userlist);
+//		if(membergrade != null) {
+//			mav.setViewName("mypage.jsy?id="+id+"&membergrade="+membergrade+"#managemember");
+//		}
 		return mav; // 뷰이름만 리턴
-	}
+	}*/
 	
-	@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
+	/*@RequestMapping(value = "user/mypage", method = RequestMethod.POST)
 	public ModelAndView update(@Valid User user, HttpServletRequest request) {
 		System.out.println("[UserController] => user/mypage[POST]");
 		ModelAndView mav = new ModelAndView();
@@ -348,7 +384,7 @@ public class UserController {
 		User user = new User();
 		mav.addObject("user",user);
 		return mav; // 뷰이름만 리턴
-	}
+	}*/
 	
 	@RequestMapping(value = "user/findpassword", method = RequestMethod.POST)
 	public ModelAndView findpassword(@Valid User user, BindingResult bindingResult) {
@@ -445,4 +481,51 @@ public class UserController {
 		
 		return mav;
 	}
+	
+	/*@RequestMapping("user/mypage_info")
+	public ModelAndView mypage_info(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[UserController] => user/mypage_info[Ajax]");
+		Integer membergrade = Integer.parseInt(request.getParameter("membergrade"));
+		String id = request.getParameter("id");
+		Integer pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		String searchType = request.getParameter("searchType");
+		String searchContent = request.getParameter("searchContent");
+		
+		User user = service.getUser(id);
+		if(membergrade == 0) {
+			membergrade=null;
+		}
+		List<User> userlist = service.portfoliolist(null, null, membergrade, pageNum, 10);
+		user.setHistoryList(service.getHistory(user.getMemberid(),null,null));
+		request.getSession().setAttribute("login", user);
+		
+		////////////////////
+		int limit = 10;
+		int usercount = service.usercount(searchType, searchContent);
+		int maxpage = (int)((double)usercount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1 ;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int usernum = usercount - (pageNum - 1) * limit;
+		
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("usercount", usercount);
+		mav.addObject("usernum", usernum);
+		//////////////////////////
+		
+		mav.addObject("user", user);
+		mav.addObject("userlist",userlist);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("membergrade",membergrade);
+//		System.out.println(userlist);
+		return mav; 
+	}*/
+	
 }

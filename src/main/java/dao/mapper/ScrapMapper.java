@@ -1,9 +1,6 @@
 package dao.mapper;
 
 
-import java.util.Map;
-
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,17 +12,19 @@ public interface ScrapMapper {
 	@Select("select ifnull(max(scrap),0) from scrap")
 	int scrapMaxNum();
 
-	@Insert("insert into scrap (scrap,memberid,studyno) VALUES (#{scrap},#{memberid},#{studyno})")
+	@Insert("insert into scrap (scrap,memberid,studyno,scrapmember) VALUES (#{scrap},#{memberid},#{studyno},#{scrapmember})")
 	void studyScrapInsert(Scrap insertScrap);
 
 	@Delete("delete from scrap where scrap=#{scrap}")
 	void studyScrapDelete(int scrap);
+
+	@Delete("delete from scrap where studyno=#{studyno}")
+	void scrapAllDelete(Integer studyno);
 
 	@Insert("insert into scrap (scrap,memberid,hireno) values (#{scrap},#{memberid},#{hireno})")
 	void hireInsertScrap(Scrap insertScrap);
 
 	@Delete("delete from scrap where scrap = #{scrap}")
 	void hireDeleteScrap(int scrap);
-	
 
 }

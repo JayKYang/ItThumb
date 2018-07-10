@@ -3,11 +3,13 @@ package controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import logic.History;
 import logic.JsyService;
 import logic.Project;
+import logic.Scrap;
 import logic.User;
 
 @Controller
@@ -43,7 +46,13 @@ public class PortFolioController {
 		ModelAndView mav = new ModelAndView();
 		User dbUser = service.getUser(id);
 		User loginUser = (User) request.getSession().getAttribute("login");
-		dbUser.setHistoryList(service.getHistory(id));
+		Scrap scrap = service.portfolioScrapConfirm(loginUser.getMemberid(), id);
+		if(scrap == null) {
+			mav.addObject("scrapConfirm",0);
+		}else {
+			mav.addObject("scrapConfirm",1);
+		}
+		dbUser.setHistoryList(service.getHistory(id,null,null));
 		request.getSession().setAttribute("user", dbUser);
 		List<Project> project = service.getProject(id);
 		mav.addObject("projectList",project);
@@ -67,7 +76,7 @@ public class PortFolioController {
 		String id = request.getParameter("id");
 		User loginUser = (User) request.getSession().getAttribute("login");
 		User dbUser = service.getUser(id);
-		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
+		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
 		request.getSession().setAttribute("login", dbUser);
 		List<Project> project = service.getProject(id);
 		
@@ -98,7 +107,7 @@ public class PortFolioController {
 		}else {
 			if(id.equals(loginUser.getMemberid())) {
 				service.deleteportfolio(id);
-				dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
+				dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
 				request.getSession().setAttribute("login", dbUser);
 				mav.addObject("msg","포트폴리오 삭제를 완료했습니다.");
 				mav.addObject("url","../mypage.jsy?id="+id);
@@ -127,7 +136,7 @@ public class PortFolioController {
 			user.setCreatepf(1);
 			service.updateUserAboutMe(user, request);
 			User dbUser = service.getUser(user.getMemberid());
-			dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
+			dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
 			request.getSession().setAttribute("login", dbUser);
 			mav.addObject("user", dbUser);
 		}else {
@@ -192,7 +201,7 @@ public class PortFolioController {
 		}
 		service.insertHistory(history);
 		
-		loginUser.setHistoryList(service.getHistory(loginUser.getMemberid()));
+		loginUser.setHistoryList(service.getHistory(loginUser.getMemberid(),null,null));
 		request.getSession().setAttribute("login", loginUser);
 		
 		map.put("historyno", historyno+"");
@@ -253,7 +262,7 @@ public class PortFolioController {
 		System.out.println(history);
 		service.updateHistory(history);
 		
-		loginUser.setHistoryList(service.getHistory(loginUser.getMemberid()));
+		loginUser.setHistoryList(service.getHistory(loginUser.getMemberid(),null,null));
 		request.getSession().setAttribute("login", loginUser);
 		
 		return map;
@@ -272,7 +281,7 @@ public class PortFolioController {
 		
 		service.deleteHistory(historyno);
 		
-		loginUser.setHistoryList(service.getHistory(loginUser.getMemberid()));
+		loginUser.setHistoryList(service.getHistory(loginUser.getMemberid(),null,null));
 		map.put("success", "success");
 		request.getSession().setAttribute("login", loginUser);
 		
@@ -284,7 +293,7 @@ public class PortFolioController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[PortFolioController] => user/portfolio/projectform[GET]");
 		User dbUser = service.getUser(id);
-		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid()));
+		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
 		request.getSession().setAttribute("login", dbUser);
 		Project project = new Project();
 		System.out.println(projectno);
@@ -333,6 +342,79 @@ public class PortFolioController {
 		mav.setViewName("alert");
 		return mav;
 	}
+	
+	@RequestMapping("user/portfolio/portfoliolist")
+	public ModelAndView searchportfolio(HttpSession session,Integer pageNum, String searchType, String searchContent) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[PortFolioController] => user/portfolio/portfoliolist");
+		
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		int limit = 10;
+		
+		int portfoliocount = service.portfoliocount(searchType, searchContent);
+		List<User> userlist = service.portfoliolist(searchType, searchContent,null, pageNum, limit);
+		List<User> portfoliolist = new ArrayList<User>();
+		
+		for(User user : userlist) {
+			user.setHistoryList(service.getHistory(user.getMemberid(),null,null));
+			portfoliolist.add(user);
+			
+		}
+		
+		
+		int maxpage = (int)((double)portfoliocount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1 ;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int portfolionum = portfoliocount - (pageNum - 1) * limit;
+		
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("portfoliocount", portfoliocount);
+		mav.addObject("portfoliolist", portfoliolist);
+		mav.addObject("portfolionum", portfolionum);
+		
+		mav.setViewName("user/portfolio/portfoliolist");
+		return mav;
+	}
+	
+	@RequestMapping("user/portfolio/portfolioScrap")
+	@ResponseBody
+	public HashMap<String, String> portfolioScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+		 HashMap<String, String> map = new HashMap<String, String>();
+		 System.out.println("[PortFolioController] => user/portfolio/portfolioScrap");
+		 String loginid = request.getParameter("memberid");
+		 String scrapid = request.getParameter("memberid2");
+		 
+		 System.out.println(loginid + "," + scrapid);
+		 Scrap scrap = service.portfolioScrapConfirm(loginid, scrapid);
+		 if(scrap == null) {
+			 int scrapMaxnum = service.ScrapMaxnum()+1;
+			 Scrap insertScrap = new Scrap();
+			 insertScrap.setScrap(scrapMaxnum);
+			 insertScrap.setMemberid(loginid);
+			 insertScrap.setScrapmember(scrapid);
+			 try {
+				 service.studyScrapInsert(insertScrap);
+			 }catch (Exception e) {
+				e.printStackTrace();
+			 }
+			 map.put("success", "success");
+		 }else {
+			 try {
+				 service.studyScrapDelete(scrap.getScrap());
+			 }catch (Exception e) {
+				e.printStackTrace();
+			 }
+			 map.put("success", "delete");
+		 }
+		 return map;
+	}
+	
 }
 
 

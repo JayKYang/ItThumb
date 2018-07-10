@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,5 +37,14 @@ public class StudyGroupDaoImpl implements StudyGroupDao{
 	public void studyGroupDelete(int groupno) {
 		sqlSession.getMapper(StudyGroupMapper.class).studyGroupDelete(groupno);
 		
+	}
+	@Override
+	public void studyGroupAllDelete(Integer studyno) {
+		sqlSession.getMapper(StudyGroupMapper.class).studyGroupAllDelete(studyno);
+		
+	}
+	@Override
+	public List<StudyGroup> studygrouplist(String memberid) {
+		return sqlSession.getMapper(StudyGroupMapper.class).studygrouplist(memberid);
 	}
 }

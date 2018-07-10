@@ -80,7 +80,7 @@ public interface JsyService {
 
 	void updateHide(int hireno);
 
-	List<History> getHistory(String memberid);
+	List<History> getHistory(String memberid,String searchType, String searchContent);
 
 	void insertHistory(History history);
 
@@ -110,6 +110,50 @@ public interface JsyService {
 
 	void insertproject(Project project, HttpServletRequest request);
 
+	int Communitycount(String searchType, String searchContent, Integer communitykind, String memberid);
+
+	List<Community> communityLlist(String searchType, String searchContent, Integer pageNum, int limit, Integer communitykind, String memberid);
+
+	int comMaxNum();
+
+	void comCreate(Community community, HttpServletRequest request);
+
+	Community comSelect(Integer communityno);
+
+	List<Filerep> fileList(Integer communityno);
+
+	void comReadCount(Integer communityno);
+
+	List<Reply> replyList(Integer communityno);
+
+	int replyMaxNum();
+
+	void replyCreate(Reply reply);
+
+	Reply setlectReply(Integer replyno);
+
+	void insertReReply(Reply reply);
+
+	void updateRe(Reply replyUpdate);
+
+	void replyDelete(Integer replyno);
+
+	void communityDelete(Integer communityno);
+
+	void comReplyDelete(Integer communityno);
+
+	void comFileDelete(Integer communityno);
+
+	int fileMaxNum();
+
+	void comUpdate(Community community, HttpServletRequest request);
+
+	void fileupdate(Filerep filerep);
+
+	void studyGroupAllDelete(Integer studyno);
+
+	void scrapAllDelete(Integer studyno);
+
 	void updateRecognize(User user);
 
 	void repassword(User user);
@@ -131,5 +175,21 @@ public interface JsyService {
 
 	int scrapHireCount(String memberid);
 
+
+	int portfoliocount(String searchType, String searchContent);
+
+	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
+
+	Scrap portfolioScrapConfirm(String loginid, String scrapid);
+
+	int usercount(String searchType, String searchContent);
+
+	List<User> memberlist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
+
+	int hirecount(String searchType, String searchContent, Integer hide);
+
+	List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide, int limit);
+
+	List<StudyGroup> studygrouplist(String memberid);
 
 }

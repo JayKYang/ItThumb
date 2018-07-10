@@ -38,6 +38,10 @@ public class ScrapDaoImpl implements ScrapDao{
 		
 	}
 	@Override
+	public void scrapAllDelete(Integer studyno) {
+		sqlSession.getMapper(ScrapMapper.class).scrapAllDelete(studyno);
+	}
+	@Override
 	public Scrap hireScrapSelect(int hireno, String memberid) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("hireno", hireno);
@@ -71,4 +75,15 @@ public class ScrapDaoImpl implements ScrapDao{
 		int ret = sqlSession.selectOne(NS+"scrapHireCount",map);
 		return ret;
 	}
+		
+	@Override	
+	public Scrap portfolioScrapConfirm(String loginid, String scrapid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("loginid", loginid);
+		param.put("scrapid", scrapid);
+		
+		return sqlSession.selectOne(NS+"portfolioScrapConfirm", param);
+	}
+
+
 }

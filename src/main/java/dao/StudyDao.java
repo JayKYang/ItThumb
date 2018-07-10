@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import logic.Study;
+import logic.StudyGroup;
 
 public interface StudyDao {
 
@@ -19,5 +20,6 @@ public interface StudyDao {
 	void studyDelete(Integer studyno);
 
 	void studyUpdate(Study study);
+
 
 }

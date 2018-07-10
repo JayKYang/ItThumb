@@ -14,14 +14,19 @@ public interface ScrapDao {
 
 	void studyScrapDelete(int scrap);
 
+	void scrapAllDelete(Integer studyno);
+
 	Scrap hireScrapSelect(int hireno, String memberid);
 
 	void hireInsertScrap(Scrap insertScrap);
 
 	void hireDeleteScrap(int scrap);
 
+
 	List<Scrap> scrapHirelist(String memberid,Integer pageNum, int limit);
 
 	int scrapHireCount(String memberid);
+
+	Scrap portfolioScrapConfirm(String loginid, String scrapid);
 
 }

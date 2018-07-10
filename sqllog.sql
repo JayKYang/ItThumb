@@ -95,7 +95,9 @@ create table community(
 	subject varchar(30),
 	content varchar(5000),
 	regdate datetime,
-	communitykind int
+	communitykind int,
+	readcnt int
+	
 )
 create table filerep(
 	fileno int PRIMARY KEY,

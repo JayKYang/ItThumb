@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="euc-kr" ?>
 
 <decorators defaultdir="/decorator">
+  <decorator name="mypage" page="decorator_mypage.jsp">
+     <pattern>/user/mypage/*</pattern>
+  </decorator>
   <decorator name="main" page="decorator.jsp">
      <pattern>*.jsy</pattern>
   </decorator>
@@ -8,5 +11,6 @@
   <excludes>
   	<pattern>/message/*</pattern>
   	<pattern>/user/findpassword.jsy</pattern>
+  	<pattern>/user/mypage/manageuser_ajax.jsy*</pattern>
   </excludes>
 </decorators>

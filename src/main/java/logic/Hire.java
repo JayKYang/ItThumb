@@ -169,9 +169,5 @@ public class Hire implements Serializable{
 				+ ", regionetc=" + regionetc + ", regdate=" + regdate + ", career=" + career + ", careerdate="
 				+ careerdate + ", regiongu=" + regiongu + "]";
 	}
-	
-	
-	
-	
-	
+
 }

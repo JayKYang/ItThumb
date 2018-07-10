@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dao.mapper.MessageMapper;
 import dao.mapper.PortfolioMapper;
 import logic.History;
 import logic.Project;
@@ -20,8 +21,18 @@ public class PortfolioDaoImpl implements PortFolioDao{
 	private final String NS = "dao.mapper.PortfolioMapper.";
 	
 	@Override
-	public List<History> getHistory(String memberid) {
-		return (List<History>) sqlSession.getMapper(PortfolioMapper.class).getHistory(memberid);
+	public List<History> getHistory(String memberid,String searchType, String searchContent) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("memberid", memberid);
+		if(searchType != null && (searchType.equals("1") || searchType.equals("2"))) {
+			param.put("searchType", searchType);
+			param.put("searchContent", searchContent);
+		}else {
+			param.put("searchType", null);
+			param.put("searchContent", null);
+		}
+		return sqlSession.selectList(NS+"history", param);
+//		return (List<History>) sqlSession.getMapper(PortfolioMapper.class).getHistory(memberid);
 	}
 	@Override
 	public void insertHistory(History history) {
@@ -76,5 +87,37 @@ public class PortfolioDaoImpl implements PortFolioDao{
 	@Override
 	public void updateproject(Project project) {
 		sqlSession.getMapper(PortfolioMapper.class).updateproject(project);
+	}
+	@Override
+	public int portfolioMax(String searchType, String searchContent) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		Integer count = sqlSession.selectOne(NS+"count", param); 
+		return count;
+	}
+	@Override
+	public List<User> portfoliolist(String searchType, String searchContent,Integer membergrade, Integer pageNum, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = 0;
+		if(pageNum != null) {
+			startrow = (pageNum - 1) * limit;
+		}
+		if(searchType == null/* || searchType.equals("1") || searchType.equals("2")*/) {
+			param.put("searchType", null);
+			param.put("searchContent", null);
+		}else {
+//			System.out.println(searchType + "," + searchContent + "@@@"  );
+			param.put("searchType", searchType);
+			param.put("searchContent", searchContent);
+		}
+		if(membergrade==null) {
+			param.put("membergrade", null);
+		}else {
+			param.put("membergrade", membergrade);
+		}
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		return sqlSession.selectList(NS+"list", param);
 	}
 }

@@ -77,8 +77,6 @@ public class BoardDaoImpl implements BoardDao{
 		SqlSession.getMapper(HireMapper.class).readCntplus(hireno);
 	}
 
-
-
 	@Override
 	public void hireUpdateScrapNum(int hireno) {
 	
@@ -119,6 +117,14 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
+	public int hirecount(String searchType, String searchContent, Integer hide) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchType", searchType);
+		map.put("searchContent", searchContent);
+		map.put("hide", hide);
+		return SqlSession.selectOne(NS+"hirecount",map);
+	}
+	@Override
 	public void deleteHire(int hireno) {
 		SqlSession.getMapper(HireMapper.class).deleteHire(hireno);
 		
@@ -139,21 +145,18 @@ public class BoardDaoImpl implements BoardDao{
 		return ret;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@Override
+	public List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide,
+			int limit) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("searchType", searchType);
+		map.put("searchContent", searchContent);
+		map.put("hide", hide);
+		map.put("startrow", startrow);
+		map.put("limit", limit);	
+		return SqlSession.selectList(NS+"getMypageHireList",map);
+	}
 
 
 }

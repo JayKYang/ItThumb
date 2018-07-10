@@ -206,6 +206,7 @@ public class BoardController {
 	       }else {
 	          mav.addObject("scrapComfirm",1);
 	       }
+	    System.out.println(hireno+"%%%%%%%%%%%%%"+memberid+"%%%%%%%%%%%%%"+scrap);
 		Hire hire = new Hire();
 		if(hireno != null) {
 			hire = service.getHire(hireno);
@@ -221,10 +222,10 @@ public class BoardController {
 	@RequestMapping("hire/hireScrap")
 	   @ResponseBody
 	   public HashMap<String, String> hireScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
-	
-		HashMap<String, String> map = new HashMap<String, String>();
+	       HashMap<String, String> map = new HashMap<String, String>();
 	       int hireno = Integer.parseInt(request.getParameter("hireno"));
-	       String memberid = request.getParameter("memberid");
+	       User user = (User)request.getSession().getAttribute("login");
+	       String memberid = user.getMemberid();
 	       Scrap scrap = service.hireScrapSelect(hireno, memberid);
 	       if(scrap == null) {
 	          int scrapMaxnum = service.ScrapMaxnum()+1;
@@ -310,5 +311,4 @@ public class BoardController {
 		
 	}
 		
-	
 }

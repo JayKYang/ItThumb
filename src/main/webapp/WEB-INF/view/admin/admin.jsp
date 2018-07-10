@@ -13,10 +13,6 @@
 				chks[i].checked = chk.checked;
 		}
 	}
-	function graph_open(url){
-		var op="width=700, height=500,scrollbars=yes, left=50, top=150";
-		window.open(url+".shop","graph",op);
-	}
 </script>
 </head>
 <body>

@@ -249,12 +249,16 @@ public class StudyController {
 	@RequestMapping("study/studyDelete")
 	public ModelAndView studyConstudyDelete(HttpSession session, String memberid, Integer studyno, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println(studyno);
 		try {
+			service.studyGroupAllDelete(studyno);
+			service.scrapAllDelete(studyno);
 			service.studyDelete(studyno);
 			mav.addObject("msg","삭제 성공");
 			mav.addObject("url","studySearchList.jsy?pageNum="+pageNum);
 			mav.setViewName("alert");
 		}catch (Exception e) {
+			e.printStackTrace();
 			mav.addObject("msg","삭제 실패");
 			mav.addObject("url","studyInfo.jsy?pageNum="+pageNum+"&studyno="+studyno);
 			mav.setViewName("alert");
