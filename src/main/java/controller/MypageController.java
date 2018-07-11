@@ -77,6 +77,7 @@ public class MypageController {
 		}
 		try {
 			service.updateUser(user,request);
+			user = service.getUser(user.getMemberid());
 			request.getSession().setAttribute("login", user);
 			mav.addObject("msg","수정이 완료되었습니다.");
 			mav.addObject("url","myInfo.jsy?id=" + user.getMemberid());
