@@ -94,7 +94,8 @@
 					<option value="studyname">제목</option>
 					<option value="content">내용</option>
 					<option value="region">지역</option>
-					<option value="memberid">작성자</option>
+					<option value="memberid">작성자아이디</option>
+					<option value="membername">작성자이름</option>
 			</select>>&nbsp; 
 			<script type="text/javascript">
 				if ('${param.searchType}' != '') {

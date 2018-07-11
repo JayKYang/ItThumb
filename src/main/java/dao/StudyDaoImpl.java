@@ -55,6 +55,69 @@ public class StudyDaoImpl implements StudyDao{
 	public void studyUpdate(Study study) {
 		sqlSession.getMapper(StudyMapper.class).studyUpdate(study);	
 	}
+	@Override
+	public int myApplyStudyCount(String searchType, String searchContent, String memberid) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("memberid", memberid);
+		Integer count = sqlSession.selectOne(NS+"myApplyStudyCount", param); 
+		return count;
+	}
+	@Override
+	public List<Study> myApplyStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = (pageNum - 1) * limit;
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		param.put("memberid", memberid);
+		return sqlSession.selectList(NS+"myApplyStudyList", param);
+	}
+	@Override
+	public int myScrapStudyCount(String searchType, String searchContent, String memberid) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("memberid", memberid);
+		Integer count = sqlSession.selectOne(NS+"myScrapStudyCount", param); 
+		return count;
+	}
+	@Override
+	public List<Study> myScrapStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = (pageNum - 1) * limit;
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		param.put("memberid", memberid);
+		return sqlSession.selectList(NS+"myScrapStudyList", param);
+	}
+	@Override
+	public int myStudyCount(String searchType, String searchContent, String memberid) {
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("memberid", memberid);
+		Integer count = sqlSession.selectOne(NS+"myStudyCount", param); 
+		return count;
+	}
+	@Override
+	public List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = (pageNum - 1) * limit;
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		param.put("memberid", memberid);
+		return sqlSession.selectList(NS+"myStudyList", param);
+	}
 
 
 }

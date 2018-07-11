@@ -625,5 +625,38 @@ public class JsyServiceImpl implements JsyService{
 		scrapDao.scrapAllDelete(studyno);
 		
 	}
+
+	@Override
+	public int myApplyStudyCount(String searchType, String searchContent, String memberid) {
+		return studyDao.myApplyStudyCount(searchType, searchContent, memberid);
+	}
+
+	@Override
+	public List<Study> myApplyStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return studyDao.myApplyStudyList(searchType, searchContent, pageNum, limit, memberid);
+	}
+
+	@Override
+	public int myScrapStudyCount(String searchType, String searchContent, String memberid) {
+		return studyDao.myScrapStudyCount(searchType, searchContent, memberid);
+	}
+
+	@Override
+	public List<Study> myScrapStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return studyDao.myScrapStudyList(searchType, searchContent, pageNum, limit, memberid);
+	}
+
+	@Override
+	public int myStudyCount(String searchType, String searchContent, String memberid) {
+		return studyDao.myStudyCount(searchType, searchContent, memberid);
+	}
+
+	@Override
+	public List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return studyDao.myStudyList(searchType, searchContent, pageNum, limit, memberid);
+	}
 		
 }

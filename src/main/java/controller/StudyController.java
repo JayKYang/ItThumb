@@ -39,7 +39,6 @@ public class StudyController {
 		int limit = 10;
 		
 		int studycount = service.studycount(searchType, searchContent);
-		
 		List<Study> studylist = service.studylist(searchType, searchContent, pageNum, limit);
 		
 		int maxpage = (int)((double)studycount/limit + 0.95);

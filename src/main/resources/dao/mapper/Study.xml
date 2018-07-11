@@ -20,4 +20,64 @@
 		</if>
 			order by studyno desc limit #{startrow}, #{limit}
 	</select>
+	
+	<select id="myApplyStudyCount" resultType="Integer" parameterType="map">
+		
+		select count(*) from study a, studygroup b where a.studyno = b.studyno and regmember=#{memberid} 
+		
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+		
+	</select>
+	
+	<select id="myApplyStudyList" resultType="Study" parameterType="map">
+		
+		select a.studyno, memberid, region, studyname, regdate, nowmember, limitmember, content, weekday, starttime, endtime, membername, state from study a, studygroup b where a.studyno = b.studyno and regmember=#{memberid}
+		
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+			order by state desc limit #{startrow}, #{limit}
+	</select>
+	
+	<select id="myScrapStudyCount" resultType="Integer" parameterType="map">
+		
+		select count(*) from study a, scrap b where a.studyno = b.studyno and b.memberid=#{memberid} 
+		
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+		
+	</select>
+	
+	<select id="myScrapStudyList" resultType="Study" parameterType="map">
+		
+		select a.studyno, a.memberid, region, studyname, regdate, nowmember, limitmember, content, weekday, starttime, endtime, membername from study a, scrap b where a.studyno = b.studyno and b.memberid=#{memberid}
+		
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+			order by studyno desc limit #{startrow}, #{limit}
+	</select>
+	
+	<select id="myStudyCount" resultType="Integer" parameterType="map">
+		
+		select count(*) from study where memberid=#{memberid} 
+		
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+		
+	</select>
+	
+	<select id="myStudyList" resultType="Study" parameterType="map">
+		
+		select * from study where memberid=#{memberid}
+		
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+			order by studyno desc limit #{startrow}, #{limit}
+	</select>
 </mapper>
