@@ -686,4 +686,14 @@ public class JsyServiceImpl implements JsyService{
 	public List<User> myStudyInfoList(Integer studyno) {
 		return studyDao.myStudyInfoList(studyno);
 	}
+	public int getScrapmembercount(String searchType, String searchContent, String memberid) {
+		return scrapDao.getScrapmembercount(searchType,searchContent,memberid);
+	}
+
+	@Override
+	public List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
+	}
+
 }

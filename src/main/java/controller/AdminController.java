@@ -59,7 +59,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="admin/recognizeHire") // 채용공고 승인
+	/*@RequestMapping(value="admin/recognizeHire") // 채용공고 승인
 	@ResponseBody
 	public HashMap<String,Object> recognizeHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
 		HashMap <String,Object> map = new HashMap<String,Object>();
@@ -72,7 +72,7 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		return map;
-	}
+	}*/
 	
 	@RequestMapping(value="admin/deleteHire") // 채용공고 삭제
 	@ResponseBody

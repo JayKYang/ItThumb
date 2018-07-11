@@ -74,7 +74,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 2}">
 				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-					  <a href="#portfolio" class="w3-button"><p>관심 포트폴리오</p></a>
+					  <a href="portfolioscraplist.jsy" class="w3-button"><p>관심 포트폴리오</p></a>
 				</div>
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 0}">

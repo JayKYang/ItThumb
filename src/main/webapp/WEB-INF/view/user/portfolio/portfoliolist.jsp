@@ -42,7 +42,6 @@
         <th>스킬</th>
         <th>포트폴리오 명</th>
         <th>최종수정일</th>
-        <th><input type="checkbox" name="allchk" onchange="allchkbox(this)">&nbsp;<input type="submit" value="삭제"></th>
     </tr>
 	    <c:forEach items="${portfoliolist }" var="portfolio">
 	    <c:if test="${portfolio.createpf == 1 }">
@@ -58,7 +57,6 @@
 	      </td>
 	      <td><a href="myportfolio.jsy?id=${portfolio.memberid}&pageNum=${pageNum}">${portfolio.slogun }</a></td>
 	      <td><fmt:formatDate value="${portfolio.modifydate }" type="both" pattern="yyyy-MM-dd"/></td>
-	      <td><input type="checkbox" name="idchks" value="${portfolio.memberid}"></td>
 	    </tr>
 		</c:if>
 	    </c:forEach>

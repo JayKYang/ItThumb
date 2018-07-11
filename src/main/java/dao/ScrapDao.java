@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import logic.Scrap;
+import logic.User;
 
 public interface ScrapDao {
 
@@ -28,5 +29,10 @@ public interface ScrapDao {
 	int scrapHireCount(String memberid);
 
 	Scrap portfolioScrapConfirm(String loginid, String scrapid);
+
+	int getScrapmembercount(String searchType, String searchContent, String memberid);
+
+	List<User> getScrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid);
 
 }

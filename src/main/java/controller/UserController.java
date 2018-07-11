@@ -267,7 +267,7 @@ public class UserController {
 		}
 		if (loginUser.getMembergrade()==0) { // 관리자인 경우
 			if (!loginUser.getPassword().equals(pw)) {
-				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage.jsy?id=" + id); // id = 탈퇴시킬 아이디 
+				throw new JsyException("관리자 비밀번호가 틀립니다.", "mypage/myInfo.jsy?id=" + id); // id = 탈퇴시킬 아이디 
 			}
 		} else { // 일반사용자의 경우
 			if (!user.getPassword().equals(pw)) {
@@ -278,7 +278,7 @@ public class UserController {
 			service.deleteUser(id);
 			if (loginUser.getMembergrade()==0) { // 관리자인경우
 				mav.addObject("msg",id+"회원 탈퇴가 완료되었습니다.");
-				mav.addObject("url","mypage.jsy?id="+loginUser.getMemberid());
+				mav.addObject("url","mypage/myInfo.jsy?id="+loginUser.getMemberid());
 				mav.setViewName("alert");
 				return mav;
 			} else { // 일반사용자로 로그인시 삭제 성공
@@ -290,7 +290,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new JsyException("삭제시 오류 발생", "mypage.jsy?id=" + id);
+			throw new JsyException("삭제시 오류 발생", "mypage/myInfo.jsy?id=" + id);
 		}
 	}
 
@@ -377,6 +377,7 @@ public class UserController {
 		}
 		return mav;
 	}
+	*/
 	@RequestMapping(value = "user/findpassword", method = RequestMethod.GET)
 	public ModelAndView findpassword() {
 		System.out.println("[UserController] => user/findpassword[GET]");
@@ -384,8 +385,7 @@ public class UserController {
 		User user = new User();
 		mav.addObject("user",user);
 		return mav; // 뷰이름만 리턴
-	}*/
-	
+	}
 	@RequestMapping(value = "user/findpassword", method = RequestMethod.POST)
 	public ModelAndView findpassword(@Valid User user, BindingResult bindingResult) {
 		System.out.println("[UserController] => user/findpassword[POST]");

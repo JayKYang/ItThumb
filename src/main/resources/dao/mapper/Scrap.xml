@@ -23,8 +23,36 @@
 
 	<select id="portfolioScrapConfirm" resultType="Scrap" parameterType="map">
 		select * from scrap where memberid=#{loginid}
-		<if test="hireno != null">
+		<if test="scrapid != null">
 			and scrapmember=#{scrapid}
 		</if>
+	</select>
+	
+	<select id="getScrapmembercount" resultType="int" parameterType="map">
+		select count(*)	
+		from user a, (select s.scrap,u.memberid,s.scrapmember as scrapmember
+						from user u, scrap s
+						where u.memberid = s.memberid) d
+		where a.memberid = d.scrapmember
+		<if test="memberid != null">
+			and d.memberid=#{memberid}
+		</if>
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+	</select>
+	<select id="getScrapmemberlist" resultType="User" parameterType="map">
+	select a.memberid, name, regdate, tel, membergrade, recognizecode, image as imageUrl, birth, industy, site, slogun, introduce, modifydate, address, locking, createpf
+	from user a, (select s.scrap,u.memberid,s.scrapmember as scrapmember
+					from user u, scrap s
+					where u.memberid = s.memberid) d
+		where a.memberid = d.scrapmember
+		<if test="memberid != null">
+			and d.memberid=#{memberid}
+		</if>
+		<if test="searchType != null and searchContent != null">
+			and ${searchType} like '%${searchContent}%'
+		</if>
+		order by d.scrap desc limit #{startrow}, #{limit}
 	</select>
 </mapper>

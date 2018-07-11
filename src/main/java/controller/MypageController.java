@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.JsyException;
@@ -73,6 +77,7 @@ public class MypageController {
 		}
 		try {
 			service.updateUser(user,request);
+			user = service.getUser(user.getMemberid());
 			request.getSession().setAttribute("login", user);
 			mav.addObject("msg","수정이 완료되었습니다.");
 			mav.addObject("url","myInfo.jsy?id=" + user.getMemberid());
@@ -246,6 +251,55 @@ public class MypageController {
 		mav.addObject("studylist", studylist);
 		mav.addObject("studynum", studynum);
 		mav.addObject("smkind", smkind);
+		return mav;
+	}
+	@RequestMapping("user/mypage/portfolioscraplist")
+	public ModelAndView portfolioscraplist(HttpSession session,Integer pageNum, String searchType, String searchContent) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[MypageController] => user/mypage/portfolioscraplist");
+		User loginUser = (User) session.getAttribute("login");
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		int limit = 10; 
+//		List<User> scrapmemberlist = new ArrayList<User>();
+		
+		int scrapmembercount = service.getScrapmembercount(searchType,searchContent,loginUser.getMemberid());
+		List<User> scrapmemberlist = service.scrapmemberlist(searchType,searchContent,pageNum,limit,loginUser.getMemberid());
+
+		
+		int maxpage = (int)((double)scrapmembercount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1 ;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int scrapmembernum = scrapmembercount - (pageNum - 1) * limit;
+		
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("scrapmembercount", scrapmembercount);
+		mav.addObject("scrapmemberlist", scrapmemberlist);
+		mav.addObject("scrapmembernum", scrapmembernum);
+		mav.setViewName("user/mypage/portfolioscraplist");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="user/mypage/recognizeHire") // 채용공고 승인
+	public ModelAndView recognizeHire(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("[MypageController] => user/mypage/recognizeHire");
+		
+		int hireno = Integer.parseInt(request.getParameter("hireno"));
+		try {
+			service.updateHide(hireno);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		mav.addObject("msg","승인이 완료되었습니다.");
+		mav.addObject("url","confirmHire.jsy");
+		mav.setViewName("alert");
 		return mav;
 	}
 	
