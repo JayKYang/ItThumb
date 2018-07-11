@@ -470,12 +470,35 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public List<Scrap> scrapHirelist(Integer hireno, String memberid) {
+	public List<Scrap> scrapHirelist(String memberid,Integer pageNum, int limit) {
 	
-		return scrapDao.scrapHirelist(hireno, memberid);
+		return scrapDao.scrapHirelist(memberid,pageNum,limit);
 	}
 
 	@Override
+	public void hireUpdateScrapNum(int hireno) {
+		
+		boardDao.hireUpdateScrapNum(hireno);
+		
+	}
+
+	@Override
+	public int suphirelistcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+	return boardDao.suphirelistcount(searchRegion, searchEdu, searchCarr, searchCareer, searchCareerDate);
+	}
+
+	@Override
+	public int scrapHireCount(String memberid) {
+		
+		return scrapDao.scrapHireCount(memberid);
+	}
+
+
+
+
+
+
 	public int Communitycount(String searchType, String searchContent, Integer communitykind, String memberid) {
 		return communityDao.communitycount(searchType, searchContent, communitykind, memberid);
 	}
@@ -658,5 +681,4 @@ public class JsyServiceImpl implements JsyService{
 			String memberid) {
 		return studyDao.myStudyList(searchType, searchContent, pageNum, limit, memberid);
 	}
-		
 }

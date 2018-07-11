@@ -1,6 +1,8 @@
 <%@page import="java.io.*,java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<%@ taglib prefix="fmt2" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +27,8 @@ $(document).ready(function(){
 	var b = ['고등학교 졸업 이상','대학교(2,3년) 졸업 이상', '대학교(4년) 졸업 이상', '석사 졸업 이상', '박사 졸업 이상']
 	var html2 = "";
 	html2+="<br>";
-	html2 +="<option>선택하세요</option>";
 	for(var i=0; i<b.length; i++){
-		html2 += '<option value="\''+b[i]+'\'">\''+b[i]+'\'</option>';
+		html2 += ' <input type="radio" name="aaa" value="\''+b[i]+'\'">'+b[i];
 	}
 	$("#levelofedu").append(html2);
 	
@@ -85,29 +86,34 @@ $(document).ready(function(){
 	})
 		
 		
-	$("#levelofedu").change(function(){
+	$('input[name="aaa"]').click(function(){
 		var classEdu = "classEdu";
-		var b = $("#levelofedu option:selected").val();
-	 	if(b == '선택하세요'){
-	 		b="";
-	 		alert("학력을 선택해 주세요.");
-	 	}
-	 	$('input[name="searchEdu"]').val(b);
-	 	
-       var i=0;
-		for(i=0;i<idx;i++) {
-			if(divchkarr[i].indexOf("졸업") > 0) {
-				console.log($( this ).val()+","+ i+",b="+b);
+		var b = "";
+		b = $('input[name="aaa"]:checked').val();
+		$('input[name="searchEdu"]').val(b);
+		
+   	  var i =0;
+       for(i=0;i<idx;i++) {
+			if(divchkarr[i].indexOf("졸업") >0) {
 		         divchkarr.splice(i,1, b);
-		         break;
+		        break;
+		         if($(this).val() == divchkarr[i]) {
+		        
+			         divchkarr.splice(i,1);
+			         idx--;
+			         break;
+				}
 			}
 		}
-		console.log("i=" + i + ",idx=" + idx)
       if( i == idx) {
 	         divchkarr[idx++] = b;
       }      
      divchkdisp(classEdu);		
 	})
+	
+	
+	
+	
 	
 	$('input[name="ccc"]').click(function(){
 		var classCarr = "classCarr";
@@ -116,7 +122,6 @@ $(document).ready(function(){
 			divchkarr[idx++] =$( this ).val();
 		else {
 			for(var i=0;i<idx;i++) {
-				console.log($( this ).val()+","+ divchkarr[i]);
 				if($( this ).val() == divchkarr[i]) {
 			         divchkarr.splice(i,1);
 			         idx--;
@@ -140,6 +145,7 @@ $(document).ready(function(){
 			$("select[name=inputCareerDate]").attr("disabled",false);
 		} else{
 			$("select[name=inputCareerDate]").attr("disabled",true);
+			$('input[name="searchCareerDate"]').val(null);
 		}
 		var d=[];
 		if ($( this ).prop( "checked" ) == true)
@@ -172,12 +178,10 @@ $(document).ready(function(){
 	 		e="";
 	 		alert("경력을 선택해 주세요.");
 	 	}
-	 	console.log(e);
 	 	$('input[name="searchCareerDate"]').val(e);
-	 	
        var i=0;
-		for(i=0;i<idx;i++) {
-			if(divchkarr[i].indexOf("이상") > 0) {
+       for(i=0;i<idx;i++) {
+			if(divchkarr[i].indexOf("이하") > 0) {
 				console.log($( this ).val()+","+ i+",b="+e);
 		         divchkarr.splice(i,1, e);
 		         break;
@@ -190,10 +194,6 @@ $(document).ready(function(){
      divchkdisp(inputCareerDate);		
 	}) //
 	
-	$(".test").click(function(){
-		event.preventDefault();
-		alert("gggg");
-	})	
 
 
 	
@@ -219,31 +219,48 @@ $(document).ready(function(){
 function divchkdisp(classname) {
 	htmla = "";
 	for(var i =0; i<idx; i++){
-		htmla+='<a href="javascript:checkOn('+divchkarr[i]+')" class="'+classname+'" name="'+divchkarr[i]+'" value="'+divchkarr[i]+'">'+divchkarr[i]+'</a> ';	
+		htmla+='<a href="javascript:checkOn('+divchkarr[i]+')" class="'+classname+'  "  name="'+divchkarr[i]+'" value="'+divchkarr[i]+'">'+divchkarr[i]+'</a> ';	
 	}
 	$("#divchk").html(htmla);	
 }
 
 
 function checkOn(check){
-	if(check.indexOf("졸업") != -1){
-		var abc = check;
-	}
-	else if(check.indexOf("이상") != -1){
-		var abc = check;
-	}else {
-	var abc = "'"+check+"'"; 
-	}
-	divchkarr[idx];
-	for(var i=0;i<idx;i++) {
+	
+	abc = "'"+check+"'";
+	
+	for(var i=0;i<divchkarr.length;i++) {
+		if(check.indexOf('졸업') < 0&&abc.indexOf('이하') > 0){ //셀렉트 박스 를 위한
+			console.log("if"); 
+			if(abc==divchkarr[i]){
+				divchkarr.splice(i,1);
+		         idx--;
+		         $('input[name="searchCareerDate"]').val(null);
+		         $('select[name="inputCareerDate"]').val("선택해주세요").prop("selected", true);
+		         divchkdisp(check);				
+					break;
+				}	
+		} else if (check.indexOf('졸업') < 0){ // 체크박스를 위한
+			
 		if(abc== divchkarr[i]) {
-	         divchkarr.splice(i,1);
-	         idx--;
-	         $('input:checkbox[value="'+abc+'"]').trigger("click");
-	         $('select[value="'+abc+'"]').trigger("change");
-			break;
+		         divchkarr.splice(i,1);
+		         idx--;
+		         $('input:checkbox[value="'+abc+'"]').trigger("click");
+		         $('input:radio[value="'+abc+'"]').prop('checked',false);
+				 break;
+			}
+		}else{//라디오를 위한
+			$('input[name="searchEdu"]').val(null);
+			$('input:radio[value="'+abc+'"]').prop('checked',false);
+			for(var i=0;i<divchkarr.length;i++) {
+				if(abc == divchkarr[i]) {
+			         divchkarr.splice(i,1);
+			         idx--;
+			         break;
+				}
+			}
+			divchkdisp(check);
 		}
-		
 	}
  }
 
@@ -274,6 +291,11 @@ function hirelist(pageNum){
 	width: 250px;
 	height : 400px;	
 }
+
+#table  td, th{
+	border-bottom : 1px solid #000000;
+}
+
 </style>
 </head>
 <body>
@@ -282,9 +304,8 @@ function hirelist(pageNum){
 <h6 class="region">지역</h6>
 </div>
 <div name="bb">
-<h6>학력</h6>
-<select name="levelofedu" id="levelofedu">
-</select>
+<h6  name="levelofedu" id="levelofedu">학력</h6>
+
 </div>
 <div name="cc">
 <h6 id="fff">고용형태</h6>
@@ -293,10 +314,11 @@ function hirelist(pageNum){
 <div name="cc">
 <h6 id="carrarea">경력</h6>
 
+
 </div>
-<table width="90%" border="1" cellpadding="0" cellspacing="0">
+<table width="90%" id="table" cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan="6" align="center">
+		<td colspan="8" align="center">
 	<form action="hirelist.jsy" method="post" name="searchform" onsubmit="return hirelist(1)">
 		<input type="hidden" name="pageNum" value="1">
 		<input type="hidden" name="popPageNum" value="1">
@@ -305,34 +327,37 @@ function hirelist(pageNum){
 			<input type="text" name="searchCarr" value="${param.searchCarr}">
 			<input type="text" name="searchCareer" value="${param.searchCareer }">
 			<input type="text" name="searchCareerDate" value="${param.searchCareerDate}">
-
 			<input type="submit" value="Search">
 	</form>	
 		</td>
 	</tr>
 	<tr>
-		<td colspan="6" width="90%" height="100px" id="allchk">
+		<td colspan="8" width="90%" height="100px" id="allchk">
 				<div id="divchk">
 				
 				</div>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="6">
+		<td colspan="8">
 			<h2>인기 공고</h2>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="6">
-			<table width="90%" border="1" cellpadding="0" cellspacing="0">
+		<td colspan="8">
+			<table width="100%" id="table"  cellpadding="0" cellspacing="0">
 				<tr align="center" valign="middle" border="#212121">
 					<th width="10%" height="26">기업명</th>
-			<th width="50%" height="26">제목</th>
+			<th width="40%" height="26">제목</th>
 			<th width="14%" height="26">지원자격</th>
+			<th width="10%" height="26">경력</th>
 			<th width="6%" height="26">근무조건</th>
-			<th width="20 %" height="26" colspan="2">공고기간</th>
+			<th width="8%" height="26">작성일</th>
+			<th width="8%" height="26">마감일</th>
+			<th width="5%" height="26">마감상태</th>
 				</tr>
-				<c:forEach var="popBoard" items="${popBoardlist}">
+				
+				<c:forEach var="popBoard" items="${popBoardlist}" varStatus="status">
 					<tr align="center" valign="middle" bordercolor="#333333" >
 						<td>
 							${popBoard.company}
@@ -344,58 +369,72 @@ function hirelist(pageNum){
 						${popBoard.qualification}
 						</td>
 						<td>
+						${popBoard.career} ${popBoard.careerdate }
+						</td>
+						<td>
 							${popBoard.hirestatus}
 						</td>
 						<td align="left">
 					<fmt:formatDate value="${popBoard.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-				</td align="left">
-				<td>
+				</td>
+				<td align="left">
 				<fmt:formatDate value="${popBoard.deadline}" pattern="yyyy-MM-dd HH:mm:ss" />
+				</td>
+				<td align="center">
+					${popDatelist[status.index]} 일 전
 				</td>
 					</tr>
 					</c:forEach>
-		
 			</table>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="6">
+		<td colspan="8">
 			<h2>공고 전체</h2>
 		</td>
 	</tr>
 	
 	<tr align="center" valign="middle" bordercolor="#212121">
 			<th width="10%" height="26">기업명</th>
-			<th width="50%" height="26">제목</th>
+			<th width="34" height="26">제목</th>
 			<th width="14%" height="26">지원자격</th>
+			<th width="10%">경력</th>
 			<th width="6%" height="26">근무조건</th>
-			<th width="20 %" height="26" colspan="2">공고기간</th>
+			<th width="8%" height="26">작성일</th>
+			<th width="8%" height="26">마감일</th>
+			<th width="5%" height="26">마감상태</th>
 		</tr>
-		
-		<c:forEach var="hireboard" items="${boardlist}">
-		<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.backgroundColor='#5CD1E5'" onmouseout="this.style.backgroundColor=''">
+		<c:forEach var="hireboard" items="${boardlist}" varStatus="status">
+		<c:if test="${hireboard.hide==1}">
+		<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.color='#1DDB16', this.style.border='2px solid'" onmouseout="this.style.color=''">
 			<td>
 					${hireboard.company}			
 			</td>
 			<td>
 					<a href="hiredetail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>
 			</td>
-				<td align="left">${hireboard.qualification}</td>
+				<td align="center">${hireboard.qualification}</td>
+				<td align="center">${hireboard.career} <br>${hireboard.careerdate}</td>
 				<td align="center">${hireboard.hirestatus}</td>
 				<td align="left">
 					<fmt:formatDate value="${hireboard.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-				</td align="left">
+				</td>
+				<td align="center">
+				<fmt:formatDate value="${hireboard.deadline}" pattern="yyyy-MM-dd" var="end"/>
+				${end}
+				</td>
 				<td>
-				<fmt:formatDate value="${hireboard.deadline}" pattern="yyyy-MM-dd HH:mm:ss" />
+					${datelist[status.index]} 일 전
 				</td>
 		</tr>
+		</c:if>
 		</c:forEach>
 				<tr align="center" height="26">
-			<td colspan="6">
+			<td colspan="8">
 				<c:if test="${pageNum >1}">
-					<a href="javascript:hirelist(${pageNum -1})">BACK</a>
+					<a href="javascript:hirelist(${pageNum -1})">PREV</a>
 				</c:if> &nbsp;
-				<c:if test="${pageNum <= 1}">BACK</c:if>&nbsp;
+				<c:if test="${pageNum <= 1}">PREV</c:if>&nbsp;
 				<c:forEach var="a" begin="${startpage}" end = "${endpage}">
 					<c:if test="${a == pageNum}">${a}</c:if>
 					<c:if test="${a != pageNum}">
@@ -412,11 +451,11 @@ function hirelist(pageNum){
 		
 			<c:if test="${listcount==0}">
 		<tr>
-			<td colspan="6">등록된 채용공고 게시물이 없습니다.</td>
+			<td colspan="8">등록된 채용공고 게시물이 없습니다.</td>
 		</tr>
 	</c:if>
 		<tr>
-		<td align="right" colspan="6">
+		<td align="right" colspan="8">
 			<a href="hirewrite.jsy">WRITE</a>
 		</td>
 	</tr>

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.taglibs.standard.extra.spath.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -44,7 +46,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("hire/hirelist")
-	public ModelAndView hirelist (Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request) {
+	public ModelAndView hirelist (Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
 		
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -77,17 +79,50 @@ public class BoardController {
 		}
 		
 		try {
-
+			String strDate = null;
+			String strEndDate = null;
+			Date beginDate = null;
+			Date endDate = null;
+			Date date = new Date(); // 현재 날짜
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			long diff = 0;
+			long diffDays = 0;
+			List datelist = new ArrayList();
+			List popDatelist = new ArrayList();
 			int popListcount = service.popBoardcount();
 			int popLimit = 10;
-			List<Hire> popBoardlist = service.popHirelist(popLimit);
+			List<Hire> popBoardlist = service.popHirelist(popLimit); // 인기 공고 게시물 4건
 
+			for(int i=0; i<popBoardlist.size(); i++) {
+				strDate = formatter.format(date);
+				strEndDate = formatter.format(popBoardlist.get(i).getDeadline());
+				beginDate = formatter.parse(strDate);
+				endDate = formatter.parse(strEndDate);
+			    diff = endDate.getTime() - beginDate.getTime();
+				 diffDays = diff / (24 * 60 * 60 * 1000);
+				 popDatelist.add(diffDays);
+			}
 			
 			
 			
 			int listcount = service.boardcount(searchRegion, searchEdu,  searchCarr,searchCareer,searchCareerDate);
 			int limit = 10;
 			List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate,pageNum, limit);
+			
+			for(int i=0; i<boardlist.size(); i++) {
+			
+				strDate = formatter.format(date); 
+				strEndDate = formatter.format(boardlist.get(i).getDeadline());
+				beginDate = formatter.parse(strDate);
+				endDate = formatter.parse(strEndDate);
+			    diff = endDate.getTime() - beginDate.getTime();
+			    diffDays = diff / (24 * 60 * 60 * 1000);
+			    datelist.add(diffDays);
+			}
+			
+			
+			
+			
 			int maxpage = (int)((double)listcount/limit + 0.95);
 			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
 			int endpage = maxpage + 9;
@@ -95,6 +130,8 @@ public class BoardController {
 			if(endpage > maxpage) endpage = maxpage;
 			int boardcnt = listcount - (pageNum -1) * limit;
 			
+			mav.addObject("popDatelist", popDatelist);
+			mav.addObject("datelist",datelist);
 			mav.addObject("pageNum",pageNum);
 			mav.addObject("maxpage", maxpage);
 			mav.addObject("startpage", startpage);
@@ -104,14 +141,12 @@ public class BoardController {
 			mav.addObject("boardcnt", boardcnt);
 			mav.addObject("popBoardlist",popBoardlist);
 			mav.addObject("popListcount",popListcount);
+			
 		
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		
 		return mav;
 	}
@@ -171,6 +206,7 @@ public class BoardController {
 	       }else {
 	          mav.addObject("scrapComfirm",1);
 	       }
+	    System.out.println(hireno+"%%%%%%%%%%%%%"+memberid+"%%%%%%%%%%%%%"+scrap);
 		Hire hire = new Hire();
 		if(hireno != null) {
 			hire = service.getHire(hireno);
@@ -188,7 +224,8 @@ public class BoardController {
 	   public HashMap<String, String> hireScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
 	       HashMap<String, String> map = new HashMap<String, String>();
 	       int hireno = Integer.parseInt(request.getParameter("hireno"));
-	       String memberid = request.getParameter("memberid");
+	       User user = (User)request.getSession().getAttribute("login");
+	       String memberid = user.getMemberid();
 	       Scrap scrap = service.hireScrapSelect(hireno, memberid);
 	       if(scrap == null) {
 	          int scrapMaxnum = service.ScrapMaxnum()+1;
@@ -198,6 +235,7 @@ public class BoardController {
 	          insertScrap.setHireno(hireno);
 	          try {
 	        	  service.hireInsertScrap(insertScrap);
+	        	  service.hireUpdateScrapNum(hireno);
 	          }catch (Exception e) {
 	            e.printStackTrace();
 	          }
@@ -217,22 +255,59 @@ public class BoardController {
 	//	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
 	
 	@RequestMapping("hire/hireScrapList.jsy")
-	public ModelAndView hireScrapList(HttpServletRequest request) {
+	public ModelAndView hireScrapList(HttpServletRequest request, Integer pageNum) throws ParseException {
+		
+		if(pageNum==null|| pageNum.toString().equals("")) {
+			pageNum=1;
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		User user = (User)request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
-		Integer hireno = null;
-		List<Scrap> scrap = service.scrapHirelist(hireno,memberid);
-		System.out.println(scrap);
-		List<Hire> scraphirelist = null;
-		for(int i=0; i<scrap.size(); i++) {
-			hireno = scrap.get(i).getHireno();
-			scraphirelist.add(service.getHire(hireno));
+		int limit = 15;
+		try {
+		List<Scrap> scraplist = service.scrapHirelist(memberid,pageNum, limit);
+		int hireno = 0;
+		List<Hire> scraphirelist = new ArrayList<Hire>();
+		for(Scrap scrap : scraplist ) {
+			hireno = scrap.getHireno();
+			scraphirelist.add((Hire)service.getHire(hireno));
+		}
+		List datelist = new ArrayList();
+		Date startDate = new Date();
+		Date endDate = null;
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		long calDate = 0;
+		long calDateDays = 0;
+		for(int i =0; i<scraplist.size(); i++) {
+		endDate = scraphirelist.get(i).getDeadline(); // 마감일
+			calDate =endDate.getTime() - startDate.getTime();
+			calDateDays = calDate / (24*60*60*1000);
+			calDateDays = Math.abs(calDateDays);
+			datelist.add(calDateDays);
 		}
 		
-		mav.addObject("scraphirelist",scraphirelist);
+		int scraphirecount = service.scrapHireCount(memberid);
+		int maxpage = (int)((double)scraphirecount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+		int endpage = maxpage + 9;
 		
-		return null;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardcnt = scraphirecount - (pageNum -1) * limit;
+		
+		mav.addObject("boardcnt",boardcnt);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("scraphirecount",scraphirecount);
+		mav.addObject("datelist",datelist);
+		mav.addObject("scraphirelist",scraphirelist);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
 		
 	}
 		

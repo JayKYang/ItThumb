@@ -36,16 +36,30 @@ public class AdminController {
 	public ModelAndView superviseHire(Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Hire hire = new Hire();
-		int limit = 10;
-		pageNum = 1;
+		int limit = 15;
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		int suphirelistcount = service.suphirelistcount(searchRegion, searchEdu, searchCarr, searchCareer, searchCareerDate);
 		List<Hire> hirelist = service.hirelist(searchRegion, searchEdu, searchCarr, searchCareer, searchCareerDate, pageNum, limit);
+		int maxpage = (int)((double)suphirelistcount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardcnt = suphirelistcount - (pageNum -1) * limit;
+		
+		
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("suphirelistcount",suphirelistcount);
 		mav.addObject("pageNum",pageNum);
 		mav.addObject("hirelist",hirelist);
-		
+		mav.addObject("boardcnt", boardcnt);
 		return mav;
 	}
 	
-	@RequestMapping(value="admin/recognizeHire")
+	@RequestMapping(value="admin/recognizeHire") // 채용공고 승인
 	@ResponseBody
 	public HashMap<String,Object> recognizeHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
 		HashMap <String,Object> map = new HashMap<String,Object>();
@@ -60,7 +74,7 @@ public class AdminController {
 		return map;
 	}
 	
-	@RequestMapping(value="admin/deleteHire")
+	@RequestMapping(value="admin/deleteHire") // 채용공고 삭제
 	@ResponseBody
 	public HashMap<String,Object> deleteHire(@RequestParam HashMap<String,Object> params, HttpServletRequest request) {
 		HashMap <String,Object> map = new HashMap<String,Object>();

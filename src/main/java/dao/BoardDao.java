@@ -20,8 +20,6 @@ public interface BoardDao {
 
 	void readCntplus(Integer hireno);
 
-	void updateScrapNum(Integer hireno);
-
 	void scrapNumMinus(Integer hireno);
 
 	int popBoardcount();
@@ -33,6 +31,11 @@ public interface BoardDao {
 	void updateHide(int hireno);
 
 	void deleteHire(int hireno);
+
+	void hireUpdateScrapNum(int hireno);
+
+	int suphirelistcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
 
 	int hirecount(String searchType, String searchContent, Integer hide);
 

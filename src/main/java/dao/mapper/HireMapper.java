@@ -21,7 +21,7 @@ public interface HireMapper {
 	void readCntplus(Integer hireno);
 
 	@Update("update hireboard set scrapnum = scrapnum+1 where hireno = #{value}")
-	void updateScrapNum(Integer hireno);
+	void hireUpdateScrapNum(int hireno);
 
 	@Update("update hireboard set scrapnum = scrapnum-1 where hireno =#{value} ")
 	void scrapNumMinus(Integer hireno);

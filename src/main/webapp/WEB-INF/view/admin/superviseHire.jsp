@@ -26,6 +26,7 @@ function confirm(hireno){
 }
 
 function deleteHire(hireno){
+	
 	var hireNum = hireno;
 	$.ajax({
 		url : "deleteHire.jsy",
@@ -41,6 +42,26 @@ function deleteHire(hireno){
 		}
 	})
 }
+
+function hirelist(pageNum){
+	var searchRegion = document.searchform.searchRegion.value;
+	var searchEdu = document.searchform.searchEdu.value;
+	var searchCarr = document.searchform.searchCarr.value;
+	var searchCareer = document.searchform.searchCareer.value;
+	var searchCareerDate = document.searchform.searchCareerDate.value;
+	
+	if(searchRegion==null&&searchEdu==null&&searchCarr==null&&searchCareer==null&&searchCareerDate==null|| searchRegion.length==0&&searchEdu.length==0&&searchCarr.length==0&&searchCareer.length==0&&searchCareerDate.length==0){
+		document.searchform.pageNum.value = "1";
+		location.href = "hirelist.jsy?pageNum=" + pageNum;
+	} else{
+		document.searchform.pageNum.value = pageNum;
+		document.searchform.submit();
+		return true;
+	}
+	return false;
+	}
+	
+
 </script>
 </head>
 <body>
@@ -87,11 +108,34 @@ function deleteHire(hireno){
 				<td>
 				<c:if test="${hirelist.hide==0 }">
 				<button value="${hirelist.hireno}"	class="hireBtn"  onclick="confirm('${hirelist.hireno}')">승인</button>
-				<button value="${hirelist.hireno}" onclick="deleteHire('${hirelist.hireno}')">삭제</button>
 				</c:if>
+				<button value="${hirelist.hireno}" onclick="deleteHire('${hirelist.hireno}')">삭제</button>
 				</td>
 			</tr>
 		</c:forEach>
+		
+		<%-- 페이지 --%>
+		<tr align="center" height="26">
+			<td colspan="8">
+				<c:if test="${pageNum >1}">
+					<a href="javascript:hirelist(${pageNum -1})">PREV</a>
+				</c:if> &nbsp;
+				<c:if test="${pageNum <= 1}">PREV</c:if>&nbsp;
+				<c:forEach var="a" begin="${startpage}" end = "${endpage}">
+					<c:if test="${a == pageNum}">${a}</c:if>
+					<c:if test="${a != pageNum}">
+					<a href="javascript:hirelist(${a})">${a}</a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageNum < maxpage}">
+					<a href="javascript:hirelist(${pageNum + 1})">NEXT</a>
+				</c:if> &nbsp;
+				<c:if test="${pageNum >= maxpage}">NEXT
+				</c:if> &nbsp;
+			</td>
+		</tr>
+		
+		
 	</table>
 
 </body>

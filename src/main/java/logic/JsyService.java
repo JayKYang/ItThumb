@@ -166,7 +166,15 @@ public interface JsyService {
 
 	void deleteHire(int hireno);
 
-	List<Scrap> scrapHirelist(Integer hireno, String memberid);
+	List<Scrap> scrapHirelist(String memberid,Integer pageNum,int limit);
+
+	void hireUpdateScrapNum(int hireno);
+
+	int suphirelistcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+	int scrapHireCount(String memberid);
+
 
 	int portfoliocount(String searchType, String searchContent);
 

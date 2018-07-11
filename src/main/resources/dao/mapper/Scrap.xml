@@ -8,21 +8,23 @@
 		</if>
 	</select>
 	<select id="hireScrapSelect" resultType="Scrap" parameterType="map">
-		select * from scrap where memberid=#{memberid}
-		<if test="hireno != null">
-			and hireno=#{hireno}
-		</if>
+		select * from scrap where memberid=#{memberid} and hireno=#{hireno}
 	</select>
+		<select id="scrapHirelist" resultType="Scrap" parameterType="map">
+			select * from scrap where memberid =#{memberid} and hireno is not null
+			order by scrap desc limit #{startrow}, #{limit}
+		</select>
+		<select id="scrapHireCount" resultType="int" parameterType="map">
+			select count(*) from scrap where 1=1
+		<if test="memberid != null">
+			and memberid = #{memberid}
+		</if>
+		</select>		
+
 	<select id="portfolioScrapConfirm" resultType="Scrap" parameterType="map">
 		select * from scrap where memberid=#{loginid}
 		<if test="hireno != null">
 			and scrapmember=#{scrapid}
-		</if>
-	</select>
-	<select id="scrapHirelist" resultType="Scrap" parameterType="map">
-		select * from scrap where memberid =#{memberid}
-		<if test="hireno != null">
-			and hireno is not null
 		</if>
 	</select>
 </mapper>
