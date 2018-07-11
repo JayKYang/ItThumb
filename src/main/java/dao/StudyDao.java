@@ -21,5 +21,17 @@ public interface StudyDao {
 
 	void studyUpdate(Study study);
 
+	int myApplyStudyCount(String searchType, String searchContent, String memberid);
+
+	List<Study> myApplyStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int myScrapStudyCount(String searchType, String searchContent, String memberid);
+
+	List<Study> myScrapStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int myStudyCount(String searchType, String searchContent, String memberid);
+
+	List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
 
 }

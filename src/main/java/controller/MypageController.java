@@ -23,6 +23,7 @@ import exception.JsyException;
 import logic.Hire;
 import logic.JsyService;
 import logic.Scrap;
+import logic.Study;
 import logic.StudyGroup;
 import logic.User;
 import util.HashPass;
@@ -196,14 +197,59 @@ public class MypageController {
 		return mav; 
 	}
 	@RequestMapping("user/mypage/managestudy")
-	public ModelAndView managestudy(HttpSession session) {
+	public ModelAndView managestudy(HttpSession session, Integer smkind, Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
-		User loginUser = (User) session.getAttribute("login");
-		//내가 참여한 스터디
-		List<StudyGroup> studygrouplist = service.studygrouplist(loginUser.getMemberid());
-		mav.addObject("studygrouplist",studygrouplist);
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		User user = (User) session.getAttribute("login");
+		String memberid = user.getMemberid();
+		int studycount = 0;
+		List<Study> studylist = null;
+		int limit = 10;
 		
-		//내가 스크랩한 스터디
+		if(smkind == 1) {
+			try {
+				studycount = service.myApplyStudyCount(searchType, searchContent, memberid);
+				studylist = service.myApplyStudyList(searchType, searchContent, pageNum, limit, memberid);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		if(smkind == 2) {
+			try {
+				studycount = service.myScrapStudyCount(searchType, searchContent, memberid);
+				studylist = service.myScrapStudyList(searchType, searchContent, pageNum, limit, memberid);	
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(smkind == 3) {
+			try {
+				studycount = service.myStudyCount(searchType, searchContent, memberid);
+				studylist = service.myStudyList(searchType, searchContent, pageNum, limit, memberid);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		int maxpage = (int)((double)studycount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 + 1 ;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int studynum = studycount - (pageNum - 1) * limit;
+		
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("studycount", studycount);
+		mav.addObject("studylist", studylist);
+		mav.addObject("studynum", studynum);
+		mav.addObject("smkind", smkind);
 		return mav;
 	}
 	@RequestMapping("user/mypage/portfolioscraplist")
