@@ -4,6 +4,7 @@ import java.util.List;
 
 import logic.Hire;
 import logic.Scrap;
+import logic.User;
 
 public interface ScrapDao {
 
@@ -30,7 +31,13 @@ public interface ScrapDao {
 
 	Scrap portfolioScrapConfirm(String loginid, String scrapid);
 
+
 	List<Hire> getScrapList(String memberid, String searchType, String searchContent, Integer pageNum, int limit);
 
+
+	int getScrapmembercount(String searchType, String searchContent, String memberid);
+
+	List<User> getScrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid);
 
 }

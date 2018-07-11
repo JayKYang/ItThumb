@@ -84,7 +84,7 @@
 						<td>패스워드</td><td><form:password path="password" class="w3-input"/><font color="red"><form:errors path="password"/></font></td>
 					</tr>
 					<tr>
-						<td class="w3-center"><input class="w3-button" type="button" value="회원탈퇴" onclick="../location.href='delete.jsy?id=${login.memberid}'"></td>
+						<td class="w3-center"><input class="w3-button" type="button" value="회원탈퇴" onclick="location.href='../delete.jsy?id=${login.memberid}'"></td>
 						<td class="w3-center"><input class="w3-button" type="submit" value="수정"></td>
 					</tr>
 				</table>

@@ -175,7 +175,6 @@ public interface JsyService {
 
 	int scrapHireCount(String memberid,String searchType, String searchContent);
 
-
 	int portfoliocount(String searchType, String searchContent);
 
 	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
@@ -192,11 +191,30 @@ public interface JsyService {
 
 	List<StudyGroup> studygrouplist(String memberid);
 
+
 	List<Hire> getScrapList(String memberid, String searchType, String searchContent, Integer pageNum, int limit);
 
 	List<Hire> getMyHireList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
 
 	int getMyhirecount(String memberid, String searchType, String searchContent);
 
+
+	int getScrapmembercount(String searchType, String searchContent, String memberid);
+
+	List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int myApplyStudyCount(String searchType, String searchContent, String memberid);
+
+	List<Study> myApplyStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int myScrapStudyCount(String searchType, String searchContent, String memberid);
+
+	List<Study> myScrapStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int myStudyCount(String searchType, String searchContent, String memberid);
+
+	List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	List<User> myStudyInfoList(Integer studyno);
 
 }

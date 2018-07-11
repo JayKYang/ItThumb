@@ -25,6 +25,7 @@ public class Study implements Serializable{
 	@NotEmpty(message="끝나는 시간을 선택해주세요")
 	private String endtime;
 	private String membername;
+	private int state;
 	public int getStudyno() {
 		return studyno;
 	}
@@ -97,12 +98,20 @@ public class Study implements Serializable{
 	public void setMembername(String membername) {
 		this.membername = membername;
 	}
+	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	@Override
 	public String toString() {
 		return "Study [studyno=" + studyno + ", memberid=" + memberid + ", region=" + region + ", studyname="
 				+ studyname + ", regdate=" + regdate + ", nowmember=" + nowmember + ", limitmember=" + limitmember
 				+ ", content=" + content + ", weekday=" + weekday + ", starttime=" + starttime + ", endtime=" + endtime
-				+ ", membername=" + membername + "]";
+				+ ", membername=" + membername + ", state=" + state + "]";
 	}
+	
 	
 }

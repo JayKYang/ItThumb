@@ -360,16 +360,22 @@ public class CommunityController {
 			return mav;
 		}
 		
-		String files[] = community.getFiles().split(",");
+		String files[] = null;
+			if(community.getFiles() != null && !community.getFiles().equals("")) {
+				files = community.getFiles().split(",");
+			}
 		community.setCommunityno(communityno);
+		
 		try {
-			service.comFileDelete(communityno);
-			for(String fname : files) {
-				Filerep filerep = new Filerep();
-				filerep.setFileno(service.fileMaxNum()+1);
-				filerep.setCommunityno(communityno);
-				filerep.setFname(fname);
-				service.fileupdate(filerep);
+			if(files != null) {
+				service.comFileDelete(communityno);
+				for(String fname : files) {
+					Filerep filerep = new Filerep();
+					filerep.setFileno(service.fileMaxNum()+1);
+					filerep.setCommunityno(communityno);
+					filerep.setFname(fname);
+					service.fileupdate(filerep);
+				}
 			}
 			service.comUpdate(community, request);
 			mav.addObject("msg","게시물이 수정되었습니다.");

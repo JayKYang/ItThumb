@@ -18,13 +18,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 .w3-sidebar {
   z-index: 3;
   width: 250px;
-  top: 43px;
+  top: 140px;
   bottom: 0;
   height: inherit;
 }
+#main {margin-left: 14%;}
 </style>
 <body>
-
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-top w3-left-align w3-large w3-theme-l1">
@@ -60,9 +60,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   </div>
 </div>
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="w3-main">
   <div class="w3-row w3-padding-64">
@@ -77,7 +74,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 2}">
 				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-					  <a href="#portfolio" class="w3-button"><p>관심 포트폴리오</p></a>
+					  <a href="portfolioscraplist.jsy" class="w3-button"><p>관심 포트폴리오</p></a>
 				</div>
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 0}">
@@ -87,7 +84,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 1}">
 				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				  <a href="managestudy.jsy" class="w3-button"><p>스터디 관리</p></a>
+				  <a href="managestudy.jsy?smkind=1" class="w3-button"><p>스터디 관리</p></a>
 				</div>
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 0}">
@@ -107,7 +104,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</c:if>
 	 </div>
   </div>
-  <div class="w3-row w3-padding-64">
+  <div>
 	<decorator:body></decorator:body>
   </div>
 

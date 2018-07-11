@@ -31,9 +31,9 @@
 						<tr><td colspan="7">목록이 존재하지 않습니다.</td></tr>
 					</c:if>
 					<c:forEach items="${hirelist }" var="hire" varStatus="status">
-						<tr><td>${hire.hireno }</td><td>${hire.memberid }</td><td>${hire.company }</td><td>${hire.subject }</td><td>${hire.regdate }</td><td>${hire.deadline }</td>
+						<tr><td>${hire.hireno }</td><td>${hire.memberid }</td><td>${hire.company }</td><td><a href="../../hire/hiredetail.jsy?hireno=${hire.hireno}">${hire.subject }</a></td><td>${hire.regdate }</td><td>${hire.deadline }</td>
 							<c:if test="${hire.hide == 0}">
-								<td><input type="button" onclick="location.href=''" value="승인"/></td>
+								<td><input type="button" onclick="location.href='recognizeHire.jsy?hireno=${hire.hireno}'" value="승인"/></td>
 							</c:if>
 							<c:if test="${hire.hide != 0 }">
 								<td>승인처리완료</td>

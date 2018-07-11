@@ -667,6 +667,54 @@ public class JsyServiceImpl implements JsyService{
 	public int getMyhirecount(String memberid, String searchType, String searchContent) {
 		
 		return boardDao.getMyhirecount(memberid, searchType, searchContent);
+		
+	}
+
+	@Override
+	public int myApplyStudyCount(String searchType, String searchContent, String memberid) {
+		return studyDao.myApplyStudyCount(searchType, searchContent, memberid);
+	}
+
+	@Override
+	public List<Study> myApplyStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return studyDao.myApplyStudyList(searchType, searchContent, pageNum, limit, memberid);
+	}
+
+	@Override
+	public int myScrapStudyCount(String searchType, String searchContent, String memberid) {
+		return studyDao.myScrapStudyCount(searchType, searchContent, memberid);
+	}
+
+	@Override
+	public List<Study> myScrapStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return studyDao.myScrapStudyList(searchType, searchContent, pageNum, limit, memberid);
+	}
+
+	@Override
+	public int myStudyCount(String searchType, String searchContent, String memberid) {
+		return studyDao.myStudyCount(searchType, searchContent, memberid);
+	}
+
+	@Override
+	public List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return studyDao.myStudyList(searchType, searchContent, pageNum, limit, memberid);
+	}
+
+	@Override
+	public List<User> myStudyInfoList(Integer studyno) {
+		return studyDao.myStudyInfoList(studyno);
+	}
+	public int getScrapmembercount(String searchType, String searchContent, String memberid) {
+		return scrapDao.getScrapmembercount(searchType,searchContent,memberid);
+	}
+
+	@Override
+	public List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
 	}
 
 }

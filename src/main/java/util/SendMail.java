@@ -20,7 +20,6 @@ public class SendMail {
 		p.put("mail.smtp.auth","true"); // gmail은 무조건 true 고정
 		p.put("mail.smtp.port","587"); // gmail 포트
 	
-		
 		Authenticator auth = new MyAuthentication();
 	
 		// session 생성 및 MimeMessage생성
