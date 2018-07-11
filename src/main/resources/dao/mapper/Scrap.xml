@@ -12,12 +12,15 @@
 	</select>
 		<select id="scrapHirelist" resultType="Scrap" parameterType="map">
 			select * from scrap where memberid =#{memberid} and hireno is not null
-			order by scrap desc limit #{startrow}, #{limit}
+		order by scrap desc limit #{startrow}, #{limit}
 		</select>
 		<select id="scrapHireCount" resultType="int" parameterType="map">
-			select count(*) from scrap where 1=1
+			select count(*) from scrap a, hireboard b where a.hireno=b.hireno
 		<if test="memberid != null">
-			and memberid = #{memberid}
+			and a.memberid = #{memberid}
+		</if>
+		<if test="searchType != null and searchContent != null">
+			and b.${searchType} like '%${searchContent}%'
 		</if>
 		</select>		
 
@@ -26,5 +29,12 @@
 		<if test="hireno != null">
 			and scrapmember=#{scrapid}
 		</if>
+	</select>
+	<select id="getScrapList" resultType="Hire" parameterType="map">
+		select b.hireno as 'hireno', b.qualification as 'qualification',b.hirestatus as 'hirestatus',b.salary as 'salary',b.workday as 'workday',b.memberid as 'memberid',b.hide as 'hide',b.deadline as 'deadline',b.readcnt as 'readcnt',b.subject as 'subject',b.image as 'imageUrl', b.content as 'content', b.region as 'region', b.regionetc as 'regionetc', b.company as 'company',b.career as 'career',b.careerdate as 'careerdate',b.regdate as 'regdate', b.regiongu as 'regiongu'  from scrap a, hireboard b where a.hireno = b.hireno and a.memberid = '${memberid}'
+		<if test="searchType != null and searchContent != null">
+			and b.${searchType} like '%${searchContent}%'
+		</if>
+		order by b.hireno desc limit #{startrow}, #{limit}
 	</select>
 </mapper>

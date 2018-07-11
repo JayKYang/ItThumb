@@ -102,7 +102,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 2}">
 				<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				  <a href="#employment" class="w3-button"><p>내가 쓴 채용공고</p></a>
+				  <a href="../../hire/myhirelist.jsy" class="w3-button"><p>내가 쓴 채용공고</p></a>
 				</div>
 			</c:if>
 	 </div>

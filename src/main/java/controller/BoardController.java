@@ -206,10 +206,11 @@ public class BoardController {
 	       }else {
 	          mav.addObject("scrapComfirm",1);
 	       }
-	    System.out.println(hireno+"%%%%%%%%%%%%%"+memberid+"%%%%%%%%%%%%%"+scrap);
 		Hire hire = new Hire();
 		if(hireno != null) {
-			hire = service.getHire(hireno);
+			String searchType = null;
+			String searchContent = null;
+			hire = service.getHire(hireno,searchType, searchContent);
 			service.readCntplus(hireno);
 		}
 		User user = service.getUser(hire.getMemberid());
@@ -255,10 +256,14 @@ public class BoardController {
 	//	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
 	
 	@RequestMapping("hire/hireScrapList.jsy")
-	public ModelAndView hireScrapList(HttpServletRequest request, Integer pageNum) throws ParseException {
+	public ModelAndView hireScrapList(HttpServletRequest request, Integer pageNum,String searchType, String searchContent) throws ParseException {
 		
 		if(pageNum==null|| pageNum.toString().equals("")) {
 			pageNum=1;
+		}
+		
+		if(searchType==null||searchType.equals("")) {
+			searchContent=null;
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -266,13 +271,20 @@ public class BoardController {
 		String memberid = user.getMemberid();
 		int limit = 15;
 		try {
-		List<Scrap> scraplist = service.scrapHirelist(memberid,pageNum, limit);
+		/*List<Scrap> scraplist = service.scrapHirelist(memberid,pageNum, limit);
 		int hireno = 0;
 		List<Hire> scraphirelist = new ArrayList<Hire>();
 		for(Scrap scrap : scraplist ) {
 			hireno = scrap.getHireno();
-			scraphirelist.add((Hire)service.getHire(hireno));
-		}
+			scraphirelist.add((Hire)service.getHire(hireno,searchType,searchContent));
+		}*/
+		
+		List<Hire> scraphirelist = service.getScrapList(memberid,searchType,searchContent,pageNum,limit);
+		int scraphirecount = service.scrapHireCount(memberid,searchType,searchContent);
+		
+		System.out.println(scraphirelist+"afasfgdgdg");
+		System.out.println(scraphirecount+"asfasfasf");
+		
 		List datelist = new ArrayList();
 		Date startDate = new Date();
 		Date endDate = null;
@@ -280,15 +292,13 @@ public class BoardController {
 		Calendar cal2 = Calendar.getInstance();
 		long calDate = 0;
 		long calDateDays = 0;
-		for(int i =0; i<scraplist.size(); i++) {
+		for(int i =0; i<scraphirelist.size(); i++) {
 		endDate = scraphirelist.get(i).getDeadline(); // 마감일
 			calDate =endDate.getTime() - startDate.getTime();
 			calDateDays = calDate / (24*60*60*1000);
 			calDateDays = Math.abs(calDateDays);
 			datelist.add(calDateDays);
 		}
-		
-		int scraphirecount = service.scrapHireCount(memberid);
 		int maxpage = (int)((double)scraphirecount/limit + 0.95);
 		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
 		int endpage = maxpage + 9;
@@ -308,7 +318,89 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		return mav;
-		
 	}
+	
+	
+	@RequestMapping("hire/hireCheckScrapDelete")
+	@ResponseBody
+	public HashMap<String, String> hireCheckScrapDelete(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+		HashMap<String, String> map = new HashMap<String,String>();
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		int hireno = 0;
+		String str = request.getParameter("checkhireno");
+		String[] chkarr = str.split(",");
+		System.out.println("검사 : " + chkarr);
+		Scrap scrap = new Scrap();
+		try {
+		for(int i=0; i<chkarr.length; i++) {
+			hireno = Integer.parseInt(chkarr[i]);
+			scrap = service.hireScrapSelect(hireno, memberid);
+			service.hireDeleteScrap(scrap.getScrap());
+		}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		 map.put("success", "success");
+		return map;
+	}
+	
+	@RequestMapping("hire/myhirelist")
+	public ModelAndView myhirelist(HttpServletRequest request,String searchType, String searchContent, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		if(pageNum==null||pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if(searchType==null||searchType.equals("")) {
+			searchContent = null;
+		}
+		
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid(); //세션에 등록한 내 아이디
+		int limit = 10;
+		
+		try {
+			List<Hire> myhirelist = service.getMyHireList(searchType,searchContent,pageNum,limit,memberid);
+			int myhirecount = service.getMyhirecount(memberid, searchType, searchContent);
+			
+			List datelist = new ArrayList();
+			Date startDate = new Date();
+			Date endDate = null;
+			Calendar cal = Calendar.getInstance();
+			Calendar cal2 = Calendar.getInstance();
+			long calDate = 0;
+			long calDateDays = 0;
+			for(int i =0; i<myhirelist.size(); i++) {
+			endDate = myhirelist.get(i).getDeadline(); // 마감일
+				calDate =endDate.getTime() - startDate.getTime();
+				calDateDays = calDate / (24*60*60*1000);
+				calDateDays = Math.abs(calDateDays);
+				datelist.add(calDateDays);
+			}
+			
+			
+			int maxpage = (int)((double)myhirecount/limit + 0.95);
+			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+			int endpage = maxpage + 9;
+			
+			if(endpage > maxpage) endpage = maxpage;
+			int boardcnt = myhirecount - (pageNum -1) * limit;
+			
+			mav.addObject("boardcnt",boardcnt);
+			mav.addObject("maxpage",maxpage);
+			mav.addObject("startpage",startpage);
+			mav.addObject("endpage",endpage);
+			mav.addObject("pageNum",pageNum);
+			mav.addObject("datelist",datelist);
+			mav.addObject("myhirecount",myhirecount);
+			mav.addObject("myhirelist",myhirelist);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+	
 		
 }

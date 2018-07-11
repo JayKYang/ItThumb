@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.ScrapMapper;
 import dao.mapper.StudyMapper;
+import logic.Hire;
 import logic.Scrap;
 
 @Repository
@@ -69,9 +70,11 @@ public class ScrapDaoImpl implements ScrapDao{
 		return sqlSession.selectList(NS+"scrapHirelist",map);
 	}
 	@Override
-	public int scrapHireCount(String memberid) {
+	public int scrapHireCount(String memberid,String searchType,String searchContent) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("memberid", memberid);
+		map.put("searchType", searchType);
+		map.put("searchContent", searchContent);
 		int ret = sqlSession.selectOne(NS+"scrapHireCount",map);
 		return ret;
 	}
@@ -84,6 +87,20 @@ public class ScrapDaoImpl implements ScrapDao{
 		
 		return sqlSession.selectOne(NS+"portfolioScrapConfirm", param);
 	}
+	@Override
+	public List<Hire> getScrapList(String memberid, String searchType, String searchContent, Integer pageNum,
+			int limit) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		int startrow = (pageNum -1) * limit;
+		map.put("memberid", memberid);
+		map.put("limit", limit);
+		map.put("searchType", searchType);
+		map.put("searchContent", searchContent);
+		map.put("startrow", startrow);
+		
+		return sqlSession.selectList(NS+"getScrapList",map);
+	}
+	
 
 
 }

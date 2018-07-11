@@ -66,7 +66,7 @@ public interface JsyService {
 
 	void studyGroupDelete(int groupno);
 
-	Hire getHire(Integer hireno);
+	Hire getHire(Integer hireno,String searchType, String searchContent);
 
 	void readCntplus(Integer hireno);
 
@@ -173,7 +173,7 @@ public interface JsyService {
 	int suphirelistcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
 			String searchCareerDate);
 
-	int scrapHireCount(String memberid);
+	int scrapHireCount(String memberid,String searchType, String searchContent);
 
 
 	int portfoliocount(String searchType, String searchContent);
@@ -191,5 +191,12 @@ public interface JsyService {
 	List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide, int limit);
 
 	List<StudyGroup> studygrouplist(String memberid);
+
+	List<Hire> getScrapList(String memberid, String searchType, String searchContent, Integer pageNum, int limit);
+
+	List<Hire> getMyHireList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int getMyhirecount(String memberid, String searchType, String searchContent);
+
 
 }

@@ -39,6 +39,9 @@
 			<if test="searchCareerDate !=null">
 				and careerdate = ${searchCareerDate}
 			</if>
+			<if test="searchType != null and searchContent != null">
+				and ${searchType} like #{searchContent}
+			</if>
 			order by regdate desc limit #{startrow}, #{limit}
 		</select>
 		<select id="popBoardcount" resultType="Integer">
@@ -89,4 +92,27 @@
 			</if>
 			order by hide,regdate desc limit #{startrow}, #{limit}
 		</select>
+		<select id="getMyHireList" resultType="Hire" parameterType="map">
+					select hireno, qualification, hirestatus, salary, workday, memberid, hide, deadline, readcnt, subject, image as 'imageUrl', content, region,regionetc,company,career,careerdate,regdate,regiongu from hireboard where 1=1
+			<if test="memberid != null">
+				and memberid = '${memberid}'
+			</if>
+			<if test="searchType != null and searchContent != null">
+				and ${searchType} like '%${searchContent}%'
+			</if>
+			order by regdate asc limit #{startrow},#{limit} 
+		</select>
+		
+		<select id="getMyhirecount" resultType="int" parameterType="map">
+			select count(*) from hireboard where 1=1
+			<if test="memberid != null">
+				and memberid = '${memberid}'
+			</if>
+			<if test="searchType != null and searchContent != null">
+				and ${searchType} like '%${searchContent}%'
+			</if>
+		</select>
+		
+		
+		
 </mapper>

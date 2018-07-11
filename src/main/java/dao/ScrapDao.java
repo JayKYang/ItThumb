@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import logic.Hire;
 import logic.Scrap;
 
 public interface ScrapDao {
@@ -25,8 +26,11 @@ public interface ScrapDao {
 
 	List<Scrap> scrapHirelist(String memberid,Integer pageNum, int limit);
 
-	int scrapHireCount(String memberid);
+	int scrapHireCount(String memberid,String searchType, String searchContent);
 
 	Scrap portfolioScrapConfirm(String loginid, String scrapid);
+
+	List<Hire> getScrapList(String memberid, String searchType, String searchContent, Integer pageNum, int limit);
+
 
 }
