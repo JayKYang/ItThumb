@@ -681,4 +681,9 @@ public class JsyServiceImpl implements JsyService{
 			String memberid) {
 		return studyDao.myStudyList(searchType, searchContent, pageNum, limit, memberid);
 	}
+
+	@Override
+	public List<User> myStudyInfoList(Integer studyno) {
+		return studyDao.myStudyInfoList(studyno);
+	}
 }

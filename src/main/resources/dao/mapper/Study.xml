@@ -80,4 +80,12 @@
 		</if>
 			order by studyno desc limit #{startrow}, #{limit}
 	</select>
+	
+	<select id="myStudyInfoList" resultType="User" parameterType="map">
+		select distinct name,a.memberid,tel,birth from user a,(select leadermember from studygroup where studyno=#{studyno}) b
+		where a.memberid = b.leadermember
+		union
+		select name,a.memberid,tel,birth from user a,(select regmember from studygroup where studyno=#{studyno} and state=2) b
+		where a.memberid = b.regmember
+	</select>
 </mapper>

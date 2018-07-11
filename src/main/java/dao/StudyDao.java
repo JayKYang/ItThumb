@@ -4,6 +4,7 @@ import java.util.List;
 
 import logic.Study;
 import logic.StudyGroup;
+import logic.User;
 
 public interface StudyDao {
 
@@ -32,6 +33,8 @@ public interface StudyDao {
 	int myStudyCount(String searchType, String searchContent, String memberid);
 
 	List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	List<User> myStudyInfoList(Integer studyno);
 
 
 }

@@ -76,7 +76,12 @@
 					<c:set var="studynum" value="${studynum - 1 }"></c:set>
 					<c:set var="subjectText" value="${study.studyname}"/>
 					<td align="center">
-						<a href="#">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
+						<c:if test="${study.state==2}">
+							<a href="myStudyInfo.jsy?smkind=${smkind}&studyno=${study.studyno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
+						</c:if>
+						<c:if test="${study.state!=2}">
+							${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if>
+						</c:if>
 					</td>
 					<td align="center">
 						${study.nowmember} / <c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if> 

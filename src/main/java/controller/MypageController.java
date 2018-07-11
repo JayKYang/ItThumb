@@ -248,4 +248,20 @@ public class MypageController {
 		mav.addObject("smkind", smkind);
 		return mav;
 	}
+	
+	@RequestMapping("user/mypage/myStudyInfo")
+	public ModelAndView myStudyInfo(Integer smkind, Integer studyno, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			Study study = service.studySelect(studyno);
+			mav.addObject("study", study);
+			List<User> userList = service.myStudyInfoList(studyno);
+			mav.addObject("userList", userList);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("smkind", smkind);
+		mav.addObject("pageNum", pageNum);
+		return mav;
+	}
 }

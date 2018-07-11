@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import dao.mapper.MessageMapper;
 import dao.mapper.StudyMapper;
 import logic.Study;
+import logic.User;
 @Repository
 public class StudyDaoImpl implements StudyDao{
 	@Autowired
@@ -117,6 +118,12 @@ public class StudyDaoImpl implements StudyDao{
 		param.put("limit", limit);
 		param.put("memberid", memberid);
 		return sqlSession.selectList(NS+"myStudyList", param);
+	}
+	@Override
+	public List<User> myStudyInfoList(Integer studyno) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("studyno", studyno);
+		return sqlSession.selectList(NS+"myStudyInfoList", param);
 	}
 
 
