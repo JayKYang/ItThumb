@@ -646,17 +646,7 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void scrapAllDelete(Integer studyno) {
 		scrapDao.scrapAllDelete(studyno);
-	}
-
-	@Override
-	public int getScrapmembercount(String searchType, String searchContent, String memberid) {
-		return scrapDao.getScrapmembercount(searchType,searchContent,memberid);
-	}
-
-	@Override
-	public List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
-			String memberid) {
-		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
+		
 	}
 
 	@Override
@@ -691,4 +681,16 @@ public class JsyServiceImpl implements JsyService{
 			String memberid) {
 		return studyDao.myStudyList(searchType, searchContent, pageNum, limit, memberid);
 	}
+
+	@Override
+	public int getScrapmembercount(String searchType, String searchContent, String memberid) {
+		return scrapDao.getScrapmembercount(searchType,searchContent,memberid);
+	}
+
+	@Override
+	public List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
+	}
+
 }
