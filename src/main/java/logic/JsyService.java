@@ -173,8 +173,7 @@ public interface JsyService {
 	int suphirelistcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
 			String searchCareerDate);
 
-	int scrapHireCount(String memberid);
-
+	int scrapHireCount(String string);
 
 	int portfoliocount(String searchType, String searchContent);
 
@@ -191,5 +190,9 @@ public interface JsyService {
 	List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide, int limit);
 
 	List<StudyGroup> studygrouplist(String memberid);
+
+	int getScrapmembercount(String searchType, String searchContent, String memberid);
+
+	List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
 
 }

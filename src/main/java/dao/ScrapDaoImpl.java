@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import dao.mapper.ScrapMapper;
 import dao.mapper.StudyMapper;
 import logic.Scrap;
+import logic.User;
 
 @Repository
 public class ScrapDaoImpl implements ScrapDao{
@@ -83,6 +84,27 @@ public class ScrapDaoImpl implements ScrapDao{
 		param.put("scrapid", scrapid);
 		
 		return sqlSession.selectOne(NS+"portfolioScrapConfirm", param);
+	}
+	@Override
+	public int getScrapmembercount(String searchType, String searchContent, String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("memberid", memberid);
+		
+		return sqlSession.selectOne(NS+"getScrapmembercount", param);
+	}
+	@Override
+	public List<User> getScrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = (pageNum - 1) * limit;
+		param.put("searchType", searchType);
+		param.put("searchContent", searchContent);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		param.put("memberid", memberid);
+		return sqlSession.selectList(NS+"getScrapmemberlist", param);
 	}
 
 
