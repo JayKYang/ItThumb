@@ -277,7 +277,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		<c:if test="${empty projectList }">
 			<h3 class="w3-center">
 				<a class="w3-xxxlarge">작성된 프로젝트가 없습니다.</a><br>
-				<button onclick="javascript:location.href='projectform.jsy?id=${sessionScope.login.memberid }'">작성하기</button>
+				<%-- <button onclick="javascript:location.href='projectform.jsy?id=${sessionScope.login.memberid }'">작성하기</button> --%>
 			</h3>
 		</c:if>
 		<c:forEach items="${projectList }" var="project">

@@ -423,8 +423,8 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public int portfoliocount(String searchType, String searchContent) {
-		return portfolioDao.portfolioMax(searchType, searchContent);
+	public int portfoliocount(String searchType, String searchContent, Integer createpf) {
+		return portfolioDao.portfolioMax(searchType, searchContent, createpf);
 	}
 
 	@Override
@@ -715,6 +715,12 @@ public class JsyServiceImpl implements JsyService{
 	public List<User> scrapmemberlist(String searchType, String searchContent, Integer pageNum, int limit,
 			String memberid) {
 		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
+	}
+
+	@Override
+	public void confirmuser(String id) {
+		userDao.confirmuser(id);
+		
 	}
 
 }

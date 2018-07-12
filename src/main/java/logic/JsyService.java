@@ -175,7 +175,7 @@ public interface JsyService {
 
 	int scrapHireCount(String memberid,String searchType, String searchContent);
 
-	int portfoliocount(String searchType, String searchContent);
+	int portfoliocount(String searchType, String searchContent, Integer createpf);
 
 	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
 
@@ -216,5 +216,7 @@ public interface JsyService {
 	List<Study> myStudyList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
 
 	List<User> myStudyInfoList(Integer studyno);
+
+	void confirmuser(String id);
 
 }

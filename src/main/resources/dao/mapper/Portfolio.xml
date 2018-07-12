@@ -19,11 +19,17 @@
 		from user u
 		<if test="searchType != null">
 		, history h
-		where u.memberid = h.memberid
+		</if>
+		where 1=1
+		<if test="searchType != null">
+		and u.memberid = h.memberid
 		</if>
 		<if test="searchType != null and (!searchType.equals('2') and !searchType.equals('1')) and searchContent != null">
 			and h.kindno = ${searchType}
 			and h.content like '%${searchContent}%'
+		</if>
+		<if test="createpf != null">
+			and createpf = #{createpf}
 		</if>
 	</select>
 	
