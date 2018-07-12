@@ -240,5 +240,7 @@ public interface JsyService {
 
 	void myStudyKick(String regmember, Integer studyno);
 
+	List<StudyGroup> studygroupAOP(int studyno);
+
 
 }

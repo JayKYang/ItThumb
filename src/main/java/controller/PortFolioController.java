@@ -42,7 +42,7 @@ public class PortFolioController {
 	}
 	
 	@RequestMapping("user/portfolio/myportfolio")
-	public ModelAndView myportfolio(String id, HttpServletRequest request) {
+	public ModelAndView PfConmyportfolio(HttpSession session ,String id, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User dbUser = service.getUser(id);
 		User loginUser = (User) request.getSession().getAttribute("login");
@@ -70,10 +70,9 @@ public class PortFolioController {
 	}
 	
 	@RequestMapping("user/portfolio/portfolioform")
-	public ModelAndView portfolioform(HttpServletRequest request) {
+	public ModelAndView myPfConportfolioform(HttpSession session ,String id, HttpServletRequest request) {
 		System.out.println("[PortFolioController] => user/portfolio/portfolioform");
 		ModelAndView mav = new ModelAndView();
-		String id = request.getParameter("id");
 		User loginUser = (User) request.getSession().getAttribute("login");
 		User dbUser = service.getUser(id);
 		dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
@@ -93,10 +92,9 @@ public class PortFolioController {
 		return mav;
 	}
 	@RequestMapping("user/portfolio/deleteportfolio")
-	public ModelAndView deleteportfolio(HttpServletRequest request) {
+	public ModelAndView myPfCondeleteportfolio(HttpSession session ,String id, HttpServletRequest request) {
 		System.out.println("[PortFolioController] => user/portfolio/deleteportfolio");
 		ModelAndView mav = new ModelAndView();
-		String id = request.getParameter("id");
 		User loginUser = (User) request.getSession().getAttribute("login");
 		User dbUser = service.getUser(id);
 		
@@ -122,7 +120,7 @@ public class PortFolioController {
 	}
 	
 	@RequestMapping(value="user/portfolio/updateAboutMe", method=RequestMethod.POST)
-	public ModelAndView updateAboutMe(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView myPfConupdateAboutMe(HttpSession session ,String id, @Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		System.out.println("[PortFolioController] => user/portfolio/updateAboutMe[POST]");
 		System.out.println(user);
 		User loginUser = (User)request.getSession().getAttribute("login");
@@ -151,7 +149,7 @@ public class PortFolioController {
 	
 	@RequestMapping("user/portfolio/insertExperience")
 	@ResponseBody
-	public HashMap<String,String> insertExperience(@RequestParam HashMap<String, String> params, HttpServletRequest request) {
+	public HashMap<String,String> logconinsertExperience(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("success", "success");
 		
@@ -212,7 +210,7 @@ public class PortFolioController {
 	
 	@RequestMapping("user/portfolio/updateExperience")
 	@ResponseBody
-	public HashMap<String,String> updateExperience(@RequestParam HashMap<String, String> params, HttpServletRequest request) {
+	public HashMap<String,String> logconupdateExperience(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("success", "success");
 		
@@ -271,7 +269,7 @@ public class PortFolioController {
 	
 	@RequestMapping("user/portfolio/deleteExperience")
 	@ResponseBody
-	public HashMap<String,String> deleteExperience(@RequestParam HashMap<String, String> params, HttpServletRequest request) {
+	public HashMap<String,String> logcondeleteExperience(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		
 		System.out.println("[PortFolioController] => user/portfolio/deleteExperience");
@@ -290,7 +288,7 @@ public class PortFolioController {
 	}
 	
 	@RequestMapping(value = "user/portfolio/projectform", method = RequestMethod.GET)
-	public ModelAndView projectform(String id, String projectno, HttpServletRequest request) {
+	public ModelAndView myPfConprojectform(HttpSession session, String id, String projectno, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[PortFolioController] => user/portfolio/projectform[GET]");
 		User dbUser = service.getUser(id);
@@ -308,7 +306,7 @@ public class PortFolioController {
 		return mav;
 	}
 	@RequestMapping(value = "user/portfolio/projectform", method = RequestMethod.POST)
-	public ModelAndView insertproject(Project project, HttpServletRequest request) {
+	public ModelAndView logconinsertproject(HttpSession session, Project project, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[PortFolioController] => user/portfolio/projectform[POST]");
 		User loginUser = (User) request.getSession().getAttribute("login"); 
@@ -331,7 +329,7 @@ public class PortFolioController {
 	}
 	
 	@RequestMapping("user/portfolio/deleteproject")
-	public ModelAndView deleteproject(String id, String projectno, HttpServletRequest request) {
+	public ModelAndView myPfCondeleteproject(HttpSession session, String id, String projectno, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[PortFolioController] => user/portfolio/deleteproject");
 		User dbUser = service.getUser(id);
@@ -345,7 +343,7 @@ public class PortFolioController {
 	}
 	
 	@RequestMapping("user/portfolio/portfoliolist")
-	public ModelAndView searchportfolio(HttpSession session,Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView companyConsearchportfolio(HttpSession session,Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[PortFolioController] => user/portfolio/portfoliolist");
 		
@@ -385,7 +383,7 @@ public class PortFolioController {
 	
 	@RequestMapping("user/portfolio/portfolioScrap")
 	@ResponseBody
-	public HashMap<String, String> portfolioScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logconportfolioScrap(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request){
 		 HashMap<String, String> map = new HashMap<String, String>();
 		 System.out.println("[PortFolioController] => user/portfolio/portfolioScrap");
 		 String loginid = request.getParameter("memberid");

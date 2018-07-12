@@ -57,7 +57,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping("message/messageInfo")
-	public ModelAndView messageInfo(HttpServletRequest request, Integer sort, Integer pageNum, Integer messageno) {
+	public ModelAndView mesIfCkmessageInfo(HttpSession session, Integer messageno, Integer sort, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		
 		Message mes = service.messageSelect(messageno);
@@ -73,7 +73,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping("message/messagedelete")
-	public ModelAndView messageDelete(String[] idchks, Integer sort, Integer pageNum) {
+	public ModelAndView mesIfCkmessageDelete(HttpSession session,String id,String[] idchks, Integer sort, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		for(String messageno : idchks) {
 			service.messagedelete(messageno, sort);
@@ -94,7 +94,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="message/messageWrite", method=RequestMethod.POST)
-	public ModelAndView messageWriteInsert(@Valid Message message, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView mesLogConmessageWriteInsert(HttpSession session,@Valid Message message, BindingResult bindingResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
@@ -127,7 +127,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping("message/autoIdComplete")
-	public ModelAndView autoIdComplete(String memberid, HttpServletRequest request) {
+	public ModelAndView mesLogConautoIdComplete(HttpSession session,String memberid, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		request.setAttribute("memberid", memberid);
 		return mav;
