@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.taglibs.standard.extra.spath.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -411,5 +413,70 @@ public class MypageController {
 		mav.setViewName("alert");
 		return mav;
 	}	
-
+//	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
+	
+	@RequestMapping("user/mypage/hireScrapList.jsy")
+	public ModelAndView hireScrapList(HttpServletRequest request, Integer pageNum,String searchType, String searchContent) throws ParseException {
+		
+		if(pageNum==null|| pageNum.toString().equals("")) {
+			pageNum=1;
+		}
+		
+		if(searchType==null||searchType.equals("")) {
+			searchContent=null;
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		int limit = 15;
+		try {
+		/*List<Scrap> scraplist = service.scrapHirelist(memberid,pageNum, limit);
+		int hireno = 0;
+		List<Hire> scraphirelist = new ArrayList<Hire>();
+		for(Scrap scrap : scraplist ) {
+			hireno = scrap.getHireno();
+			scraphirelist.add((Hire)service.getHire(hireno,searchType,searchContent));
+		}*/
+		
+		List<Hire> scraphirelist = service.getScrapList(memberid,searchType,searchContent,pageNum,limit);
+		int scraphirecount = service.scrapHireCount(memberid,searchType,searchContent);
+		
+		System.out.println(scraphirelist+"afasfgdgdg");
+		System.out.println(scraphirecount+"asfasfasf");
+		
+		List datelist = new ArrayList();
+		Date startDate = new Date();
+		Date endDate = null;
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		long calDate = 0;
+		long calDateDays = 0;
+		for(int i =0; i<scraphirelist.size(); i++) {
+		endDate = scraphirelist.get(i).getDeadline(); // 마감일
+			calDate =endDate.getTime() - startDate.getTime();
+			calDateDays = calDate / (24*60*60*1000);
+			calDateDays = Math.abs(calDateDays);
+			datelist.add(calDateDays);
+		}
+		int maxpage = (int)((double)scraphirecount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+		int endpage = maxpage + 9;
+		
+		if(endpage > maxpage) endpage = maxpage;
+		int boardcnt = scraphirecount - (pageNum -1) * limit;
+		
+		mav.addObject("boardcnt",boardcnt);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("scraphirecount",scraphirecount);
+		mav.addObject("datelist",datelist);
+		mav.addObject("scraphirelist",scraphirelist);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
 }

@@ -107,6 +107,7 @@ public class PortFolioController {
 		}else {
 			if(id.equals(loginUser.getMemberid())) {
 				service.deleteportfolio(id);
+				dbUser = service.getUser(id);
 				dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
 				request.getSession().setAttribute("login", dbUser);
 				mav.addObject("msg","포트폴리오 삭제를 완료했습니다.");

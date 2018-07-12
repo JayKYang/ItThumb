@@ -36,31 +36,7 @@
 		<input type="hidden" name="pageNum" value="${pageNum}"> 
   		<input type="hidden" name="sort" value="${sort }">	
   		
-  		<table class="w3-table w3-bordered">
-    <tr>
-      	<th>이름</th>
-        <th>스킬</th>
-        <th>포트폴리오 명</th>
-        <th>최종수정일</th>
-    </tr>
-	    <c:forEach items="${portfoliolist }" var="portfolio">
-	    <c:if test="${portfolio.createpf == 1 }">
-	    <tr>
-	      <td align="center">${portfolio.name}</td>
-	      <td align="center">
-	      <c:forEach items="${portfolio.historyList }" var="skill" varStatus="index">
-	      	<c:if test="${skill.kindno == 1 }">
-	      		${skill.content}
-	      		 <c:if test="${!index.last }">, </c:if>
-	      	</c:if>
-	      </c:forEach>
-	      </td>
-	      <td><a href="myportfolio.jsy?id=${portfolio.memberid}&pageNum=${pageNum}">${portfolio.slogun }</a></td>
-	      <td><fmt:formatDate value="${portfolio.modifydate }" type="both" pattern="yyyy-MM-dd"/></td>
-	    </tr>
-		</c:if>
-	    </c:forEach>
-  </table>
+  		
 	</div>
 </body>
 </html>
