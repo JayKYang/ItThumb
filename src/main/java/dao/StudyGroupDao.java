@@ -17,4 +17,10 @@ public interface StudyGroupDao {
 	List<StudyGroup> studygrouplist(String memberid);
 
 	void studyGroupAllDelete(Integer studyno);
+
+	void leaveStudy(Integer studyno, String memberid);
+
+	void myStudyaceept(String regmember, Integer studyno, Integer state);
+
+	void myStudyKick(String regmember, Integer studyno);
 }

@@ -3,7 +3,7 @@
 <mapper namespace="dao.mapper.MessageMapper">
 	<select id="count" resultType="Integer" parameterType="map">
 		
-		select ifnull(max(messageno),0) from message
+		select ifnull(count(messageno),0) from message
 		
 		<if test="sort==1">
 			where receiver = '${memberid}' and receivedelete=0

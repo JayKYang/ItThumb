@@ -158,7 +158,6 @@ $(document).ready(function() {
 				
 				<form:select path="limitmember">
 					<form:option value="">선택하세요</form:option>
-					<form:option value="1">1</form:option>
 					<form:option value="2">2</form:option>
 					<form:option value="3">3</form:option>
 					<form:option value="4">4</form:option>
