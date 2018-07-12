@@ -24,5 +24,4 @@ public interface StudyGroupMapper {
 
 	@Select("select * from studygroup where regmember=#{memberid}")
 	List<StudyGroup> studygrouplist(String memberid);
-
 }

@@ -80,7 +80,7 @@ public class StudyController {
 		
 		study.setMemberid(memberid);
 		study.setMembername(membername);
-		study.setNowmember("0");
+		study.setNowmember("1");
 		
 		//스터디번호
 		try {
@@ -101,7 +101,7 @@ public class StudyController {
 	}
 	
 	@RequestMapping("study/studyInfo")
-	public ModelAndView studyInfo(Integer studyno, Integer pageNum, HttpServletRequest request) {
+	public ModelAndView studyInfo(Integer studyno, Integer pageNum, HttpServletRequest request, Integer smkind) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
@@ -121,6 +121,11 @@ public class StudyController {
 			 mav.addObject("studyGroupComfirm",1);
 		 }
 		
+		 if(smkind == null) {
+			 smkind = 0;
+		 }
+		mav.addObject("smkind", smkind); 
+		 
 		mav.addObject("study", study);
 		mav.addObject("studyno",studyno);
 		mav.addObject("memberid", memberid);
@@ -212,35 +217,46 @@ public class StudyController {
 		 
 		 //작성자 값 불러오기 위해서
 		 Study study = service.studySelect(studyno);
+		 int nowmember = Integer.parseInt(study.getNowmember());
+		 int limitmember = Integer.parseInt(study.getLimitmember());
 		 
 		 //세션아이디가 신청했는지 확인
 		 StudyGroup studyGroup = service.studyGroupComfirm(studyno, regmember);
 		 
+		 System.out.println("studyGroup:"+studyGroup);
+		 
 		 if(studyGroup == null) {
-			 int studyGroupMaxNum = service.studyGroupMaxNum()+1;
-			 
-			 StudyGroup studyGroupInsert = new StudyGroup();
-			 
-			 studyGroupInsert.setGroupno(studyGroupMaxNum);
-			 studyGroupInsert.setStudyno(studyno);
-			 studyGroupInsert.setLeadermember(study.getMemberid());
-			 studyGroupInsert.setRegmember(regmember);
-			 studyGroupInsert.setState(0);
-			 
-			 try {
-				 service.studyGroupInsert(studyGroupInsert);
-			 }catch (Exception e) {
-				e.printStackTrace();
+			 if(nowmember < limitmember) {
+				 int studyGroupMaxNum = service.studyGroupMaxNum()+1;
+				 StudyGroup studyGroupInsert = new StudyGroup();
+				 studyGroupInsert.setGroupno(studyGroupMaxNum);
+				 studyGroupInsert.setStudyno(studyno);
+				 studyGroupInsert.setLeadermember(study.getMemberid());
+				 studyGroupInsert.setRegmember(regmember);
+				 studyGroupInsert.setState(0);
+				 
+				 try {
+					 service.studyGroupInsert(studyGroupInsert);
+				 }catch (Exception e) {
+					e.printStackTrace();
+				 }
+				 map.put("success", "success");
+			 }else {
+				map.put("success", "excess"); 
 			 }
-			 map.put("success", "success");
 		 }else {
-			 try {
-				 service.studyGroupDelete(studyGroup.getGroupno());
-			 }catch (Exception e) {
-				e.printStackTrace();
+			 if(studyGroup.getState()==0) {
+				 try {
+					 service.studyGroupDelete(studyGroup.getGroupno());
+				 }catch (Exception e) {
+					e.printStackTrace();
+				 }
+				 map.put("success", "delete");
+			 }else if(studyGroup.getState()==1) {
+				 map.put("success", "reject");
+			 }else if(studyGroup.getState()==2) {
+				map.put("success", "accept"); 
 			 }
-			 
-			 map.put("success", "delete");
 		 }
 		 return map;
 	}

@@ -2,6 +2,7 @@ package logic;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Future;
 
@@ -40,6 +41,13 @@ public class Hire implements Serializable{
 	private String careerdate;
 	@NotEmpty(message="구를 선택해주세요.")
 	private String regiongu;
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getHireno() {
 		return hireno;
 	}
@@ -167,7 +175,7 @@ public class Hire implements Serializable{
 				+ ", deadline=" + deadline + ", readcnt=" + readcnt + ", subject=" + subject + ", image=" + image
 				+ ", content=" + content + ", region=" + region + ", imageUrl=" + imageUrl + ", company=" + company
 				+ ", regionetc=" + regionetc + ", regdate=" + regdate + ", career=" + career + ", careerdate="
-				+ careerdate + ", regiongu=" + regiongu + "]";
+				+ careerdate + ", regiongu=" + regiongu + ", user=" + user + "]";
 	}
 
 }

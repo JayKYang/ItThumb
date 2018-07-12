@@ -80,6 +80,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 				<th>날짜</th>
 				<th>조회수</th>
 			</tr>
+			<tr>
+				<td colspan="5">
+					<c:if test="${empty communityList}">
+						게시글이 없습니다.
+					</c:if>
+				</td>
+			</tr>
 			<c:forEach var="com" items="${communityList}">
 				<tr>
 					<c:if test="${communitykind==1 || communitykind==2}">

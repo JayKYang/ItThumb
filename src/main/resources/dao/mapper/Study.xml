@@ -88,4 +88,9 @@
 		select name,a.memberid,tel,birth from user a,(select regmember from studygroup where studyno=#{studyno} and state=2) b
 		where a.memberid = b.regmember
 	</select>
+	
+	<select id="waitUserList" resultType="User" parameterType="map">
+		select name,a.memberid,tel,birth,b.state from user a,(select regmember, state from studygroup where studyno=#{studyno} and state in(0,1)) b
+		where a.memberid = b.regmember order by state
+	</select>
 </mapper>

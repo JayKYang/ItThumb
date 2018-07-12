@@ -36,5 +36,11 @@ public interface StudyDao {
 
 	List<User> myStudyInfoList(Integer studyno);
 
+	void minusNowmember(Integer studyno);
+
+	List<User> waitUserList(Integer studyno);
+
+	void plusNowmember(Integer studyno);
+
 
 }

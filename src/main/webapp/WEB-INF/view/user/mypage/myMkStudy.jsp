@@ -11,15 +11,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-<script type="text/javascript">
-	function leaveConfirm(pageNum, smkind, studyno) {
-		if(confirm("정말 탈퇴할까요?") == true){
-			location.href="leaveStudy.jsy?pageNum="+pageNum+"&smkind="+smkind+"&studyno="+studyno;
-		}else{
-			return;
-		}
-	}
-</script>
 </head>
 
 <body class="w3-black">
@@ -40,12 +31,13 @@
 <div id="main">
 	<div class="w3-container w3-cell">
 		<table class="w3-table w3-bordered" style="width: 1000px;">
-			<caption>스터디원</caption>
+			<caption>확정 스터디원</caption>
 			<tr>
 				<th>이름[아이디]</th>
 				<th>전화번호</th>
 				<th>생일</th>
 				<th>등급</th>
+				<th>강제탈퇴<th>
 			</tr>
 			<c:forEach items="${userList}" var="user">
 			<tr>
@@ -59,6 +51,47 @@
 					</c:if>
 					<c:if test="${user.memberid == study.memberid}">
 						리더
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${user.memberid != study.memberid}">
+						<button class="w3-button w3-round w3-red" onclick="location.href='myStudyKick.jsy?regmember=${user.memberid}&studyno=${study.studyno}&pageNum=${pageNum}&smkind=${smkind}'">강퇴</button>
+					</c:if>
+				</td>
+			</tr>
+			</c:forEach>
+		</table>
+		<br><br>
+		<table class="w3-table w3-bordered" style="width: 1000px;">
+			<caption>신청 대기 인원</caption>
+			<tr>
+				<th>이름[아이디]</th>
+				<th>전화번호</th>
+				<th>생일</th>
+				<th>상태</th>
+				<th>선택</th>
+			</tr>
+			<c:forEach items="${waitUserList}" var="user">
+			<tr>
+				<td>${user.name} [${user.memberid}]</td>
+				<td>${user.tel}</td>
+				<fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd" var="birth" />
+				<td>${birth}</td>
+				<td>
+					<c:if test="${user.state == 0}">
+						대기
+					</c:if>
+					<c:if test="${user.state == 1}">
+						거절
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${user.state == 0}">
+						<button class="w3-button w3-round w3-green" onclick="location.href='myStudyaceept.jsy?regmember=${user.memberid}&studyno=${study.studyno}&pageNum=${pageNum}&smkind=${smkind}&state=2'">수락</button>
+						<button class="w3-button w3-round w3-red" onclick="location.href='myStudyaceept.jsy?regmember=${user.memberid}&studyno=${study.studyno}&pageNum=${pageNum}&smkind=${smkind}&state=1'">거절</button>
+					</c:if>
+					<c:if test="${user.state == 1}">
+						<button class="w3-button w3-round w3-green" onclick="location.href='myStudyaceept.jsy?regmember=${user.memberid}&studyno=${study.studyno}&pageNum=${pageNum}&smkind=${smkind}&state=2'">수락</button>
 					</c:if>
 				</td>
 			</tr>
@@ -91,9 +124,6 @@
 			<tr>
 				<th>리 더</th>
 				<td>${study.membername}[${study.memberid}]</td>
-			</tr>
-			<tr>
-				<td><a href="javascript:leaveConfirm('${pageNum}','${smkind}','${study.studyno}')" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i class="fa fa-sign-out"></i>스터디 탈퇴하기</a></td>
 			</tr>
 		</table>
 	</div>

@@ -40,15 +40,12 @@ public class User implements Serializable{
 	private int locking;
 	private int createpf;
 	private List<History> historyList;
-
-	@Override
-	public String toString() {
-		return "User [memberid=" + memberid + ", password=" + password + ", name=" + name + ", regdate=" + regdate
-				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
-				+ image + ", imageUrl=" + imageUrl + ", birth=" + birth + ", industy=" + industy + ", site=" + site
-				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
-				+ address + ", companyserial=" + companyserial + ", locking=" + locking + ", createpf=" + createpf
-				+ ", historyList=" + historyList + "]";
+	private int state;
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
 	}
 	public List<History> getHistoryList() {
 		return historyList;
@@ -169,6 +166,15 @@ public class User implements Serializable{
 	}
 	public void setCreatepf(int createpf) {
 		this.createpf = createpf;
+	}
+	@Override
+	public String toString() {
+		return "User [memberid=" + memberid + ", password=" + password + ", name=" + name + ", regdate=" + regdate
+				+ ", tel=" + tel + ", membergrade=" + membergrade + ", recognizecode=" + recognizecode + ", image="
+				+ image + ", imageUrl=" + imageUrl + ", birth=" + birth + ", industy=" + industy + ", site=" + site
+				+ ", slogun=" + slogun + ", introduce=" + introduce + ", modifydate=" + modifydate + ", address="
+				+ address + ", companyserial=" + companyserial + ", locking=" + locking + ", createpf=" + createpf
+				+ ", historyList=" + historyList + ", state=" + state + "]";
 	}
 	
 }

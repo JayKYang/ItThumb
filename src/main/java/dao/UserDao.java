@@ -27,4 +27,6 @@ public interface UserDao {
 	int usercount(String searchType, String searchContent);
 
 	List<User> memberlist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
+
+	void confirmuser(String id);
 }

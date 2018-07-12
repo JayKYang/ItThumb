@@ -78,4 +78,8 @@ public class UserDaoImpl implements UserDao{
 		param.put("limit", limit);
 		return sqlSession.selectList(NS+"memberlist", param);
 	}
+	@Override
+	public void confirmuser(String id) {
+		sqlSession.getMapper(UserMapper.class).confirmuser(id);
+	}
 }

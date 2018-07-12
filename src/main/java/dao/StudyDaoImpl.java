@@ -125,6 +125,21 @@ public class StudyDaoImpl implements StudyDao{
 		param.put("studyno", studyno);
 		return sqlSession.selectList(NS+"myStudyInfoList", param);
 	}
+	@Override
+	public void minusNowmember(Integer studyno) {
+		sqlSession.getMapper(StudyMapper.class).minusNowmember(studyno);
+	}
+	@Override
+	public List<User> waitUserList(Integer studyno) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("studyno", studyno);
+		return sqlSession.selectList(NS+"waitUserList", param);
+	}
+	@Override
+	public void plusNowmember(Integer studyno) {
+		sqlSession.getMapper(StudyMapper.class).plusNowmember(studyno);
+		
+	}
 
 
 }

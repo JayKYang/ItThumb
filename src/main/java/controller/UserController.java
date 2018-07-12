@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +42,17 @@ public class UserController {
 	@RequestMapping("main")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView();
+		List<Hire> popBoardlist2 = service.popHirelist(4);
+		List<Hire> popBoardlist = new ArrayList<Hire>();
+		List<User> userlist = new ArrayList<User>();
+		for(Hire h : popBoardlist2) {
+			User user = service.getUser(h.getMemberid());
+			h.setUser(user);
+			popBoardlist.add(h);
+		}
+		
+		System.out.println(popBoardlist);
+		mav.addObject("popBoardlist",popBoardlist);
 		return mav;
 	}
 	@RequestMapping("close")
@@ -482,6 +494,18 @@ public class UserController {
 		return mav;
 	}
 	
+	@RequestMapping("user/mypage/confirmuser")
+	public ModelAndView confirmuser(String id) {
+		ModelAndView mav = new ModelAndView();
+		
+		service.confirmuser(id);
+		
+		mav.addObject("msg","승인이 완료되었습니다.");
+		mav.addObject("url","manageuser.jsy");
+		mav.setViewName("alert");
+		
+		return mav;
+	}
 	/*@RequestMapping("user/mypage_info")
 	public ModelAndView mypage_info(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();

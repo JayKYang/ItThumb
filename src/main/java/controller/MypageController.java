@@ -2,17 +2,24 @@ package controller;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +44,12 @@ public class MypageController {
 	
 	@Autowired
 	JsyService service;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 	
 	@RequestMapping(value="user/mypage/myInfo", method = RequestMethod.GET)
 	public ModelAndView main(String id) {
@@ -316,5 +329,87 @@ public class MypageController {
 		mav.addObject("smkind", smkind);
 		mav.addObject("pageNum", pageNum);
 		return mav;
+	}
+	
+	@RequestMapping("user/mypage/leaveStudy")
+	public ModelAndView leaveStudy(HttpSession session,Integer smkind, Integer studyno, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User) session.getAttribute("login");
+		String memberid = user.getMemberid();
+		try {
+			service.leaveStudy(studyno, memberid);
+			service.minusNowmember(studyno);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("msg","스터디 탈퇴가 완료되었습니다.");
+		mav.addObject("url","managestudy.jsy?smkind="+smkind);
+		mav.setViewName("alert");
+		return mav;
+	}
+	
+	@RequestMapping("user/mypage/myMkStudy")
+	public ModelAndView myMkStudy(Integer smkind, Integer studyno, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			Study study = service.studySelect(studyno);
+			mav.addObject("study", study);
+			List<User> userList = service.myStudyInfoList(studyno);
+			List<User> waitUserList = service.waitUserList(studyno);
+			mav.addObject("userList", userList);
+			mav.addObject("waitUserList", waitUserList);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("smkind", smkind);
+		mav.addObject("pageNum", pageNum);
+		return mav;
+	}
+	
+	@RequestMapping("user/mypage/myStudyaceept")
+	public ModelAndView myStudyaceept(String regmember, Integer studyno, Integer pageNum, Integer smkind,Integer state) {
+		ModelAndView mav = new ModelAndView();
+		Study study = service.studySelect(studyno);
+		int nowmember = Integer.parseInt(study.getNowmember());
+		int limitmember = Integer.parseInt(study.getLimitmember());
+		try {
+			if(nowmember < limitmember) {
+				service.myStudyaceept(regmember, studyno, state);
+				if(state==2) {
+					service.plusNowmember(studyno);
+				}
+			}else {
+				mav.addObject("msg","최대인원이 초과되었습니다.");
+				mav.addObject("url","myMkStudy.jsy?smkind="+smkind+"&studyno="+studyno+"&pageNum="+pageNum);
+				mav.setViewName("alert");
+				return mav;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(state == 1) {
+			mav.addObject("msg","거절되었습니다.");
+		}else {
+			mav.addObject("msg","수락되었습니다.");
+		}
+		mav.addObject("url","myMkStudy.jsy?smkind="+smkind+"&studyno="+studyno+"&pageNum="+pageNum);
+		mav.setViewName("alert");
+		return mav;
+	}
+	
+	@RequestMapping("user/mypage/myStudyKick")
+	public ModelAndView myStudyKick(String regmember, Integer studyno, Integer pageNum, Integer smkind) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			service.myStudyKick(regmember, studyno);
+			service.minusNowmember(studyno);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("msg", regmember+"님을 강퇴시켰습니다.");
+		mav.addObject("url","myMkStudy.jsy?smkind="+smkind+"&studyno="+studyno+"&pageNum="+pageNum);
+		mav.setViewName("alert");
+		return mav;
 	}	
+
 }

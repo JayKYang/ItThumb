@@ -2,8 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
+
 	FileInputStream fi = new FileInputStream("C:/Users/user/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
 												
+
+	/* FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); */
+
 	BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
 	String line = null;
 	br.readLine();
@@ -159,7 +163,6 @@ $(document).ready(function() {
 				
 				<form:select path="limitmember">
 					<form:option value="">선택하세요</form:option>
-					<form:option value="1">1</form:option>
 					<form:option value="2">2</form:option>
 					<form:option value="3">3</form:option>
 					<form:option value="4">4</form:option>

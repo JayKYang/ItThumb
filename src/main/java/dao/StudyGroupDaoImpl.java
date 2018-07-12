@@ -47,4 +47,26 @@ public class StudyGroupDaoImpl implements StudyGroupDao{
 	public List<StudyGroup> studygrouplist(String memberid) {
 		return sqlSession.getMapper(StudyGroupMapper.class).studygrouplist(memberid);
 	}
+	@Override
+	public void leaveStudy(Integer studyno, String memberid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("studyno", studyno);
+		param.put("regmember", memberid);
+		sqlSession.delete(NS+"leaveStudy", param);
+	}
+	@Override
+	public void myStudyaceept(String regmember, Integer studyno, Integer state) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("regmember", regmember);
+		param.put("studyno", studyno);
+		param.put("state", state);
+		sqlSession.update(NS+"myStudyaceept", param);
+	}
+	@Override
+	public void myStudyKick(String regmember, Integer studyno) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("regmember", regmember);
+		param.put("studyno", studyno);
+		sqlSession.delete(NS+"myStudyKick", param);
+	}
 }
