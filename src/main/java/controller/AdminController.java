@@ -87,7 +87,6 @@ public class AdminController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		return map;
 	}
 	

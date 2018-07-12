@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ITThumb 채용 공고</title>
+ <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=qDOuw0wNL1zXEzspRGUC&submodules=geocoder"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 var divchkarr = new Array();
@@ -341,6 +342,7 @@ function hirelist(pageNum){
 	<tr>
 		<td colspan="8">
 			<h2>인기 공고</h2>
+			<a href="calender.jsy">달력</a>
 		</td>
 	</tr>
 	<tr>

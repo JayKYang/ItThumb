@@ -45,4 +45,13 @@ public interface BoardDao {
 
 	int getMyhirecount(String memberid, String searchType, String searchContent);
 
+	void hireUpdate(Hire hire);
+
+	int hireboardcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+	List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+
 }

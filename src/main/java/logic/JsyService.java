@@ -217,4 +217,13 @@ public interface JsyService {
 
 	List<User> myStudyInfoList(Integer studyno);
 
+	void hireUpdate(Hire hire, HttpServletRequest request);
+
+	int hireboardcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+	List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+
 }

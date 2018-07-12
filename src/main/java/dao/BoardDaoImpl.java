@@ -186,5 +186,41 @@ public class BoardDaoImpl implements BoardDao{
 		return ret;
 	}
 
+	@Override
+	public void hireUpdate(Hire hire) {
+		
+		
+		SqlSession.getMapper(HireMapper.class).hireUpdate(hire);
+		
+	}
+
+	@Override
+	public int hireboardcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("searchRegion", searchRegion);
+		map.put("searchEdu", searchEdu);
+		map.put("searchCarr", searchCarr);
+		map.put("searchCareer", searchCareer);
+		map.put("searchCareerDate", searchCareerDate);
+		
+		int ret = SqlSession.selectOne(NS+"hireboardcount",map);
+		
+		return ret;
+	}
+
+	@Override
+	public List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("searchRegion", searchRegion);
+		map.put("searchEdu", searchEdu);
+		map.put("searchCarr", searchCarr);
+		map.put("searchCareer", searchCareer);
+		map.put("searchCareerDate", searchCareerDate);
+		return SqlSession.selectList(NS+"calhirelist", map);
+	}
+
+
 
 }

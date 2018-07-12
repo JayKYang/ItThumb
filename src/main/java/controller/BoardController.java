@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.mail.iap.Response;
+
 import exception.JsyException;
 import logic.Hire;
 import logic.JsyService;
@@ -402,5 +404,182 @@ public class BoardController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value="hire/supUpdateHireForm", method=RequestMethod.GET)
+	public ModelAndView supUpdateHireForm(int hireno, HttpServletRequest request,Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		String searchType = null;
+		String searchContent = null;
+		Hire hire = new Hire();
 		
+		try {
+			hire = service.getHire(hireno,searchType,searchContent);
+			user = service.getUser(memberid);
+			mav.addObject("hire",hire);
+			mav.addObject("user",user);
+			mav.addObject("pageNum",pageNum);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping("hire/hireUpdate")
+	public ModelAndView hireUpdate(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String file2 = request.getParameter("file2");
+		Integer pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		int hireno = Integer.parseInt(request.getParameter("hireno"));
+		User user1 = (User)request.getSession().getAttribute("login");
+		String memberid = user1.getMemberid();
+		String searchType = null;
+		String searchContent = null;
+		
+		Hire hire1 = service.getHire(hireno, searchType, searchContent);
+		User user = service.getUser(memberid);
+		
+		if(bindingResult.hasErrors()) {
+				mav.getModel().putAll(bindingResult.getModel());
+				mav.addObject("user",user);
+				mav.addObject("hire",hire);
+				return mav;
+			}
+		
+		if(hire.getImage() == null || hire.getImage().isEmpty()) {
+			if(file2.equals("")||file2 == null) {
+				hire.setImageUrl(null);
+			} else {
+				
+				hire.setImageUrl(file2); 
+			}	
+		}
+		try {
+			
+			service.hireUpdate(hire,request);
+			mav.setViewName("redirect:myhirelist.jsy");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new JsyException("회원수정에 실패하였습니다.","supUpdateHireForm.jsy?hireno="+hireno+"&pageNum="+pageNum);
+		}
+		
+		
+		return mav;
+	}
+		
+	@RequestMapping("hire/deleteAction")
+	@ResponseBody
+	public HashMap<String, String> deleteAction(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+		HashMap<String,String> map = new HashMap<String,String>();
+		User loginUser = (User)request.getSession().getAttribute("login");
+		String memberid = loginUser.getMemberid();
+		int hireno = Integer.parseInt(request.getParameter("hireno"));
+		
+		try {
+			service.deleteHire(hireno);
+			map.put("success", "success");
+		} catch(Exception e) {
+			e.printStackTrace();
+			map.put("success","fail");
+		}
+		return map;
+	}
+	
+	
+	@RequestMapping("hire/calender")
+	public ModelAndView calender(Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		if(pageNum==null||pageNum.toString().equals("")) {
+			pageNum=1;
+		}
+		if(searchEdu != null) {
+			if(searchEdu.equals("")) {
+				searchEdu = null;
+			}
+		}
+		if(searchCarr != null) {
+			if(searchCarr.equals("")) {
+				searchCarr = null;
+			}
+		}
+		if(searchCareer != null) {
+			if(searchCareer.equals("")) {
+				searchCareer = null;
+			}
+		}
+		if(searchCareerDate != null) {
+			if(searchCareerDate.equals("")) {
+				searchCareerDate = null;
+			}
+		}
+		List datelist = new ArrayList();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		try {
+		int hirelistcount = service.hireboardcount(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
+		
+		List<Hire> hirelist = service.calhirelist(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
+		
+		for(int i=0; i<hirelist.size(); i++) {
+			
+			datelist.add(df.format(hirelist.get(i).getRegdate()));
+		}
+		
+		mav.addObject("datelist",datelist);
+		mav.addObject("hirelistcount",hirelistcount);
+		mav.addObject("hirelist",hirelist);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new JsyException("달력불러오기를 실패하였습니다.", "hirelist.jsy");
+		}
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="hire/companyDetail",method=RequestMethod.GET)
+	public ModelAndView companyDetail(int hireno, HttpServletRequest request,Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		Hire hire = new Hire();
+		String searchType= null;
+		String searchContent = null;
+		int limit = 3;
+		if(pageNum == null || pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		
+		User user = new User();
+		try {
+		hire= service.getHire(hireno, searchType, searchContent);
+		user= service.getUser(hire.getMemberid());
+		List<Hire> hirelist = service.getMyHireList(searchType, searchContent, pageNum, limit, hire.getMemberid());
+		int hirelistcount = service.getMyhirecount(hire.getMemberid(), searchType, searchContent);
+		
+		
+		int maxpage = (int)((double)hirelistcount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+		int endpage = maxpage + 9;
+		if(endpage > maxpage) endpage = maxpage;
+		int boardcnt = hirelistcount - (pageNum -1) * limit;
+		
+		
+		
+		
+		
+		mav.addObject("hireno",hireno);
+		mav.addObject("maxpage", maxpage);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("hirelistcount",hirelistcount);
+		mav.addObject("hirelist",hirelist);
+		mav.addObject("hire",hire);
+		mav.addObject("user",user);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
 }

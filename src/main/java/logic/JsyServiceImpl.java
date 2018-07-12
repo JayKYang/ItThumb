@@ -717,4 +717,27 @@ public class JsyServiceImpl implements JsyService{
 		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
 	}
 
+	@Override
+	public void hireUpdate(Hire hire, HttpServletRequest request) {
+		if(hire.getImage() != null&&!hire.getImage().isEmpty()) {
+			uploadhireImageCreate(hire.getImage(), request);
+			hire.setImageUrl(hire.getImage().getOriginalFilename());
+		}
+		boardDao.hireUpdate(hire);
+	}
+
+	@Override
+	public int hireboardcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		
+		return boardDao.hireboardcount(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
+	}
+
+	@Override
+	public List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		
+		return boardDao.calhirelist(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
+	}
+
 }
