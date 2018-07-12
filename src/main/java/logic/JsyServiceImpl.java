@@ -153,9 +153,9 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public Hire getHire(Integer hireno) {
+	public Hire getHire(Integer hireno,String searchType, String searchContent) {
 		
-		return boardDao.getHire(hireno);
+		return boardDao.getHire(hireno,searchType,searchContent);
 	}
 
 	@Override
@@ -489,9 +489,9 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public int scrapHireCount(String memberid) {
+	public int scrapHireCount(String memberid,String searchType, String searchContent) {
 		
-		return scrapDao.scrapHireCount(memberid);
+		return scrapDao.scrapHireCount(memberid,searchType,searchContent);
 	}
 
 
@@ -646,6 +646,27 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void scrapAllDelete(Integer studyno) {
 		scrapDao.scrapAllDelete(studyno);
+		
+	}
+
+	@Override
+	public List<Hire> getScrapList(String memberid, String searchType, String searchContent, Integer pageNum,
+			int limit) {
+		
+		return scrapDao.getScrapList(memberid, searchType, searchContent,pageNum, limit);
+	}
+
+	@Override
+	public List<Hire> getMyHireList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+		
+		return boardDao.getMyHireList(searchType, searchContent, pageNum,limit, memberid);
+	}
+
+	@Override
+	public int getMyhirecount(String memberid, String searchType, String searchContent) {
+		
+		return boardDao.getMyhirecount(memberid, searchType, searchContent);
 		
 	}
 

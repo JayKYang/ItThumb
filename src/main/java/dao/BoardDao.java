@@ -16,7 +16,7 @@ public interface BoardDao {
 
 	void hireWrite(Hire hire);
 
-	Hire getHire(Integer hireno);
+	Hire getHire(Integer hireno,String searchType, String searchContent);
 
 	void readCntplus(Integer hireno);
 
@@ -40,5 +40,9 @@ public interface BoardDao {
 	int hirecount(String searchType, String searchContent, Integer hide);
 
 	List<Hire> getMypageHireList(String searchType, String searchContent, Integer pageNum, Integer hide, int limit);
+
+	List<Hire> getMyHireList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
+
+	int getMyhirecount(String memberid, String searchType, String searchContent);
 
 }

@@ -178,7 +178,6 @@ public class MypageController {
 			pageNum = 1;
 		}
 		int limit = 10; 
-		
 		int hirecount = service.hirecount(searchType, searchContent, hide); //1:보임 0: 숨김
 		List<Hire> hirelist = service.getMypageHireList(searchType,searchContent,pageNum,hide,limit);
 		
@@ -399,5 +398,6 @@ public class MypageController {
 		mav.addObject("url","myMkStudy.jsy?smkind="+smkind+"&studyno="+studyno+"&pageNum="+pageNum);
 		mav.setViewName("alert");
 		return mav;
-	}
+	}	
+
 }

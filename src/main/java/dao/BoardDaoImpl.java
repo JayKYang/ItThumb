@@ -62,11 +62,13 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public Hire getHire(Integer hireno) {
-	Map<String,Integer> map = new HashMap<String,Integer>();
+	public Hire getHire(Integer hireno,String searchType, String searchContent) {
+	Map<String,Object> map = new HashMap<String,Object>();
 	map.put("hireno", hireno);
 	map.put("startrow", 0);
-	map.put("limit", 1);	
+	map.put("limit", 1);
+	map.put("searchType", searchType);
+	map.put("searchContent", searchContent);
 		return SqlSession.selectOne(NS+"hirelist", map);
 	}
 
@@ -154,8 +156,34 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("searchContent", searchContent);
 		map.put("hide", hide);
 		map.put("startrow", startrow);
-		map.put("limit", limit);	
+		map.put("limit", limit);
 		return SqlSession.selectList(NS+"getMypageHireList",map);
+	}
+
+	@Override
+	public List<Hire> getMyHireList(String searchType, String searchContent, Integer pageNum, int limit,
+			String memberid) {
+			int startrow=(pageNum-1)*limit;
+		Map<String, Object> map = new HashMap<String,Object>();
+			map.put("searchType", searchType);
+			map.put("searchContent", searchContent);
+			map.put("memberid", memberid);
+			map.put("limit", limit);
+			map.put("startrow", startrow);
+		
+			return SqlSession.selectList(NS+"getMyHireList",map);
+	}
+
+	@Override
+	public int getMyhirecount(String memberid, String searchType, String searchContent) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("memberid", memberid);
+		map.put("searchType", searchType);
+		map.put("searchContent", searchContent);
+		
+		int ret = SqlSession.selectOne(NS+"getMyhirecount",map);
+		
+		return ret;
 	}
 
 

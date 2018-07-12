@@ -9,8 +9,8 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 </head>
 <body>
-	<div class="w3-container w3-padding-32" style="width:70%; margin-left:15%;">
-		<div id="confirmhirelist" class="mypage">
+	<div class="w3-container w3-padding-32" style="margin-left:15%;">
+		<div id="confirmhirelist" class="mypage" width="90%">
 			<h2>채용게시판 관리</h2>
 			<table>
 				<tr>
@@ -74,13 +74,13 @@
 							<option value="" disabled selected>선택하세요</option>
 							<option value="company">기업명</option>
 							<option value="memberid">아이디</option>
-					</select>>&nbsp; 
+					</select>&nbsp; 
 					<script type="text/javascript">
 						if ('${param.searchType}' != '') {
 							document.getElementById("searchType").value = '${param.searchType}'
 						}
 					</script> 
-					<input type="text" name="searchContent" value="${param.searchContent }"> 
+					<input type="text" name="searchContent" value="${param.searchContent}"> 
 					<input type="submit" value="검색">
 					</span>
 				</form>
