@@ -40,7 +40,7 @@ public class MypageController {
 	JsyService service;
 	
 	@RequestMapping(value="user/mypage/myInfo", method = RequestMethod.GET)
-	public ModelAndView main(String id) {
+	public ModelAndView MPConmain(HttpSession session,String id) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/myInfo");
 		User user = service.getUser(id);
@@ -49,7 +49,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "user/mypage/myInfo", method = RequestMethod.POST)
-	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView MPConupdate(HttpSession session, @Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		System.out.println("[MypageControllerController] => user/mypage/myInfo[POST]");
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
@@ -90,7 +90,7 @@ public class MypageController {
 	}
 
 	@RequestMapping("user/mypage/manageuser")
-	public ModelAndView manageuser(HttpSession session,Integer pageNum, String searchType, String searchContent, Integer membergrade) {
+	public ModelAndView MpAdConmanageuser(HttpSession session, Integer membergrade, Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/manageuser");
 		if(pageNum == null || pageNum.toString().equals("")) {
@@ -119,7 +119,7 @@ public class MypageController {
 		return mav; 
 	}
 	@RequestMapping("user/mypage/manageuser_ajax")
-	public ModelAndView mypage_info(HttpServletRequest request) {
+	public ModelAndView MpAdConmypage_info(HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/manageuser_ajax[Ajax]");
 		Integer membergrade = Integer.parseInt(request.getParameter("membergrade"));
@@ -165,13 +165,13 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/mypageportfolio")
-	public ModelAndView mypageportfolio() {
+	public ModelAndView logconmypageportfolio(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		return mav;
 	}
 	@RequestMapping("user/mypage/confirmHire")
-	public ModelAndView confirmHire(HttpSession session,Integer pageNum, Integer hide, String searchType, String searchContent) {
+	public ModelAndView MpAdConconfirmHire(HttpSession session,Integer pageNum, Integer hide, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/confirmHire");
 		if(pageNum == null || pageNum.toString().equals("")) {
@@ -198,7 +198,7 @@ public class MypageController {
 		return mav; 
 	}
 	@RequestMapping("user/mypage/managestudy")
-	public ModelAndView managestudy(HttpSession session, Integer smkind, Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView logconmanagestudy(HttpSession session, Integer smkind, Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -254,7 +254,7 @@ public class MypageController {
 		return mav;
 	}
 	@RequestMapping("user/mypage/portfolioscraplist")
-	public ModelAndView portfolioscraplist(HttpSession session,Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView logconportfolioscraplist(HttpSession session,Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/portfolioscraplist");
 		User loginUser = (User) session.getAttribute("login");
@@ -286,8 +286,8 @@ public class MypageController {
 		return mav;
 	}
 	
-	@RequestMapping(value="user/mypage/recognizeHire") // 채용공고 승인
-	public ModelAndView recognizeHire(HttpServletRequest request) {
+	@RequestMapping("user/mypage/recognizeHire") // 채용공고 승인
+	public ModelAndView MpAdConrecognizeHire(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/recognizeHire");
 		
@@ -304,7 +304,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyInfo")
-	public ModelAndView myStudyInfo(Integer smkind, Integer studyno, Integer pageNum) {
+	public ModelAndView MPConmyStudyInfo(HttpSession session, Integer studyno, Integer smkind, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Study study = service.studySelect(studyno);
@@ -320,7 +320,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/leaveStudy")
-	public ModelAndView leaveStudy(HttpSession session,Integer smkind, Integer studyno, Integer pageNum) {
+	public ModelAndView MPConleaveStudy(HttpSession session, Integer studyno, Integer smkind,  Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute("login");
 		String memberid = user.getMemberid();
@@ -337,7 +337,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myMkStudy")
-	public ModelAndView myMkStudy(Integer smkind, Integer studyno, Integer pageNum) {
+	public ModelAndView leaderConmyMkStudy(HttpSession session, Integer studyno, Integer smkind, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Study study = service.studySelect(studyno);
@@ -355,7 +355,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyaceept")
-	public ModelAndView myStudyaceept(String regmember, Integer studyno, Integer pageNum, Integer smkind,Integer state) {
+	public ModelAndView leaderConmyStudyaceept(HttpSession session, Integer studyno, String regmember, Integer pageNum, Integer smkind,Integer state) {
 		ModelAndView mav = new ModelAndView();
 		Study study = service.studySelect(studyno);
 		int nowmember = Integer.parseInt(study.getNowmember());
@@ -386,7 +386,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyKick")
-	public ModelAndView myStudyKick(String regmember, Integer studyno, Integer pageNum, Integer smkind) {
+	public ModelAndView leaderConmyStudyKick(HttpSession session,Integer studyno, String regmember, Integer pageNum, Integer smkind) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			service.myStudyKick(regmember, studyno);

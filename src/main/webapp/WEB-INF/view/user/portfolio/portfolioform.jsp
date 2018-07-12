@@ -295,6 +295,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	<!-- Header/Home -->
 	<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
 		<form:form modelAttribute="user" action="updateAboutMe.jsy" method="post" enctype="multipart/form-data" name="f">
+		<input type="hidden" value="${sessionScope.login.memberid}" name="id">
 		<div class="w3-content w3-container w3-padding-32">
 		<form:hidden path="imageUrl" />
 		<form:hidden class="w3-input" path="password" value="passwordddddd"/>

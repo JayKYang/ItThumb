@@ -749,4 +749,9 @@ public class JsyServiceImpl implements JsyService{
 		
 	}
 
+	@Override
+	public List<StudyGroup> studygroupAOP(int studyno) {
+		return studyGroupDao.studygroupAOP(studyno);
+	}
+
 }

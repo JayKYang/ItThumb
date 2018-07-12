@@ -16,4 +16,7 @@
 	<delete id="myStudyKick" parameterType="map">
 		delete from studygroup where studyno=#{studyno} and regmember=#{regmember}
 	</delete>
+	<select id="studygroupAOP" resultType="StudyGroup" parameterType="map">
+		select * from studygroup where studyno=#{studyno}
+	</select>
 </mapper>
