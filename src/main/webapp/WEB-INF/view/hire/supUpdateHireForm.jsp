@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
-   FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
+   FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
   BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
    String line = null;
    br.readLine();
@@ -38,6 +38,7 @@
         });
 
         function readURL(input) {
+               $("#profile").show();
             if (input.files && input.files[0]) {
             var reader = new FileReader();
 
@@ -120,17 +121,27 @@ sies = new Array(
          document.f.gu.options[i+1] = gues[siidx-1][i];
       }
    }
+   
+	function file_delete(){
+		document.f.file2.value="";
+		profile.style.display ="none";
+	}
+   
+   
 </script>
 </head>
 <body>
-	<form:form modelAttribute="hire" action="hirewrite.jsy" method="post" enctype="multipart/form-data" name="f">	
+	<form:form modelAttribute="hire" action="hireUpdate.jsy" method="post" enctype="multipart/form-data" name="f">	
+		<input type="text" value="${hire.imageUrl}" name="file2">
+		<input type="text" value="${hire.hireno}" name="hireno">
+		<input type="text" value="${param.pageNum}" name="pageNum">
 		<table border="1" cellpadding="0" cellspacing="0" align="center">
 			<tr>
 				<td>
 					<h5>제목</h5>
 				</td>
 				<td colspan="3">
-					<form:input path="subject" /><font color="orange"><form:errors path="subject" /></font>
+					<form:input path="subject" value="${hire.content}"/><font color="orange"><form:errors path="subject" /></font>
 				</td>
 			</tr>
 			<tr>
@@ -252,7 +263,9 @@ sies = new Array(
 			<tr>
 				<td colspan="4">
 					<div id="profile">
-					<img id="profilephoto" src="../photo/defaultphoto.png"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
+					<img id="profilephoto" src="../hireimg/${hire.imageUrl}"  style="height:200px; width:150px;" alt="이미지 파일이 아닙니다.">
+					${hire.imageUrl}
+					<a href="javascript:file_delete()">DELETE</a>
 				</div>
 				<input type="file" name="image" id="image"/>
 				</td>
@@ -264,13 +277,13 @@ sies = new Array(
 			</tr>
 			<tr>
 				<td colspan="4">
-					<form:textarea rows="15" cols="80" path="content" />
+					<form:textarea rows="15" cols="80" path="content" value="${hire.content}"/>
 					<font color="orange"><form:errors path="content" /></font>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
-					<a href="javascript:document.f.submit()">신청하기</a>
+					<a href="javascript:document.f.submit()">수정하기</a>
 					<a href="hirelist.jsy">LIST</a>
 				</td>
 			</tr>

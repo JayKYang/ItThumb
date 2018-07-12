@@ -43,13 +43,20 @@
 			<input type="hidden" name="membergrade" value="${membergrade}"> 
 				<table>
 					<tr>
-						<th>번호</th><th>아이디</th><th>이름</th><th>강제탈퇴</th>						
+						<th>번호</th><th>아이디</th><th>이름</th><th>강제탈퇴</th><th>승인</th>					
 					</tr>
 					<c:if test="${empty userlist }">
 						<tr><td colspan="4">목록이 존재하지 않습니다.</td></tr>
 					</c:if>
 					<c:forEach items="${userlist }" var="user" varStatus="status">
-						<tr><td>${status.count }</td><td>${user.memberid }</td><td>${user.name }</td><td><input type="button" onclick="location.href='../delete.jsy?id=${user.memberid}'" value="강제탈퇴"/></td></tr>
+						<tr><td>${status.count }</td><td>${user.memberid }</td><td>${user.name }</td>
+						<td><input type="button" onclick="location.href='../delete.jsy?id=${user.memberid}'" value="강제탈퇴"/></td>
+						<td>
+							<c:if test="${user.locking == 0 }">
+								<button onclick="location.href='confirmuser.jsy?id=${user.memberid}'">승인</button>
+							</c:if>
+						</td>
+						</tr>
 					</c:forEach>
 				</table>
 				<div class="w3-bar w3-center">

@@ -175,7 +175,7 @@ public interface JsyService {
 
 	int scrapHireCount(String memberid,String searchType, String searchContent);
 
-	int portfoliocount(String searchType, String searchContent);
+	int portfoliocount(String searchType, String searchContent, Integer createpf);
 
 	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
 
@@ -217,6 +217,17 @@ public interface JsyService {
 
 	List<User> myStudyInfoList(Integer studyno);
 
+
+	void hireUpdate(Hire hire, HttpServletRequest request);
+
+	int hireboardcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+	List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate);
+
+	void confirmuser(String id);
+
 	void leaveStudy(Integer studyno, String memberid);
 
 	void minusNowmember(Integer studyno);
@@ -230,5 +241,6 @@ public interface JsyService {
 	void myStudyKick(String regmember, Integer studyno);
 
 	List<StudyGroup> studygroupAOP(int studyno);
+
 
 }

@@ -31,7 +31,7 @@ public interface HireMapper {
 
 	@Delete("delete from hireboard where hireno = #{value}")
 	void deleteHire(int hireno);
-	
-	
 
+	@Update("update hireboard set subject=#{subject}, content=#{content},qualification=#{qualification},region=#{region},regionetc=#{regionetc},regiongu=#{regiongu},career=#{career},careerdate=#{careerdate},regdate=now(),deadline=#{deadline},image=#{imageUrl},salary=#{salary},workday=#{workday},hirestatus=#{hirestatus} where hireno = #{hireno} ")
+	void hireUpdate(Hire hire);
 }

@@ -423,8 +423,8 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public int portfoliocount(String searchType, String searchContent) {
-		return portfolioDao.portfolioMax(searchType, searchContent);
+	public int portfoliocount(String searchType, String searchContent, Integer createpf) {
+		return portfolioDao.portfolioMax(searchType, searchContent, createpf);
 	}
 
 	@Override
@@ -718,6 +718,33 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
+
+	public void hireUpdate(Hire hire, HttpServletRequest request) {
+		if(hire.getImage() != null&&!hire.getImage().isEmpty()) {
+			uploadhireImageCreate(hire.getImage(), request);
+			hire.setImageUrl(hire.getImage().getOriginalFilename());
+		}
+		boardDao.hireUpdate(hire);
+	}
+
+	@Override
+	public int hireboardcount(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		
+		return boardDao.hireboardcount(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
+	}
+
+	@Override
+	public List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
+			String searchCareerDate) {
+		
+		return boardDao.calhirelist(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
+	}
+	public void confirmuser(String id) {
+		userDao.confirmuser(id);
+	}
+	
+	@Override
 	public void leaveStudy(Integer studyno, String memberid) {
 		studyGroupDao.leaveStudy(studyno, memberid);
 		
@@ -746,7 +773,6 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void myStudyKick(String regmember, Integer studyno) {
 		studyGroupDao.myStudyKick(regmember, studyno);
-		
 	}
 
 	@Override

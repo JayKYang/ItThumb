@@ -108,7 +108,7 @@ public class PortFolioController {
 				dbUser.setHistoryList(service.getHistory(dbUser.getMemberid(),null,null));
 				request.getSession().setAttribute("login", dbUser);
 				mav.addObject("msg","포트폴리오 삭제를 완료했습니다.");
-				mav.addObject("url","../mypage.jsy?id="+id);
+				mav.addObject("url","../mypage/mypageportfolio.jsy?id="+id);
 			}else {
 				mav.addObject("msg","해당 경로로 접근이 불가합니다.");
 				mav.addObject("url","../../main.jsy?id="+id);
@@ -351,7 +351,7 @@ public class PortFolioController {
 		}
 		int limit = 10;
 		
-		int portfoliocount = service.portfoliocount(searchType, searchContent);
+		int portfoliocount = service.portfoliocount(searchType, searchContent, 1);
 		List<User> userlist = service.portfoliolist(searchType, searchContent,null, pageNum, limit);
 		List<User> portfoliolist = new ArrayList<User>();
 		

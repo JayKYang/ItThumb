@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script type="text/javascript">
 function myhirelist(pageNum){
 	var searchType = document.searchform.searchType.value;
@@ -25,9 +26,30 @@ function myhirelist(pageNum){
 	}
 	return false;
 }
+
+function hireDeleteAction(hireno){
+	var hireNum = hireno;
+	var conf;
+	conf = confirm("해당 채용공고를 삭제하시겠습니까?");
 	
 	
+	if(conf){
 	
+	$.ajax({
+		url : "deleteAction.jsy",
+		type : "POST",
+		data : {"hireno":hireNum},
+		success : function(data){
+			if(data.success=='success'){
+				alert("해당 채용공고를 삭제하였습니다.");
+				location.reload();
+			}
+		}
+	})
+	} else {
+		return;
+	}
+}
 </script>
 </head>
 <body>
@@ -42,7 +64,9 @@ function myhirelist(pageNum){
 			<th>고용상태</th>
 			<th>마감일</th>
 			<th>마감상태</th>
+			<th>공고상태</th>
 			<th>항목체크</th>
+			
 		</tr>
 		<c:forEach var="myhire"  items="${myhirelist}" varStatus ="status">	
 		<tr>
@@ -68,13 +92,21 @@ function myhirelist(pageNum){
 				${ datelist[status.index]}일 전
 			</td>
 			<td align="center">
-			<button value="${myhire.hireno}">수정</button>
-			<button value="${myhire.hireno}">삭제</button>
+				<c:if test="${myhire.hide==0}">
+					<h6 style="color:#FF0000;">미승인</h6>
+				</c:if>
+				<c:if test="${myhire.hide==1}">
+					<h6 style="color:#0000FF;">승인 완료</h6>
+				</c:if>
+			</td>
+			<td align="center">
+			<a href="supUpdateHireForm.jsy?hireno=${myhire.hireno}&pageNum=${pageNum}" id="updateBtn">수정</a>
+			<a href="javascript:hireDeleteAction('${myhire.hireno}')" name="deleteBtn" value="${myhire.hireno}">삭제</a>
 			</td> 
 		</tr>			
 		</c:forEach>
 				<tr>
-			<td colspan="8" align="right">
+			<td colspan="9" align="right">
 			<form action="myhirelist.jsy" method="post" name="searchform">
 				<input type="hidden" name="pageNum" value="1">  
 				<select name="searchType" id="searchType">
@@ -95,7 +127,7 @@ function myhirelist(pageNum){
 			</td>
 		</tr>
 					<tr align="center" height="26">
-			<td colspan="8">
+			<td colspan="9">
 				<c:if test="${pageNum >1}">
 					<a href="javascript:myhirelist(${pageNum -1})">PREV</a>
 				</c:if> &nbsp;

@@ -33,7 +33,7 @@ public interface PortFolioDao {
 
 	void updateproject(Project project);
 
-	int portfolioMax(String searchType, String searchContent);
+	int portfolioMax(String searchType, String searchContent, Integer createpf);
 
 	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
 

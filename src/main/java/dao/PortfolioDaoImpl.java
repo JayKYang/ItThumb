@@ -89,10 +89,11 @@ public class PortfolioDaoImpl implements PortFolioDao{
 		sqlSession.getMapper(PortfolioMapper.class).updateproject(project);
 	}
 	@Override
-	public int portfolioMax(String searchType, String searchContent) {
-		Map<String, String> param = new HashMap<String, String>();
+	public int portfolioMax(String searchType, String searchContent , Integer createpf) {
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("searchType", searchType);
 		param.put("searchContent", searchContent);
+		param.put("createpf", createpf);
 		Integer count = sqlSession.selectOne(NS+"count", param); 
 		return count;
 	}

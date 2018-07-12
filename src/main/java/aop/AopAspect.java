@@ -36,6 +36,22 @@ public class AopAspect {
 		 Object ret = joinPoint.proceed();
 	     return ret;
 	 }
+	 //////////////////////////////////user///////////////////////////////////////////////
+	 @Around("execution(* controller.User*.adCk*(..))")
+	 public Object userAdminCheck(ProceedingJoinPoint joinPoint) throws Throwable{
+		HttpSession session = (HttpSession)joinPoint.getArgs()[0];//session
+		
+		User login = (User)session.getAttribute("login");//로그인 아이디
+		
+		if(login == null) {
+			 throw new JsyException("로그인을 해야합니다.", "../login.jsy");
+		}
+		if(login.getMembergrade() != 0) {
+				throw new JsyException("권한이 없습니다.", "../../main.jsy");
+	    }
+		Object ret = joinPoint.proceed();
+		return ret;
+	 }
 	 ////////////////////////////////message//////////////////////////////////////////////
 	 //메세지 로그인 확인
 	 @Around("execution(* controller.*.mesLogCon*(..))")
@@ -213,7 +229,7 @@ public class AopAspect {
 		return ret;
 	 }
 	
-	//mypage 자신이거나 어드민만 들어갈 수 있음
+	//mypage 어드민만 들어갈 수 있음
 		@Around("execution(* controller.Mypage*.MpAdCon*(..))")
 		 public Object mypageAdminCheck(ProceedingJoinPoint joinPoint) throws Throwable{
 			HttpSession session = (HttpSession)joinPoint.getArgs()[0];//session

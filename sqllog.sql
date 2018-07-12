@@ -17,6 +17,7 @@ create table user(
 	industy varchar(50),
 	site varchar(50),
 	slogun varchar(100),
+	companyserial varchar(50),
 	introduce varchar(500),
 	modifydate date,
 	address varchar(50),
