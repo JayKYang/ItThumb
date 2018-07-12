@@ -124,6 +124,11 @@
 				</p>
 				<c:if test="${sessionScope.login.membergrade==2 }">
 				<p>
+				<label>사이트</label>
+				<form:input class="w3-input" path="site"/>
+				<font color="red"><form:errors path="site"/></font>
+				</p>
+				<p>
 				<label>업종</label>
 				<form:input class="w3-input" path="industy"/>
 				<font color="red"><form:errors path="industy"/></font>
