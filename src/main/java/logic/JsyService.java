@@ -209,4 +209,16 @@ public interface JsyService {
 
 	List<User> myStudyInfoList(Integer studyno);
 
+	void leaveStudy(Integer studyno, String memberid);
+
+	void minusNowmember(Integer studyno);
+
+	List<User> waitUserList(Integer studyno);
+
+	void myStudyaceept(String regmember, Integer studyno, Integer state);
+
+	void plusNowmember(Integer studyno);
+
+	void myStudyKick(String regmember, Integer studyno);
+
 }

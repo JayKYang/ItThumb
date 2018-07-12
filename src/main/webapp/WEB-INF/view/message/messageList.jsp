@@ -67,6 +67,18 @@
         <th>열람여부</th>
         <th><input type="checkbox" name="allchk" onchange="allchkbox(this)">&nbsp;<input type="submit" value="삭제"></th>
     </tr>
+    <tr>
+		<td colspan="5">
+			<c:if test="${empty messagelist}">
+				<c:if test="${sort==1}">
+					받은 쪽지가 없습니다.
+				</c:if>
+				<c:if test="${sort==2}">
+					보낸 쪽지가 없습니다.
+				</c:if>
+			</c:if>
+		</td>
+	</tr>
     <c:forEach var="mes" items="${messagelist }">
     <tr>
       <td align="center">${sendmesnum}</td>

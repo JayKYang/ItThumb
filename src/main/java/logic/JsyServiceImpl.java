@@ -696,4 +696,36 @@ public class JsyServiceImpl implements JsyService{
 		return scrapDao.getScrapmemberlist(searchType,searchContent,pageNum,limit,memberid);
 	}
 
+	@Override
+	public void leaveStudy(Integer studyno, String memberid) {
+		studyGroupDao.leaveStudy(studyno, memberid);
+		
+	}
+
+	@Override
+	public void minusNowmember(Integer studyno) {
+		studyDao.minusNowmember(studyno);
+	}
+
+	@Override
+	public List<User> waitUserList(Integer studyno) {
+		return studyDao.waitUserList(studyno);
+	}
+
+	@Override
+	public void myStudyaceept(String regmember, Integer studyno, Integer state) {
+		studyGroupDao.myStudyaceept(regmember, studyno, state);
+	}
+
+	@Override
+	public void plusNowmember(Integer studyno) {
+		studyDao.plusNowmember(studyno);
+	}
+
+	@Override
+	public void myStudyKick(String regmember, Integer studyno) {
+		studyGroupDao.myStudyKick(regmember, studyno);
+		
+	}
+
 }

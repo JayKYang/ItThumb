@@ -36,9 +36,15 @@
 					if(data.success == 'success'){
 						$("#apply").html("<i id='apply2' class='fa fa-sign-out'></i>참가취소"); 
 						alert("신청이 완료되었습니다.");
-					}else{
+					}else if(data.success == 'excess'){
+						alert("인원이 초과되어 신청 할 수 없습니다.");
+					}else if(data.success == 'delete'){
 						$("#apply").html("<i id='apply2' class='fa fa-sign-in'></i>참가신청"); 
 						alert("신청이 취소되었습니다.");
+					}else if(data.success == 'reject'){
+						alert("거절된 스터디 입니다. 리더한테 문의하세요");
+					}else if(data.success == 'accept'){
+						alert("이미 스터디에 가입되어있습니다. 탈퇴는 마이페이지에서해주세요.");
 					}
 				}
 			});
@@ -88,7 +94,12 @@
 		<tr>
 			<td colspan="2">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:message_open('../message/messageWrite.jsy?memberid=${study.memberid}')" value="작성자에게 쪽지보내기">
-				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='studySearchList.jsy?pageNum=${pageNum}'" value="목록">
+				<c:if test="${smkind==0}">
+					<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='studySearchList.jsy?pageNum=${pageNum}'" value="목록">
+				</c:if>
+				<c:if test="${smkind!=0}">
+					<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='../user/mypage/managestudy.jsy?pageNum=${pageNum}&smkind=${smkind }'" value="목록">
+				</c:if>
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:updateConfirm('${pageNum}','${study.studyno}','${study.memberid}')" value="수정">
 				<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:deleteConfirm('${pageNum}','${study.studyno}','${study.memberid}')" value="삭제">
 			</td>
@@ -119,8 +130,8 @@
 			<th>리 더</th>
 			<td>${study.membername}[${study.memberid}]</td>
 		</tr>
+		<c:if test="${study.memberid != memberid}">
 		<tr>
-		
 			<c:if test="${scrapComfirm==0}">
 				<td><a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> 스크랩</a></td>
 			</c:if>
@@ -135,6 +146,7 @@
 				<td><a id="apply" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="apply2" class="fa fa-sign-out"></i>참가취소</a></td>
 			</c:if>
 		</tr>
+		</c:if>
 	</table>
 </div>
 </form:form>

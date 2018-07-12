@@ -7,4 +7,13 @@
 			and studyno=#{studyno}
 		</if>
 	</select>
+	<delete id="leaveStudy" parameterType="map">
+		delete from studygroup where studyno=#{studyno} and regmember=#{regmember}
+	</delete>
+	<update id="myStudyaceept" parameterType="map">
+		update studygroup set state = #{state} where regmember = #{regmember} and studyno = #{studyno} 
+	</update>
+	<delete id="myStudyKick" parameterType="map">
+		delete from studygroup where studyno=#{studyno} and regmember=#{regmember}
+	</delete>
 </mapper>

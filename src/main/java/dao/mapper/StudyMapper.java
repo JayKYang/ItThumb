@@ -24,6 +24,12 @@ public interface StudyMapper {
 	@Update("update study set region=#{region}, studyname=#{studyname}, regdate=now(), limitmember=${limitmember}, content=#{content}, weekday=#{weekday}, starttime=#{starttime}, endtime=#{endtime} where studyno=#{studyno}")
 	void studyUpdate(Study study);
 
+	@Update("update study set nowmember = nowmember-1 where studyno=#{studyno}")
+	void minusNowmember(Integer studyno);
+
+	@Update("update study set nowmember = nowmember+1 where studyno=#{studyno}")
+	void plusNowmember(Integer studyno);
+
 
 
 }

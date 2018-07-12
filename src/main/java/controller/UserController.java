@@ -82,9 +82,9 @@ public class UserController {
 			mav.addObject("user", user);
 			mav.addObject("kind", kind);
 			if(kind.equals("1")) {
-				mav.setViewName("user/userJoinForm.jsy?kind="+kind);
+				mav.setViewName("user/userJoinForm.jsp?kind="+kind);
 			}else {
-				mav.setViewName("user/companyJoinForm.jsy?kind="+kind);
+				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
 			}
 			return mav;
 		}
@@ -94,9 +94,9 @@ public class UserController {
 			mav.addObject("user", user);
 			mav.addObject("kind", kind);
 			if(kind.equals("1")) {
-				mav.setViewName("user/userJoinForm.jsy?kind="+kind);
+				mav.setViewName("user/userJoinForm.jsp?kind="+kind);
 			}else {
-				mav.setViewName("user/companyJoinForm.jsy?kind="+kind);
+				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
 			}
 			return mav;
 		}
@@ -128,9 +128,9 @@ public class UserController {
 			mav.addObject("user", user);
 			mav.addObject("kind", kind);
 			if(kind.equals("1")) {
-				mav.setViewName("user/userJoinForm.jsy?kind="+kind);
+				mav.setViewName("user/userJoinForm.jsp?kind="+kind);
 			}else {
-				mav.setViewName("user/companyJoinForm.jsy?kind="+kind);
+				mav.setViewName("user/companyJoinForm.jsp?kind="+kind);
 			}
 			return mav;
 		} catch (NoSuchAlgorithmException e) {
