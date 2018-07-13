@@ -582,4 +582,40 @@ public class BoardController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="hire/companyDetailwrite",method=RequestMethod.GET)
+	public ModelAndView companyDetailwrite(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User loginuser = (User)request.getSession().getAttribute("login");
+		String memberid = loginuser.getMemberid();
+		Hire hire = new Hire();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		try {
+		if(loginuser.getMembergrade()==2) {
+			User user = service.getUser(memberid);
+			
+			Date date = new Date();// 현재날짜
+			int nowdate = Integer.parseInt(df.format(date)); // 2018
+			int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
+			
+			
+			
+			mav.addObject("birth",birth);
+			mav.addObject("user",user);
+			mav.addObject("hire",hire);
+		} else {
+			mav.addObject("msg","기업회원이 아닙니다.");
+			mav.setViewName("hirelist.jsy");
+		}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new JsyException("회사정보 쓰기에 실패했습니다.","hirelist.jsy");
+		}
+		
+		return mav;
+	}
+	
+	
+	
 }

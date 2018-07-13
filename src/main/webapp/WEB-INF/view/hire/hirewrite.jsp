@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
-   FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
+   FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
   BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
    String line = null;
    br.readLine();
@@ -121,6 +121,11 @@ sies = new Array(
       }
    }
 </script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 </head>
 <body>
 	<form:form modelAttribute="hire" action="hirewrite.jsy" method="post" enctype="multipart/form-data" name="f">	
@@ -276,5 +281,26 @@ sies = new Array(
 			</tr>
 		</table>
 	</form:form>
+	
+	<table>
+	<tr>
+				<td>
+			<input type="text" name="" class="postcodify_postcode5" value="" />
+				</td>
+				<td>
+				<button id="postcodify_search_button">검색</button><br />
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type="text" name="" class="postcodify_address" value="" /><br />
+<input type="text" name="" class="postcodify_details" value="" /><br />
+<input type="text" name="" class="postcodify_extra_info" value="" /><br />
+				
+				
+				</td>
+			</tr>
+	</table>
+	
 </body>
 </html>

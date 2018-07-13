@@ -9,6 +9,7 @@
   </decorator>
   <!-- layout 설정을 제외 함. -->
   <excludes>
+  	<pattern>/hire/companyDetail.jsy*</pattern>
   	<pattern>/message/*</pattern>
   	<pattern>/user/findpassword.jsy</pattern>
   	<pattern>/user/mypage/manageuser_ajax.jsy*</pattern>
