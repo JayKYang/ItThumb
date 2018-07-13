@@ -7,15 +7,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+<style>
+.button {
+	width: 60px;
+	height: 30px;
+}
+
+.button {
+	border-radius: 4px;
+	background-color: skyblue;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+	padding: 5px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: pink;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+</style>
+</head>
 <body>
 <script type="text/javascript">
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
-		if(searchType == null || searchType.length == 0){
+		if (searchType == null || searchType.length == 0) {
 			document.searchform.searchContent.value = "";
 			document.searchform.pageNum.value = "1";
-			location.href = "studySearchList.jsy?pageNum="+pageNum;
-		}else{
+			location.href = "studySearchList.jsy?pageNum=" + pageNum;
+		} else {
 			document.searchform.pageNum.value = pageNum;
 			document.searchform.submit();
 			return true;
@@ -24,43 +73,47 @@
 	}
 </script>
 
-	<div class="w3-container">
-		
-		<h2>스터디 검색</h2>
-
-
+	<div id="main" class="w3-content">
+		<div class="w3-center" style="width:100%">
+			<p>
+				<span class="w3-content w3-text-pink w3-xxlarge">스터디 검색</span>
+			</p>
+		</div>
 		<input type="hidden" name="pageNum" value="${pageNum}">
 		<table class="w3-table w3-bordered">
 			<tr>
-				<th align="center">순서</th>
-				<th align="center">스터디 이름</th>
-				<th align="center">요일</th>
-				<th align="center">시간</th>
-				<th align="center">현재인원/최대인원</th>
-				<th align="center">지 역</th>
-				<th align="center">작성자</th>
-				<th align="center">작성일</th>
+				<th style="text-align:center;">순서</th>
+				<th style="text-align:center;">스터디 이름</th>
+				<th style="text-align:center;">요일</th>
+				<th style="text-align:center;">시간</th>
+				<th style="text-align:center;">가능인원</th>
+				<th style="text-align:center;">지 역</th>
+				<th style="text-align:center;">작성자</th>
+				<th style="text-align:center;">작성일</th>
 			</tr>
 			<c:forEach var="study" items="${studylist }">
 				<tr>
-					<td align="center">${studynum}</td>
+					<td style="text-align:center;">${studynum}</td>
 					<c:set var="studynum" value="${studynum - 1 }"></c:set>
 					<c:set var="subjectText" value="${study.studyname}"/>
-					<td align="center">
+					<td style="text-align:center;">
 						<a href="studyInfo.jsy?pageNum=${pageNum}&studyno=${study.studyno}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
 					</td>
-					<td align="center">${study.weekday }</td>
-					<td align="center">${study.starttime} ~ ${study.endtime}</td>
-					<td align="center">
+					<td style="text-align:center;">${study.weekday }</td>
+					<td style="text-align:center;">${study.starttime} ~ ${study.endtime}</td>
+					<td style="text-align:center;">
 						${study.nowmember} / <c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if> 
 					</td>
-					<td align="center">${study.region}</td>
-					<td align="center">${study.memberid }(${study.membername})</td>
+					<td style="text-align:center;">${study.region}</td>
+					<td style="text-align:center;">${study.memberid }(${study.membername})</td>
 					<fmt:formatDate value="${study.regdate}" pattern="yyyy-MM-dd" var="regnow" />
-					<td align="center">${regnow}</td>
+					<td style="text-align:center;">${regnow}</td>
 				</tr>
 			</c:forEach>
 		</table>
+		<div class="w3-right" style="margin-top:10px">
+				<input type="button" class="button" onclick="location.href='studyWrite.jsy'" style="width: 100px;" value="스터디 모집">
+		</div>
 
 		<br>
 		<div class="w3-bar w3-center">
@@ -102,9 +155,8 @@
 					document.getElementById("searchType").value = '${param.searchType}'
 				}
 			</script> 
-			<input type="text" name="searchContent" value="${param.searchContent }"> 
-			<input type="submit" value="검색">
-			<input type="button" onclick="location.href='studyWrite.jsy'" value="스터디 모집">
+			<input type="text" name="searchContent" value="${param.searchContent }">&nbsp;
+			<input type="submit" class="button w3-right" value="검색">
 			</span>
 		</form>
 	</div>
