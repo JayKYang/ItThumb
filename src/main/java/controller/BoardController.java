@@ -279,62 +279,7 @@ public class BoardController {
 		return map;
 	}
 	
-	@RequestMapping("hire/myhirelist")
-	public ModelAndView myhirelist(HttpServletRequest request,String searchType, String searchContent, Integer pageNum) {
-		ModelAndView mav = new ModelAndView();
-		if(pageNum==null||pageNum.toString().equals("")) {
-			pageNum = 1;
-		}
-		if(searchType==null||searchType.equals("")) {
-			searchContent = null;
-		}
-		
-		User user = (User)request.getSession().getAttribute("login");
-		String memberid = user.getMemberid(); //세션에 등록한 내 아이디
-		int limit = 10;
-		
-		try {
-			List<Hire> myhirelist = service.getMyHireList(searchType,searchContent,pageNum,limit,memberid);
-			int myhirecount = service.getMyhirecount(memberid, searchType, searchContent);
-			
-			List datelist = new ArrayList();
-			Date startDate = new Date();
-			Date endDate = null;
-			Calendar cal = Calendar.getInstance();
-			Calendar cal2 = Calendar.getInstance();
-			long calDate = 0;
-			long calDateDays = 0;
-			for(int i =0; i<myhirelist.size(); i++) {
-			endDate = myhirelist.get(i).getDeadline(); // 마감일
-				calDate =endDate.getTime() - startDate.getTime();
-				calDateDays = calDate / (24*60*60*1000);
-				calDateDays = Math.abs(calDateDays);
-				datelist.add(calDateDays);
-			}
-			
-			
-			int maxpage = (int)((double)myhirecount/limit + 0.95);
-			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
-			int endpage = maxpage + 9;
-			
-			if(endpage > maxpage) endpage = maxpage;
-			int boardcnt = myhirecount - (pageNum -1) * limit;
-			
-			mav.addObject("boardcnt",boardcnt);
-			mav.addObject("maxpage",maxpage);
-			mav.addObject("startpage",startpage);
-			mav.addObject("endpage",endpage);
-			mav.addObject("pageNum",pageNum);
-			mav.addObject("datelist",datelist);
-			mav.addObject("myhirecount",myhirecount);
-			mav.addObject("myhirelist",myhirelist);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return mav;
-	}
+	
 	
 	
 	@RequestMapping(value="hire/supUpdateHireForm", method=RequestMethod.GET)
