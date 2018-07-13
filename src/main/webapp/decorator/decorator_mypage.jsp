@@ -110,13 +110,13 @@ function find_password(url) {
 			<div class="w3-container w3-cell w3-cell-middle w3-button w3-dropdown-hover" style="width:200px; float:left;">
 				<a href="managestudy.jsy?smkind=1" class="w3-button"><p>스터디 관리</p></a>
 				<div class="w3-dropdown-content w3-bar-block w3-light-gray" style="width:200px;">
-					<a href="managestudy.jsy?smkind=1" class="w3-bar-item w3-hover-gray" style="text-decoration:none;">
+					<a href="managestudy.jsy?smkind=1" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none;">
 						<p>참여 신청한 스터디</p>
 					</a> 
-					<a href="managestudy.jsy?smkind=2" class="w3-bar-item w3-hover-gray" style="text-decoration:none;"> 
+					<a href="managestudy.jsy?smkind=2" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none;"> 
 						<p>스크랩한 스터디</p>
 					</a>
-					<a href="managestudy.jsy?smkind=3" class="w3-bar-item w3-hover-gray" style="text-decoration:none;"> 
+					<a href="managestudy.jsy?smkind=3" class="w3-bar-item w3-hover-pink" style="text-decoration:none;"> 
 						<p>내가 만든 스터디</p>
 					</a>
 				</div>
