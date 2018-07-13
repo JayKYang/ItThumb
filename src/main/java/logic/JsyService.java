@@ -242,5 +242,7 @@ public interface JsyService {
 
 	List<StudyGroup> studygroupAOP(int studyno);
 
+	Hire selectHire(int hireno);
+
 
 }

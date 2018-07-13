@@ -416,7 +416,7 @@ public class MypageController {
 //	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
 	
 	@RequestMapping("user/mypage/hireScrapList")
-	public ModelAndView hireScrapList(HttpServletRequest request, Integer pageNum,String searchType, String searchContent) throws ParseException {
+	public ModelAndView logconhireScrapList(HttpSession session,HttpServletRequest request, Integer pageNum,String searchType, String searchContent) throws ParseException {
 		
 		if(pageNum==null|| pageNum.toString().equals("")) {
 			pageNum=1;
@@ -481,7 +481,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myhirelist")
-	public ModelAndView myhirelist(HttpServletRequest request,String searchType, String searchContent, Integer pageNum) {
+	public ModelAndView logconmyhirelist(HttpSession session,HttpServletRequest request,String searchType, String searchContent, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum==null||pageNum.toString().equals("")) {
 			pageNum = 1;

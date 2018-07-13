@@ -221,6 +221,11 @@ public class BoardDaoImpl implements BoardDao{
 		return SqlSession.selectList(NS+"calhirelist", map);
 	}
 
+	@Override
+	public Hire selectHire(int hireno) {
+		return SqlSession.getMapper(HireMapper.class).selectHire(hireno);
+	}
+
 
 
 }

@@ -47,8 +47,9 @@ public class BoardController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
 	}
 	
+	//로그인확인
 	@RequestMapping("hire/hirelist")
-	public ModelAndView hirelist (Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
+	public ModelAndView logconhirelist (HttpSession session,Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
 		
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -153,8 +154,9 @@ public class BoardController {
 		return mav;
 	}
 	
+	//기업회원인지확인
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.GET)
-	public ModelAndView hirewrite(HttpSession session) {
+	public ModelAndView companyCkhirewrite(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute("login");
 		String id = user.getMemberid();
@@ -163,9 +165,9 @@ public class BoardController {
 		mav.addObject("hire", new Hire());
 		return mav;
 	}
-	
+	//로그인확인
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.POST)
-	public ModelAndView hirewrite(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request, HttpSession session) {
+	public ModelAndView logconhirewrite(HttpSession session, @Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
 		System.out.println(hire);
 		ModelAndView mav = new ModelAndView();
 		String salary = request.getParameter("salary");
@@ -195,9 +197,9 @@ public class BoardController {
 
 	
 	
-	
+	//로그인 확인
 	@RequestMapping(value="hire/hiredetail", method=RequestMethod.GET)
-	public ModelAndView hiredetail(Integer hireno, HttpServletRequest request) {
+	public ModelAndView logconhiredetail(HttpSession session,Integer hireno, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User user2 = (User)request.getSession().getAttribute("login");
 		String memberid = user2.getMemberid();
@@ -222,9 +224,10 @@ public class BoardController {
 		return mav;
 	}
 	
+	//로그인 확인
 	@RequestMapping("hire/hireScrap")
 	   @ResponseBody
-	   public HashMap<String, String> hireScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	   public HashMap<String, String> logconhireScrap(HttpSession session,@RequestParam HashMap<String, String> params, HttpServletRequest request){
 	       HashMap<String, String> map = new HashMap<String, String>();
 	       int hireno = Integer.parseInt(request.getParameter("hireno"));
 	       User user = (User)request.getSession().getAttribute("login");
@@ -255,9 +258,10 @@ public class BoardController {
 	       return map;
 	   }
 
+	//로그인 확인
 	@RequestMapping("hire/hireCheckScrapDelete")
 	@ResponseBody
-	public HashMap<String, String> hireCheckScrapDelete(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logconhireCheckScrapDelete(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request){
 		HashMap<String, String> map = new HashMap<String,String>();
 		User user = (User)request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
@@ -281,9 +285,9 @@ public class BoardController {
 	
 	
 	
-	
+	//기업회원 자기자신인지 확인
 	@RequestMapping(value="hire/supUpdateHireForm", method=RequestMethod.GET)
-	public ModelAndView supUpdateHireForm(int hireno, HttpServletRequest request,Integer pageNum) {
+	public ModelAndView myComCksupUpdateHireForm(HttpSession session ,int hireno, HttpServletRequest request,Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User)request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
@@ -304,8 +308,9 @@ public class BoardController {
 		return mav;
 	}
 	
+	//로그인 확인
 	@RequestMapping("hire/hireUpdate")
-	public ModelAndView hireUpdate(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
+	public ModelAndView logconhireUpdate(HttpSession session,@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		String file2 = request.getParameter("file2");
 		Integer pageNum = Integer.parseInt(request.getParameter("pageNum"));
@@ -346,10 +351,11 @@ public class BoardController {
 		
 		return mav;
 	}
-		
+	
+	//로그인 확인
 	@RequestMapping("hire/deleteAction")
 	@ResponseBody
-	public HashMap<String, String> deleteAction(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logcondeleteAction(HttpSession session,@RequestParam HashMap<String, String> params, HttpServletRequest request){
 		HashMap<String,String> map = new HashMap<String,String>();
 		User loginUser = (User)request.getSession().getAttribute("login");
 		String memberid = loginUser.getMemberid();
