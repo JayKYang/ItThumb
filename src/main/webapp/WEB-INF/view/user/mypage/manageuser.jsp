@@ -29,8 +29,8 @@
 </script>
 <style>
 	button{
-		width:100px;
-		height:5px;
+		width:80px;
+		height:30px;
 	}
    	button {
 	  border-radius: 4px;
@@ -38,13 +38,14 @@
 	  border: none;
 	  color: #FFFFFF;
 	  text-align: center;
-	  font-size: 15px;
-	  padding: 20px;
+	  font-size: 18px;
+	  padding: 5px;
 	  transition: all 0.5s;
 	  cursor: pointer;
 	}
-	button:hover {
-	  background-color: pink;
+	
+	button:hover{
+		background-color:pink;
 	}
 	
 	button span {

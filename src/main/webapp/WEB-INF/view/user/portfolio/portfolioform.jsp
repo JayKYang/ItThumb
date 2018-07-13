@@ -279,10 +279,11 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 </style>
 <body class="w3-black">
+	<a href="#about"></a>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
+	<div class="w3-bar w3-small w3-left w3-indigo" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
+		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
@@ -290,7 +291,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
-	</nav>
+	</div>
 	<!-- Page Content -->
 	<!-- Header/Home -->
 	<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
@@ -463,7 +464,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
 
-	<div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display: none">
+	<div class="portfoliopage w3-content w3-container w3-animate-right" id="project" style="display: none">
 		<h3 class="w3-center">
 			<a class="w3-xxxlarge">프로젝트</a>
 		</h3>

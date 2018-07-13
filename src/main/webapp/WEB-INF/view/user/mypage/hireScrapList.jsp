@@ -81,7 +81,7 @@
 						<td align="center">${scraphire.hireno}</td>
 						<td>${scraphire.company}</td>
 						<td><a
-							href="hiredetail.jsy?hireno=${scraphire.hireno}&pageNum=${pageNum}">${scraphire.subject}</a>
+							href="../../hire/hiredetail.jsy?hireno=${scraphire.hireno}&pageNum=${pageNum}">${scraphire.subject}</a>
 						</td>
 						<td>${scraphire.qualification}</td>
 						<td>${scraphire.hirestatus}</td>
