@@ -76,7 +76,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value="community/comWrite", method=RequestMethod.POST)
-	public ModelAndView comWriteReg(@Valid Community community, BindingResult bindingResult, HttpServletRequest request, Integer communitykind, Integer pageNum) {
+	public ModelAndView logconcomWriteReg(HttpSession session, @Valid Community community, BindingResult bindingResult, HttpServletRequest request, Integer communitykind, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
@@ -343,7 +343,7 @@ public class CommunityController {
 		return mav;
 	}
 	@RequestMapping(value="community/communityUpdate", method=RequestMethod.POST)
-	public ModelAndView communityUpdate(@Valid Community community, BindingResult bindingResult, HttpServletRequest request, String memberid, Integer communityno, Integer communitykind, Integer pageNum) {
+	public ModelAndView communityUpdate(HttpSession session, String memberid, Integer communitykind, Integer communityno, Integer pageNum, @Valid Community community, BindingResult bindingResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			try {

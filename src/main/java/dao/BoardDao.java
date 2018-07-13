@@ -53,5 +53,7 @@ public interface BoardDao {
 	List<Hire> calhirelist(String searchRegion, String searchEdu, String searchCarr, String searchCareer,
 			String searchCareerDate);
 
+	Hire selectHire(int hireno);
+
 
 }

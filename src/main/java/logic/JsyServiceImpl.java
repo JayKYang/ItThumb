@@ -775,4 +775,14 @@ public class JsyServiceImpl implements JsyService{
 		studyGroupDao.myStudyKick(regmember, studyno);
 	}
 
+	@Override
+	public List<StudyGroup> studygroupAOP(int studyno) {
+		return studyGroupDao.studygroupAOP(studyno);
+	}
+
+	@Override
+	public Hire selectHire(int hireno) {
+		return boardDao.selectHire(hireno);
+	}
+
 }

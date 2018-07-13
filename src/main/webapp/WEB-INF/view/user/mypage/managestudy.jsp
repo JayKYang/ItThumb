@@ -3,59 +3,55 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
-<title>communityBoard</title>
+<title>잇썸 > 마이페이지 > 스터디 관리</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function list(pageNum, smkind) {
+		var searchType = document.searchform.searchType.value;
+		if (searchType == null || searchType.length == 0) {
+			document.searchform.searchContent.value = "";
+			document.searchform.pageNum.value = "1";
+			location.href = "managestudy.jsy?pageNum=" + pageNum+ "&smkind=" + smkind;
+		} else {
+			document.searchform.pageNum.value = pageNum;
+			document.searchform.submit();
+			return true;
+		}
+		return false;
+	}
+</script>
 </head>
 
-<body class="w3-black">
-
-	<script type="text/javascript">
-		function list(pageNum, smkind) {
-			var searchType = document.searchform.searchType.value;
-			if (searchType == null || searchType.length == 0) {
-				document.searchform.searchContent.value = "";
-				document.searchform.pageNum.value = "1";
-				location.href = "managestudy.jsy?pageNum=" + pageNum+ "&smkind=" + smkind;
-			} else {
-				document.searchform.pageNum.value = pageNum;
-				document.searchform.submit();
-				return true;
-			}
-			return false;
-		}
-	</script>
-
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
-		<a href="managestudy.jsy?smkind=1" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
-		<i class="fa fa-clipboard w3-xxlarge"></i>
-			<p>참여 신청한 스터디</p>
-		</a> 
-		<a href="managestudy.jsy?smkind=2" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"> 
-		<i class="fa fa-question-circle-o w3-xxlarge"></i>
-			<p>스크랩한 스터디</p>
-		</a>
-		<a href="managestudy.jsy?smkind=3" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"> 
-		<i class=" fa fa-edit w3-xxlarge"></i>
-			<p>내가 만든 스터디</p>
-		</a>
-	</nav>
-<div id="main">
-	<c:if test="${smkind==1}">
-		<h2>참여 신청한 스터디</h2>
-	</c:if>
-	<c:if test="${smkind==2}">
-		<h2>스크랩한 스터디</h2>
-	</c:if>
-	<c:if test="${smkind==3}">
-		<h2>내가 만든 스터디</h2>
-	</c:if>
-	<form>
+<body>
+	<div class="w3-content">
+		<c:if test="${smkind==1}">
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-purple w3-xxlarge">참여 신청한 스터디</span>
+			</p>
+		</div>
+		</c:if>
+		<c:if test="${smkind==2}">
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-purple w3-xxlarge">스크랩한 스터디</span>
+			</p>
+		</div>
+		</c:if>
+		<c:if test="${smkind==3}">
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-purple w3-xxlarge">내가 만든 스터디</span>
+			</p>
+		</div>
+		</c:if>
+		<form>
 		<c:if test="${smkind==1}">
 			<table class="w3-table w3-bordered">
 				<tr>
@@ -210,6 +206,6 @@
 			<input type="submit" value="검색">
 		</span>
 	</form>
-</div>
+	</div>
 </body>
 </html>

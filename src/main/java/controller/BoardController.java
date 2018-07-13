@@ -47,8 +47,9 @@ public class BoardController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
 	}
 	
+	//로그인확인
 	@RequestMapping("hire/hirelist")
-	public ModelAndView hirelist (Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
+	public ModelAndView logconhirelist (HttpSession session,Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
 		
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -153,8 +154,9 @@ public class BoardController {
 		return mav;
 	}
 	
+	//기업회원인지확인
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.GET)
-	public ModelAndView hirewrite(HttpSession session) {
+	public ModelAndView companyCkhirewrite(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute("login");
 		String id = user.getMemberid();
@@ -163,9 +165,9 @@ public class BoardController {
 		mav.addObject("hire", new Hire());
 		return mav;
 	}
-	
+	//로그인확인
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.POST)
-	public ModelAndView hirewrite(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request, HttpSession session) {
+	public ModelAndView logconhirewrite(HttpSession session, @Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
 		System.out.println(hire);
 		ModelAndView mav = new ModelAndView();
 		String salary = request.getParameter("salary");
@@ -195,9 +197,9 @@ public class BoardController {
 
 	
 	
-	
+	//로그인 확인
 	@RequestMapping(value="hire/hiredetail", method=RequestMethod.GET)
-	public ModelAndView hiredetail(Integer hireno, HttpServletRequest request) {
+	public ModelAndView logconhiredetail(HttpSession session,Integer hireno, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User user2 = (User)request.getSession().getAttribute("login");
 		String memberid = user2.getMemberid();
@@ -222,9 +224,10 @@ public class BoardController {
 		return mav;
 	}
 	
+	//로그인 확인
 	@RequestMapping("hire/hireScrap")
 	   @ResponseBody
-	   public HashMap<String, String> hireScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	   public HashMap<String, String> logconhireScrap(HttpSession session,@RequestParam HashMap<String, String> params, HttpServletRequest request){
 	       HashMap<String, String> map = new HashMap<String, String>();
 	       int hireno = Integer.parseInt(request.getParameter("hireno"));
 	       User user = (User)request.getSession().getAttribute("login");
@@ -255,77 +258,10 @@ public class BoardController {
 	       return map;
 	   }
 
-	//	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
-	
-	@RequestMapping("hire/hireScrapList.jsy")
-	public ModelAndView hireScrapList(HttpServletRequest request, Integer pageNum,String searchType, String searchContent) throws ParseException {
-		
-		if(pageNum==null|| pageNum.toString().equals("")) {
-			pageNum=1;
-		}
-		
-		if(searchType==null||searchType.equals("")) {
-			searchContent=null;
-		}
-		
-		ModelAndView mav = new ModelAndView();
-		User user = (User)request.getSession().getAttribute("login");
-		String memberid = user.getMemberid();
-		int limit = 15;
-		try {
-		/*List<Scrap> scraplist = service.scrapHirelist(memberid,pageNum, limit);
-		int hireno = 0;
-		List<Hire> scraphirelist = new ArrayList<Hire>();
-		for(Scrap scrap : scraplist ) {
-			hireno = scrap.getHireno();
-			scraphirelist.add((Hire)service.getHire(hireno,searchType,searchContent));
-		}*/
-		
-		List<Hire> scraphirelist = service.getScrapList(memberid,searchType,searchContent,pageNum,limit);
-		int scraphirecount = service.scrapHireCount(memberid,searchType,searchContent);
-		
-		System.out.println(scraphirelist+"afasfgdgdg");
-		System.out.println(scraphirecount+"asfasfasf");
-		
-		List datelist = new ArrayList();
-		Date startDate = new Date();
-		Date endDate = null;
-		Calendar cal = Calendar.getInstance();
-		Calendar cal2 = Calendar.getInstance();
-		long calDate = 0;
-		long calDateDays = 0;
-		for(int i =0; i<scraphirelist.size(); i++) {
-		endDate = scraphirelist.get(i).getDeadline(); // 마감일
-			calDate =endDate.getTime() - startDate.getTime();
-			calDateDays = calDate / (24*60*60*1000);
-			calDateDays = Math.abs(calDateDays);
-			datelist.add(calDateDays);
-		}
-		int maxpage = (int)((double)scraphirecount/limit + 0.95);
-		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
-		int endpage = maxpage + 9;
-		
-		if(endpage > maxpage) endpage = maxpage;
-		int boardcnt = scraphirecount - (pageNum -1) * limit;
-		
-		mav.addObject("boardcnt",boardcnt);
-		mav.addObject("maxpage",maxpage);
-		mav.addObject("startpage",startpage);
-		mav.addObject("endpage",endpage);
-		mav.addObject("pageNum",pageNum);
-		mav.addObject("scraphirecount",scraphirecount);
-		mav.addObject("datelist",datelist);
-		mav.addObject("scraphirelist",scraphirelist);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return mav;
-	}
-	
-	
+	//로그인 확인
 	@RequestMapping("hire/hireCheckScrapDelete")
 	@ResponseBody
-	public HashMap<String, String> hireCheckScrapDelete(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logconhireCheckScrapDelete(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request){
 		HashMap<String, String> map = new HashMap<String,String>();
 		User user = (User)request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
@@ -347,66 +283,11 @@ public class BoardController {
 		return map;
 	}
 	
-	@RequestMapping("hire/myhirelist")
-	public ModelAndView myhirelist(HttpServletRequest request,String searchType, String searchContent, Integer pageNum) {
-		ModelAndView mav = new ModelAndView();
-		if(pageNum==null||pageNum.toString().equals("")) {
-			pageNum = 1;
-		}
-		if(searchType==null||searchType.equals("")) {
-			searchContent = null;
-		}
-		
-		User user = (User)request.getSession().getAttribute("login");
-		String memberid = user.getMemberid(); //세션에 등록한 내 아이디
-		int limit = 10;
-		
-		try {
-			List<Hire> myhirelist = service.getMyHireList(searchType,searchContent,pageNum,limit,memberid);
-			int myhirecount = service.getMyhirecount(memberid, searchType, searchContent);
-			
-			List datelist = new ArrayList();
-			Date startDate = new Date();
-			Date endDate = null;
-			Calendar cal = Calendar.getInstance();
-			Calendar cal2 = Calendar.getInstance();
-			long calDate = 0;
-			long calDateDays = 0;
-			for(int i =0; i<myhirelist.size(); i++) {
-			endDate = myhirelist.get(i).getDeadline(); // 마감일
-				calDate =endDate.getTime() - startDate.getTime();
-				calDateDays = calDate / (24*60*60*1000);
-				calDateDays = Math.abs(calDateDays);
-				datelist.add(calDateDays);
-			}
-			
-			
-			int maxpage = (int)((double)myhirecount/limit + 0.95);
-			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
-			int endpage = maxpage + 9;
-			
-			if(endpage > maxpage) endpage = maxpage;
-			int boardcnt = myhirecount - (pageNum -1) * limit;
-			
-			mav.addObject("boardcnt",boardcnt);
-			mav.addObject("maxpage",maxpage);
-			mav.addObject("startpage",startpage);
-			mav.addObject("endpage",endpage);
-			mav.addObject("pageNum",pageNum);
-			mav.addObject("datelist",datelist);
-			mav.addObject("myhirecount",myhirecount);
-			mav.addObject("myhirelist",myhirelist);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return mav;
-	}
 	
 	
+	//기업회원 자기자신인지 확인
 	@RequestMapping(value="hire/supUpdateHireForm", method=RequestMethod.GET)
-	public ModelAndView supUpdateHireForm(int hireno, HttpServletRequest request,Integer pageNum) {
+	public ModelAndView myComCksupUpdateHireForm(HttpSession session ,int hireno, HttpServletRequest request,Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User)request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
@@ -427,8 +308,9 @@ public class BoardController {
 		return mav;
 	}
 	
+	//로그인 확인
 	@RequestMapping("hire/hireUpdate")
-	public ModelAndView hireUpdate(@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
+	public ModelAndView logconhireUpdate(HttpSession session,@Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		String file2 = request.getParameter("file2");
 		Integer pageNum = Integer.parseInt(request.getParameter("pageNum"));
@@ -469,10 +351,11 @@ public class BoardController {
 		
 		return mav;
 	}
-		
+	
+	//로그인 확인
 	@RequestMapping("hire/deleteAction")
 	@ResponseBody
-	public HashMap<String, String> deleteAction(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logcondeleteAction(HttpSession session,@RequestParam HashMap<String, String> params, HttpServletRequest request){
 		HashMap<String,String> map = new HashMap<String,String>();
 		User loginUser = (User)request.getSession().getAttribute("login");
 		String memberid = loginUser.getMemberid();

@@ -58,7 +58,8 @@
 	
   <form action="messagedelete.jsy" method="post">
   <input type="hidden" name="pageNum" value="${pageNum}"> 
-  <input type="hidden" name="sort" value="${sort }">	
+  <input type="hidden" name="sort" value="${sort }">
+  
   <table class="w3-table w3-bordered">
     <tr>
       	<th>순서</th>
@@ -67,19 +68,26 @@
         <th>열람여부</th>
         <th><input type="checkbox" name="allchk" onchange="allchkbox(this)">&nbsp;<input type="submit" value="삭제"></th>
     </tr>
-    <tr>
-		<td colspan="5">
-			<c:if test="${empty messagelist}">
-				<c:if test="${sort==1}">
-					받은 쪽지가 없습니다.
-				</c:if>
-				<c:if test="${sort==2}">
-					보낸 쪽지가 없습니다.
-				</c:if>
-			</c:if>
-		</td>
-	</tr>
+    <c:if test="${empty messagelist}">
+ 	   <tr>
+			<td colspan="5">
+			
+					<c:if test="${sort==1}">
+						받은 쪽지가 없습니다.
+					</c:if>
+					<c:if test="${sort==2}">
+						보낸 쪽지가 없습니다.
+					</c:if>
+			</td>
+		</tr>
+	</c:if>
     <c:forEach var="mes" items="${messagelist }">
+    <c:if test="${sort==1}">
+    	 <c:set var="receiver" value="${mes.receiver}"></c:set>
+    </c:if>
+    <c:if test="${sort==2}">
+    	 <c:set var="sender" value="${mes.sender}"></c:set>
+    </c:if>
     <tr>
       <td align="center">${sendmesnum}</td>
       <c:set var="sendmesnum" value="${sendmesnum - 1 }"></c:set>
@@ -97,6 +105,14 @@
     </tr>
     </c:forEach>
   </table>
+  
+  <c:if test="${sort==1}">
+  	<input type="hidden" name="id" value="${receiver}">
+  </c:if>
+  <c:if test="${sort==2}">
+    <input type="hidden" name="id" value="${sender}">
+  </c:if>
+  
   </form>
   
   <div class="w3-bar w3-center">

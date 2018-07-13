@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.taglibs.standard.extra.spath.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -52,7 +54,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="user/mypage/myInfo", method = RequestMethod.GET)
-	public ModelAndView main(String id) {
+	public ModelAndView MPConmain(HttpSession session,String id) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/myInfo");
 		User user = service.getUser(id);
@@ -61,7 +63,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "user/mypage/myInfo", method = RequestMethod.POST)
-	public ModelAndView update(@Valid User user, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView MPConupdate(HttpSession session, @Valid User user, BindingResult bindingResult, HttpServletRequest request) {
 		System.out.println("[MypageControllerController] => user/mypage/myInfo[POST]");
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
@@ -102,7 +104,7 @@ public class MypageController {
 	}
 
 	@RequestMapping("user/mypage/manageuser")
-	public ModelAndView manageuser(HttpSession session,Integer pageNum, String searchType, String searchContent, Integer membergrade) {
+	public ModelAndView MpAdConmanageuser(HttpSession session, Integer membergrade, Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/manageuser");
 		if(pageNum == null || pageNum.toString().equals("")) {
@@ -131,7 +133,7 @@ public class MypageController {
 		return mav; 
 	}
 	@RequestMapping("user/mypage/manageuser_ajax")
-	public ModelAndView mypage_info(HttpServletRequest request) {
+	public ModelAndView MpAdConmypage_info(HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/manageuser_ajax[Ajax]");
 		Integer membergrade = Integer.parseInt(request.getParameter("membergrade"));
@@ -177,13 +179,13 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/mypageportfolio")
-	public ModelAndView mypageportfolio() {
+	public ModelAndView logconmypageportfolio(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		return mav;
 	}
 	@RequestMapping("user/mypage/confirmHire")
-	public ModelAndView confirmHire(HttpSession session,Integer pageNum, Integer hide, String searchType, String searchContent) {
+	public ModelAndView MpAdConconfirmHire(HttpSession session,Integer pageNum, Integer hide, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/confirmHire");
 		if(pageNum == null || pageNum.toString().equals("")) {
@@ -210,7 +212,7 @@ public class MypageController {
 		return mav; 
 	}
 	@RequestMapping("user/mypage/managestudy")
-	public ModelAndView managestudy(HttpSession session, Integer smkind, Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView logconmanagestudy(HttpSession session, Integer smkind, Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -266,7 +268,7 @@ public class MypageController {
 		return mav;
 	}
 	@RequestMapping("user/mypage/portfolioscraplist")
-	public ModelAndView portfolioscraplist(HttpSession session,Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView logconportfolioscraplist(HttpSession session,Integer pageNum, String searchType, String searchContent) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/portfolioscraplist");
 		User loginUser = (User) session.getAttribute("login");
@@ -298,8 +300,8 @@ public class MypageController {
 		return mav;
 	}
 	
-	@RequestMapping(value="user/mypage/recognizeHire") // 채용공고 승인
-	public ModelAndView recognizeHire(HttpServletRequest request) {
+	@RequestMapping("user/mypage/recognizeHire") // 채용공고 승인
+	public ModelAndView MpAdConrecognizeHire(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[MypageController] => user/mypage/recognizeHire");
 		
@@ -316,7 +318,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyInfo")
-	public ModelAndView myStudyInfo(Integer smkind, Integer studyno, Integer pageNum) {
+	public ModelAndView MPConmyStudyInfo(HttpSession session, Integer studyno, Integer smkind, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Study study = service.studySelect(studyno);
@@ -332,7 +334,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/leaveStudy")
-	public ModelAndView leaveStudy(HttpSession session,Integer smkind, Integer studyno, Integer pageNum) {
+	public ModelAndView MPConleaveStudy(HttpSession session, Integer studyno, Integer smkind,  Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute("login");
 		String memberid = user.getMemberid();
@@ -349,7 +351,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myMkStudy")
-	public ModelAndView myMkStudy(Integer smkind, Integer studyno, Integer pageNum) {
+	public ModelAndView leaderConmyMkStudy(HttpSession session, Integer studyno, Integer smkind, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Study study = service.studySelect(studyno);
@@ -367,7 +369,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyaceept")
-	public ModelAndView myStudyaceept(String regmember, Integer studyno, Integer pageNum, Integer smkind,Integer state) {
+	public ModelAndView leaderConmyStudyaceept(HttpSession session, Integer studyno, String regmember, Integer pageNum, Integer smkind,Integer state) {
 		ModelAndView mav = new ModelAndView();
 		Study study = service.studySelect(studyno);
 		int nowmember = Integer.parseInt(study.getNowmember());
@@ -398,7 +400,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyKick")
-	public ModelAndView myStudyKick(String regmember, Integer studyno, Integer pageNum, Integer smkind) {
+	public ModelAndView leaderConmyStudyKick(HttpSession session,Integer studyno, String regmember, Integer pageNum, Integer smkind) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			service.myStudyKick(regmember, studyno);
@@ -411,5 +413,127 @@ public class MypageController {
 		mav.setViewName("alert");
 		return mav;
 	}	
-
+//	마이페이지 채용공고 스크랩 관련 ---------여기부터 ㄱㄱㄱㄱ
+	
+	@RequestMapping("user/mypage/hireScrapList")
+	public ModelAndView logconhireScrapList(HttpSession session,HttpServletRequest request, Integer pageNum,String searchType, String searchContent) throws ParseException {
+		
+		if(pageNum==null|| pageNum.toString().equals("")) {
+			pageNum=1;
+		}
+		
+		if(searchType==null||searchType.equals("")) {
+			searchContent=null;
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		int limit = 15;
+		try {
+		/*List<Scrap> scraplist = service.scrapHirelist(memberid,pageNum, limit);
+		int hireno = 0;
+		List<Hire> scraphirelist = new ArrayList<Hire>();
+		for(Scrap scrap : scraplist ) {
+			hireno = scrap.getHireno();
+			scraphirelist.add((Hire)service.getHire(hireno,searchType,searchContent));
+		}*/
+		
+		List<Hire> scraphirelist = service.getScrapList(memberid,searchType,searchContent,pageNum,limit);
+		int scraphirecount = service.scrapHireCount(memberid,searchType,searchContent);
+		
+		System.out.println(scraphirelist+"afasfgdgdg");
+		System.out.println(scraphirecount+"asfasfasf");
+		
+		List datelist = new ArrayList();
+		Date startDate = new Date();
+		Date endDate = null;
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		long calDate = 0;
+		long calDateDays = 0;
+		for(int i =0; i<scraphirelist.size(); i++) {
+		endDate = scraphirelist.get(i).getDeadline(); // 마감일
+			calDate =endDate.getTime() - startDate.getTime();
+			calDateDays = calDate / (24*60*60*1000);
+			calDateDays = Math.abs(calDateDays);
+			datelist.add(calDateDays);
+		}
+		int maxpage = (int)((double)scraphirecount/limit + 0.95);
+		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+		int endpage = maxpage + 9;
+		
+		if(endpage > maxpage) endpage = maxpage;
+		int boardcnt = scraphirecount - (pageNum -1) * limit;
+		
+		mav.addObject("boardcnt",boardcnt);
+		mav.addObject("maxpage",maxpage);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("pageNum",pageNum);
+		mav.addObject("scraphirecount",scraphirecount);
+		mav.addObject("datelist",datelist);
+		mav.addObject("scraphirelist",scraphirelist);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	@RequestMapping("user/mypage/myhirelist")
+	public ModelAndView logconmyhirelist(HttpSession session,HttpServletRequest request,String searchType, String searchContent, Integer pageNum) {
+		ModelAndView mav = new ModelAndView();
+		if(pageNum==null||pageNum.toString().equals("")) {
+			pageNum = 1;
+		}
+		if(searchType==null||searchType.equals("")) {
+			searchContent = null;
+		}
+		
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid(); //세션에 등록한 내 아이디
+		int limit = 10;
+		
+		try {
+			List<Hire> myhirelist = service.getMyHireList(searchType,searchContent,pageNum,limit,memberid);
+			int myhirecount = service.getMyhirecount(memberid, searchType, searchContent);
+			
+			List datelist = new ArrayList();
+			Date startDate = new Date();
+			Date endDate = null;
+			Calendar cal = Calendar.getInstance();
+			Calendar cal2 = Calendar.getInstance();
+			long calDate = 0;
+			long calDateDays = 0;
+			for(int i =0; i<myhirelist.size(); i++) {
+			endDate = myhirelist.get(i).getDeadline(); // 마감일
+				calDate =endDate.getTime() - startDate.getTime();
+				calDateDays = calDate / (24*60*60*1000);
+				calDateDays = Math.abs(calDateDays);
+				datelist.add(calDateDays);
+			}
+			
+			
+			int maxpage = (int)((double)myhirecount/limit + 0.95);
+			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
+			int endpage = maxpage + 9;
+			
+			if(endpage > maxpage) endpage = maxpage;
+			int boardcnt = myhirecount - (pageNum -1) * limit;
+			
+			mav.addObject("boardcnt",boardcnt);
+			mav.addObject("maxpage",maxpage);
+			mav.addObject("startpage",startpage);
+			mav.addObject("endpage",endpage);
+			mav.addObject("pageNum",pageNum);
+			mav.addObject("datelist",datelist);
+			mav.addObject("myhirecount",myhirecount);
+			mav.addObject("myhirelist",myhirelist);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
 }

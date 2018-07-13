@@ -279,10 +279,11 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 </style>
 <body class="w3-black">
+	<a href="#about"></a>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
+	<div class="w3-bar w3-small w3-left w3-indigo" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
+		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
@@ -290,11 +291,12 @@ body, h1, h2, h3, h4, h5, h6 {
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
-	</nav>
+	</div>
 	<!-- Page Content -->
 	<!-- Header/Home -->
 	<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
 		<form:form modelAttribute="user" action="updateAboutMe.jsy" method="post" enctype="multipart/form-data" name="f">
+		<input type="hidden" value="${sessionScope.login.memberid}" name="id">
 		<div class="w3-content w3-container w3-padding-32">
 		<form:hidden path="imageUrl" />
 		<form:hidden class="w3-input" path="password" value="passwordddddd"/>
@@ -462,7 +464,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
 
-	<div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display: none">
+	<div class="portfoliopage w3-content w3-container w3-animate-right" id="project" style="display: none">
 		<h3 class="w3-center">
 			<a class="w3-xxxlarge">프로젝트</a>
 		</h3>
@@ -479,21 +481,5 @@ body, h1, h2, h3, h4, h5, h6 {
 				</table>
 		</div>
 	</div>
-
-	<!-- Footer -->
-	<!--   
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-  End footer
-  </footer> -->
-
-	<!-- END PAGE CONTENT -->
-
 </body>
 </html>

@@ -69,4 +69,10 @@ public class StudyGroupDaoImpl implements StudyGroupDao{
 		param.put("studyno", studyno);
 		sqlSession.delete(NS+"myStudyKick", param);
 	}
+	@Override
+	public List<StudyGroup> studygroupAOP(int studyno) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("studyno", studyno);
+		return sqlSession.selectList(NS+"studygroupAOP", param);
+	}
 }

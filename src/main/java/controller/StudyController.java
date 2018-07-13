@@ -60,14 +60,14 @@ public class StudyController {
 	
 	
 	@RequestMapping(value="study/studyWrite", method=RequestMethod.GET)
-	public ModelAndView studyWrite() {
+	public ModelAndView logconstudyWrite(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("study", new Study());
 		return mav;
 	}
 	
 	@RequestMapping(value="study/studyWrite", method=RequestMethod.POST)
-	public ModelAndView studyWriteReg(@Valid Study study, BindingResult bindingResult, HttpServletRequest request) {
+	public ModelAndView logconstudyWriteReg(HttpSession session, @Valid Study study, BindingResult bindingResult, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
@@ -101,7 +101,7 @@ public class StudyController {
 	}
 	
 	@RequestMapping("study/studyInfo")
-	public ModelAndView studyInfo(Integer studyno, Integer pageNum, HttpServletRequest request, Integer smkind) {
+	public ModelAndView logconstudyInfo(HttpSession session, Integer studyno, Integer pageNum, HttpServletRequest request, Integer smkind) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
@@ -150,7 +150,7 @@ public class StudyController {
 		return mav;
 	}
 	@RequestMapping(value="study/studyUpdate", method=RequestMethod.POST)
-	public ModelAndView studyUpdateReg(@Valid Study study, BindingResult bindingResult, HttpServletRequest request, Integer pageNum) {
+	public ModelAndView logconstudyUpdateReg(HttpSession session, @Valid Study study, BindingResult bindingResult, HttpServletRequest request, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			mav.getModel().putAll(bindingResult.getModel());
@@ -179,7 +179,7 @@ public class StudyController {
 	
 	@RequestMapping("study/studyScrap")
 	@ResponseBody
-	public HashMap<String, String> studyScrap(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logconstudyScrap(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request){
 		 HashMap<String, String> map = new HashMap<String, String>();
 		 int studyno = Integer.parseInt(request.getParameter("studyno"));
 		 String memberid = request.getParameter("memberid");
@@ -210,7 +210,7 @@ public class StudyController {
 	
 	@RequestMapping("study/studyApply")
 	@ResponseBody
-	public HashMap<String, String> studyApply(@RequestParam HashMap<String, String> params, HttpServletRequest request){
+	public HashMap<String, String> logconstudyApply(HttpSession session, @RequestParam HashMap<String, String> params, HttpServletRequest request){
 		 HashMap<String, String> map = new HashMap<String, String>();
 		 int studyno = Integer.parseInt(request.getParameter("studyno"));
 		 String regmember = request.getParameter("regmember");

@@ -73,11 +73,11 @@
 						</div>
 						<div class="w3-container">
 							<h1>
-								<b>${popBoard.company }</b>
+								<a href="hire/companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none;"><b>${popBoard.company }</b></a>
 							</h1>
 						</div>
 						<div class="w3-container">
-							<h3><a href="hire/hiredetail.jsy?hireno=${popBoard.hireno }">${popBoard.subject }</a></h3>
+							<h3><a href="hire/hiredetail.jsy?hireno=${popBoard.hireno }"  style="text-decoration:none;">${popBoard.subject }</a></h3>
 						</div>
 						<div class="w3-container">
 							<fmt:formatDate value="${popBoard.deadline}" var="date"
