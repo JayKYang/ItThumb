@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>IT Thumb > 마이 페이지</title>
+<title>IT Thumb > 마이 페이지 > 회원 정보</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script type="text/javascript">
 		$(document).ready(function(){
@@ -41,9 +41,9 @@
     	   mouseEvent.initEvent(evType, true, false);
     	   var transCheck = evEle.dispatchEvent(mouseEvent);
     	   if (!transCheck) {
-    	   //만약 이벤트에 실패했다면
-    	   console.log("클릭 이벤트 발생 실패!");
-    	   }
+	    	   //만약 이벤트에 실패했다면
+	    	   console.log("클릭 이벤트 발생 실패!");
+	    	  }
     	   }
     	  }
     	  /** 대체버튼 클릭시 강제 이벤트 발생**/
@@ -99,72 +99,79 @@
 </style>
 </head>
 <body>
-	<div class="w3-content w3-container w3-padding-32" margin-left:15%;">
-		<div id="info" class="w3-content" style="display:block;">
-			<form:form style="container" modelAttribute="user" action="myInfo.jsy" name="f" method="post" enctype="multipart/form-data">
-				<form:hidden path="imageUrl" />
-				<div id="profile">
-					<c:if test="${empty sessionScope.login.imageUrl }">
-						<img class="w3-button" id="profilephoto" src="../../photo/defaultphoto.png"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+	<div class="w3-content">
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-purple w3-xxlarge">회원 정보</span>
+			</p>
+		</div>
+		<div class="w3-content w3-container w3-padding-32">
+			<div id="info" class="w3-content" style="display:block;">
+				<form:form style="container" modelAttribute="user" action="myInfo.jsy" name="f" method="post" enctype="multipart/form-data">
+					<form:hidden path="imageUrl" />
+					<div id="profile">
+						<c:if test="${empty sessionScope.login.imageUrl }">
+							<img class="w3-button" id="profilephoto" src="../../photo/defaultphoto.png"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+						</c:if>
+						<c:if test="${!empty sessionScope.login.imageUrl }" >
+							<img class="w3-button" id="profilephoto" src="../../photo/${sessionScope.login.imageUrl }"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+						</c:if>
+						<input type="file" name="image" id="image" style="display:none"/>
+					</div>
+					<p>
+					<label>이메일</label>
+					<form:input class="w3-input" path="memberid" />
+					<font color="red"><form:errors path="memberid"/></font>
+					</p>
+					<p>
+					<label>이름</label>
+					<form:input class="w3-input" path="name"/>
+					<font color="red"><form:errors path="name"/></font>
+					</p>
+					<c:if test="${sessionScope.login.membergrade==2 }">
+					<p>
+					<label>사이트</label>
+					<form:input class="w3-input" path="site"/>
+					<font color="red"><form:errors path="site"/></font>
+					</p>
+					<p>
+					<label>업종</label>
+					<form:input class="w3-input" path="industy"/>
+					<font color="red"><form:errors path="industy"/></font>
+					</p>
+					<p>
+					<label>지역</label>
+					<form:input class="w3-input" path="address"/>
+					<font color="red"><form:errors path="address"/></font>		
+					</p>
+					<p>
+					<label>연락처</label>
+					<form:input class="w3-input" path="tel"/>
+					<font color="red"><form:errors path="tel"/></font>
+					</p>			
+					<p>
+					<label>설립일</label>
+					<fmt:formatDate value="${user.birth }" pattern="yyyy-MM-dd" var="builddate"/>
+					<form:input class="w3-input" path="birth" value="${builddate}"/>
+					<font color="red"><form:errors path="birth"/></font>
+					</p>
+					<p>		
+					<label>사업자번호</label>
+					<form:input class="w3-input" path="companyserial"/>
+					<font color="red"><form:errors path="companyserial"/></font>
+					</p>
 					</c:if>
-					<c:if test="${!empty sessionScope.login.imageUrl }" >
-						<img class="w3-button" id="profilephoto" src="../../photo/${sessionScope.login.imageUrl }"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
-					</c:if>
-					<input type="file" name="image" id="image" style="display:none"/>
-				</div>
-				<p>
-				<label>이메일</label>
-				<form:input class="w3-input" path="memberid" />
-				<font color="red"><form:errors path="memberid"/></font>
-				</p>
-				<p>
-				<label>이름</label>
-				<form:input class="w3-input" path="name"/>
-				<font color="red"><form:errors path="name"/></font>
-				</p>
-				<c:if test="${sessionScope.login.membergrade==2 }">
-				<p>
-				<label>사이트</label>
-				<form:input class="w3-input" path="site"/>
-				<font color="red"><form:errors path="site"/></font>
-				</p>
-				<p>
-				<label>업종</label>
-				<form:input class="w3-input" path="industy"/>
-				<font color="red"><form:errors path="industy"/></font>
-				</p>
-				<p>
-				<label>지역</label>
-				<form:input class="w3-input" path="address"/>
-				<font color="red"><form:errors path="address"/></font>		
-				</p>
-				<p>
-				<label>연락처</label>
-				<form:input class="w3-input" path="tel"/>
-				<font color="red"><form:errors path="tel"/></font>
-				</p>			
-				<p>
-				<label>설립일</label>
-				<fmt:formatDate value="${user.birth }" pattern="yyyy-MM-dd" var="builddate"/>
-				<form:input class="w3-input" path="birth" value="${builddate}"/>
-				<font color="red"><form:errors path="birth"/></font>
-				</p>
-				<p>		
-				<label>사업자번호</label>
-				<form:input class="w3-input" path="companyserial"/>
-				<font color="red"><form:errors path="companyserial"/></font>
-				</p>
-				</c:if>
-				<p>
-				<label>비밀번호</label>
-				<form:password class="w3-input" path="password" />
-				<font color="red"><form:errors path="password"/></font>
-				</p>
-				<div class="w3-container">
-					<input type="button" id="btn1" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴">
-					<input type="submit" id="btn2" class="button w3-right" value="수정">
-				</div>
-			</form:form>
+					<p>
+					<label>비밀번호</label>
+					<form:password class="w3-input" path="password" />
+					<font color="red"><form:errors path="password"/></font>
+					</p>
+					<div class="w3-container">
+						<input type="button" id="btn1" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴">
+						<input type="submit" id="btn2" class="button w3-right" value="수정">
+					</div>
+				</form:form>
+			</div>
 		</div>
 	</div>
 </body>

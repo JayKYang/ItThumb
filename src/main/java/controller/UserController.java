@@ -290,7 +290,7 @@ public class UserController {
 			service.deleteUser(id);
 			if (loginUser.getMembergrade()==0) { // 관리자인경우
 				mav.addObject("msg",id+"회원 탈퇴가 완료되었습니다.");
-				mav.addObject("url","mypage/myInfo.jsy?id="+loginUser.getMemberid());
+				mav.addObject("url","mypage/manageuser.jsy");
 				mav.setViewName("alert");
 				return mav;
 			} else { // 일반사용자로 로그인시 삭제 성공

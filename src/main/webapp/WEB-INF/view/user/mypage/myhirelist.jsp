@@ -71,7 +71,7 @@
 					<th>마감일</th>
 					<th>마감상태</th>
 					<th>공고상태</th>
-					<th>항목체크</th>
+					<th></th>
 				</tr>
 				<c:if test="${myhirecount ==0 }">
 					<tr>
@@ -86,7 +86,7 @@
 						<td align="center">${myhire.hireno}</td>
 						<td>${myhire.company}</td>
 						<td><a
-							href="hiredetail.jsy?hireno=${myhire.hireno}&pageNum=${pageNum}">${myhire.subject}</a>
+							href="../../hire/hiredetail.jsy?hireno=${myhire.hireno}&pageNum=${pageNum}">${myhire.subject}</a>
 						</td>
 						<td>${myhire.qualification}</td>
 						<td>${myhire.hirestatus}</td>
