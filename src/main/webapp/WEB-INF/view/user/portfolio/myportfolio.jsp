@@ -77,10 +77,6 @@
 </style>
 </head>
 <style>
-body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Montserrat", sans-serif
-}
-
 .w3-row-padding img {
 	margin-bottom: 12px
 }
@@ -89,10 +85,6 @@ body, h1, h2, h3, h4, h5, h6 {
 	width: 120px;
 	background: #222;
 }
-
-#main {
-	margin-left: 120px
-}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {
 	#main {
@@ -100,13 +92,12 @@ body, h1, h2, h3, h4, h5, h6 {
 	}
 }
 </style>
-<body class="w3-black">
+<body>
+	<a href="#about"></a>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
-	<nav
-		class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
+	<div class="w3-bar w3-small w3-left w3-orange" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about"
-			class="w3-bar-item w3-button w3-padding-large w3-hover-gray"
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"
 			onclick="openPortfolio('about')"> <i
 			class="fa fa-user w3-xxlarge"></i>
 			<p>ABOUT ME</p>
@@ -117,7 +108,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			<p>MY WORK</p>
 		</a>
 		<c:if test="${sessionScope.login.memberid == user.memberid }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray w3-right"
 				onclick="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
 				<i class="fa fa-edit w3-xxlarge"></i>
 				<p>EDIT</p>
@@ -148,12 +139,17 @@ body, h1, h2, h3, h4, h5, h6 {
 			</a>
 			</c:if>
 		</c:if>
-	</nav>
+	</div>
 
 	<!-- Page Content -->
 	<!-- Header/Home -->
 	<div class="portfoliopage w3-content w3-container w3-animate-left"
 		id="about">
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-orange w3-xxlarge">포트폴리오</span>
+			</p>
+		</div>
 		<h3 class="w3-center">
 			<a class="w3-xxxlarge">${user.slogun }</a>
 		</h3>
@@ -210,8 +206,10 @@ body, h1, h2, h3, h4, h5, h6 {
 						href="http://${user.site }">${user.site }</a></td>
 				</tr>
 			</table>
+			<c:if test="${!status.last }">
+				<hr style="height: 2px; background: orange;">
+			</c:if>
 		</div>
-		<hr>
 		<c:if test="${!empty user.historyList }">
 		<div class="w3-row">
 			<div class="w3-container w3-half"
@@ -268,83 +266,151 @@ body, h1, h2, h3, h4, h5, h6 {
 		</c:if>
 	</div>
 
-	<div class="portfoliopage w3-content w3-container w3-animate-left" id="project" style="display: none">
-		<c:if test="${!empty projectList }">
-			<h3 class="w3-center">
-				<a class="w3-xxxlarge">프로젝트</a>
-			</h3>
-		</c:if>
+	<div class="w3-center">
+		<p style="margin-top:5%;">
+			<span class="w3-content w3-text-orange w3-xxlarge w3-padding-32">프로젝트</span>
+		</p>
+	</div>
+	<div class="portfoliopage w3-container w3-animate-right" id="project" style="display: none; margin-left:20%;margin-right:20%;">
 		<c:if test="${empty projectList }">
+			<img src="../../mainimg/logo.png" style="width:50%; margin-left:15%;">
 			<h3 class="w3-center">
-				<a class="w3-xxxlarge">작성된 프로젝트가 없습니다.</a><br>
-				<%-- <button onclick="javascript:location.href='projectform.jsy?id=${sessionScope.login.memberid }'">작성하기</button> --%>
+				<span class="w3-large">현재 작성된 프로젝트가 없습니다.<br>
+				다음에 <a class="w3-text-indigo w3-xlarge"><b>${user.name }</b></a>님의 포트폴리오를 다시 방문해주세요.
+				</span><br>
 			</h3>
 		</c:if>
-		<c:forEach items="${projectList }" var="project">
-			<table style="width:100%;" cellspacing="0" cellpadding="0">
-				<tr>
-					<td style="width: 10%; border-right:1px solid black;border-top:1px solid black;" align="right"><h4>프로젝트 명</h4></td>
-					<td style="width: 58%; border-top:1px solid black;">${project.subject }</td>
-				</tr>
-				<c:if test="${!empty project.term }">
+		<c:forEach items="${projectList }" var="project" varStatus="status">
+		<div class="w3-row" style="width:100%;">
+			<c:if test="${status.index % 2 == 0 }">
+			<div class="w3-half" style="width:40%;">
+				<c:if test="${empty project.imagefileUrl }">
+					<img id="profilephoto" style="width: 100%;" src="../../photo/defaultphoto.png">
+				</c:if> 
+				<c:if test="${!empty project.imagefileUrl }">
+					<img id="profilephoto" style="width: 50%;" src="../../projectimg/${project.imagefileUrl }">
+				</c:if> 
+				<input type="file" name="imagefile" id="imagefile" style="display: none" />
+			</div>
+			<div class="w3-half">
+				<table class="w3-table">
 					<tr>
-						<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>프로젝트 기간</h4></td>
-						<td style="border-top:1px solid black;">${project.term }</td>
+						<td style="width:30%;">
+							<span class="w3-xxlarge w3-text-orange">
+								<c:if test="${status.count < 10}">
+								0
+								</c:if>
+								${status.count }
+							</span>
+						</td>
+						<td>${project.subject }</td>
 					</tr>
+					<c:if test="${!empty project.term }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">프로젝트 기간</a></td>
+							<td>${project.term }</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty project.skills }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">사용 기술</a></td>
+							<td>${project.skills }</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty project.role }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">맡은 역할</a></td>
+							<td>${project.role }</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty project.link }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">프로젝트 링크</a></td>
+							<td><a href="${project.link }">${project.link }</a></td>
+						</tr>
+					</c:if>
+				</table>
+			</div>
+			<div class="w3-container">
+				<table>
+					<tr><td colspan="2"><a class="w3-text-orange w3-large">내용</a></td></tr>
+					<c:if test="${!empty project.content }">
+						<tr>
+							<td colspan="2"><a class="w3-large" style="padding:10%">${project.content }</a></td>
+						</tr>
+					</c:if>
+				</table>
+				<c:if test="${!status.last }">
+					<hr style="height: 2px; background: orange;">
 				</c:if>
-				<tr>
-					<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>사용 기술</h4></td>
-					<td style="border-top:1px solid black;">${project.skills }</td>
-				</tr>
-				<c:if test="${!empty project.role }">
+			</div>
+			</c:if>
+			<c:if test="${status.index % 2 != 0 }">
+			<div class="w3-half">
+				<table class="w3-table">
 					<tr>
-						<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>맡은 역할</h4></td>
-						<td style="border-top:1px solid black;">${project.role }</td>
+						<td style="width:30%;">
+							<span class="w3-xxlarge w3-text-orange">
+								<c:if test="${status.count < 10}">
+								0
+								</c:if>
+								${status.count }
+							</span>
+						</td>
+						<td>${project.subject }</td>
 					</tr>
+					<c:if test="${!empty project.term }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">프로젝트 기간</a></td>
+							<td>${project.term }</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty project.skills }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">사용 기술</a></td>
+							<td>${project.skills }</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty project.role }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">맡은 역할</a></td>
+							<td>${project.role }</td>
+						</tr>
+					</c:if>
+					<c:if test="${!empty project.link }">
+						<tr>
+							<td align="right"><a class="w3-text-orange w3-large">프로젝트 링크</a></td>
+							<td><a href="${project.link }">${project.link }</a></td>
+						</tr>
+					</c:if>
+				</table>
+			</div>
+			<div class="w3-half" style="width:40%;">
+				<c:if test="${empty project.imagefileUrl }">
+					<img id="profilephoto" style="width: 100%;" src="../../photo/defaultphoto.png">
+				</c:if> 
+				<c:if test="${!empty project.imagefileUrl }">
+					<img id="profilephoto" style="width: 50%;" src="../../projectimg/${project.imagefileUrl }">
+				</c:if> 
+				<input type="file" name="imagefile" id="imagefile" style="display: none" />
+			</div>
+			<div class="w3-container">
+				<table>
+					<tr><td colspan="2"><a class="w3-text-orange w3-large">내용</a></td></tr>
+					<c:if test="${!empty project.content }">
+						<tr>
+							<td colspan="2"><a class="w3-large" style="padding:10%">${project.content }</a></td>
+						</tr>
+					</c:if>
+				</table>
+				<c:if test="${!status.last }">
+					<hr style="height: 2px; background: orange;">
 				</c:if>
-				<c:if test="${!empty project.link }">
-					<tr>
-						<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>프로젝트 링크</h4></td>
-						<td style="border-top:1px solid black;"><a href="${project.link }">${project.link }</a></td>
-					</tr>
-				</c:if>
-				<tr>
-					<td align="right" style="border-right:1px solid black;border-top:1px solid black;"><h4>대표 사진</h4></td>
-					<td colspan="2" align="center" style="border-top:1px solid black;"><c:if
-							test="${empty project.imagefileUrl }">
-							<img id="profilephoto" style="width: 15%;"
-								src="../../photo/defaultphoto.png">
-						</c:if> <c:if test="${!empty project.imagefileUrl }">
-							<img id="profilephoto" style="width: 50%;"
-								src="../../projectimg/${project.imagefileUrl }">
-						</c:if> <input type="file" name="imagefile" id="imagefile"
-						style="display: none" /></td>
-				</tr>
-				<tr>
-					<td colspan="3" align="center" style="border-bottom:1px solid black; border-top:1px solid black;"><h4>내용</h4></td>
-				</tr>
-				<tr>
-					<td colspan="3">${project.content }</td>
-				</tr>
-			</table>
-			<hr>
+			</div>
+			</c:if>
+			
+		</div>	
 		</c:forEach>
 	</div>
-
-	<!-- Footer -->
-	<!--   
-  <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-  End footer
-  </footer> -->
-
-	<!-- END PAGE CONTENT -->
-
 </body>
 </html>

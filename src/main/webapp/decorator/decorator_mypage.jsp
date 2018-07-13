@@ -112,7 +112,7 @@ function find_password(url) {
 				<div class="w3-dropdown-content w3-bar-block w3-light-gray" style="width:200px;">
 					<a href="managestudy.jsy?smkind=1" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;">
 						참여 신청한 스터디
-					</a> 
+					</a>
 					<a href="managestudy.jsy?smkind=2" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;"> 
 						스크랩한 스터디
 					</a>

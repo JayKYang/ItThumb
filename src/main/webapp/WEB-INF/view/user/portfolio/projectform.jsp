@@ -141,7 +141,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<td>맡은 역할</td><td><form:input path="role" class="w3-input" type="text" placeholder="ex) 프로젝트 기획, DB설계 ...."/></td>
 				</tr>
 				<tr>
-					<td>프로젝트 링크</td><td><form:input path="link" class="w3-input" type="text" placeholder="http://"/></td>
+					<td>프로젝트 링크</td><td><form:input path="link" class="w3-input" type="text" placeholder="http:// (깃허브,해당사이트,블로그 등..)"/></td>
 				</tr>
 				<tr>
 					<td>대표 사진</td>

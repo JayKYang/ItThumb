@@ -459,6 +459,7 @@ function hirelist(pageNum){
 		<tr>
 		<td align="right" colspan="8">
 			<a href="hirewrite.jsy">WRITE</a>
+			<a href="companyDetailwrite.jsy">DETAIL WRITE</a>
 		</td>
 	</tr>
 </table>
