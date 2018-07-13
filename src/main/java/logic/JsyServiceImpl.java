@@ -780,4 +780,9 @@ public class JsyServiceImpl implements JsyService{
 		return studyGroupDao.studygroupAOP(studyno);
 	}
 
+	@Override
+	public Hire selectHire(int hireno) {
+		return boardDao.selectHire(hireno);
+	}
+
 }
