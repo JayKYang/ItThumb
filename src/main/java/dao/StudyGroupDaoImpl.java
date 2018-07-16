@@ -75,4 +75,9 @@ public class StudyGroupDaoImpl implements StudyGroupDao{
 		param.put("studyno", studyno);
 		return sqlSession.selectList(NS+"studygroupAOP", param);
 	}
+	@Override
+	public void studyGroupLeaderSet(StudyGroup sg) {
+		sqlSession.getMapper(StudyGroupMapper.class).studyGroupLeaderSet(sg);
+		
+	}
 }

@@ -3,9 +3,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
-	//FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
-    //FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
-    FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
+FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
+/* FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");	 */									
+//FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
    BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
    String line = null;
    br.readLine();
@@ -143,7 +143,7 @@ sies = new Array(
 					<h5>제목</h5>
 				</td>
 				<td colspan="3">
-					<form:input path="subject" value="${hire.content}"/><font color="orange"><form:errors path="subject" /></font>
+					<form:input path="subject" value="${hire.subject}"/><font color="orange"><form:errors path="subject" /></font>
 				</td>
 			</tr>
 			<tr>

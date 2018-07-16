@@ -26,6 +26,51 @@
 		return false;
 	}
 </script>
+<style>
+	.button{
+		width:60px;
+		height:30px;
+	}
+   	.button {
+	  border-radius: 4px;
+	  background-color: skyblue;
+	  border: none;
+	  color: #FFFFFF;
+	  text-align: center;
+	  font-size: 18px;
+	  padding: 5px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	}
+	.button:hover {
+	  background-color: pink;
+	}
+	
+	.button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+	
+	.button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+	
+	.button:hover span {
+	  padding-right: 25px;
+	}
+	
+	.button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+</style>
 </head>
 
 <body>
@@ -33,21 +78,21 @@
 		<c:if test="${smkind==1}">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">참여 신청한 스터디</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">참여 신청한 스터디</span>
 			</p>
 		</div>
 		</c:if>
 		<c:if test="${smkind==2}">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">스크랩한 스터디</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">스크랩한 스터디</span>
 			</p>
 		</div>
 		</c:if>
 		<c:if test="${smkind==3}">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">내가 만든 스터디</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">내가 만든 스터디</span>
 			</p>
 		</div>
 		</c:if>
@@ -55,23 +100,23 @@
 		<c:if test="${smkind==1}">
 			<table class="w3-table w3-bordered">
 				<tr>
-				<th align="center">순서</th>
-				<th align="center">스터디 이름</th>
-				<th align="center">현재인원/최대인원</th>
-				<th align="center">작성일</th>
-				<th align="center">수락 상태</th>
+				<th style="text-align:center;">순서</th>
+				<th style="text-align:center;">스터디 이름</th>
+				<th style="text-align:center;">가능인원</th>
+				<th style="text-align:center;">작성일</th>
+				<th style="text-align:center;">수락 상태</th>
 				</tr>
 				<c:if test="${empty studylist}">
 					<tr>
-					<td colspan="5">참여 신청한 스터디가 없습니다.</td>
+					<td colspan="5" style="text-align:center;">참여 신청한 스터디가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var="study" items="${studylist}">
 				<tr>
-					<td align="center">${studynum}</td>
+					<td style="text-align:center;">${studynum}</td>
 					<c:set var="studynum" value="${studynum - 1 }"></c:set>
 					<c:set var="subjectText" value="${study.studyname}"/>
-					<td align="center">
+					<td style="text-align:center;">
 						<c:if test="${study.state==2}">
 							<a href="myStudyInfo.jsy?smkind=${smkind}&studyno=${study.studyno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
 						</c:if>
@@ -80,20 +125,26 @@
 							<a href="../../study/studyInfo.jsy?smkind=${smkind}&studyno=${study.studyno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
 						</c:if>
 					</td>
-					<td align="center">
+					<td style="text-align:center;">
 						${study.nowmember} / <c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if> 
 					</td>
 					<fmt:formatDate value="${study.regdate}" pattern="yyyy-MM-dd" var="regnow" />
-					<td align="center">${regnow}</td>
-					<td>
+					<td style="text-align:center;">${regnow}</td>
+					<td style="text-align:center;">
 						<c:if test="${study.state==0}">
-							대기
+							<div class="w3-tag w3-round w3-gray w3-border w3-border-white" style="width:60px;">
+								<font style="color: white;">대기</font>
+							</div>
 						</c:if>
 						<c:if test="${study.state==1}">
-							거절
+							<div class="w3-tag w3-round w3-red w3-border w3-border-white" style="width:60px;">
+										<font style="color: white;">거절</font>
+							</div>
 						</c:if>
 						<c:if test="${study.state==2}">
-							수락
+							<div class="w3-tag w3-round w3-green w3-border w3-border-white" style="width:60px;">
+										<font style="color: white;">승인</font>
+							</div>
 						</c:if>
 					</td>
 				</tr>
@@ -103,29 +154,29 @@
 		<c:if test="${smkind==2}">
 			<table class="w3-table w3-bordered">
 				<tr>
-				<th align="center">순서</th>
-				<th align="center">스터디 이름</th>
-				<th align="center">현재인원/최대인원</th>
-				<th align="center">작성일</th>
+				<th style="text-align:center;">순서</th>
+				<th style="text-align:center;">스터디 이름</th>
+				<th style="text-align:center;">가능인원</th>
+				<th style="text-align:center;">작성일</th>
 				</tr>
 				<c:if test="${empty studylist}">
 					<tr>
-					<td colspan="4">스크랩한 스터디가 없습니다.</td>
+					<td colspan="4" style="text-align:center;">스크랩한 스터디가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var="study" items="${studylist}">
 				<tr>
-					<td align="center">${studynum}</td>
+					<td style="text-align:center;">${studynum}</td>
 					<c:set var="studynum" value="${studynum - 1 }"></c:set>
 					<c:set var="subjectText" value="${study.studyname}"/>
-					<td align="center">
+					<td style="text-align:center;">
 						<a href="../../study/studyInfo.jsy?smkind=${smkind}&studyno=${study.studyno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
 					</td>
-					<td align="center">
+					<td style="text-align:center;">
 						${study.nowmember} / <c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if> 
 					</td>
 					<fmt:formatDate value="${study.regdate}" pattern="yyyy-MM-dd" var="regnow" />
-					<td align="center">${regnow}</td>
+					<td style="text-align:center;">${regnow}</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -133,29 +184,29 @@
 		<c:if test="${smkind==3}">
 			<table class="w3-table w3-bordered">
 				<tr>
-				<th align="center">순서</th>
-				<th align="center">스터디 이름</th>
-				<th align="center">현재인원/최대인원</th>
-				<th align="center">작성일</th>
+				<th style="text-align:center;">순서</th>
+				<th style="text-align:center;">스터디 이름</th>
+				<th style="text-align:center;">가능인원</th>
+				<th style="text-align:center;">작성일</th>
 				</tr>
 				<c:if test="${empty studylist}">
 					<tr>
-					<td colspan="4">만든 스터디가 없습니다.</td>
+					<td colspan="4" style="text-align:center;">만든 스터디가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach var="study" items="${studylist}">
 				<tr>
-					<td align="center">${studynum}</td>
+					<td style="text-align:center;">${studynum}</td>
 					<c:set var="studynum" value="${studynum - 1 }"></c:set>
 					<c:set var="subjectText" value="${study.studyname}"/>
-					<td align="center">
+					<td style="text-align:center;">
 						<a href="myMkStudy.jsy?smkind=${smkind}&studyno=${study.studyno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}<c:if test="${fn:length(subjectText)>10}">...</c:if></a>
 					</td>
-					<td align="center">
+					<td style="text-align:center;">
 						${study.nowmember} / <c:if test="${study.limitmember==100}">∞</c:if><c:if test="${study.limitmember!=100}">${study.limitmember}</c:if> 
 					</td>
 					<fmt:formatDate value="${study.regdate}" pattern="yyyy-MM-dd" var="regnow" />
-					<td align="center">${regnow}</td>
+					<td style="text-align:center;">${regnow}</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -202,8 +253,8 @@
 					document.getElementById("searchType").value = '${param.searchType}'
 				}
 			</script> 
-			<input type="text" name="searchContent" value="${param.searchContent }"> 
-			<input type="submit" value="검색">
+			<input type="text" name="searchContent" value="${param.searchContent }">&nbsp;
+			<input type="submit" class="button w3-right" value="검색">
 		</span>
 	</form>
 	</div>

@@ -64,8 +64,8 @@
 	}
 </style>
 </head>
-<body style="margin-top:20%; margin-bottom:20%;">
-<div class="w3-content w3-padding-64">
+<body>
+<div class="w3-content w3-padding-64" style="margin-bottom:20%;">
 	<div>
 		<p>
 			<span class="w3-content w3-text-indigo w3-xxlarge">로그인</span>

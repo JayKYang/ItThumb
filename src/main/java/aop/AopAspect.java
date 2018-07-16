@@ -277,6 +277,7 @@ public class AopAspect {
 
 		int studyno = (int) joinPoint.getArgs()[1];
 		sg = service.studygroupAOP(studyno);
+		System.out.println(sg);
 		for (StudyGroup a : sg) {
 			if (a.getLeadermember().equals(login.getMemberid())) {
 				id = a.getLeadermember();

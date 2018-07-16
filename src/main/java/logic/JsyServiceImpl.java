@@ -786,6 +786,7 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
+
 	public void companyDetailwrite(CompanyInfo companyInfo) {
 		
 		int maxNum = boardDao.companyInfoMaxNum();
@@ -821,6 +822,10 @@ public class JsyServiceImpl implements JsyService{
 	@Override
 	public void companyInfoUpdate(CompanyInfo companyinfo) {
 		boardDao.companyInfoUpdate(companyinfo);
+		
+	}
+	public void studyGroupLeaderSet(StudyGroup sg) {
+		studyGroupDao.studyGroupLeaderSet(sg);
 		
 	}
 

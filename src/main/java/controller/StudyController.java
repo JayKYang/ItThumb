@@ -84,9 +84,18 @@ public class StudyController {
 		
 		//스터디번호
 		try {
-			int max = service.studyMaxNum();
-			study.setStudyno(max+1);
+			int max = service.studyMaxNum()+1;
+			study.setStudyno(max);
 			service.studyWrite(study);
+			
+			//studygroup leader 등록
+			StudyGroup sg = new StudyGroup();
+			sg.setGroupno(service.studyGroupMaxNum()+1);
+			sg.setStudyno(max);
+			sg.setLeadermember(memberid);
+			sg.setState(4); // state : 4 리더
+			service.studyGroupLeaderSet(sg);
+			
 			mav.addObject("msg","등록 성공");
 			mav.addObject("url","studySearchList.jsy");
 			mav.setViewName("alert");

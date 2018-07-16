@@ -80,44 +80,70 @@
  	   /* alert(orgFile.value); 이벤트 처리가 끝나지 않은 타이밍이라 값 확인 안됨! 시간차 문제 */
  	  }
 </script>
-</head>
-<style>
-body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Montserrat", sans-serif
-}
-
-.w3-row-padding img {
-	margin-bottom: 12px
-}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {
-	width: 120px;
-	background: #222;
-}
-
-#main {
-	margin-left: 120px
-}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {
-	#main {
-		margin-left: 0
+<script>
+	function pfsubmit(){
+		
+		
+		document.f.submit();
 	}
+</script>
+<style>
+button {
+  border-radius: 4px;
+  background-color: orange;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover {
+  background-color: #ffe4b3;
+}
+
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
+}
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 </style>
-<body class="w3-black">
+</head>
+<body>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
+	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;" onclick="openPortfolio('about')">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
-		<a href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid }#project'" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('project')">
+		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;" onclick="openPortfolio('project')">
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
-	</nav>
+	</div>
 	<!-- Page Content -->
 	<!-- Header/Home -->
 
@@ -141,7 +167,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					<td>맡은 역할</td><td><form:input path="role" class="w3-input" type="text" placeholder="ex) 프로젝트 기획, DB설계 ...."/></td>
 				</tr>
 				<tr>
-					<td>프로젝트 링크</td><td><form:input path="link" class="w3-input" type="text" placeholder="http://"/></td>
+					<td>프로젝트 링크</td><td><form:input path="link" class="w3-input" type="text" placeholder="http:// (깃허브,해당사이트,블로그 등..)"/></td>
 				</tr>
 				<tr>
 					<td>대표 사진</td>
@@ -168,7 +194,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			</form:form>
 			<table style="width: 98%">
 				<tr>
-					<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</a></td>
+					<td colspan="3" align="right"><button id="savebutton" class="w3-xlarge" onclick="javascript:pfsubmit();"><i class="fa fa-floppy-o"></i>&nbsp;저장하기</button></td>
 				</tr>
 			</table>
 		</div>

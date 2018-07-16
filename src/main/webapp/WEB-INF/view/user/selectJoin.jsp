@@ -67,7 +67,7 @@
 			</p>
 		</div>
 		<hr>
-		<div class="w3-content" style="margin-left:15%;">
+		<div class="w3-content" style="margin-left:15%;margin-bottom:200px;">
 			<div class="w3-content w3-half">
 				<button id="joinbtn" onclick="location.href='joinForm.jsy?kind=1'">일반 사용자</button><br>
 				<ul>

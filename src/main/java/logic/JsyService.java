@@ -244,6 +244,7 @@ public interface JsyService {
 
 	Hire selectHire(int hireno);
 
+
 	void companyDetailwrite(CompanyInfo companyInfo);
 
 	void insertCompanyHistory(Companyhistory ch);
@@ -253,6 +254,9 @@ public interface JsyService {
 	List<Companyhistory> getCompanyHistorylist(String memberid);
 
 	void companyInfoUpdate(CompanyInfo companyinfo);
+
+	void studyGroupLeaderSet(StudyGroup sg);
+
 
 
 }

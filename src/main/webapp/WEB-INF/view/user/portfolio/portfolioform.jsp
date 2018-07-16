@@ -113,21 +113,6 @@
 				alert('이전 작업이 완료되지 않았습니다.');
 			}
 		}
-		/* else{ // projectform
-			inputtext='<h3>프로젝트</h3><input id="chk_'+addedFormDiv.id +'_'+ count4 + '" type="checkbox" style="display:none"><hr>';
-			
-			if( $("#chk_"+addedFormDiv.id+"_"+(count4-1)).length == 0 || $("#chk_"+addedFormDiv.id+"_"+(count4-1)).attr('checked') == 'checked' ){
-				var addedDiv = document.createElement("div");
-				addedDiv.setAttribute("id", addedFormDiv.id + "_" + count4);
-				addedDiv.innerHTML = inputtext;		
-				addedFormDiv.appendChild(addedDiv);		
-				count4++;			
-			}
-			else{
-				alert('이전 작업이 완료되지 않았습니다.');
-			}
-		} */
-		
 	}
 	
 	// Insert Experience
@@ -183,8 +168,7 @@
 						
 					}
 		        },error:function(request,status,error){
-		        	//alert('실패');
-		            // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
+		            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
 		        }
 		    });
 		}
@@ -201,7 +185,6 @@
 		// data checked상태. -> db제거 후 form 제거
 		if( $("#chk_"+id2[0]+"_"+id2[1]).attr('checked') == 'checked' ){
 			deleteFormDiv = document.getElementById(id2[0].slice(0,-1));
-			//alert('db제거작업');
 			  $.ajax({
 		        url : "deleteExperience.jsy",
 		        type : "POST",
@@ -253,6 +236,56 @@
  	   /* alert(orgFile.value); 이벤트 처리가 끝나지 않은 타이밍이라 값 확인 안됨! 시간차 문제 */
  	  }
 </script>
+<script>
+	function pfsubmit(){
+		
+		
+		document.f.submit();
+	}
+</script>
+<style>
+button {
+  border-radius: 4px;
+  background-color: orange;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover {
+  background-color: #ffe4b3;
+}
+
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
+}
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 </head>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
@@ -279,15 +312,14 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 </style>
 <body class="w3-black">
-	<a href="#about"></a>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
-	<div class="w3-bar w3-small w3-left w3-indigo" style="width:100%;">
+	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;" onclick="openPortfolio('about')">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
-		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('project')">
+		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;" onclick="openPortfolio('project')">
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
@@ -295,6 +327,11 @@ body, h1, h2, h3, h4, h5, h6 {
 	<!-- Page Content -->
 	<!-- Header/Home -->
 	<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-orange w3-xxlarge">포트폴리오</span>
+			</p>
+		</div>
 		<form:form modelAttribute="user" action="updateAboutMe.jsy" method="post" enctype="multipart/form-data" name="f">
 		<input type="hidden" value="${sessionScope.login.memberid}" name="id">
 		<div class="w3-content w3-container w3-padding-32">
@@ -456,7 +493,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</div>
 		<table style="width: 98%">
 				<tr>
-					<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</a></td>
+					<td colspan="3" align="right"><button id="savebutton" class="w3-xlarge" onclick="javascript:pfsubmit();"><i class="fa fa-floppy-o"></i>&nbsp;저장하기</button></td>
 				</tr>
 		</table>
 		</form:form>
@@ -465,20 +502,32 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
 	<div class="portfoliopage w3-content w3-container w3-animate-right" id="project" style="display: none">
-		<h3 class="w3-center">
-			<a class="w3-xxxlarge">프로젝트</a>
-		</h3>
+		<div class="w3-center">
+			<p>
+				<span class="w3-content w3-text-orange w3-xxlarge">프로젝트</span>
+			</p>
+		</div>
 		<div class="w3-content w3-container w3-padding-32 w3-center">
-				<table style="width:70%;" class="">
-					<tr><th>제목</th><th></th></tr>
-			<c:if test="${!empty projectList }">
-					<c:forEach items="${projectList }" var="project">
-						<tr><td>${project.subject }</td><td><a href="projectform.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">수정</a>
-						<a href="deleteproject.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">삭제</a></td></tr>
-					</c:forEach>
-			</c:if>
-					<tr><td colspan="2" align="center"><a href="projectform.jsy?id=${sessionScope.login.memberid }">글쓰기</a></td></tr>
-				</table>
+			<table class="w3-table w3-bordered">
+				<tr><th style="width:10%">순서</th><th style="width:40%">대표사진</th><th style="width:40%">제목</th><th style="width:10%;"></th></tr>
+				<c:if test="${!empty projectList }">
+						<c:forEach items="${projectList }" var="project" varStatus="status">
+							<tr><td>${status.count }</td><td><img src="../../projectimg/${project.imagefileUrl }" style="width:30%"></td><td>${project.subject }</td><td><a href="projectform.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">수정</a>
+							<a href="deleteproject.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">삭제</a></td></tr>
+						</c:forEach>
+				</c:if>
+				<c:if test="${empty projectList }">
+					<tr>
+						<td colspan="4">프로젝트가 존재하지 않습니다.</td>
+					</tr>
+				</c:if>
+			</table>
+		</div>
+		<div class="w3-right">
+			<button onclick="location.href='projectform.jsy?id=${sessionScope.login.memberid }'">프로젝트 추가</button>
+		</div>
+		<div class="w3-center">
+			<img src="../../mainimg/project.jpg" style="margin-top:5%; opacity:0.65; width:900px; height:400px;">
 		</div>
 	</div>
 </body>

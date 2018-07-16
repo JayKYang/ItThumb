@@ -96,11 +96,16 @@ public class BoardController {
 			List popDatelist = new ArrayList();
 			int popListcount = service.popBoardcount();
 			int popLimit = 10;
-			List<Hire> popBoardlist = service.popHirelist(popLimit); // 인기 공고 게시물 4건
-
-			for(int i=0; i<popBoardlist.size(); i++) {
+			List<Hire> popBoardlist2 = service.popHirelist(4);
+			List<Hire> popBoardlist = new ArrayList<Hire>();
+			for(Hire h : popBoardlist2) {
+				User user = service.getUser(h.getMemberid());
+				h.setUser(user);
+				popBoardlist.add(h);
+			}
+			for(int i=0; i<popBoardlist2.size(); i++) {
 				strDate = formatter.format(date);
-				strEndDate = formatter.format(popBoardlist.get(i).getDeadline());
+				strEndDate = formatter.format(popBoardlist2.get(i).getDeadline());
 				beginDate = formatter.parse(strDate);
 				endDate = formatter.parse(strEndDate);
 			    diff = endDate.getTime() - beginDate.getTime();
@@ -134,6 +139,7 @@ public class BoardController {
 			
 			if(endpage > maxpage) endpage = maxpage;
 			int boardcnt = listcount - (pageNum -1) * limit;
+			
 			
 			mav.addObject("popDatelist", popDatelist);
 			mav.addObject("datelist",datelist);
@@ -220,6 +226,7 @@ public class BoardController {
 			service.readCntplus(hireno);
 		}
 		User user = service.getUser(hire.getMemberid());
+		
 		mav.addObject("user",user);
 		mav.addObject("hire", hire);
 		
@@ -300,6 +307,7 @@ public class BoardController {
 		try {
 			hire = service.getHire(hireno,searchType,searchContent);
 			user = service.getUser(memberid);
+			System.out.println(hire);
 			mav.addObject("hire",hire);
 			mav.addObject("user",user);
 			mav.addObject("pageNum",pageNum);
@@ -343,7 +351,7 @@ public class BoardController {
 		try {
 			
 			service.hireUpdate(hire,request);
-			mav.setViewName("redirect:myhirelist.jsy");
+			mav.setViewName("redirect:../user/mypage/myhirelist.jsy");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -502,7 +510,11 @@ public class BoardController {
 		} else {
 			
 			mav.addObject("msg","기업회원이 아닙니다.");
+
 			mav.addObject("url","hire/hirelist.jsy?pageNum="+pageNum);
+
+			/*mav.addObject("url","hirelist.jsy");*/
+
 			mav.setViewName("alert");
 		}
 		

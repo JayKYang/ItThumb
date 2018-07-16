@@ -54,7 +54,7 @@ function find_password(url) {
   	</div>
     <!-- Right-sided navbar links. Hide them on small screens -->
     <div class="w3-left w3-bar-item">
-		<a href="${path }/hire/hirelist.jsy" class="w3-bar-item  w3-hover-text-red w3-xlarge" style="padding-top:5%;text-decoration:none;">채용공고</a>
+		<a href="${path }/hire/hirelist.jsy" class="dropdown w3-bar-item  w3-hover-text-indigo w3-xlarge" style="padding-top:5%;text-decoration:none;">채용공고</a>
 		<c:if test="${sessionScope.login.membergrade=='1'}">
 	    	<a class="w3-bar-item  w3-hover-text-orange w3-xlarge" href="${path }/user/portfolio/myportfolio.jsy?id=${sessionScope.login.memberid}" style="padding-top:5%;text-decoration:none;">내 포트폴리오</a>
 	  	</c:if>
@@ -82,7 +82,7 @@ function find_password(url) {
   </div>
 </div>
 <!-- Page content -->
-<div class="w3-container" style="width:100%;margin-top:125px;">
+<div style="width:100%;margin-top:125px;">
 	<decorator:body></decorator:body>
 </div>
 
