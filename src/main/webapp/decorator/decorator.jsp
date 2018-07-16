@@ -82,7 +82,7 @@ function find_password(url) {
   </div>
 </div>
 <!-- Page content -->
-<div class="w3-container" style="width:100%;margin-top:125px;">
+<div style="width:100%;margin-top:125px;">
 	<decorator:body></decorator:body>
 </div>
 
