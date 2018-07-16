@@ -69,164 +69,231 @@
 }
 
 .scale:hover {
-	-webkit-transform: scale(4);
-	-moz-transform: scale(4);
-	-ms-transform: scale(4);
-	-o-transform: scale(4);
-	transform: scale(4);
+	-webkit-transform: scale(5);
+	-moz-transform: scale(5);
+	-ms-transform: scale(5);
+	-o-transform: scale(5);
+	transform: scale(5);
+}
+.button {
+	width: 60px;
+	height: 30px;
+}
+
+.button {
+	border-radius: 4px;
+	background-color: skyblue;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+	padding: 5px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: pink;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
 }
 </style>
 </head>
-
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-</style>
-
-<body class="w3-black">
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
-		<a href="comList.jsy?communitykind=1" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
-		<i class="fa fa-clipboard w3-xxlarge"></i>
+<body>
+	<div class="w3-bar w3-small w3-left w3-amber" style="width: 100%;">
+		<a href="comList.jsy?communitykind=1"
+			class="w3-bar-item w3-button w3-padding-large w3-hover-yellow"> <i
+			class="fa fa-clipboard w3-xxlarge"></i>
 			<p>자유 게시판</p>
-		</a> 
-		<a href="comList.jsy?communitykind=2" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"> 
-		<i class="fa fa-question-circle-o w3-xxlarge"></i>
+		</a> <a href="comList.jsy?communitykind=2"
+			class="w3-bar-item w3-button w3-padding-large w3-hover-yellow"> <i
+			class="fa fa-question-circle-o w3-xxlarge"></i>
 			<p>Q & A</p>
 		</a>
-		<c:if test="${!empty sessionScope.login}"> 
-			<a href="comList.jsy?communitykind=3" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"> 
-			<i class=" fa fa-edit w3-xxlarge"></i>
+		<c:if test="${!empty sessionScope.login}">
+			<a href="comList.jsy?communitykind=3"
+				class="w3-bar-item w3-button w3-padding-large w3-hover-yellow">
+				<i class=" fa fa-edit w3-xxlarge"></i>
 				<p>내가 쓴 글</p>
 			</a>
 		</c:if>
-	</nav>
-<div id="main">
-	<form:form name="f" modelAttribute="community">
-		<table class="w3-table w3-bordered" style="width: 1500px;">
-			<c:if test="${communitykind==1}">
-            	<caption>자유게시판</caption>
-            </c:if>
-            <c:if test="${communitykind==2}">
-            	<caption>Q & A</caption>
-            </c:if>
-			<tr>
-				<th>제 목</th>
-			</tr>
-			<tr>
-				<td>${community.subject}</td>
-			</tr>
-			<tr>
-				<th>내 용</th>
-			</tr>
-			<tr>
-				<td>${community.content}</td>
-			</tr>
-			<tr>
-				<th>첨 부 파 일</th>
-			</tr>
-			<tr>
-				<c:if test="${empty fileList }">
-					<td>첨부파일이 없습니다.</td>
+	</div>
+	<div id="main" class="w3-content w3-container">
+		<form:form name="f" modelAttribute="community">
+			<table class="board_view" style="width: 100%;">
+				<c:if test="${communitykind==1}">
+					<div class="w3-center" style="width: 100%;">
+						<p>
+							<span class="w3-content w3-text-amber w3-xxlarge">자유게시판</span>
+						</p>
+					</div>
 				</c:if>
-				<c:if test="${!empty fileList}">
-					<td>
-					<c:forEach var="files" items="${fileList}" varStatus="status">
-						<img class="scale" src="../comfiles/${files.fname}" style="height:50px; width:50px;" alt="이미지 파일이 아닙니다.">&nbsp;&nbsp;&nbsp;<a href="../comfiles/${files.fname}" download>다운로드</a>&nbsp;&nbsp;&nbsp;
+				<c:if test="${communitykind==2}">
+					<div class="w3-center" style="width: 100%;">
+						<p>
+							<span class="w3-content w3-text-amber w3-xxlarge">Q & A</span>
+						</p>
+					</div>
+				</c:if>
+				<tr>
+					<th style="text-align: left; font-size: 30px">제 목</th>
+				</tr>
+				<tr>
+					<td style="border-bottom: 1px solid orange;">${community.subject}<br><br></td>
+				</tr>
+				<tr>
+					<th style="text-align: left; font-size: 30px">내 용</th>
+				</tr>
+				<tr>
+					<td style="border-bottom: 1px solid orange;">${community.content}<br><br></td>
+				</tr>
+				<tr>
+					<th style="text-align: left; font-size: 30px">첨 부 파 일</th>
+				</tr>
+				<tr>
+					<c:if test="${empty fileList }">
+						<td style="text-align: center;">첨부파일이 없습니다.</td>
+					</c:if>
+					<c:if test="${!empty fileList}">
+						<td style="border-bottom: 1px solid orange;"><c:forEach var="files" items="${fileList}"
+								varStatus="status">
+								<img class="scale" src="../comfiles/${files.fname}"
+									style="height: 50px; width: 50px;" alt="이미지 파일이 아닙니다.">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+									href="../comfiles/${files.fname}" download>다운로드</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<c:if test="${status.count%5==0}">
-							<br>
-						</c:if>
-					</c:forEach>
-					</td>
+									<br>
+								</c:if>
+							</c:forEach><br><br></td>
+					</c:if>
+				</tr>
+			</table>
+			<div class="w3-right" style="margin-top: 10px">
+				<input type="button" class="button"
+					onclick="location.href='comList.jsy?pageNum=${pageNum}&communitykind=${communitykind}'"
+					value="목록">
+				<c:if test="${sessionScope.login.memberid == community.memberid }">
+					<input type="button" class="button"
+						onclick="javascript:updateConfirm('${pageNum}','${community.communityno}','${community.memberid}','${communitykind}')"
+						value="수정">
+					<input type="button" class="button"
+						onclick="javascript:deleteConfirm('${pageNum}','${community.communityno}','${community.memberid}','${communitykind}')"
+						value="삭제">
 				</c:if>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="location.href='comList.jsy?pageNum=${pageNum}&communitykind=${communitykind}'" value="목록">
-					<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:updateConfirm('${pageNum}','${community.communityno}','${community.memberid}','${communitykind}')" value="수정">
-					<input type="button" class="w3-button w3-black w3-round-xlarge" onclick="javascript:deleteConfirm('${pageNum}','${community.communityno}','${community.memberid}','${communitykind}')" value="삭제">
-				</td>
-			</tr>
-		</table>
-	</form:form>
-	<br><br>
-	
-	<table class="w3-table w3-bordered" style="width: 1500px;">
-			<caption> 댓글</caption>
+			</div>
+		</form:form>
+		<br>
+		<br>
+
+		<div class="w3-center" style="width: 100%;">
+			<p>
+				<span class="w3-content w3-text-amber w3-xxlarge">댓 글</span>
+			</p>
+		</div>
+		<table class="w3-table w3-bordered" style="width: 100%;">
+
 			<c:if test="${empty replyList}">
 				<tr>
-					<td>등록 된 댓글이 없습니다.</td>
+					<td style="text-align: center;">등록 된 댓글이 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty replyList}">
-			<tr>
-					<th width="300px" height="20px" style="text-align:center;">작성자</th>
-					<th width="700px" height="20px" style="text-align:center;">내용</th>
-					<th width="200px" height="20px" style="text-align:center;">날짜</th>
-					<th width="300px" height="20px" style="text-align:center;">비고</th>
-			</tr>
-			<c:forEach var="re" items="${replyList}" varStatus="status">
-				<tr>
-					<td width="300px" height="40px" style="text-align:left;">
-						<c:if test="${re.reflevel > 0 }">
-							<c:forEach begin="1" end="${re.reflevel}">&nbsp;&nbsp;&nbsp;</c:forEach>
+				<tr style="border-bottom: 1px solid orange;">
+					<th style="text-align: center; width: 20%;">작성자</th>
+					<th style="text-align: center; width: 40%;">내용</th>
+					<th style="text-align: center; width: 20%;">날짜</th>
+					<th style="text-align: center; width: 20%;">비고</th>
+				</tr>
+				<c:forEach var="re" items="${replyList}" varStatus="status">
+					<tr style="border-bottom: 1px solid orange;">
+						<td style="text-align: center;"><c:if
+								test="${re.reflevel > 0 }">
+								<c:forEach begin="1" end="${re.reflevel}">&nbsp;&nbsp;&nbsp;</c:forEach>
 							┖
-						</c:if>
-						${re.name}&nbsp;[${re.memberid}]
-					</td>
-					<td width="700px" height="40px" style="text-align:left;">${re.content}&nbsp;</td>
-					<td width="200px" height="40px" style="text-align:center;">
-						<fmt:formatDate value="${re.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regnow" />
-						${regnow}
-					</td>
-					<!-- onclick="javascript:replyedisp('ReplyRe')"  onclick="javascript:replyedisp('updateRe')" -->
-					<td width="300px" height="40px" style="text-align:center;">
-						<input type="button" id="ReplyRe_${status.index}" class="w3-button"  value="답변">
-						<input type="button" id="updateRe_${status.index}" class="w3-button" value="수정">
-						<input type="button" class="w3-button" onclick="javascript:deleteReplyConfirm('${pageNum}','${re.communityno}','${re.memberid }','${re.replyno}','${communitykind}')" value="삭 제">
-					</td>
-				</tr>
-				<tr id="upinput_${status.index}" class="upinput">
-					<td colspan="4">
-						<form:form action="updateRe.jsy" modelAttribute="replyUpdate" method="post">
-							<input type="hidden" name="replyno" value="${re.replyno}">
-							<input type="hidden" name="memberid" value="${re.memberid}">
-							<input type="hidden" value="${communityno}" name="communityno">
-							<input type="hidden" value="${communitykind}" name="communitykind">
-							<input type="hidden" value="${pageNum}" name="pageNum">
-								<form:input path="content" size="170px"/>
-								<input type="submit" class="w3-button" value="수 정">
-								<font color="red"><form:errors path="content"/></font>
-						</form:form>
-					</td>
-				</tr>
-				<tr id="reinput_${status.index}" class="reinput">
-					<td colspan="4">
-						<form:form action="replyRe.jsy" modelAttribute="replyRe" method="post">
-							<input type="hidden" name="replyno" value="${re.replyno}">
-							<input type="hidden" value="${communityno}" name="communityno">
-							<input type="hidden" value="${communitykind}" name="communitykind">
-							<input type="hidden" value="${pageNum}" name="pageNum">
-								<form:input path="content" size="170px"/>
-								<input type="submit" class="w3-button" value="등 록">
-								<font color="red"><form:errors path="content"/></font>
-						</form:form>
-					</td>
-				</tr>
-			</c:forEach>
+						</c:if> ${re.name}&nbsp;[${re.memberid}]</td>
+						<td style="text-align: center;">${re.content}&nbsp;</td>
+						<td style="text-align: center;"><fmt:formatDate
+								value="${re.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regnow" />
+							${regnow}</td>
+						<td style="text-align: center;"><a class="button"
+							id="ReplyRe_${status.index}" style="width: 15px;"> <i
+								class="fa fa-reply w3-large"></i>
+						</a>&nbsp; <a class="button" id="updateRe_${status.index}"
+							style="width: 15px;"> <i class="fa fa-edit w3-large"></i>
+						</a>&nbsp; <a class="button" style="width: 15px;"
+							onclick="javascript:deleteReplyConfirm('${pageNum}','${re.communityno}','${re.memberid }','${re.replyno}','${communitykind}')">
+								<i class="fa fa-close w3-large"></i>
+						</a>&nbsp;</td>
+					</tr>
+					<tr id="upinput_${status.index}" class="upinput" style="border-bottom: 1px solid orange;">
+						<td colspan="4"><form:form action="updateRe.jsy"
+								modelAttribute="replyUpdate" method="post">
+								<input type="hidden" name="replyno" value="${re.replyno}">
+								<input type="hidden" name="memberid" value="${re.memberid}">
+								<input type="hidden" value="${communityno}" name="communityno">
+								<input type="hidden" value="${communitykind}"
+									name="communitykind">
+								<input type="hidden" value="${pageNum}" name="pageNum">
+								<font color="red"><form:errors path="content" /></font>
+								<div style="width: 100%;">
+									<form:input path="content" style="width: 90%;" />
+									<input type="submit" class="button" value="수 정">
+								</div>
+							</form:form></td>
+					</tr>
+					<tr id="reinput_${status.index}" class="reinput" style="border-bottom: 1px solid orange;">
+						<td colspan="4"><form:form action="replyRe.jsy"
+								modelAttribute="replyRe" method="post">
+								<input type="hidden" name="replyno" value="${re.replyno}">
+								<input type="hidden" value="${communityno}" name="communityno">
+								<input type="hidden" value="${communitykind}"
+									name="communitykind">
+								<input type="hidden" value="${pageNum}" name="pageNum">
+								<font color="red"><form:errors path="content" /></font>
+								<div style="width: 100%;">
+									<form:input path="content" style="width: 90%;" />
+									<input type="submit" class="button" value="답 변">
+								</div>
+							</form:form></td>
+					</tr>
+				</c:forEach>
 			</c:if>
-	</table>
-	
-	<form:form modelAttribute="reply" action="replyCreate.jsy" method="post">
-		<input type="hidden" value="${communityno}" name="communityno">
-		<input type="hidden" value="${communitykind}" name="communitykind">
-		<input type="hidden" value="${pageNum}" name="pageNum">
-		<div style="width: 1500px;">
-			<form:input path="content" size="170px"/>
-			<input type="submit" class="w3-button" value="등 록">
-			<font color="red"><form:errors path="content"/></font>
-		</div>
-	</form:form>
-</div>
+		</table>
+
+		<form:form modelAttribute="reply" action="replyCreate.jsy"
+			method="post">
+			<input type="hidden" value="${communityno}" name="communityno">
+			<input type="hidden" value="${communitykind}" name="communitykind">
+			<input type="hidden" value="${pageNum}" name="pageNum">
+			<font color="red"><form:errors path="content" /></font>
+			<div style="width: 100%;">
+				<form:input path="content" style="width: 90%;" />
+				<input type="submit" class="button" style="margin-top: 5px"
+					value="등 록">
+			</div>
+		</form:form>
+	</div>
 </body>
 </html>

@@ -105,178 +105,204 @@ $(document).ready(function() {
 	var daySplit = $('input[name="weekday"]').val().split(",");
 	for(var idx in daySplit){
 		$("input[name=day][value=" + daySplit[idx] + "]").attr("checked", true);
-	}
-	
-	/* $("#limitmember").change(function(){
-		
-		var limitmember = $("#limitmember option:selected").val();
-		$('input[name="limitmember"]').val(limitmember);
-	})
-	$("#starttime").change(function(){
-		
-		var starttime = $("#starttime option:selected").val();
-		$('input[name="starttime"]').val(starttime);
-	})
-	$("#endtime").change(function(){
-		
-		var endtime = $("#endtime option:selected").val();
-		$('input[name="endtime"]').val(endtime);
-	}) */
-	
-})
+	}	
+});
 </script>
+<style>
+.button {
+	width: 100px;
+	height: 40px;
+}
+
+.button {
+	border-radius: 4px;
+	background-color: skyblue;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+	padding: 5px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: pink;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+</style>
 </head>
 
 <body>
-<form:form modelAttribute="study" action="studyWrite.jsy" method="post" name="f">
-	<spring:hasBindErrors name="study">
-		<font color="red">
-			<c:forEach items="${errors.globalErrors }" var="error">
-				<spring:message code="${error.code }"></spring:message>
-			</c:forEach>
-		</font>
-	</spring:hasBindErrors>
-	<table>
-		<tr>
-			<td><b>제 목</b></td>
-		</tr>
-		<tr>
-			<td ><form:input path="studyname" size="50"/><font color="red"><form:errors path="studyname"/></font></td>
-		</tr>
-		<tr>
-			<td><b>지 역</b></td>
-		</tr>
-		<tr>
-			<td>
-				<select name="si" id="si" onchange="selectgu(this.form)">
-				</select>
-				<select name="gu" id="gu">
-				</select>
-        		<form:hidden path="region"/><font color="red"><form:errors path="region"/></font>
-        	</td>
-		</tr>
-		<tr>
-			<td ><b>인 원 선 택</b></td>
-		</tr>
-		<tr>
-			<td >
-				
-				<form:select path="limitmember">
-					<form:option value="">선택하세요</form:option>
-					<form:option value="2">2</form:option>
-					<form:option value="3">3</form:option>
-					<form:option value="4">4</form:option>
-					<form:option value="5">5</form:option>
-					<form:option value="6">6</form:option>
-					<form:option value="7">7</form:option>
-					<form:option value="8">8</form:option>
-					<form:option value="9">9</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="100">10명이상</form:option>
-				</form:select>
-				<font color="red"><form:errors path="limitmember"/></font>
-			</td>
-		</tr>
-		<tr>
-			<td ><b>요 일 선 택</b></td>
-		</tr>
-		<tr>
-			<td >
-				<input type="checkbox" name="day" value="월">월
-				<input type="checkbox" name="day" value="화">화
-				<input type="checkbox" name="day" value="수">수
-				<input type="checkbox" name="day" value="목">목
-				<input type="checkbox" name="day" value="금">금
-				<input type="checkbox" name="day" value="토">토
-				<input type="checkbox" name="day" value="일">일
-				<input type="checkbox" name="day" value="주5일">주5일
-				<input type="checkbox" name="day" value="주말">주말
-				
-				<form:hidden path="weekday"/><font color="red"><form:errors path="weekday"/></font>
-			</td>
-		</tr>
-		<tr>
-			<td ><b>시 작 시 간</b></td>
-		</tr>
-		<tr>
-			<td >
-			<form:select path="starttime">
-					<form:option value="">선택하세요</form:option>
-					<form:option value="오후12시">오후12시</form:option>
-					<form:option value="오전1시">오전1시</form:option>
-					<form:option value="오전2시">오전2시</form:option>
-					<form:option value="오전3시">오전3시</form:option>
-					<form:option value="오전4시">오전4시</form:option>
-					<form:option value="오전5시">오전5시</form:option>
-					<form:option value="오전6시">오전6시</form:option>
-					<form:option value="오전7시">오전7시</form:option>
-					<form:option value="오전8시">오전8시</form:option>
-					<form:option value="오전9시">오전9시</form:option>
-					<form:option value="오전10시">오전10시</form:option>
-					<form:option value="오전11시">오전11시</form:option>
-					<form:option value="오전12시">오전12시</form:option>
-					<form:option value="오후1시">오후1시</form:option>
-					<form:option value="오후2시">오후2시</form:option>
-					<form:option value="오후3시">오후3시</form:option>
-					<form:option value="오후4시">오후4시</form:option>
-					<form:option value="오후5시">오후5시</form:option>
-					<form:option value="오후6시">오후6시</form:option>
-					<form:option value="오후7시">오후7시</form:option>
-					<form:option value="오후8시">오후8시</form:option>
-					<form:option value="오후9시">오후9시</form:option>
-					<form:option value="오후10시">오후10시</form:option>
-					<form:option value="오후11시">오후11시</form:option>
-			</form:select>
-			<font color="red"><form:errors path="starttime"/></font>
-			</td>
-		</tr>
-		<tr>
-			<td ><b>끝나는 시간</b></td>
-		</tr>
-		<tr>
-			<td >
-				<form:select path="endtime">
-					<form:option value="">선택하세요</form:option>
-					<form:option value="오후12시">오후12시</form:option>
-					<form:option value="오전1시">오전1시</form:option>
-					<form:option value="오전2시">오전2시</form:option>
-					<form:option value="오전3시">오전3시</form:option>
-					<form:option value="오전4시">오전4시</form:option>
-					<form:option value="오전5시">오전5시</form:option>
-					<form:option value="오전6시">오전6시</form:option>
-					<form:option value="오전7시">오전7시</form:option>
-					<form:option value="오전8시">오전8시</form:option>
-					<form:option value="오전9시">오전9시</form:option>
-					<form:option value="오전10시">오전10시</form:option>
-					<form:option value="오전11시">오전11시</form:option>
-					<form:option value="오전12시">오전12시</form:option>
-					<form:option value="오후1시">오후1시</form:option>
-					<form:option value="오후2시">오후2시</form:option>
-					<form:option value="오후3시">오후3시</form:option>
-					<form:option value="오후4시">오후4시</form:option>
-					<form:option value="오후5시">오후5시</form:option>
-					<form:option value="오후6시">오후6시</form:option>
-					<form:option value="오후7시">오후7시</form:option>
-					<form:option value="오후8시">오후8시</form:option>
-					<form:option value="오후9시">오후9시</form:option>
-					<form:option value="오후10시">오후10시</form:option>
-					<form:option value="오후11시">오후11시</form:option>
-			</form:select>
-			<font color="red"><form:errors path="endtime"/></font>
-			</td>
-		</tr>
-		<tr>
-			<td ><b>내 용</b></td>
-		</tr>
-		<tr>
-			<td >
-				<form:textarea path="content" rows="20" cols="50"/><font color="red"><form:errors path="content"/></font>
-			</td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="등 록 하 기"></td>
-		</tr>
-	</table>
-</form:form>
+	<div id="main" class="w3-content">
+		<div class="w3-center" style="width: 100%">
+			<p>
+				<span class="w3-content w3-text-pink w3-xxlarge">스터디 모집</span>
+			</p>
+		</div>
+		<br>
+		<div class="w3-center" style="margin-left: 300px">
+		<form:form modelAttribute="study" action="studyWrite.jsy"
+			method="post" name="f">
+			<spring:hasBindErrors name="study">
+				<font color="red"> <c:forEach items="${errors.globalErrors }"
+						var="error">
+						<spring:message code="${error.code }"></spring:message>
+					</c:forEach>
+				</font>
+			</spring:hasBindErrors>
+			<table>
+				<tr>
+					<td><b style="font-size:25px;">제 목</b>&nbsp;<font color="red"><form:errors path="studyname" /></font> </td>
+				</tr>
+				<tr>
+					<td><form:input class="w3-input w3-border" path="studyname" size="50" /><br></td>
+				</tr>
+				<tr>
+					<td><b style="font-size:25px;">지 역</b>&nbsp;<font color="red"><form:errors path="region" /></font></td>
+				</tr>
+				<tr>
+					<td><select class="w3-select" name="si" id="si" onchange="selectgu(this.form)">
+					</select> <select class="w3-select" name="gu" id="gu">
+					</select> <form:hidden path="region" /><br><br>
+					</td>
+				</tr>
+				<tr>
+					<td><b style="font-size:25px;">인 원 선 택</b>&nbsp;<font color="red"><form:errors path="limitmember" /></font></td>
+				</tr>
+				<tr>
+					<td><form:select style="text-align:center;" class="w3-select" path="limitmember">
+							<form:option value="">선택하세요</form:option>
+							<form:option value="2">2</form:option>
+							<form:option value="3">3</form:option>
+							<form:option value="4">4</form:option>
+							<form:option value="5">5</form:option>
+							<form:option value="6">6</form:option>
+							<form:option value="7">7</form:option>
+							<form:option value="8">8</form:option>
+							<form:option value="9">9</form:option>
+							<form:option value="10">10</form:option>
+							<form:option value="100">10명이상</form:option>
+						</form:select><br><br></td>
+				</tr>
+				<tr>
+					<td><b style="font-size:25px;">요 일 선 택</b>&nbsp;<font color="red"><form:errors path="weekday" /></font></td>
+				</tr>
+				<tr>
+					<td>
+						<input class="w3-check" type="checkbox" name="day" value="월"><label>월 </label>
+						<input class="w3-check" type="checkbox" name="day" value="화"><label>화</label>
+						<input class="w3-check" type="checkbox" name="day" value="수"><label>수</label>
+						<input class="w3-check" type="checkbox" name="day" value="목"><label>목</label>
+						<input class="w3-check" type="checkbox" name="day" value="금"><label>금</label>
+						<input class="w3-check" type="checkbox" name="day" value="토"><label>토</label>
+						<input class="w3-check" type="checkbox" name="day" value="일"><label>일</label>
+						<input class="w3-check" type="checkbox" name="day" value="주5일"><label>주5일</label>
+						<input class="w3-check" type="checkbox" name="day" value="주말"><label>주말</label>
+						<form:hidden path="weekday" />
+						<br><br>
+					</td>
+				</tr>
+				<tr>
+					<td><b style="font-size:25px;">시 작 시 간</b>&nbsp;<font color="red"><form:errors path="starttime" /></font></td>
+				</tr>
+				<tr>
+					<td><form:select class="w3-select" path="starttime">
+							<form:option value="">선택하세요</form:option>
+							<form:option value="오후12시">오후12시</form:option>
+							<form:option value="오전1시">오전1시</form:option>
+							<form:option value="오전2시">오전2시</form:option>
+							<form:option value="오전3시">오전3시</form:option>
+							<form:option value="오전4시">오전4시</form:option>
+							<form:option value="오전5시">오전5시</form:option>
+							<form:option value="오전6시">오전6시</form:option>
+							<form:option value="오전7시">오전7시</form:option>
+							<form:option value="오전8시">오전8시</form:option>
+							<form:option value="오전9시">오전9시</form:option>
+							<form:option value="오전10시">오전10시</form:option>
+							<form:option value="오전11시">오전11시</form:option>
+							<form:option value="오전12시">오전12시</form:option>
+							<form:option value="오후1시">오후1시</form:option>
+							<form:option value="오후2시">오후2시</form:option>
+							<form:option value="오후3시">오후3시</form:option>
+							<form:option value="오후4시">오후4시</form:option>
+							<form:option value="오후5시">오후5시</form:option>
+							<form:option value="오후6시">오후6시</form:option>
+							<form:option value="오후7시">오후7시</form:option>
+							<form:option value="오후8시">오후8시</form:option>
+							<form:option value="오후9시">오후9시</form:option>
+							<form:option value="오후10시">오후10시</form:option>
+							<form:option value="오후11시">오후11시</form:option>
+						</form:select><br><br></td>
+				</tr>
+				<tr>
+					<td><b style="font-size:25px;">끝나는 시간</b>&nbsp;<font color="red"><form:errors path="endtime" /></font></td>
+				</tr>
+				<tr>
+					<td><form:select class="w3-select" path="endtime">
+							<form:option value="">선택하세요</form:option>
+							<form:option value="오후12시">오후12시</form:option>
+							<form:option value="오전1시">오전1시</form:option>
+							<form:option value="오전2시">오전2시</form:option>
+							<form:option value="오전3시">오전3시</form:option>
+							<form:option value="오전4시">오전4시</form:option>
+							<form:option value="오전5시">오전5시</form:option>
+							<form:option value="오전6시">오전6시</form:option>
+							<form:option value="오전7시">오전7시</form:option>
+							<form:option value="오전8시">오전8시</form:option>
+							<form:option value="오전9시">오전9시</form:option>
+							<form:option value="오전10시">오전10시</form:option>
+							<form:option value="오전11시">오전11시</form:option>
+							<form:option value="오전12시">오전12시</form:option>
+							<form:option value="오후1시">오후1시</form:option>
+							<form:option value="오후2시">오후2시</form:option>
+							<form:option value="오후3시">오후3시</form:option>
+							<form:option value="오후4시">오후4시</form:option>
+							<form:option value="오후5시">오후5시</form:option>
+							<form:option value="오후6시">오후6시</form:option>
+							<form:option value="오후7시">오후7시</form:option>
+							<form:option value="오후8시">오후8시</form:option>
+							<form:option value="오후9시">오후9시</form:option>
+							<form:option value="오후10시">오후10시</form:option>
+							<form:option value="오후11시">오후11시</form:option>
+						</form:select><br><br></td>
+				</tr>
+				<tr>
+					<td><b style="font-size:25px;">내 용</b>&nbsp;<font color="red"><form:errors path="content" /></font></td>
+				</tr>
+				<tr>
+					<td><form:textarea class="w3-input w3-border" path="content" rows="20" cols="50" /><br></td>
+				</tr>
+				<tr>
+					<td><input class="button" type="submit" value="등 록 하 기"></td>
+				</tr>
+			</table>
+		</form:form>
+		</div>
+	</div>
 </body>
 </html>

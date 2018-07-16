@@ -4,10 +4,10 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
 
-   FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
+   //FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
 
    //FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
-  //FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
+  FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
   BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
    String line = null;
    br.readLine();

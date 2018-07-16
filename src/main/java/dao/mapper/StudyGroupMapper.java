@@ -24,4 +24,7 @@ public interface StudyGroupMapper {
 
 	@Select("select * from studygroup where regmember=#{memberid}")
 	List<StudyGroup> studygrouplist(String memberid);
+
+	@Insert("insert into studygroup (groupno,studyno,leadermember,state) VALUES (#{groupno},#{studyno},#{leadermember}, #{state})")
+	void studyGroupLeaderSet(StudyGroup sg);
 }

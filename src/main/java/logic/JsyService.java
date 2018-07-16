@@ -244,5 +244,7 @@ public interface JsyService {
 
 	Hire selectHire(int hireno);
 
+	void studyGroupLeaderSet(StudyGroup sg);
+
 
 }
