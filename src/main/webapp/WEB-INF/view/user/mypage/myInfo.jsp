@@ -54,8 +54,8 @@
 </script>
 <style>
 	.button{
-		width:150px;
-		height:60px;
+		width:100px;
+		height:40px;
 	}
    	.button {
 	  border-radius: 4px;
@@ -64,7 +64,7 @@
 	  color: #FFFFFF;
 	  text-align: center;
 	  font-size: 18px;
-	  padding: 20px;
+	  padding: 10px;
 	  transition: all 0.5s;
 	  cursor: pointer;
 	}
@@ -167,8 +167,9 @@
 					<font color="red"><form:errors path="password"/></font>
 					</p>
 					<div class="w3-container">
-						<input type="button" id="btn1" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴">
-						<input type="submit" id="btn2" class="button w3-right" value="수정">
+						<input type="button" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴">
+						<input type="submit" class="button w3-right" style="margin-left:4px;" value="수정">
+						<input type="button" class="button w3-right" onclick="window.open('../../hire/companyDetailwrite.jsy')" value="기업세부정보 변경"> 
 					</div>
 				</form:form>
 			</div>

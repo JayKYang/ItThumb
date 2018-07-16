@@ -305,6 +305,7 @@ public class BoardController {
 		try {
 			hire = service.getHire(hireno,searchType,searchContent);
 			user = service.getUser(memberid);
+			System.out.println(hire);
 			mav.addObject("hire",hire);
 			mav.addObject("user",user);
 			mav.addObject("pageNum",pageNum);
@@ -348,7 +349,7 @@ public class BoardController {
 		try {
 			
 			service.hireUpdate(hire,request);
-			mav.setViewName("redirect:myhirelist.jsy");
+			mav.setViewName("redirect:../user/mypage/myhirelist.jsy");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -495,7 +496,8 @@ public class BoardController {
 			mav.addObject("hire",hire);
 		} else {
 			mav.addObject("msg","기업회원이 아닙니다.");
-			mav.setViewName("hirelist.jsy");
+			mav.addObject("url","hirelist.jsy");
+			mav.setViewName("alert");
 		}
 		
 		}catch(Exception e) {

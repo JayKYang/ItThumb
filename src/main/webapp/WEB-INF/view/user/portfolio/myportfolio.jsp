@@ -11,6 +11,49 @@
 	href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+#savebutton {
+  border-radius: 4px;
+  background-color: orange;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+#savebutton:hover {
+  background-color: #ffe4b3;
+}
+
+#savebutton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#savebutton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#savebutton:hover span {
+  padding-right: 25px;
+}
+
+#savebutton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 <head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -97,38 +140,38 @@
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"
 			onclick="openPortfolio('about')"> <i
 			class="fa fa-user w3-xxlarge"></i>
 			<p>ABOUT ME</p>
 		</a> <a href="#project"
-			class="w3-bar-item w3-button w3-padding-large w3-hover-gray"
+			class="w3-bar-item w3-button w3-padding-large w3-hover-amber"
 			onclick="openPortfolio('project')"> <i
 			class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
 		<c:if test="${sessionScope.login.memberid == user.memberid }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray w3-right"
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber w3-right"
 				onclick="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
 				<i class="fa fa-edit w3-xxlarge"></i>
 				<p>EDIT</p>
 			</a>
 		</c:if>
 		<c:if test="${sessionScope.login.memberid != user.memberid }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber"
 				onclick="javascript:message_open('../../message/messageWrite.jsy?memberid=${user.memberid}')">
 				<i class="fa fa-commenting w3-xxlarge"></i>
 				<p>CONTACT</p>
 			</a>
 			<c:if test="${sessionScope.login.membergrade == 0 or sessionScope.login.membergrade == 2 }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray" 
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber" 
 			onclick="javascript:location.href='portfoliolist.jsy'">
 				<i class="fa fa-align-justify w3-xxlarge"></i>
 				<p>List 돌아가기</p>
 			</a>
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 0 or sessionScope.login.membergrade == 2 }">
-			<a id="scrap" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
+			<a id="scrap" class="w3-bar-item w3-button w3-padding-large w3-hover-amber">
 				<c:if test="${scrapConfirm==0}">
 					<i id="scrap2" class="fa fa-heart-o w3-xxlarge"></i>
 				</c:if>
@@ -266,14 +309,14 @@
 		</c:if>
 	</div>
 
+	<div class="portfoliopage w3-container w3-animate-right" id="project" style="display: none; margin-left:20%;margin-right:20%;">
 	<div class="w3-center">
 		<p style="margin-top:5%;">
 			<span class="w3-content w3-text-orange w3-xxlarge w3-padding-32">프로젝트</span>
 		</p>
 	</div>
-	<div class="portfoliopage w3-container w3-animate-right" id="project" style="display: none; margin-left:20%;margin-right:20%;">
 		<c:if test="${empty projectList }">
-			<img src="../../mainimg/logo.png" style="width:50%; margin-left:15%;">
+			<img src="../../mainimg/logo.png" style="width:50%; margin-left:25%;">
 			<h3 class="w3-center">
 				<span class="w3-large">현재 작성된 프로젝트가 없습니다.<br>
 				다음에 <a class="w3-text-indigo w3-xlarge"><b>${user.name }</b></a>님의 포트폴리오를 다시 방문해주세요.

@@ -67,17 +67,17 @@
 				<c:forEach var="popBoard" items="${popBoardlist}" varStatus="status">
 					<div
 						class="w3-quarter w3-container w3-card w3-center w3-padding-16"
-						style="width: 380px; height: 380px;">
-						<div class="w3-container">
-							<img src="photo/${popBoard.user.imageUrl }" style="width: 100%">
+						style="width:25%; height:380px;">
+						<div class="w3-container" style="height:100px;">
+							<img src="photo/${popBoard.user.imageUrl }" style="width: 60%; height:100%;">
 						</div>
 						<div class="w3-container">
-							<h1>
-								<a href="hire/companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none;" target="_blank"><b>${popBoard.company }</b></a>
-							</h1>
+							<h3>
+								<a href="hire/companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none; font-size:20px;" target="_blank"><b>${popBoard.company }</b></a>
+							</h3>
 						</div>
 						<div class="w3-container">
-							<h3><a href="hire/hiredetail.jsy?hireno=${popBoard.hireno }"  style="text-decoration:none;">${popBoard.subject }</a></h3>
+							<h3><a href="hire/hiredetail.jsy?hireno=${popBoard.hireno }"  style="text-decoration:none; font-size:12px;">${popBoard.subject }</a></h3>
 						</div>
 						<div class="w3-container">
 							<fmt:formatDate value="${popBoard.deadline}" var="date"
@@ -99,7 +99,7 @@
 			</c:if>
 			<c:forEach begin="1" end="${4-regNum }">
 				<div class="w3-quarter w3-container w3-card w3-center"
-					style="width: 380px; height: 380px;">
+					style="width:25%; height:380px;">
 					<h4 style="margin-top: 48%;">공고가 없습니다.</h4>
 				</div>
 			</c:forEach>

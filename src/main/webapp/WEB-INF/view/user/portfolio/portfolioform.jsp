@@ -253,6 +253,49 @@
  	   /* alert(orgFile.value); 이벤트 처리가 끝나지 않은 타이밍이라 값 확인 안됨! 시간차 문제 */
  	  }
 </script>
+<style>
+button {
+  border-radius: 4px;
+  background-color: orange;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover {
+  background-color: #ffe4b3;
+}
+
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
+}
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 </head>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
@@ -277,17 +320,16 @@ body, h1, h2, h3, h4, h5, h6 {
 		margin-left: 0
 	}
 }
-
 </style>
 <body class="w3-black">
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('about')">
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"  onclick="openPortfolio('about')">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
-		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('project')">
+		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"  onclick="openPortfolio('project')">
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
@@ -461,7 +503,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</div>
 		<table style="width: 98%">
 				<tr>
-					<td colspan="3" align="right"><a class="w3-button w3-xlarge" style="border:1px solid black; border-radius:5px;" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</a></td>
+					<td colspan="3" align="right"><button id="savebutton" class="w3-xlarge" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i>&nbsp;저장하기</button></td>
 				</tr>
 		</table>
 		</form:form>
@@ -486,13 +528,13 @@ body, h1, h2, h3, h4, h5, h6 {
 				</c:if>
 				<c:if test="${empty projectList }">
 					<tr>
-						<td colspan="3">프로젝트가 존재하지 않습니다.</td>
+						<td colspan="4">프로젝트가 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 			</table>
 		</div>
 		<div class="w3-right">
-			<a href="projectform.jsy?id=${sessionScope.login.memberid }">프로젝트 추가</a>
+			<button onclick="location.hef='projectform.jsy?id=${sessionScope.login.memberid }'">프로젝트 추가</button>
 		</div>
 		<div class="w3-center">
 			<img src="../../mainimg/project.jpg" style="margin-top:5%; opacity:0.65; width:900px; height:400px;">
