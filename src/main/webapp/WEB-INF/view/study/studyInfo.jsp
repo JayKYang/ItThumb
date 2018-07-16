@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Study Info</title>
+<title>잇썸 > 스터디 모집 > ${study.studyname} </title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -123,7 +123,7 @@
 </style>
 </head>
 <body>
-	<div id="main" class="w3-content">
+	<div id="main" class="w3-content w3-container">
 			<div class="w3-container w3-half" style="width:70%">
 				<div class="w3-center">
 					<p>
@@ -206,7 +206,6 @@
 				</c:if>
 				</div>
 			</div>
-		
 	</div>
 </body>
 </html>

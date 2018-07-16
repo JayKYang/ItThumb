@@ -524,7 +524,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			</table>
 		</div>
 		<div class="w3-right">
-			<button onclick="location.hef='projectform.jsy?id=${sessionScope.login.memberid }'">프로젝트 추가</button>
+			<button onclick="location.href='projectform.jsy?id=${sessionScope.login.memberid }'">프로젝트 추가</button>
 		</div>
 		<div class="w3-center">
 			<img src="../../mainimg/project.jpg" style="margin-top:5%; opacity:0.65; width:900px; height:400px;">
