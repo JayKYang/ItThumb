@@ -37,5 +37,7 @@ public interface PortFolioDao {
 
 	List<User> portfoliolist(String searchType, String searchContent, Integer membergrade, Integer pageNum, int limit);
 
+	List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade,Integer pageNum, Integer limit, int createpf);
+
 
 }

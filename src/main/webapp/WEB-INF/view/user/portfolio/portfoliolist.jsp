@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>잇썸 > 포트폴리오 검색</title>
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	function allchkbox(chk){
 	    if(chk.getAttribute("ckecked") == null){
@@ -30,6 +32,62 @@
 		return false;
 	}
 </script>
+<!-- <style>
+.skillhover {
+	cursor: pointer;
+}
+
+.popupLayer {
+	position: absolute;
+	display: none;
+	background-color: #ffffff;
+	border: solid 2px #d0d0d0;
+	width: 350px;
+	height: 150px;
+	padding: 10px;
+}
+.popupLayer div {
+	position: absolute;
+	top: 5px;
+	right: 5px
+}
+</style>
+<script>
+function closeLayer( obj ) {
+	$(obj).parent().parent().hide();
+}
+
+$(function(){
+
+	/* 클릭 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
+	$('.skillhover').hover(function(e)
+	{
+		var sWidth = window.innerWidth;
+		var sHeight = window.innerHeight;
+
+		var oWidth = $('.popupLayer').width();
+		var oHeight = $('.popupLayer').height();
+
+		// 레이어가 나타날 위치를 셋팅한다.
+		var divLeft = e.clientX + 10;
+		var divTop = e.clientY + 5;
+
+		// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+		if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+		if( divTop + oHeight > sHeight ) divTop -= oHeight;
+
+		// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+		if( divLeft < 0 ) divLeft = 0;
+		if( divTop < 0 ) divTop = 0;
+
+		$('.popupLayer').css({
+			"top": divTop,
+			"left": divLeft,
+			"position": "absolute"
+		}).show();
+	});
+
+</script> -->
 </head>
 <body>
 	<div class="w3-content w3-padding-64">
@@ -48,11 +106,25 @@
 	    <tr>
 	      <td align="center">${portfolio.name}</td>
 	      <td align="center">
+	      <c:set var="skillcnt" value="0"/>
 	      <c:forEach items="${portfolio.historyList }" var="skill" varStatus="index">
-	      	<c:if test="${skill.kindno == 1 }">
+	      	<c:if test="${skill.kindno == 1 && skillcnt <= 2}">
+	      		<c:set var="skillcnt" value="${skillcnt+1 }"/>
 	      		${skill.content}
-	      		 <c:if test="${!index.last }">, </c:if>
+	      		 <c:if test="${!index.last && skillcnt <= 2}">, </c:if>
 	      	</c:if>
+	      	<%-- <c:if test="${skill.kindno == 1 && index.last}">
+	      		<a class="skillhover">...</a>
+	      	</c:if>
+	      	<div class="popupLayer">
+	      		 	<ul>
+	      		 		<li>
+	      		 			<c:if test="${skill.kindno == 1}">
+				      		${skill.content}
+				      		</c:if>
+				      	</li>
+	      		 	</ul>
+	      		 </div> --%>
 	      </c:forEach>
 	      </td>
 	      <td><a href="myportfolio.jsy?id=${portfolio.memberid}&pageNum=${pageNum}">${portfolio.slogun }</a></td>
@@ -60,6 +132,9 @@
 	    </tr>
 		</c:if>
 	    </c:forEach>
+	    <c:if test="${empty portfoliolist }">
+	    	<tr><td colspan="4">포트폴리오가 없습니다.</td></tr>
+	    </c:if>
   </table>
   </form>
   <div class="w3-bar w3-center">

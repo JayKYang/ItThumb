@@ -791,4 +791,9 @@ public class JsyServiceImpl implements JsyService{
 		
 	}
 
+	@Override
+	public List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade, Integer pageNum, Integer limit, int createpf) {
+		return portfolioDao.portfoliodistinctlist(searchType, searchContent,membergrade, pageNum, limit,createpf);
+	}
+
 }

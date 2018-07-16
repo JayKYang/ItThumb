@@ -246,5 +246,6 @@ public interface JsyService {
 
 	void studyGroupLeaderSet(StudyGroup sg);
 
+	List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade, Integer pageNum, Integer limit, int createpf);
 
 }

@@ -353,7 +353,7 @@ public class PortFolioController {
 		int limit = 10;
 		
 		int portfoliocount = service.portfoliocount(searchType, searchContent, 1);
-		List<User> userlist = service.portfoliolist(searchType, searchContent,null, pageNum, limit);
+		List<User> userlist = service.portfoliodistinctlist(searchType, searchContent,1,pageNum,limit,1);
 		List<User> portfoliolist = new ArrayList<User>();
 		
 		for(User user : userlist) {

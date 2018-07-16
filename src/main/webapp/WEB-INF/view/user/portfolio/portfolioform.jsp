@@ -238,9 +238,13 @@
 </script>
 <script>
 	function pfsubmit(){
-		
-		
-		document.f.submit();
+		//alert(document.f.slogun.value);
+		if(document.f.slogun.value==''){
+			alert("포트폴리오 이름을 입력해주세요.");
+			return document.f.slogun.focus();
+		}else{
+			document.f.submit();
+		}
 	}
 </script>
 <style>
@@ -338,7 +342,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		<form:hidden path="imageUrl" />
 		<form:hidden class="w3-input" path="password" value="passwordddddd"/>
 		<h3 class="w3-center">
-			<a class="w3-xxxlarge"><form:input class="w3-input" type="text" placeholder="포트폴리오 이름" path="slogun"/><font color="red"><form:errors path="slogun"/></font></a><input type="checkbox" style="display:none">
+			<a class="w3-xxxlarge"><form:input class="w3-input" name="slogun" type="text" placeholder="포트폴리오 이름" path="slogun"/><font color="red"><form:errors path="slogun"/></font></a><input type="checkbox" style="display:none">
 		</h3>
 			<spring:hasBindErrors name="user">
 				<font color="red">

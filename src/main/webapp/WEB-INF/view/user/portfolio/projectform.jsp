@@ -135,14 +135,15 @@ button:hover span:after {
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"  onclick="openPortfolio('about')">
+		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
-		<a href="#project" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"  onclick="openPortfolio('project')">
+		<a href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid }#project'" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('project')">
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
+	</nav>
 	</div>
 	<!-- Page Content -->
 	<!-- Header/Home -->
@@ -194,7 +195,7 @@ button:hover span:after {
 			</form:form>
 			<table style="width: 98%">
 				<tr>
-					<td colspan="3" align="right"><button id="savebutton" class="w3-xlarge" onclick="javascript:pfsubmit();"><i class="fa fa-floppy-o"></i>&nbsp;저장하기</button></td>
+					<td colspan="3" align="right"><button class="w3-xlarge" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</button></td>
 				</tr>
 			</table>
 		</div>
