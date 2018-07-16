@@ -244,5 +244,15 @@ public interface JsyService {
 
 	Hire selectHire(int hireno);
 
+	void companyDetailwrite(CompanyInfo companyInfo);
+
+	void insertCompanyHistory(Companyhistory ch);
+
+	CompanyInfo getCompanyInfo(String memberid);
+
+	List<Companyhistory> getCompanyHistorylist(String memberid);
+
+	void companyInfoUpdate(CompanyInfo companyinfo);
+
 
 }

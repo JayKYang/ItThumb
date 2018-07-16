@@ -13,6 +13,9 @@
 		<typeAlias type="logic.Community" alias="Community"/>
 		<typeAlias type="logic.Filerep" alias="Filerep"/>
 		<typeAlias type="logic.Reply" alias="Reply"/>
+		<typeAlias type="logic.CompanyInfo" alias="CompanyInfo"/>
+		<typeAlias type="logic.Companyhistory" alias="Companyhistory"/>
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="dao/mapper/User.xml"/>

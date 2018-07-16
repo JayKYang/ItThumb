@@ -1,301 +1,237 @@
+<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=qDOuw0wNL1zXEzspRGUC&submodules=geocoder"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-   
-   //보험
-   $('input[name="chkinsurance"]').click(function(){
-      var a =[];
-      $('input[name="insurance"]').val(null);
-      $('input[name="chkinsurance"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="insurance"]').val(a);
-      })
-   })   
-   
-   //회사분위기
-   $('input[name="chkmood"]').click(function(){
-      var a =[];
-      $('input[name="mood"]').val(null);
-      $('input[name="chkmood"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="mood"]').val(a);
-      })
-   })
-   
-   //의료,건강
-   $('input[name="chkhealth"]').click(function(){
-      var a =[];
-      $('input[name="health"]').val(null);
-      $('input[name="chkhealth"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="health"]').val(a);
-      })
-   })
-   
-   //사무실환경
-   $('input[name="chkoffice"]').click(function(){
-      var a =[];
-      $('input[name="office"]').val(null);
-      $('input[name="chkoffice"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="office"]').val(a);
-      })
-   })
-
-   //의복관련
-   $('input[name="chkclothes"]').click(function(){
-      var a =[];
-      $('input[name="clothes"]').val(null);
-      $('input[name="chkclothes"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="clothes"]').val(a);
-      })
-   })
-   
-   //식사관련
-   $('input[name="chkmeal"]').click(function(){
-      var a =[];
-      $('input[name="meal"]').val(null);
-      $('input[name="chkmeal"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="meal"]').val(a);
-      })
-   })
-   
-   //지급품관련
-   $('input[name="chksupplies"]').click(function(){
-      var a =[];
-      $('input[name="supplies"]').val(null);
-      $('input[name="chksupplies"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="supplies"]').val(a);
-      })
-   })
-   
-   //출산/육아
-   $('input[name="chkcare"]').click(function(){
-      var a =[];
-      $('input[name="care"]').val(null);
-      $('input[name="chkcare"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="care"]').val(a);
-      })
-   })
-   
-   //지원금관련
-   $('input[name="chksupportfund"]').click(function(){
-      var a =[];
-      $('input[name="supportfund"]').val(null);
-      $('input[name="chksupportfund"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="supportfund"]').val(a);
-      })
-   })
-   
-   //교육관련
-   $('input[name="chkeducation"]').click(function(){
-      var a =[];
-      $('input[name="education"]').val(null);
-      $('input[name="chkeducation"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="education"]').val(a);
-      })
-   })
-   
-   //회사행사
-   $('input[name="chkcompanyevent"]').click(function(){
-      var a =[];
-      $('input[name="companyevent"]').val(null);
-      $('input[name="chkcompanyevent"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="companyevent"]').val(a);
-      })
-   })
-   
-   //교통관련
-   $('input[name="chktraffic"]').click(function(){
-      var a =[];
-      $('input[name="traffic"]').val(null);
-      $('input[name="chktraffic"]:checked').each(function(){
-         a.push($(this).val());
-         $('input[name="traffic"]').val(a);
-      })
-   })
-   
-   
-  
-   
+	 //보험
+	   $('input[name="chkinsurance"]').click(function(){
+	      var a =[];
+	      $('input[name="insurance"]').val(null);
+	      $('input[name="chkinsurance"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="insurance"]').val(a);
+	      })
+	   })   
 	   
-	
+	   //회사분위기
+	   $('input[name="chkmood"]').click(function(){
+	      var a =[];
+	      $('input[name="mood"]').val(null);
+	      $('input[name="chkmood"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="mood"]').val(a);
+	      })
+	   })
+	   
+	   //의료,건강
+	   $('input[name="chkhealth"]').click(function(){
+	      var a =[];
+	      $('input[name="health"]').val(null);
+	      $('input[name="chkhealth"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="health"]').val(a);
+	      })
+	   })
+	   
+	   //사무실환경
+	   $('input[name="chkoffice"]').click(function(){
+	      var a =[];
+	      $('input[name="office"]').val(null);
+	      $('input[name="chkoffice"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="office"]').val(a);
+	      })
+	   })
+
+	   //의복관련
+	   $('input[name="chkclothes"]').click(function(){
+	      var a =[];
+	      $('input[name="clothes"]').val(null);
+	      $('input[name="chkclothes"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="clothes"]').val(a);
+	      })
+	   })
+	   
+	   //식사관련
+	   $('input[name="chkmeal"]').click(function(){
+	      var a =[];
+	      $('input[name="meal"]').val(null);
+	      $('input[name="chkmeal"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="meal"]').val(a);
+	      })
+	   })
+	   
+	   //지급품관련
+	   $('input[name="chksupplies"]').click(function(){
+	      var a =[];
+	      $('input[name="supplies"]').val(null);
+	      $('input[name="chksupplies"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="supplies"]').val(a);
+	      })
+	   })
+	   
+	   //출산/육아
+	   $('input[name="chkcare"]').click(function(){
+	      var a =[];
+	      $('input[name="care"]').val(null);
+	      $('input[name="chkcare"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="care"]').val(a);
+	      })
+	   })
+	   
+	   //지원금관련
+	   $('input[name="chksupportfund"]').click(function(){
+	      var a =[];
+	      $('input[name="supportfund"]').val(null);
+	      $('input[name="chksupportfund"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="supportfund"]').val(a);
+	      })
+	   })
+	   
+	   //교육관련
+	   $('input[name="chkeducation"]').click(function(){
+	      var a =[];
+	      $('input[name="education"]').val(null);
+	      $('input[name="chkeducation"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="education"]').val(a);
+	      })
+	   })
+	   
+	   //회사행사
+	   $('input[name="chkcompanyevent"]').click(function(){
+	      var a =[];
+	      $('input[name="companyevent"]').val(null);
+	      $('input[name="chkcompanyevent"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="companyevent"]').val(a);
+	      })
+	   })
+	   
+	   //교통관련
+	   $('input[name="chktraffic"]').click(function(){
+	      var a =[];
+	      $('input[name="traffic"]').val(null);
+	      $('input[name="chktraffic"]:checked').each(function(){
+	         a.push($(this).val());
+	         $('input[name="traffic"]').val(a);
+	      })
+	   })
 	   
 	   
-});   
-   
-   
-   
-   
-
-
-
-
-
- 
-   
-
-
- 
-/* var oTbl;
-//Row 추가
-function insRow() {
-   alert("sfaf")
-oTbl = document.getElementById("addTable");
-var oRow = oTbl.insertRow();
-oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
-var oCell = oRow.insertCell();
-
-//삽입될 Form Tag
-var frmTag = "<input type=text name=addText style=width:350px; height:20px;> ";
-frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
-oCell.innerHTML = frmTag;
-}
-//Row 삭제
-function removeRow() {
-oTbl.deleteRow(oTbl.clickedRowIndex);
-}
- */
-
-
+});
 </script>
-<style type="text/css">
- #comDiv,#comrepDiv {
-    border : 1px solid #000000;
- }
- 
- #comDiv{
-    width : 500px;
-    height : 150px;
-    float : left;
- }
- #comrepDiv{
-    width : 500px;
-    height : 150px;
- }
- tr {
-    border-bottom : 1px solid #000000;
- }
-</style>
- </head>
+</head>
 <body>
-<div class="w3-container" style="padding:128px 16px" id="about">
-  <h2 class="w3-center"><b>${user.name}</b></h2>
-  <br>
-  <br>
-  <p class="w3-center w3-large"></p>
-  <div class="w3-row-padding w3-center" style="margin-top:64px">
-    <div class="w3-quarter">
-      <i class="fa fa-drivers-license-o w3-margin-bottom w3-jumbo w3-center"></i>
-      <p class="w3-large">The Date of Incorporation</p>
-      <p><fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" /></p>
-    </div>
-    <div class="w3-quarter">
-        <i class="fa fa-file-text-o w3-margin-bottom w3-jumbo"></i>
-      <p class="w3-large">Type of Business</p>
-      <p>${user.industy}</p>
-    </div>
-    <div class="w3-quarter">
-      <i class="fa fa-location-arrow w3-margin-bottom w3-jumbo"></i>
-      <p class="w3-large">Business Address</p>
-      <p>${user.address}</p>
-    </div>
-    <div class="w3-quarter">
-         <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
-      <p class="w3-large">Site</p>
-      <p><a href="${user.site}">${user.site}</a></p>
-    </div>
-  </div>
-</div>
-<br>
-<br>
-   <form:form modelAttribute="companyInfo" action="companyDetailwrite.jsy" method="post" name="f">
-<table width="80%" border="1">
-   <tr>
-      <td>기업명</td>
-      <td>${user.name}</td>
-      
-      <td>대표자명</td>
-      <td colspan="3">
-         <form:input path="ceoname" /><font color="orange"><form:errors path="ceoname" /></font>
-      </td>
-   </tr>
-   <tr>
-      <td>
-         사업내용
-      </td>
-      <td colspan="4">
-         ${user.industy}
-      </td>
-   </tr>
-   <tr>
-      <td>설립일</td>
-      <td colspan="4">
-      <fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
-      </td>
+<h4>기업정보</h4>
+	<table border="1" width="80%">
+	<tr>
+		<td>
+			기업명
+		</td>
+		<td>
+			${user.name}
+		</td>
+		<td>
+			업종
+		</td>
+		<td>
+			${user.industy}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			설립일
+		</td>
+		<td>
+			<fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
+		</td>
+		<td>
+			회사 주소
+		</td>
+		<td>
+			${user.address}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			사이트
+		</td>
+		<td colspan="3">
+			${user.site}
+		</td>
+	</tr>
+</table>
+<form:form modelAttribute="companyinfo" action="companyInfoUpdate.jsy" method="post" name="f">
+<input type="hidden" name="infono" value="${companyinfo.infono}">
+<input type="hidden" name="hireno" value="${hireno}">
 
-   </tr>
-   <tr>
-      <td>사원수</td>
-      <td>
-      <form:input path="worker" /><font color="orange"><form:errors path="worker" /></font>
-      </td>
-      <td>자본금</td>
-      <td><form:input path="capital" /><font color="orange"><form:errors path="capital" /></font></td>
-   </tr>
-   <tr>
-      <td>매출액</td>
-      <td><form:input path="sales" /><font color="orange"><form:errors path="sales" /></font></td>
-      <td>영업이익</td>
-      <td>
-      <form:input path="profit" /><font color="orange"><form:errors path="profit" /></font>
-      </td>
-   </tr>
-  <tr>
-      <td colspan="5">
-      <h2>근무조건</h2>
-      </td>
-   </tr>
-   <tr>
-      <td>
-         연금보험
-      </td>
-      <td>
+<table border="1" width="80%">
+	<tr>
+		<td>
+			대표자명
+		</td>
+		<td>
+			<form:input path="ceoname" value="${companyinfo.ceoname}"/><font color="orange"><form:errors path="ceoname" /></font>
+		</td>
+		<td>
+			사원수
+		</td>
+		<td>
+			<form:input path="worker" value="${companyinfo.worker}"/><font color="orange"><form:errors path="worker" /></font>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			매출액
+		</td>
+		<td>
+			<form:input path="sales" value="${companyinfo.sales}"/><font color="orange"><form:errors path="sales" /></font>
+		</td>
+		<td>
+			영업이익
+		</td>
+		<td>
+			<form:input path="profit" value="${companyinfo.profit}"/><font color="orange"><form:errors path="profit" /></font>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			자본금
+		</td>
+		<td colspan="3">
+			<form:input path="capital" value="${companyinfo.capital}"/><font color="orange"><form:errors path="capital" /></font>
+		</td>
+	</tr>
+	<tr>
+		 <td>
+        	 연금보험
+    	  </td>
+      		<td>
             <input name="chkinsurance" type="checkbox" value="국민연금(4대보험)">국민연금(4대보험)
             <input name="chkinsurance" type="checkbox" value="고용보험(4대보험)">고용보험(4대보험)
             <input name="chkinsurance" type="checkbox" value="산재보험(4대보험)">산재보험(4대보험)
             <input name="chkinsurance" type="checkbox" value="건강보험(4대보험)">건강보험(4대보험)
             <input type="text" name="insurance">
-      </td>
-      
-      <td>급여제도</td>
+      	</td>	
+      	 <td>급여제도</td>
       <td>
       <input name="salsystem" type="text">
       </td>
-   </tr>
-   <tr>
-      <td>수당제도</td>
+      </tr>
+	<tr>
+		<td>수당제도</td>
       <td>
       <input name="benefit" type="text">
       </td>
@@ -310,12 +246,13 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
       <input name="chkmood" type="checkbox" value="야근 강요 안함">야근 강요 안함
       <input type="text" name="mood">
       </td>
-   </tr>   
-   <tr>
-      <td>명절/기념일</td>
+	</tr>
+	<tr>
+		<td>명절/기념일</td>
       <td>
          <input name="anniversary" type="text">
       </td>
+
       <td>의료/건강</td>
       <td>
          <input name="chkhealth" type="checkbox" value="헬스장 구비">헬스장 구비
@@ -323,9 +260,9 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
          <input name="chkhealth" type="checkbox" value="가족 건강 검진">가족 건강 검진
          <input type="text" name="health">
       </td>
-   </tr>
-   <tr>
-      <td>사무실 환경</td>
+	</tr>
+	<tr>
+		<td>사무실 환경</td>
       <td>
          <input name="chkoffice" type="checkbox" value="회의실(PT가능)">회의실(PT가능)
          <input name="chkoffice" type="checkbox" value="무선인터넷">무선인터넷
@@ -344,9 +281,9 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
       <input name="chkclothes" type="checkbox" value="정장">정장
       <input type="text" name="clothes">
       </td>
-   </tr>
-   <tr>
-      <td>식사관련</td>
+	</tr>
+		<tr>
+		<td>식사관련</td>
       <td>
          <input name="chkmeal" type="checkbox" value="저녁식사 제공">저녁식사 제공
          <input name="chkmeal" type="checkbox" value="냉장고 있음">냉장고 있음
@@ -370,9 +307,9 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
          <input name="chksupplies" type="checkbox" value="자회사 제품 할인">자회사 제품 할인
          <input type="text" name="supplies">
       </td>
-   </tr>
-   <tr>
-      <td>출산/육아</td>
+	</tr>
+	<tr>
+	<td>출산/육아</td>
       <td>
          <input name="chkcare" type="checkbox" value="산전 후 휴가">산전 후 휴가
          <input name="chkcare" type="checkbox" value="육아 휴직">육아 휴직
@@ -392,9 +329,9 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
          <input name="chksupportfund" type="checkbox" value="통신비 지원">통신비 지원
          <input type="text" name="supportfund">
       </td>
-   </tr>
-   <tr>
-      <td>교육/훈련</td>
+	</tr>
+		<tr>
+	<td>교육/훈련</td>
       <td>
          <input name="chkeducation" type="checkbox" value="신입 사원교육">신입 사원교육
          <input name="chkeducation" type="checkbox" value="직무 능력향상교육">직무 능력향상교육
@@ -416,8 +353,8 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
          <input name="chkcompanyevent" type="checkbox" value="단합대회/MT">단합대회/MT
          <input type="text" name="companyevent">
       </td>
-   </tr>
-   <tr>
+	</tr>
+	 <tr>
       <td>교통/출퇴근</td>
       <td>
          <input name="chktraffic" type="checkbox" value="야간교통비 지급">야간교통비 지급
@@ -431,13 +368,14 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
       <input name="society" type="text">
       </td>
    </tr>
-   <tr>
-      <td colspan="5" align="center">
-         <a href="javascript:document.f.submit()">신청하기</a>
+     <tr>
+      <td colspan="4" align="center">
+         <a href="javascript:document.f.submit()">수정하기</a>
          <a href="hirelist.jsy">LIST</a>
       </td>
    </tr>
 </table>
-   </form:form>
+
+  </form:form>
 </body>
 </html>

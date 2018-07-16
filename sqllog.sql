@@ -140,3 +140,30 @@ create table history(
 	kindno int
 );
 
+create table companyinfo(
+   infono int primary key,
+   memberid varchar(30),
+   ceoname varchar(20),
+   worker int,
+   sales int,
+   profit int,
+   capital int,
+   insurance varchar(100),
+   salsystem varchar(100),
+   benefit varchar(100),
+   mood varchar(100),
+   anniversary varchar(50),
+   health varchar(40),
+   office varchar(100),
+   clothes varchar(40),
+   meal varchar(100),
+   supplies varchar(200),
+   care varchar(40),
+   supportfund varchar(150),
+   education varchar(100),
+   companyevent varchar(100),
+   traffic varchar(40),
+   society varchar(50)
+);
+
+

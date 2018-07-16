@@ -148,4 +148,16 @@
 			and careerdate = #{searchCareerDate}
 			</if>
 		</select>
+		<select id="getCompanyInfo" resultType="CompanyInfo" parameterType="map">
+			select infono, memberid,ceoname,worker,sales,profit,capital,insurance,salsystem,benefit,mood,anniversary,health,office,clothes,meal,supplies,care,supportfund,education,companyevent,traffic,society from companyinfo where 1=1
+		<if test="memberid != null">
+			and memberid = #{memberid}
+		</if>
+		</select>
+		<select id="getCompanyHistorylist" resultType="Companyhistory" parameterType="map">
+			select historyno,memberid,historydate,content from companyhistory where 1=1
+		<if test="memberid != null">
+			and memberid = #{memberid}
+		</if>
+		</select>
 </mapper>
