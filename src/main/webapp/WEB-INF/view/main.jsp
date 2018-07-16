@@ -141,7 +141,7 @@
 		</div>
 		<div class="w3-container w3-half" style="height:150px;">
 			<div class="w3-half" style="width: 20%">
-				<img src="mainimg/manual3.png">
+				<img src="mainimg/manual4.png">
 			</div>
 			<div class="w3-half">
 				<h5 class="w3-text-red">4.다양한 정보의 커뮤니티</h5>
