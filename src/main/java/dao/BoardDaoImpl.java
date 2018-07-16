@@ -1,5 +1,8 @@
 package dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import dao.mapper.HireMapper;
 import dao.mapper.ScrapMapper;
+import logic.CompanyInfo;
+import logic.Companyhistory;
 import logic.Hire;
 import logic.Scrap;
 import logic.User;
@@ -225,6 +230,61 @@ public class BoardDaoImpl implements BoardDao{
 	public Hire selectHire(int hireno) {
 		return SqlSession.getMapper(HireMapper.class).selectHire(hireno);
 	}
+
+	@Override
+	public int companyInfoMaxNum() {
+		
+		int maxnum = SqlSession.getMapper(HireMapper.class).CompanyInfoMaxNum();
+		
+		return maxnum;
+	}
+	
+	
+	@Override
+	public void companyDetailwrite(CompanyInfo companyInfo) {
+		SqlSession.getMapper(HireMapper.class).CompanyInfoInsert(companyInfo);
+	}
+
+	@Override
+	public int companyHistoryMaxNum() {
+		
+		int maxNum = SqlSession.getMapper(HireMapper.class).CompanyHistoryMaxNum();
+		
+		return maxNum;
+	}
+
+	@Override
+	public void insertCompanyHistory(Companyhistory ch) {
+	
+		
+
+		
+		SqlSession.getMapper(HireMapper.class).insertCompanyHistory(ch);
+		
+	}
+
+	@Override
+	public CompanyInfo getCompanyInfo(String memberid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("memberid", memberid);
+		return SqlSession.selectOne(NS+"getCompanyInfo", map);
+	}
+
+	@Override
+	public List<Companyhistory> getCompanyHistorylist(String memberid) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("memberid", memberid);
+		
+		return SqlSession.selectList(NS+"getCompanyHistorylist", map);
+	}
+
+	@Override
+	public void companyInfoUpdate(CompanyInfo companyinfo) {
+		
+		SqlSession.getMapper(HireMapper.class).companyInfoUpdate(companyinfo);
+		
+	}
+
 
 
 

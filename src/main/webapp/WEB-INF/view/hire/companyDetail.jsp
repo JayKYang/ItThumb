@@ -26,6 +26,11 @@
  	height : 150px;
  }
  
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+ 
+ 
 </style>
 
 
@@ -78,7 +83,7 @@
           <li class="w3-dark-gray w3-xlarge w3-padding-32">${hire.subject}</li>
           <li class="w3-padding-16">${hire.qualification}</li>
           <li class="w3-padding-16">${hire.hirestatus}</li>
-          <li class="w3-padding-16">${hire.region}</li>
+          <li class="w3-padding-16">${hire.region} ${hire.regiongu}</li>
           <li class="w3-padding-16">${hire.workday}</li>
         </ul>
       </div>
@@ -86,7 +91,7 @@
      </div> 
      <div>
      <form name="f">
-     <input type="hidden" name="hireno" value="${param.hireno }">
+     <input type="hidden" name="hireno" value="${param.hireno}">
      <table align="center">
      					<tr align="center" height="26">
 			<td colspan="8">
@@ -127,10 +132,229 @@ function detailhirelist(pageNum){
 				</tr>
 			</c:if>
 </table>
+<h4>기업정보</h4>
+<c:if test="${sessionScope.login.memberid == companyinfo.memberid}">
+<a href="companyInfoUpdate.jsy?hireno=${hireno}">수정</a>
+</c:if>
+<table border="1" width="80%">
+	<tr>
+		<td>
+			기업명
+		</td>
+		<td>
+			${user.name}
+		</td>
+		<td>
+			대표자명
+		</td>
+		<td>
+			${companyinfo.ceoname}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			업종
+		</td>
+		<td colspan="3">
+			${user.industy}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			설립일
+		</td>
+		<td>
+			<fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
+		</td>
+		<td>
+			채용 현황
+		</td>
+		<td>
+			${hirelistcount} 건
+		</td>
+	</tr>
+		<tr>
+		<td>
+			사원수
+		</td>
+		<td>
+			${companyinfo.worker}
+		</td>
+		<td>
+			매출액
+		</td>
+		<td>
+			${companyinfo.sales}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			자본금
+		</td>
+		<td>
+			${companyinfo.capital}
+		</td>
+		<td>
+			영업이익
+		</td>
+		<td>
+			${companyinfo.profit}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			회사 주소
+		</td>
+		<td colspan="3">
+			${user.address}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			사이트
+		</td>
+		<td colspan="3">
+			${user.site}
+		</td>
+	</tr>
+	
+</table>
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <div class="w3-row-padding">
+  
+    <div class="w3-twothird">
+    
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>연혁 및 실적</h2>
+        <c:forEach items="${comHistorylist}" var="comHislist">
+        <div class="w3-container">
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>${comHislist.historydate}</h6>
+          <h5 class="w3-opacity"><b>${comHislist.content}</b></h5>
+          <hr>
+        </div>
+		</c:forEach>
+    </div>
+  </div>
+</div>
+<h4>근무조건</h4>
+<table border="1" width="80%">
+	<tr>
+		<td>
+			연금보험
+		</td>
+		<td>
+			${companyinfo.insurance}
+		</td>
+		<td>
+			급여제도
+		</td>
+		<td>
+			${companyinfo.salsystem}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			동호회/조직
+		</td>
+		<td>
+			${companyinfo.society}
+		</td>
+		<td>
+			회사분위기
+		</td>
+		<td>
+			${companyinfo.mood}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			명절/기념일
+		</td>
+		<td>
+			${companyinfo.anniversary }
+		</td>
+		<td>
+			의료/건강
+		</td>
+		<td>
+			${companyinfo.health}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			출산/육아
+		</td>
+		<td>
+			${companyinfo.care}
+		</td>
+		<td>
+			사무실 환경
+		</td>
+		<td>
+			${companyinfo.office}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			의복관련
+		</td>
+		<td>
+			${companyinfo.clothes}
+		</td>
+		<td>
+			식사관련
+		</td>
+		<td>
+			${companyinfo.meal}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			교통 출퇴근
+		</td>
+		<td>
+			${companyinfo.traffic}
+		</td>
+		<td>
+			지급품
+		</td>
+		<td>
+			${companyinfo.supplies}
+		</td>
+	</tr>
+		<tr>
+		<td>
+			지원금/대출
+		</td>
+		<td>
+			${companyinfo.supportfund}
+		</td>
+		<td>
+			회사 행사
+		</td>
+		<td>
+			${companyinfo.companyevent}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			교육관련
+		</td>
+		<td colspan="3">
+			${companyinfo.education}
+		</td>
+	</tr>
+</table>
+
+
+
+
+
 <div id="map" style="width:100%;height:400px;"></div>
  <script>
       var map = new naver.maps.Map('map');
-      var myaddress = '탄중로 523';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+      var myaddress = '서울특별시';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
       naver.maps.Service.geocode({address: myaddress}, function(status, response) {
           if (status !== naver.maps.Service.Status.OK) {
               return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');

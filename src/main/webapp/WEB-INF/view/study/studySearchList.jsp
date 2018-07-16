@@ -74,7 +74,8 @@
 </script>
 
 	<div id="main" class="w3-content">
-		<div class="w3-center" style="width:100%">
+		<br>
+		<div class="w3-center" style="width:100%;">
 			<p>
 				<span class="w3-content w3-text-pink w3-xxlarge">스터디 검색</span>
 			</p>
@@ -112,7 +113,7 @@
 			</c:forEach>
 		</table>
 		<div class="w3-right" style="margin-top:10px">
-				<input type="button" class="button" onclick="location.href='studyWrite.jsy'" style="width: 100px;" value="스터디 모집">
+				<input type="button" class="button" onclick="location.href='studyWrite.jsy'" style="width: 100px; height: 50px;" value="스터디 모집">
 		</div>
 
 		<br>

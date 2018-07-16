@@ -141,7 +141,7 @@
 			</c:forEach>
 		</table>
 		<br>
-		<input type="button" class="button w3-right" onclick="location.href='managestudy.jsy?pageNum=${pageNum}&smkind=${smkind}'" value="목록">
+		<input type="button" class="button w3-right" style="height: 50px;" onclick="location.href='managestudy.jsy?pageNum=${pageNum}&smkind=${smkind}'" value="목록">
 	</div>
 	
 	<div class="w3-container w3-half" style="width:30%">

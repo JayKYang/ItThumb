@@ -786,6 +786,44 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
+
+	public void companyDetailwrite(CompanyInfo companyInfo) {
+		
+		int maxNum = boardDao.companyInfoMaxNum();
+		
+		companyInfo.setInfono(++maxNum);
+		
+		boardDao.companyDetailwrite(companyInfo);
+	}
+
+	@Override
+	public void insertCompanyHistory(Companyhistory ch) {
+
+		int maxNum = boardDao.companyHistoryMaxNum();
+		
+		ch.setHistoryno(++maxNum);
+		
+		boardDao.insertCompanyHistory(ch);
+		
+	}
+
+	@Override
+	public CompanyInfo getCompanyInfo(String memberid) {
+		
+		return boardDao.getCompanyInfo(memberid);
+	}
+
+	@Override
+	public List<Companyhistory> getCompanyHistorylist(String memberid) {
+	
+		return boardDao.getCompanyHistorylist(memberid);
+	}
+
+	@Override
+	public void companyInfoUpdate(CompanyInfo companyinfo) {
+		boardDao.companyInfoUpdate(companyinfo);
+		
+	}
 	public void studyGroupLeaderSet(StudyGroup sg) {
 		studyGroupDao.studyGroupLeaderSet(sg);
 		

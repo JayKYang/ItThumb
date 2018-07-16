@@ -244,6 +244,17 @@ public interface JsyService {
 
 	Hire selectHire(int hireno);
 
+
+	void companyDetailwrite(CompanyInfo companyInfo);
+
+	void insertCompanyHistory(Companyhistory ch);
+
+	CompanyInfo getCompanyInfo(String memberid);
+
+	List<Companyhistory> getCompanyHistorylist(String memberid);
+
+	void companyInfoUpdate(CompanyInfo companyinfo);
+
 	void studyGroupLeaderSet(StudyGroup sg);
 
 	List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade, Integer pageNum, Integer limit, int createpf);
