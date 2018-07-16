@@ -23,7 +23,7 @@
 <style>
 	.button{
 		width:60px;
-		height:30px;
+		height:50px;
 	}
    	.button {
 	  border-radius: 4px;
@@ -137,7 +137,7 @@
 				<td style="text-align:center;">${study.membername}</td>
 			</tr>
 		</table>
-		<div class="w3-center" style="margin-top:10px">
+		<div class="w3-center" style="margin-top:10px;">
 			<a href="javascript:leaveConfirm('${pageNum}','${smkind}','${study.studyno}')" class="button w3-center" ><i class="fa fa-sign-out"></i>스터디 탈퇴하기</a> 
 		</div>
 	</div>

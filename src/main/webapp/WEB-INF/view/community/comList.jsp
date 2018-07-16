@@ -169,7 +169,7 @@
 		</form>
 		<div class="w3-right" style="margin-top: 10px">
 			<c:if test="${communitykind==1 || communitykind==2}">
-				<input type="button" class="button" style="width: 85px;"
+				<input type="button" class="button" style="width: 85px; height: 50px;"
 					onclick="location.href='comWrite.jsy?communitykind=${communitykind}&pageNum=${pageNum}'"
 					value="게시물 작성 ">
 			</c:if>

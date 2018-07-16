@@ -187,11 +187,11 @@
 				<br />
 				<br />
 				<div class="w3-right">
-					<input type="button" style="width: 100px;" id="add" class="button"
+					<input type="button" style="width: 100px; height:50px;" id="add" class="button"
 						onclick="location.href='#this'" value="파일 추가하기">&nbsp;&nbsp;
-					<input type="button" class="button"
+					<input type="button" class="button" style="height: 50px;"
 						onclick="location.href='comList.jsy?communitykind=${communitykind}&pageNum=${pageNum}'"
-						value="목록">&nbsp;&nbsp; <input type="submit"
+						value="목록">&nbsp;&nbsp; <input type="submit" style="height: 50px;"
 						class="button" value="등 록">
 				</div>
 			</form:form>

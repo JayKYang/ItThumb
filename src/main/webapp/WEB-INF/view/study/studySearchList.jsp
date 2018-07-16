@@ -113,7 +113,7 @@
 			</c:forEach>
 		</table>
 		<div class="w3-right" style="margin-top:10px">
-				<input type="button" class="button" onclick="location.href='studyWrite.jsy'" style="width: 100px;" value="스터디 모집">
+				<input type="button" class="button" onclick="location.href='studyWrite.jsy'" style="width: 100px; height: 50px;" value="스터디 모집">
 		</div>
 
 		<br>

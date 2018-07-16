@@ -168,7 +168,7 @@ ul{
 				<div class="listbox w3-right" style="width:60%; float:left;">
 					<div class="namelist"></div>
 				</div>
-				<br><br>
+				<br><br><br>
 			</td>
 		<tr>
 		<tr>

@@ -157,6 +157,7 @@ $(document).ready(function() {
 </head>
 
 <body>
+	<br>
 	<div id="main" class="w3-content">
 		<div class="w3-center" style="width: 100%">
 			<p>
@@ -297,7 +298,7 @@ $(document).ready(function() {
 					<td><form:textarea class="w3-input w3-border" path="content" rows="20" cols="50" /><br></td>
 				</tr>
 				<tr>
-					<td><input class="button" type="submit" value="등 록 하 기"></td>
+					<td><input class="button" style="height: 50px;" type="submit" value="등 록 하 기"></td>
 				</tr>
 			</table>
 		</form:form>
