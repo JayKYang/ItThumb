@@ -29,7 +29,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>study write</title>
+<title>잇썸 > 스터디모집 > 글쓰기</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 sies = new Array(
@@ -115,7 +115,7 @@ $(document).ready(function() {
 
 .button {
 	border-radius: 4px;
-	background-color: skyblue;
+	background-color: #DC143C;
 	border: none;
 	color: #FFFFFF;
 	text-align: center;

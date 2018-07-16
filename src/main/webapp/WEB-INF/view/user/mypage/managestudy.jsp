@@ -78,21 +78,21 @@
 		<c:if test="${smkind==1}">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">참여 신청한 스터디</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">참여 신청한 스터디</span>
 			</p>
 		</div>
 		</c:if>
 		<c:if test="${smkind==2}">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">스크랩한 스터디</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">스크랩한 스터디</span>
 			</p>
 		</div>
 		</c:if>
 		<c:if test="${smkind==3}">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">내가 만든 스터디</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">내가 만든 스터디</span>
 			</p>
 		</div>
 		</c:if>

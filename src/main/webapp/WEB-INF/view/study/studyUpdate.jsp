@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 .button {
 	border-radius: 4px;
-	background-color: skyblue;
+	background-color: #DC143C;
 	border: none;
 	color: #FFFFFF;
 	text-align: center;

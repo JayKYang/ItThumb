@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
-<title>studySearchList</title>
+<title>잇썸 > 스터디 모집</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -16,7 +16,7 @@
 
 .button {
 	border-radius: 4px;
-	background-color: skyblue;
+	background-color: #DC143C;
 	border: none;
 	color: #FFFFFF;
 	text-align: center;

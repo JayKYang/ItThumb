@@ -67,7 +67,7 @@
 			<fmt:formatDate value="${sessionScope.login.modifydate }" type="both" pattern="yyyy-MM-dd HH:MM:SS" var="modifydate"/>
 			<div class="w3-center">
 				<p>
-					<span class="w3-content w3-text-purple w3-xxlarge">내 포트폴리오</span>
+					<span class="w3-content w3-text-blue w3-xxlarge">내 포트폴리오</span>
 				</p>
 			</div>
 			<div class="w3-content w3-center" style="width:100%;">

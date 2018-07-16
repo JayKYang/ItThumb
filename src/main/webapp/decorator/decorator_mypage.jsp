@@ -51,7 +51,7 @@ function find_password(url) {
 	    <a href="${path}/main.jsy" class="w3-bar-item "><img src="${path }/mainimg/logo.png" style="width:100%"></a>
   	</div>
     <div class="w3-left w3-bar-item">
-		<a href="${path }/hire/hirelist.jsy" class="w3-bar-item  w3-hover-text-red w3-xlarge" style="padding-top:5%;text-decoration:none;">채용공고</a>
+		<a href="${path }/hire/hirelist.jsy" class="w3-bar-item  w3-hover-text-indigo w3-xlarge" style="padding-top:5%;text-decoration:none;">채용공고</a>
 		<c:if test="${sessionScope.login.membergrade=='1'}">
 	    	<a class="w3-bar-item  w3-hover-text-orange w3-xlarge" href="${path }/user/portfolio/myportfolio.jsy?id=${sessionScope.login.memberid}" style="padding-top:5%;text-decoration:none;">내 포트폴리오</a>
 	  	</c:if>
@@ -84,39 +84,39 @@ function find_password(url) {
 <div class="w3-content">
 	<div>
 		<p>
-			<span class="w3-content w3-text-indigo w3-xxlarge">마이페이지</span>
+			<span class="w3-content w3-text-blue w3-xxlarge">마이페이지</span>
 		</p>
 	</div>
 	<div class="w3-bar w3-left-align w3-large w3-theme-l1">
-		<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-			<a href="myInfo.jsy?id=${sessionScope.login.memberid }" class="w3-button"><p>내 정보</p></a>
+		<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+			<a href="myInfo.jsy?id=${sessionScope.login.memberid }" style="text-decoration:none;"><p>내 정보</p></a>
 		</div>
 		<c:if test="${sessionScope.login.membergrade == 1}">
-			<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				<a href="mypageportfolio.jsy" class="w3-button"><p>포트폴리오 관리</p></a>
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+				<a href="mypageportfolio.jsy" style="text-decoration:none;"><p>포트폴리오 관리</p></a>
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.login.membergrade == 2}">
-			<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				<a href="portfolioscraplist.jsy" class="w3-button"><p>관심 포트폴리오</p></a>
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+				<a href="portfolioscraplist.jsy" style="text-decoration:none;"><p>관심 포트폴리오</p></a>
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.login.membergrade == 0}">
-			<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				<a href="manageuser.jsy" class="w3-button"><p>회원 관리</p></a>
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+				<a href="manageuser.jsy" style="text-decoration:none;"><p>회원 관리</p></a>
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.login.membergrade == 1}">
-			<div class="w3-container w3-cell w3-cell-middle w3-button w3-dropdown-hover" style="width:200px;float:left;">
-				<a href="managestudy.jsy?smkind=1" class="w3-button"><p>스터디 관리</p></a>
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-dropdown-hover w3-hover-blue" style="width:200px;float:left;">
+				<a href="managestudy.jsy?smkind=1" style="text-decoration:none;"><p>스터디 관리</p></a>
 				<div class="w3-dropdown-content w3-bar-block w3-light-gray" style="width:200px;">
-					<a href="managestudy.jsy?smkind=1" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;">
+					<a href="managestudy.jsy?smkind=1" class="w3-bar-item w3-hover-pale-blue" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;">
 						참여 신청한 스터디
 					</a>
-					<a href="managestudy.jsy?smkind=2" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;"> 
+					<a href="managestudy.jsy?smkind=2" class="w3-bar-item w3-hover-pale-blue" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;"> 
 						스크랩한 스터디
 					</a>
-					<a href="managestudy.jsy?smkind=3" class="w3-bar-item w3-hover-pale-red" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;"> 
+					<a href="managestudy.jsy?smkind=3" class="w3-bar-item w3-hover-pale-blue" style="text-decoration:none; padding: 12px;text-align: center;width:200px;height:50px;"> 
 						내가 만든 스터디
 					</a>
 				</div>
@@ -128,13 +128,13 @@ function find_password(url) {
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.login.membergrade == 1}">
-			<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				<a href="hireScrapList.jsy" class="w3-button"><p>채용공고 스크랩</p></a>
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+				<a href="hireScrapList.jsy" style="text-decoration: none;"><p>채용공고 스크랩</p></a>
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.login.membergrade == 2}">
-			<div class="w3-container w3-cell w3-cell-middle w3-button" style="width:200px; float:left;">
-				<a href="myhirelist.jsy" class="w3-button"><p>내가 쓴 채용공고</p></a>
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+				<a href="myhirelist.jsy" style="text-decoration: none;"><p>내가 쓴 채용공고</p></a>
 			</div>
 		</c:if>
 	</div>

@@ -113,21 +113,6 @@
 				alert('이전 작업이 완료되지 않았습니다.');
 			}
 		}
-		/* else{ // projectform
-			inputtext='<h3>프로젝트</h3><input id="chk_'+addedFormDiv.id +'_'+ count4 + '" type="checkbox" style="display:none"><hr>';
-			
-			if( $("#chk_"+addedFormDiv.id+"_"+(count4-1)).length == 0 || $("#chk_"+addedFormDiv.id+"_"+(count4-1)).attr('checked') == 'checked' ){
-				var addedDiv = document.createElement("div");
-				addedDiv.setAttribute("id", addedFormDiv.id + "_" + count4);
-				addedDiv.innerHTML = inputtext;		
-				addedFormDiv.appendChild(addedDiv);		
-				count4++;			
-			}
-			else{
-				alert('이전 작업이 완료되지 않았습니다.');
-			}
-		} */
-		
 	}
 	
 	// Insert Experience
@@ -183,8 +168,7 @@
 						
 					}
 		        },error:function(request,status,error){
-		        	//alert('실패');
-		            // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
+		            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); 
 		        }
 		    });
 		}
@@ -201,7 +185,6 @@
 		// data checked상태. -> db제거 후 form 제거
 		if( $("#chk_"+id2[0]+"_"+id2[1]).attr('checked') == 'checked' ){
 			deleteFormDiv = document.getElementById(id2[0].slice(0,-1));
-			//alert('db제거작업');
 			  $.ajax({
 		        url : "deleteExperience.jsy",
 		        type : "POST",
@@ -252,6 +235,13 @@
  	   eventOccur(document.getElementById('imagefile'),'click');
  	   /* alert(orgFile.value); 이벤트 처리가 끝나지 않은 타이밍이라 값 확인 안됨! 시간차 문제 */
  	  }
+</script>
+<script>
+	function pfsubmit(){
+		
+		
+		document.f.submit();
+	}
 </script>
 <style>
 button {
@@ -503,7 +493,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		</div>
 		<table style="width: 98%">
 				<tr>
-					<td colspan="3" align="right"><button id="savebutton" class="w3-xlarge" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i>&nbsp;저장하기</button></td>
+					<td colspan="3" align="right"><button id="savebutton" class="w3-xlarge" onclick="javascript:pfsubmit();"><i class="fa fa-floppy-o"></i>&nbsp;저장하기</button></td>
 				</tr>
 		</table>
 		</form:form>

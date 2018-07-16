@@ -47,7 +47,7 @@
 
 .button {
 	border-radius: 4px;
-	background-color: skyblue;
+	background-color: green;
 	border: none;
 	color: #FFFFFF;
 	text-align: center;
@@ -58,7 +58,7 @@
 }
 
 .button:hover {
-	background-color: pink;
+	background-color: #98FB98;
 }
 
 .button span {

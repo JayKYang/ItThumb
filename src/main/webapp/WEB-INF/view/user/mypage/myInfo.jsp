@@ -102,19 +102,19 @@
 	<div class="w3-content">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">회원 정보</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">회원정보</span>
 			</p>
 		</div>
 		<div class="w3-content w3-container w3-padding-32">
 			<div id="info" class="w3-content" style="display:block;">
 				<form:form style="container" modelAttribute="user" action="myInfo.jsy" name="f" method="post" enctype="multipart/form-data">
 					<form:hidden path="imageUrl" />
-					<div id="profile">
+					<div id="profile" class="w3-center">
 						<c:if test="${empty sessionScope.login.imageUrl }">
-							<img class="w3-button" id="profilephoto" src="../../photo/defaultphoto.png"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+							<img class="w3-button w3-circle" id="profilephoto" src="../../photo/defaultphoto.png"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
 						</c:if>
 						<c:if test="${!empty sessionScope.login.imageUrl }" >
-							<img class="w3-button" id="profilephoto" src="../../photo/${sessionScope.login.imageUrl }"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
+							<img class="w3-button w3-circle" id="profilephoto" src="../../photo/${sessionScope.login.imageUrl }"  style="width:30%;" alt="이미지 파일이 아닙니다." onclick="fileUpload()">
 						</c:if>
 						<input type="file" name="image" id="image" style="display:none"/>
 					</div>
