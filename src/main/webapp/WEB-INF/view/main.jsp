@@ -73,7 +73,7 @@
 						</div>
 						<div class="w3-container">
 							<h1>
-								<a href="hire/companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none;"><b>${popBoard.company }</b></a>
+								<a href="hire/companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none;" target="_blank"><b>${popBoard.company }</b></a>
 							</h1>
 						</div>
 						<div class="w3-container">
@@ -82,7 +82,16 @@
 						<div class="w3-container">
 							<fmt:formatDate value="${popBoard.deadline}" var="date"
 								pattern="yyyyMMdd" />
-							<p>마감 ${date - now } 일 전</p>
+							<c:if test="${date-now != 0 }">
+								<p>마감 ${date - now } 일 전</p>
+								<c:if test="${date-now < 3 }">
+									<a class="w3-text-red w3-tag">마감 임박</a>
+								</c:if>
+							</c:if>
+							<c:if test="${date-now == 0 }">
+								<a class="w3-text-red">마감 공고입니다.</a>
+							</c:if>
+							
 						</div>
 						<c:set value="${status.count }" var="regNum" />
 					</div>
