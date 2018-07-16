@@ -124,25 +124,24 @@
 </head>
 <body>
 	<div id="main" class="w3-content">
-		<form:form modelAttribute="study" name="f">
 			<div class="w3-container w3-half" style="width:70%">
 				<div class="w3-center">
 					<p>
 						<span class="w3-content w3-text-pink w3-xxlarge">스터디 내용</span>
 					</p>
 				</div>
-				<table class="w3-table w3-bordered">
+				<table class="board_view" style="width: 100%;">
 					<tr>
-						<th style="text-align:center; font-size:30px">제 목</th>
+						<th style="text-align:left; font-size:30px">제 목</th>
 					</tr>
 					<tr>
-						<td>${study.studyname}</td>
+						<td style="border-bottom: 1px solid pink;">${study.studyname}</td>
 					</tr>
 					<tr>
-						<th style="text-align:center; font-size:30px">내 용</th>
+						<th style="text-align:left; font-size:30px">내 용</th>
 					</tr>
 					<tr>
-						<td>${study.content}</td>
+						<td style="border-bottom: 1px solid pink;">${study.content}</td>
 					</tr>
 				</table>
 				<br><br>
@@ -207,7 +206,7 @@
 				</c:if>
 				</div>
 			</div>
-		</form:form>
+		
 	</div>
 </body>
 </html>

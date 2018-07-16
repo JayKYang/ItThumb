@@ -25,4 +25,6 @@ public interface StudyGroupDao {
 	void myStudyKick(String regmember, Integer studyno);
 
 	List<StudyGroup> studygroupAOP(int studyno);
+
+	void studyGroupLeaderSet(StudyGroup sg);
 }

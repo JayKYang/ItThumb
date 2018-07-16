@@ -34,7 +34,7 @@
         }
         
         function fn_fileAdd(){
-            var str = "<p><input type='file' name='fileList' id='file_"+(g_count)+"'/><img id='preimg_"+(g_count)+"' style='height:50px; width:50px;' alt='NO IMAGE'>&nbsp;&nbsp;<a href='#this' id='delete' class='btn'>삭제하기</a></p> ";
+            var str = "<p><input type='file' name='fileList' id='file_"+(g_count)+"'/><img id='preimg_"+(g_count)+"' style='height:50px; width:50px;' alt='NO IMAGE'>&nbsp;&nbsp;<a href='#this' id='delete' class='button'>삭제하기</a></p> ";
             
             $("#fileDiv").append(str);
             $("a[id='delete']").on("click",function(e){
@@ -70,66 +70,132 @@
 	        }
 	    }
 </script>
-</head>
-
 <style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-</style>
+.button {
+	width: 60px;
+	height: 30px;
+}
 
-<body class="w3-black">
-	<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-black">
-		<a href="comList.jsy?communitykind=1" class="w3-bar-item w3-button w3-padding-large w3-hover-gray">
-		<i class="fa fa-clipboard w3-xxlarge"></i>
+.button {
+	border-radius: 4px;
+	background-color: skyblue;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 18px;
+	padding: 5px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: pink;
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+</style>
+</head>
+<body>
+	<div class="w3-bar w3-small w3-left w3-amber" style="width: 100%;">
+		<a href="comList.jsy?communitykind=1"
+			class="w3-bar-item w3-button w3-padding-large w3-hover-yellow"> <i
+			class="fa fa-clipboard w3-xxlarge"></i>
 			<p>자유 게시판</p>
-		</a> 
-		<a href="comList.jsy?communitykind=2" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"> 
-		<i class="fa fa-question-circle-o w3-xxlarge"></i>
+		</a> <a href="comList.jsy?communitykind=2"
+			class="w3-bar-item w3-button w3-padding-large w3-hover-yellow"> <i
+			class="fa fa-question-circle-o w3-xxlarge"></i>
 			<p>Q & A</p>
 		</a>
-		<c:if test="${!empty sessionScope.login}"> 
-			<a href="comList.jsy?communitykind=3" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"> 
-			<i class=" fa fa-edit w3-xxlarge"></i>
+		<c:if test="${!empty sessionScope.login}">
+			<a href="comList.jsy?communitykind=3"
+				class="w3-bar-item w3-button w3-padding-large w3-hover-yellow">
+				<i class=" fa fa-edit w3-xxlarge"></i>
 				<p>내가 쓴 글</p>
 			</a>
 		</c:if>
-	</nav>
-<div id="main">
-	<form:form modelAttribute="community" action="comWrite.jsy" method="post" enctype="multipart/form-data">
-		 <input type="hidden" value="${communitykind}" name="communitykind">
-		 <input type="hidden" value="${pageNum}" name="pageNum">
-		 <table class="board_view">
-		 	<c:if test="${communitykind==1}">
-            	<caption>자유게시판</caption>
-            </c:if>
-            <c:if test="${communitykind==2}">
-            	<caption>Q & A</caption>
-            </c:if>
-            <tbody>
-                <tr>
-                    <th scope="row">제목</th>
-                    <td><form:input path="subject" /><font color="red"><form:errors path="subject"/></font></td>
-                </tr>
-                <tr>
-                    <th scope="row">내용</th>
-                    <td><form:textarea path="content" rows="20" cols="40"/><font color="red"><form:errors path="content"/></font></td>
-                </tr>
-            </tbody>
-        </table>
-        <div id="fileDiv">
-            <p>
-            	
-                <input type="file" id="file_0" name="fileList"/>
-				<img id="preimg_0" style="height:50px; width:50px;" alt="NO IMAGE">&nbsp;&nbsp;
-				<a href="#this" id="delete" class="btn">삭제하기</a>
-            </p>
-        </div>
-        <br/><br/>
-        <a href="#this" id="add" class="w3-button">파일 추가하기</a>
-        <a href="comList.jsy?communitykind=${communitykind}&pageNum=${pageNum}" class="w3-button">목록</a>
-        <input type="submit" class="w3-button" value="등 록"> 
-	</form:form>
-</div>
+	</div>
+	<div id="main" class="w3-content w3-container">
+		<c:if test="${communitykind==1}">
+			<div class="w3-center" style="width: 100%;">
+				<p>
+					<span class="w3-content w3-text-amber w3-xxlarge">자유게시판 작성</span>
+				</p>
+			</div>
+		</c:if>
+		<c:if test="${communitykind==2}">
+			<div class="w3-center" style="width: 100%;">
+				<p>
+					<span class="w3-content w3-text-amber w3-xxlarge">Q & A 작성</span>
+				</p>
+			</div>
+		</c:if>
+		<div class="w3-center">
+			<form:form modelAttribute="community" action="comWrite.jsy"
+				method="post" enctype="multipart/form-data">
+				<input type="hidden" value="${communitykind}" name="communitykind">
+				<input type="hidden" value="${pageNum}" name="pageNum">
+				<table class="board_view" style="width: 100%;">
+
+					<tr>
+						<th style="text-align: center;"><b style="font-size: 30px">제목</b>&nbsp;<font
+							color="red"><form:errors path="subject" /></font></th>
+					</tr>
+					<tr>
+						<td><form:input path="subject" class="w3-input w3-border" /></td>
+					</tr>
+					<tr>
+						<th style="text-align: center;"><b style="font-size: 30px;">내용</b>&nbsp;<font
+							color="red"><form:errors path="content" /></font></th>
+					</tr>
+					<tr>
+						<td><form:textarea path="content" class="w3-input w3-border"
+								rows="20" cols="40" /></td>
+					</tr>
+
+				</table>
+				<div id="fileDiv">
+					<p>
+
+						<input type="file" id="file_0" name="fileList" /> <img
+							id="preimg_0" style="height: 50px; width: 50px;" alt="NO IMAGE">&nbsp;&nbsp;
+						<a href="#this" id="delete" class="button">삭제하기</a>
+					</p>
+				</div>
+				<br />
+				<br />
+				<div class="w3-right">
+					<input type="button" style="width: 100px;" id="add" class="button"
+						onclick="location.href='#this'" value="파일 추가하기">&nbsp;&nbsp;
+					<input type="button" class="button"
+						onclick="location.href='comList.jsy?communitykind=${communitykind}&pageNum=${pageNum}'"
+						value="목록">&nbsp;&nbsp; <input type="submit"
+						class="button" value="등 록">
+				</div>
+			</form:form>
+		</div>
+	</div>
 </body>
 </html>
