@@ -120,17 +120,17 @@
 </head>
 <body>
 	<div class="w3-bar w3-small w3-left w3-amber" style="width: 100%;">
-		<a href="comList.jsy?communitykind=1"
+		<a href="comList.jsy?communitykind=1" style="width:10%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-yellow"> <i
 			class="fa fa-clipboard w3-xxlarge"></i>
 			<p>자유 게시판</p>
-		</a> <a href="comList.jsy?communitykind=2"
+		</a> <a href="comList.jsy?communitykind=2" style="width:10%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-yellow"> <i
 			class="fa fa-question-circle-o w3-xxlarge"></i>
 			<p>Q & A</p>
 		</a>
 		<c:if test="${!empty sessionScope.login}">
-			<a href="comList.jsy?communitykind=3"
+			<a href="comList.jsy?communitykind=3" style="width:10%;"
 				class="w3-bar-item w3-button w3-padding-large w3-hover-yellow">
 				<i class=" fa fa-edit w3-xxlarge"></i>
 				<p>내가 쓴 글</p>

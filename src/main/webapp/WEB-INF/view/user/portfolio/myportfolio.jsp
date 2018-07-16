@@ -140,38 +140,38 @@
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"
+		<a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;"
 			onclick="openPortfolio('about')"> <i
 			class="fa fa-user w3-xxlarge"></i>
 			<p>ABOUT ME</p>
-		</a> <a href="#project"
+		</a> <a href="#project" style="width:10%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-amber"
 			onclick="openPortfolio('project')"> <i
 			class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>
 		<c:if test="${sessionScope.login.memberid == user.memberid }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber w3-right"
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber w3-right" style="width:10%;"
 				onclick="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
 				<i class="fa fa-edit w3-xxlarge"></i>
 				<p>EDIT</p>
 			</a>
 		</c:if>
 		<c:if test="${sessionScope.login.memberid != user.memberid }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber"
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;"
 				onclick="javascript:message_open('../../message/messageWrite.jsy?memberid=${user.memberid}')">
 				<i class="fa fa-commenting w3-xxlarge"></i>
 				<p>CONTACT</p>
 			</a>
 			<c:if test="${sessionScope.login.membergrade == 0 or sessionScope.login.membergrade == 2 }">
-			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber" 
+			<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;"
 			onclick="javascript:location.href='portfoliolist.jsy'">
 				<i class="fa fa-align-justify w3-xxlarge"></i>
 				<p>List 돌아가기</p>
 			</a>
 			</c:if>
 			<c:if test="${sessionScope.login.membergrade == 0 or sessionScope.login.membergrade == 2 }">
-			<a id="scrap" class="w3-bar-item w3-button w3-padding-large w3-hover-amber">
+			<a id="scrap" class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;"> 
 				<c:if test="${scrapConfirm==0}">
 					<i id="scrap2" class="fa fa-heart-o w3-xxlarge"></i>
 				</c:if>

@@ -126,16 +126,16 @@ ul{
 </head>
 <body>
 <div class="w3-bar w3-small w3-left w3-green" style="width: 100%;">
-		<a href="messageList.jsy?sort=1" class="w3-bar-item w3-button w3-padding-large w3-hover-light-green"> 
+		<a href="messageList.jsy?sort=1" style="width:10%;" class="w3-bar-item w3-button w3-padding-large w3-hover-light-green"> 
 			<i class="fa fa-envelope-o  w3-xxlarge"></i>
 			<p>받은 쪽지함</p>
 		</a> 
-		<a href="messageList.jsy?sort=2"
+		<a href="messageList.jsy?sort=2" style="width:10%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green"> <i
 			class="fa fa-pencil-square-o  w3-xxlarge"></i>
 			<p>보낸 쪽지함</p>
 		</a>
-		<a href="messageWrite.jsy"
+		<a href="messageWrite.jsy" style="width:10%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-send w3-xxlarge"></i>
 			<p>쪽지 보내기</p>

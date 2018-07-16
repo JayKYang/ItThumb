@@ -123,7 +123,7 @@
 </style>
 </head>
 <body>
-	<div id="main" class="w3-content">
+	<div id="main" class="w3-content w3-container">
 			<div class="w3-container w3-half" style="width:70%">
 				<div class="w3-center">
 					<p>

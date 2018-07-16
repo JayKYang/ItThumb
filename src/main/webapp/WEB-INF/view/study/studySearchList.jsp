@@ -74,7 +74,8 @@
 </script>
 
 	<div id="main" class="w3-content">
-		<div class="w3-center" style="width:100%">
+		<br>
+		<div class="w3-center" style="width:100%;">
 			<p>
 				<span class="w3-content w3-text-pink w3-xxlarge">스터디 검색</span>
 			</p>
