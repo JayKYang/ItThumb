@@ -154,8 +154,8 @@
 						<c:set var="num" value="${num - 1 }"></c:set>
 						<c:set var="subjectText" value="${com.subject}" />
 						<td style="text-align: center;"><a
-							href="comInfo.jsy?communitykind=${communitykind}&communityno=${com.communityno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}
-								<c:if test="${fn:length(subjectText)>10}">...
+							href="comInfo.jsy?communitykind=${communitykind}&communityno=${com.communityno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 20)}
+								<c:if test="${fn:length(subjectText)>20}">...
 						</c:if>
 						</a></td>
 						<td style="text-align: center;">${com.memberid }</td>

@@ -114,6 +114,11 @@
 				<th style="text-align:center;">상태</th>
 				<th style="text-align:center;">선택</th>
 			</tr>
+			<c:if test="${empty waitUserList}">
+				<tr>
+					<td colspan="5" style="text-align:center;">신청한 인원이 없습니다.</td>
+				</tr>
+			</c:if>
 			<c:forEach items="${waitUserList}" var="user">
 			<tr>
 				<td style="text-align:center;">${user.name} [${user.memberid}]</td>
