@@ -193,7 +193,7 @@ $(document).ready(function(){
 	<div class="w3-content">
 		<form:form modelAttribute="companyInfo" action="companyInfoUpdate.jsy"
 			method="post" name="f">
-			<input type="hidden" name="infono" value="${companyinfo.infono}">
+			<input type="hidden" name="infono" value="${companyInfo.infono}">
 			<input type="hidden" name="hireno" value="${hireno}">
 			<table style="width: 100%;" class="board_view">
 				<tr>

@@ -689,17 +689,14 @@ public class BoardController {
 	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.POST)
 	public ModelAndView companyCkcompanyInfoUpdate(HttpSession session,@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-	
 		User loginUser = (User)request.getSession().getAttribute("login");
 	      String memberid = loginUser.getMemberid();
 	      
 	      if(bindingResult.hasErrors()) {
 	         mav.getModel().putAll(bindingResult.getModel());
-	         
 	         return mav;
 	      }
 	      companyInfo.setMemberid(memberid); 
-	      User user = service.getUser(memberid);
 	      
 	      try {
 	    	  service.companyInfoUpdate(companyInfo);
