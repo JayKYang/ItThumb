@@ -135,45 +135,7 @@ $(document).ready(function(){
 </head>
 <body>
 <h4>기업정보</h4>
-	<table border="1" width="80%">
-	<tr>
-		<td>
-			기업명
-		</td>
-		<td>
-			${user.name}
-		</td>
-		<td>
-			업종
-		</td>
-		<td>
-			${user.industy}
-		</td>
-	</tr>
-		<tr>
-		<td>
-			설립일
-		</td>
-		<td>
-			<fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
-		</td>
-		<td>
-			회사 주소
-		</td>
-		<td>
-			${user.address}
-		</td>
-	</tr>
-	<tr>
-		<td>
-			사이트
-		</td>
-		<td colspan="3">
-			${user.site}
-		</td>
-	</tr>
-</table>
-<form:form modelAttribute="companyinfo" action="companyInfoUpdate.jsy" method="post" name="f">
+<form:form modelAttribute="companyInfo" action="companyInfoUpdate.jsy" method="post" name="f">
 <input type="hidden" name="infono" value="${companyinfo.infono}">
 <input type="hidden" name="hireno" value="${hireno}">
 
@@ -183,13 +145,13 @@ $(document).ready(function(){
 			대표자명
 		</td>
 		<td>
-			<form:input path="ceoname" value="${companyinfo.ceoname}"/><font color="orange"><form:errors path="ceoname" /></font>
+			<form:input path="ceoname" value="${companyInfo.ceoname}"/><font color="orange"><form:errors path="ceoname" /></font>
 		</td>
 		<td>
 			사원수
 		</td>
 		<td>
-			<form:input path="worker" value="${companyinfo.worker}"/><font color="orange"><form:errors path="worker" /></font>
+			<form:input path="worker" value="${companyInfo.worker}"/><font color="orange"><form:errors path="worker" /></font>
 		</td>
 	</tr>
 	<tr>
@@ -197,13 +159,13 @@ $(document).ready(function(){
 			매출액
 		</td>
 		<td>
-			<form:input path="sales" value="${companyinfo.sales}"/><font color="orange"><form:errors path="sales" /></font>
+			<form:input path="sales" value="${companyInfo.sales}"/><font color="orange"><form:errors path="sales" /></font>
 		</td>
 		<td>
 			영업이익
 		</td>
 		<td>
-			<form:input path="profit" value="${companyinfo.profit}"/><font color="orange"><form:errors path="profit" /></font>
+			<form:input path="profit" value="${companyInfo.profit}"/><font color="orange"><form:errors path="profit" /></font>
 		</td>
 	</tr>
 	<tr>
@@ -211,7 +173,7 @@ $(document).ready(function(){
 			자본금
 		</td>
 		<td colspan="3">
-			<form:input path="capital" value="${companyinfo.capital}"/><font color="orange"><form:errors path="capital" /></font>
+			<form:input path="capital" value="${companyInfo.capital}"/><font color="orange"><form:errors path="capital" /></font>
 		</td>
 	</tr>
 	<tr>

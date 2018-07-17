@@ -241,8 +241,8 @@ public class BoardDaoImpl implements BoardDao{
 	
 	
 	@Override
-	public void companyDetailwrite(CompanyInfo companyInfo) {
-		SqlSession.getMapper(HireMapper.class).CompanyInfoInsert(companyInfo);
+	public void companyDetailwrite(CompanyInfo companyinfo) {
+		SqlSession.getMapper(HireMapper.class).CompanyInfoInsert(companyinfo);
 	}
 
 	@Override
@@ -283,6 +283,39 @@ public class BoardDaoImpl implements BoardDao{
 		
 		SqlSession.getMapper(HireMapper.class).companyInfoUpdate(companyinfo);
 		
+	}
+
+	@Override
+	public void comInfoDelete(String memberid) {
+		SqlSession.getMapper(HireMapper.class).comInfoDelete(memberid);
+	}
+
+	@Override
+	public int getCompanyHistorylistCount(String memberid) {
+		
+		int ret = SqlSession.getMapper(HireMapper.class).getCompanyHistorylistCount(memberid);
+		
+		return ret;
+	}
+
+	@Override
+	public int getCompanyHistorylistMaxNum(String memberid) {
+		int maxNum = SqlSession.getMapper(HireMapper.class).getCompanyHistorylistMaxNum(memberid);
+		return maxNum;
+	}
+
+	@Override
+	public int companyInfocount(String memberid) {
+		
+		int infomax = SqlSession.getMapper(HireMapper.class).companyInfocount(memberid);
+		
+		return infomax;
+	}
+
+	@Override
+	public void deleteCompanyhistory(int historyno) {
+	
+		SqlSession.getMapper(HireMapper.class).deleteCompanyhistory(historyno);
 	}
 
 

@@ -57,7 +57,7 @@ public interface BoardDao {
 
 	Hire selectHire(int hireno);
 
-	void companyDetailwrite(CompanyInfo companyInfo);
+	void companyDetailwrite(CompanyInfo companyinfo);
 
 	int companyInfoMaxNum();
 
@@ -70,6 +70,16 @@ public interface BoardDao {
 	List<Companyhistory> getCompanyHistorylist(String memberid);
 
 	void companyInfoUpdate(CompanyInfo companyinfo);
+
+	void comInfoDelete(String memberid);
+
+	int getCompanyHistorylistCount(String memberid);
+
+	int getCompanyHistorylistMaxNum(String memberid);
+
+	int companyInfocount(String memberid);
+
+	void deleteCompanyhistory(int historyno);
 
 
 }

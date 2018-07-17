@@ -86,8 +86,8 @@ $(document).ready(function(){
 		   html +=   '<td>' */
 		   html += '<div class="w3-container_'+count+'" id="addTable_'+count+'">'
 		    html += '<h6 class="w3-text-teal" name="career" id="click_'+count+'"><i class="fa fa-calendar fa-fw w3-margin-right"></i></h6>'
-		   	html +=	 '<input type="text" id="careerYear_'+count+'">'
-			html +=  '<input type="text" id="careerMonth_'+count+'">'
+		   	html +=	 '<input type="hidden" id="careerYear_'+count+'">'
+			html +=  '<input type="hidden" id="careerMonth_'+count+'">'
 			html +=  '<input type="text" name="historydate" id="Date_'+count+'">'
 		    html += '<h5 class="w3-opacity">내용<input type="text" name="content"></h5>'
 		    html += '<hr>'

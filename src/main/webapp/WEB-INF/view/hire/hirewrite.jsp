@@ -184,7 +184,7 @@ sies = new Array(
 					<form:input path="region"/><font color="orange"><form:errors path="region" /></font>
 					<form:input path="regiongu"/><font color="orange"><form:errors path="regiongu"/></font>
 					<form:input path="regionetc"/><font color="orange"><form:errors path="regionetc"/></font>
-					<br>
+				<br>
 					<label style="font-size:8pt;">세부주소를 같이 입력해주세요.</label>
 				</td>
 			</tr>
@@ -285,26 +285,6 @@ sies = new Array(
 			</tr>
 		</table>
 	</form:form>
-	
-	<table>
-	<tr>
-				<td>
-			<input type="text" name="" class="postcodify_postcode5" value="" />
-				</td>
-				<td>
-				<button id="postcodify_search_button">검색</button><br />
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<input type="text" name="" class="postcodify_address" value="" /><br />
-<input type="text" name="" class="postcodify_details" value="" /><br />
-<input type="text" name="" class="postcodify_extra_info" value="" /><br />
-				
-				
-				</td>
-			</tr>
-	</table>
 	
 </body>
 </html>

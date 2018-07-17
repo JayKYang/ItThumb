@@ -10,6 +10,10 @@
 <script type="text/javascript">
 var count = 1;
 $(document).ready(function(){
+	 var num = ${maxNum};
+	var listcount = ${comhislistcount}
+
+	for(var i=1; i<=listcount; i++){
 	 var array = []
      var month = new Date();
         month = ${birth}; // 1990 - 설립일
@@ -26,7 +30,7 @@ $(document).ready(function(){
         console.log(a);
      
      var html = "";
-        html += '<select id="selectCareerYear_0" name="selectCareerYear">'
+        html += '<select id="selectCareerYear_'+i+'" name="selectCareerYear">'
         html += '<option>선택해주세요</option>';
         for(var i=0; i<array.length;i++){
            html+= '<option name="year" value="'+array[i]+'">'+array[i]+'</option>';
@@ -37,7 +41,7 @@ $(document).ready(function(){
      for(var i=1; i<13; i++){
         array.push(i);
      };
-        html += '<select id="selectCareerMonth_0" name="selectCareerMonth">'
+        html += '<select id="selectCareerMonth_'+i+'" name="selectCareerMonth">'
         html += '<option>선택해주세요</option>';
      for(var i=0; i<array.length; i++){
         html+= '<option name="month" value="'+array[i]+'">'+array[i]+'</option>';
@@ -45,81 +49,71 @@ $(document).ready(function(){
         html+='</select>';
      
         console.log(html);
-        $('#click_0').append(html);  
+        $('#click_'+i).append(html);  
+	}
+	
+	
 
 
         
-       $('#selectCareerYear_0').change(function(){
+       $('#selectCareerYear_'+i).change(function(){
     		if($(this).val()=='선택해주세요'){
        		      alert("년도를 선택해주세요");
-    	         $("#careerYear_0").val('');
+    	         $("#careerYear_"+i).val('');
     	}else{
- 		$("#careerYear_0").val($(this).val());
- 		var i = $("#careerYear_0").val()
+ 		$("#careerYear_"+i).val($(this).val());
+ 		var a = $("#careerYear_"+i).val()
  		
- 		$("#Date_0").val(i+"-"+$("#careerMonth_0").val())
+ 		$("#Date_"+i).val(a+"-"+$("#careerMonth_"+i).val())
  		
  		}
 	})
-		$('#selectCareerMonth_0').change(function(){
+		$('#selectCareerMonth_'+i).change(function(){
  		if($(this).val()=='선택해주세요'){
   			  alert("달을 선택해주세요");
-  			  $("#careerMonth_0").val('');
+  			  $("#careerMonth_"+i).val('');
  			}else{
- 			$("#careerMonth_0").val($(this).val());
- 			var i = $("#careerMonth_0").val()
+ 			$("#careerMonth_"+i).val($(this).val());
+ 			var a = $("#careerMonth_"+i).val()
  	 		
- 	 		$("#Date_0").val($("#careerYear_0").val()+"-"+i)
+ 	 		$("#Date_"+i).val($("#careerYear_"+i).val()+"-"+a)
  			
  			}
 			})
-			
-	
-
 	
 	$('#historyPlus').click(function(){
+		  // 4
 		
 		event.preventDefault();
 		  var html = "";
+		  
+		  console.log(num);
 		   
 		/*    html += '<tr name="insertTr">'
 		   html +=   '<td>' */
-		   html += '<div class="w3-container_'+count+'" id="addTable_'+count+'">'
-		    html += '<h6 class="w3-text-teal" name="career" id="click_'+count+'"><i class="fa fa-calendar fa-fw w3-margin-right"></i></h6>'
-		   	html +=	 '<input type="text" id="careerYear_'+count+'">'
-			html +=  '<input type="text" id="careerMonth_'+count+'">'
-			html +=  '<input type="text" name="historydate" id="Date_'+count+'">'
+		   html += '<div class="w3-container_'+num+'">'
+		    html += '<h6 class="w3-text-teal" name="career" id="click_'+num+'"><i class="fa fa-calendar fa-fw w3-margin-right"></i></h6>'
+		   	html +=	 '<input type="hidden" id="careerYear_'+num+'">'
+			html +=  '<input type="hidden" id="careerMonth_'+num+'">'
+			html +=  '<input type="text" name="historydate" id="Date_'+num+'">'
 		    html += '<h5 class="w3-opacity">내용<input type="text" name="content"></h5>'
 		    html += '<hr>'
-		    html += '<a id="divDelete_'+count+'">삭제</a>'
 		    html += '</div>'
 		 /*    html += '</td>'
 		    html += '</tr>' */
 		     
 		    $('#addTable').append(html)
 		    
-		    
-		    datePlus(count);
-		   	
-		    
-			$('#divDelete_'+count).click(function(){
-				event.preventDefault();
-				alert("asfasf");
-				$("#addTable_"+count).remove();
-			})		
-		    
-		    
-		    
-		    
-		   	count = count+1;
+		    datePlus(num);
+	
+		    num = num+1;
 
 	})
-
 	
 	
 }); //document.ready 끝
 
-function datePlus(count){
+function datePlus(num){
 	var array = []
     var month = new Date();
        month = ${birth}; // 1990 - 설립일
@@ -136,7 +130,7 @@ function datePlus(count){
        console.log(a);
     
     var html = "";
-       html += '<select id="selectCareerYear_'+count+'" name="selectCareerYear">'
+       html += '<select id="selectCareerYear_'+num+'" name="selectCareerYear">'
        html += '<option>선택해주세요</option>';
        for(var i=0; i<array.length;i++){
           html+= '<option name="year" value="'+array[i]+'">'+array[i]+'</option>';
@@ -147,7 +141,7 @@ function datePlus(count){
     for(var i=1; i<13; i++){
        array.push(i);
     };
-       html += '<select id="selectCareerMonth_'+count+'" name="selectCareerMonth">'
+       html += '<select id="selectCareerMonth_'+num+'" name="selectCareerMonth">'
        html += '<option>선택해주세요</option>';
     for(var i=0; i<array.length; i++){
        html+= '<option name="month" value="'+array[i]+'">'+array[i]+'</option>';
@@ -155,30 +149,30 @@ function datePlus(count){
        html+='</select>';
 
        console.log(html);
-       $('#click_'+count).append(html);  
+       $('#click_'+num).append(html);  
 	   
-	
-       $("#selectCareerYear_"+count).change(function(){
+		
+       $("#selectCareerYear_"+num).change(function(){
    		if($(this).val()=='선택해주세요'){
       		      alert("년도를 선택해주세요");
-   	         $("#careerYear_"+count).val('');
+   	         $("#careerYear_"+num).val('');
    	}else{
-		$("#careerYear_"+count).val($(this).val());
+		$("#careerYear_"+num).val($(this).val());
 		var i = $("#careerYear_"+count).val()
 		
-		$("#Date_"+count).val(i+"-"+$("#careerMonth_"+count).val())
+		$("#Date_"+num).val(i+"-"+$("#careerMonth_"+num).val())
 		
 		}
 	})
-		$("#selectCareerMonth_"+count).change(function(){
+		$("#selectCareerMonth_"+num).change(function(){
 		if($(this).val()=='선택해주세요'){
  			  alert("달을 선택해주세요");
- 			  $("#careerMonth_"+count).val('');
+ 			  $("#careerMonth_"+num).val('');
 			}else{
-			$("#careerMonth_"+count).val($(this).val());
+			$("#careerMonth_"+num).val($(this).val());
 			var i = $("#careerMonth_"+count).val()
 	 		
-	 		$("#Date_"+count).val($("#careerYear_"+count).val()+"-"+i)
+	 		$("#Date_"+num).val($("#careerYear_"+num).val()+"-"+i)
 			
 			}
 			})
@@ -200,18 +194,20 @@ function datePlus(count){
     </div>
    <form modelAttribute="companyhistory" action="companyWrite.jsy" method="post" name="f">
    <table width="100%" border="1">
-         <tr class="insertTr">
+         <tr id="insertTr">
          	<td>         
+        <c:forEach items="${comHislist}" var="comHistorylist">
                <div class="w3-container_0" id="addTable">
-                  <h6 class="w3-text-teal" name="career" id="click_0"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
+                  <h6 class="w3-text-teal" name="career" id="click_${comHistorylist.historyno}"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
 				  </h6>
-				  <input type="text" id="careerYear_0">
-				  <input type="text" id="careerMonth_0">
-				  <input type="text" name="historydate" id="Date_0">
-                  <h5 class="w3-opacity">내용<input type="text" name="content"></h5>
-            	  <a id="divDelete_0">삭제</a>
-                   <hr>
+				  <input type="hidden" id="careerYear_${comHistorylist.historyno}">
+				  <input type="hidden" id="careerMonth_${comHistorylist.historyno}">
+				  <input type="text" name="historydate" id="Date_${comHistorylist.historyno}" value="${comHistorylist.historydate}">
+                  <h5 class="w3-opacity">내용<input type="text" name="content" value="${comHistorylist.content}"></h5>
+                	<a>삭제</a>
+                <hr>
               </div>
+		</c:forEach>
           	</td>
          </tr>
          <tr>

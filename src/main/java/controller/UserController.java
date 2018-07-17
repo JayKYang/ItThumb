@@ -44,6 +44,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		List<Hire> popBoardlist2 = service.popHirelist(4);
 		List<Hire> popBoardlist = new ArrayList<Hire>();
+		
 		for(Hire h : popBoardlist2) {
 			User user = service.getUser(h.getMemberid());
 			h.setUser(user);

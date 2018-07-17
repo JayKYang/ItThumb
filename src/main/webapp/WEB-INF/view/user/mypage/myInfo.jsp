@@ -169,7 +169,7 @@
 					<div class="w3-container">
 						<input type="button" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴">
 						<input type="submit" class="button w3-right" style="margin-left:4px;" value="수정">
-						<input type="button" class="button w3-right" onclick="window.open('../../hire/companyDetailwrite.jsy')" value="기업세부정보 변경"> 
+						<input type="button" class="button w3-right" onclick="window.open('myPageCompanyDetail.jsy')" value="기업세부정보"> 
 					</div>
 				</form:form>
 			</div>

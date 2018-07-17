@@ -1,3 +1,4 @@
+<%@page import="java.io.*,java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
@@ -233,43 +234,26 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
    <form:form modelAttribute="companyInfo" action="companyDetailwrite.jsy" method="post" name="f">
 <table width="80%" border="1">
    <tr>
-      <td>기업명</td>
-      <td>${user.name}</td>
       
       <td>대표자명</td>
       <td colspan="3">
-         <form:input path="ceoname" /><font color="orange"><form:errors path="ceoname" /></font>
+         <form:input path="ceoname" /><font color="red"><form:errors path="ceoname" /></font>
       </td>
-   </tr>
-   <tr>
-      <td>
-         사업내용
-      </td>
-      <td colspan="4">
-         ${user.industy}
-      </td>
-   </tr>
-   <tr>
-      <td>설립일</td>
-      <td colspan="4">
-      <fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
-      </td>
-
    </tr>
    <tr>
       <td>사원수</td>
       <td>
-      <form:input path="worker" /><font color="orange"><form:errors path="worker" /></font>
+      <form:input path="worker"/><font color="red"><form:errors path="worker" /></font>
       </td>
       <td>자본금</td>
-      <td><form:input path="capital" /><font color="orange"><form:errors path="capital" /></font></td>
+      <td><form:input path="capital" /><font color="red"><form:errors path="capital" /></font></td>
    </tr>
    <tr>
       <td>매출액</td>
-      <td><form:input path="sales" /><font color="orange"><form:errors path="sales" /></font></td>
+      <td><form:input path="sales" /><font color="red"><form:errors path="sales" /></font></td>
       <td>영업이익</td>
       <td>
-      <form:input path="profit" /><font color="orange"><form:errors path="profit" /></font>
+      <form:input path="profit" /><font color="red"><form:errors path="profit" /></font>
       </td>
    </tr>
   <tr>
