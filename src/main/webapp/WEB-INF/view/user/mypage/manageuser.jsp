@@ -78,7 +78,7 @@
 	<div class="w3-content">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">회원 관리</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">회원 관리</span>
 			</p>
 		</div>
 		<table class="w3-table w3-bordered">
@@ -152,8 +152,7 @@
 								document.getElementById("searchType").value = '${param.searchType}'
 							}
 						</script> <input type="text" name="searchContent"
-							value="${param.searchContent }"> <input type="submit"
-							value="검색">
+							value="${param.searchContent }"> <button type="submit" style="width:60px;height:30px;">검색</button>
 						</span>
 					</form>
 				</div>

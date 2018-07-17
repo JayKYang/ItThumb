@@ -58,11 +58,11 @@
 	<div class="w3-content">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">채용공고 승인</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">채용공고 승인</span>
 			</p>
 		</div>
 		<div class="w3-container w3-padding-32">
-			<div id="confirmhirelist" class="mypage" style="width:90%">
+			<div id="confirmhirelist" class="mypage" style="width:100%">
 				<table class="w3-table w3-bordered">
 					<tr>
 						<td><a href="confirmHire.jsy">전체</a>&nbsp;&nbsp; <a
@@ -94,8 +94,8 @@
 								<td>${hire.company }</td>
 								<td><a
 									href="../../hire/hiredetail.jsy?hireno=${hire.hireno}">${hire.subject }</a></td>
-								<td>${hire.regdate }</td>
-								<td>${hire.deadline }</td>
+								<td><fmt:formatDate	value="${hire.regdate }" type="both" pattern="yyyy-MM-dd" /></td>
+								<td><fmt:formatDate	value="${hire.deadline }" type="both" pattern="yyyy-MM-dd" /></td>
 								<c:if test="${hire.hide == 0}">
 								<td><div class="w3-tag w3-round w3-red" style="padding:3px; width:75px;">
 									<div class="w3-tag w3-round w3-red w3-border w3-border-white" style="width:70px;">
@@ -154,8 +154,8 @@
 								document.getElementById("searchType").value = '${param.searchType}'
 							}
 						</script> <input type="text" name="searchContent"
-							value="${param.searchContent}"> <input type="submit"
-							value="검색">
+							value="${param.searchContent}"> <button type="submit"
+							>검색</button>
 						</span>
 					</form>
 				</div>

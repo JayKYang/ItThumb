@@ -65,13 +65,13 @@ $(document).ready(function(){
 						<fmt:formatDate value="${hire.deadline}" var="date" pattern="yyyy.MM.dd HH:MM" />
 						${regdate } ~ ${date }
 						<fmt:formatDate value="${hire.deadline}" var="date"	pattern="yyyyMMdd" />
-						<c:if test="${date-now != 0 }">
-							(<a class="w3-text-red">${date - now } 일</a> 남음)
+						<c:if test="${diffDays >= 0 }">
+							(<a class="w3-text-red">${diffDays} 일</a> 남음)
 							<c:if test="${date-now < 3 }">
 								<a class="w3-text-red w3-tag">마감 임박</a>
 							</c:if>
 						</c:if>
-						<c:if test="${date-now == 0 }">
+						<c:if test="${diffDays <= 0 }">
 							<a class="w3-text-red">마감 공고입니다.</a>
 						</c:if>
 					</td>

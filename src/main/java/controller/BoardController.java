@@ -207,10 +207,22 @@ public class BoardController {
 	
 	//로그인 확인
 	@RequestMapping(value="hire/hiredetail", method=RequestMethod.GET)
-	public ModelAndView logconhiredetail(HttpSession session,Integer hireno, HttpServletRequest request) {
+	public ModelAndView logconhiredetail(HttpSession session,Integer hireno, HttpServletRequest request) throws java.text.ParseException {
 		ModelAndView mav = new ModelAndView();
 		User user2 = (User)request.getSession().getAttribute("login");
 		String memberid = user2.getMemberid();
+		
+		String strDate = null;
+		String strEndDate = null;
+		Date beginDate = null;
+		Date endDate = null;
+		Date date = new Date(); // 현재 날짜
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+		long diff = 0;
+		long diffDays = 0;
+		
+		
+		
 		
 		Scrap scrap = service.hireScrapSelect(hireno, memberid);
 	       if(scrap == null) {
@@ -225,8 +237,17 @@ public class BoardController {
 			hire = service.getHire(hireno,searchType, searchContent);
 			service.readCntplus(hireno);
 		}
+		
+		strDate = formatter.format(date);
+		strEndDate = formatter.format(hire.getDeadline());
+		beginDate = formatter.parse(strDate);
+		endDate = formatter.parse(strEndDate);
+	    diff = endDate.getTime() - beginDate.getTime();
+		 diffDays = diff / (24 * 60 * 60 * 1000);
+		
 		User user = service.getUser(hire.getMemberid());
 		
+		mav.addObject("diffDays", diffDays);
 		mav.addObject("user",user);
 		mav.addObject("hire", hire);
 		
