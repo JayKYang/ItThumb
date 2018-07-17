@@ -68,7 +68,7 @@ create table study(
 	studyno int PRIMARY KEY,
 	memberid varchar(30),
 	region varchar(50),
-	studyname varchar(50),
+	studyname varchar(100),
 	regdate date,
 	nowmember int,
 	limitmember int,
@@ -93,7 +93,7 @@ create table message(
 create table community(
 	communityno int PRIMARY KEY,
 	memberid varchar(30),
-	subject varchar(30),
+	subject varchar(100),
 	content varchar(5000),
 	regdate datetime,
 	communitykind int,

@@ -469,6 +469,11 @@ function hirelist(pageNum){
 				<th width="8%" height="26">마감일</th>
 				<th width="5%" height="26">마감상태</th>
 			</tr>
+			<c:if test="${empty boardlist}">
+				<tr>
+					<td colspan="8" style="text-align: center">등록된 채용공고 게시물이 없습니다.</td>
+				</tr>
+			</c:if>
 			<c:forEach var="hireboard" items="${boardlist}" varStatus="status">
 			<c:if test="${hireboard.hide==1}">
 			<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.color='#1DDB16', this.style.border='2px solid'" onmouseout="this.style.color=''">
@@ -513,12 +518,6 @@ function hirelist(pageNum){
 					</c:if> &nbsp;
 				</td>
 			</tr>
-			
-				<c:if test="${listcount==0}">
-			<tr>
-				<td colspan="8">등록된 채용공고 게시물이 없습니다.</td>
-			</tr>
-		</c:if>
 		<c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
 			<tr>
 				<td align="right" colspan="8">
@@ -531,166 +530,3 @@ function hirelist(pageNum){
 </div>
 </body>
 </html>
-
-<%-- <div name="aa">
-<h6 class="region">지역</h6>
-</div>
-<div name="bb">
-<h6  name="levelofedu" id="levelofedu">학력</h6>
-
-</div>
-<div name="cc">
-<h6 id="fff">고용형태</h6>
-
-</div>
-<div name="cc">
-<h6 id="carrarea">경력</h6>
-
-
-</div>
-<table width="90%" id="table" cellpadding="0" cellspacing="0">
-	<tr>
-		<td colspan="8" align="center">
-	<form action="hirelist.jsy" method="post" name="searchform" onsubmit="return hirelist(1)">
-		<input type="hidden" name="pageNum" value="1">
-		<input type="hidden" name="popPageNum" value="1">
-			<input type="text" name="searchRegion" id="searchRegion" value="${param.searchRegion}">
-			<input type="text" name="searchEdu" value="${param.searchEdu}">
-			<input type="text" name="searchCarr" value="${param.searchCarr}">
-			<input type="text" name="searchCareer" value="${param.searchCareer }">
-			<input type="text" name="searchCareerDate" value="${param.searchCareerDate}">
-			<input type="submit" value="Search">
-	</form>	
-		</td>
-	</tr>
-	<tr>
-		<td colspan="8" width="90%" height="100px" id="allchk">
-				<div id="divchk">
-				
-				</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="8">
-			<h2>인기 공고</h2>
-			<a href="calender.jsy">달력</a>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="8">
-			<table width="100%" id="table"  cellpadding="0" cellspacing="0">
-				<tr align="center" valign="middle" border="#212121">
-					<th width="10%" height="26">기업명</th>
-			<th width="40%" height="26">제목</th>
-			<th width="14%" height="26">지원자격</th>
-			<th width="10%" height="26">경력</th>
-			<th width="6%" height="26">근무조건</th>
-			<th width="8%" height="26">작성일</th>
-			<th width="8%" height="26">마감일</th>
-			<th width="5%" height="26">마감상태</th>
-				</tr>
-				
-				<c:forEach var="popBoard" items="${popBoardlist}" varStatus="status">
-					<tr align="center" valign="middle" bordercolor="#333333" >
-						<td>
-							${popBoard.company}
-						</td>
-						<td>
-						<a href="hiredetail.jsy?hireno=${popBoard.hireno}&pageNum=${pageNum}">${popBoard.subject}</a>
-						</td>
-						<td>
-						${popBoard.qualification}
-						</td>
-						<td>
-						${popBoard.career} ${popBoard.careerdate }
-						</td>
-						<td>
-							${popBoard.hirestatus}
-						</td>
-						<td align="left">
-					<fmt:formatDate value="${popBoard.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-				</td>
-				<td align="left">
-				<fmt:formatDate value="${popBoard.deadline}" pattern="yyyy-MM-dd HH:mm:ss" />
-				</td>
-				<td align="center">
-					${popDatelist[status.index]} 일 전
-				</td>
-					</tr>
-					</c:forEach>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="8">
-			<h2>공고 전체</h2>
-		</td>
-	</tr>
-	
-	<tr align="center" valign="middle" bordercolor="#212121">
-			<th width="10%" height="26">기업명</th>
-			<th width="34" height="26">제목</th>
-			<th width="14%" height="26">지원자격</th>
-			<th width="10%">경력</th>
-			<th width="6%" height="26">근무조건</th>
-			<th width="8%" height="26">작성일</th>
-			<th width="8%" height="26">마감일</th>
-			<th width="5%" height="26">마감상태</th>
-		</tr>
-		<c:forEach var="hireboard" items="${boardlist}" varStatus="status">
-		<c:if test="${hireboard.hide==1}">
-		<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.color='#1DDB16', this.style.border='2px solid'" onmouseout="this.style.color=''">
-			<td>
-					${hireboard.company}			
-			</td>
-			<td>
-					<a href="hiredetail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>
-			</td>
-				<td align="center">${hireboard.qualification}</td>
-				<td align="center">${hireboard.career} <br>${hireboard.careerdate}</td>
-				<td align="center">${hireboard.hirestatus}</td>
-				<td align="left">
-					<fmt:formatDate value="${hireboard.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-				</td>
-				<td align="center">
-				<fmt:formatDate value="${hireboard.deadline}" pattern="yyyy-MM-dd" var="end"/>
-				${end}
-				</td>
-				<td>
-					${datelist[status.index]} 일 전
-				</td>
-		</tr>
-		</c:if>
-		</c:forEach>
-				<tr align="center" height="26">
-			<td colspan="8">
-				<c:if test="${pageNum >1}">
-					<a href="javascript:hirelist(${pageNum -1})">PREV</a>
-				</c:if> &nbsp;
-				<c:if test="${pageNum <= 1}">PREV</c:if>&nbsp;
-				<c:forEach var="a" begin="${startpage}" end = "${endpage}">
-					<c:if test="${a == pageNum}">${a}</c:if>
-					<c:if test="${a != pageNum}">
-					<a href="javascript:hirelist(${a})">${a}</a>
-					</c:if>
-				</c:forEach>
-				<c:if test="${pageNum < maxpage}">
-					<a href="javascript:hirelist(${pageNum + 1})">NEXT</a>
-				</c:if> &nbsp;
-				<c:if test="${pageNum >= maxpage}">NEXT
-				</c:if> &nbsp;
-			</td>
-		</tr>
-		
-			<c:if test="${listcount==0}">
-		<tr>
-			<td colspan="8">등록된 채용공고 게시물이 없습니다.</td>
-		</tr>
-	</c:if>
-		<tr>
-		<td align="right" colspan="8">
-			<a href="hirewrite.jsy">WRITE</a>
-			<a href="companyDetailwrite.jsy">DETAIL WRITE</a>
-		</td>
-	</tr>
-</table> --%>

@@ -53,6 +53,51 @@
 		}
 	}
 </script>
+<style>
+	.button{
+		width:50px;
+		height:30px;
+	}
+   	.button {
+	  border-radius: 4px;
+	  background-color: skyblue;
+	  border: none;
+	  color: #FFFFFF;
+	  text-align: center;
+	  font-size: 18px;
+	  padding: 5px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	}
+	.button:hover {
+	  background-color: pink;
+	}
+	
+	.button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+	
+	.button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+	
+	.button:hover span {
+	  padding-right: 25px;
+	}
+	
+	.button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+</style>
 </head>
 <body>
 	<div class="w3-content">
@@ -63,19 +108,19 @@
 		</div>
 		<table class="w3-table w3-bordered">
 				<tr>
-					<th>공고번호</th>
-					<th>회사명</th>
-					<th>제목</th>
-					<th>지원조건</th>
-					<th>고용상태</th>
-					<th>마감일</th>
-					<th>마감상태</th>
-					<th>공고상태</th>
+					<th style="text-align: center">공고번호</th>
+					<th style="text-align: center">회사명</th>
+					<th style="text-align: center">제목</th>
+					<th style="text-align: center">지원조건</th>
+					<th style="text-align: center">고용상태</th>
+					<th style="text-align: center">마감일</th>
+					<th style="text-align: center">마감상태</th>
+					<th style="text-align: center">공고상태</th>
 					<th></th>
 				</tr>
 				<c:if test="${myhirecount ==0 }">
 					<tr>
-						<td colspan="9">
+						<td colspan="9" style="text-align: center">
 							해당 목록이 비어있습니다.
 						</td>
 					</tr>
@@ -83,17 +128,17 @@
 				<c:if test="${myhirecount >0 }">
 				<c:forEach var="myhire" items="${myhirelist}" varStatus="status">
 					<tr>
-						<td align="center">${myhire.hireno}</td>
-						<td>${myhire.company}</td>
-						<td><a
+						<td style="text-align: center">${myhire.hireno}</td>
+						<td style="text-align: center">${myhire.company}</td>
+						<td style="text-align: left"><a
 							href="../../hire/hiredetail.jsy?hireno=${myhire.hireno}&pageNum=${pageNum}">${myhire.subject}</a>
 						</td>
-						<td>${myhire.qualification}</td>
-						<td>${myhire.hirestatus}</td>
-						<td><fmt:formatDate value="${myhire.deadline}"
+						<td style="text-align: center">${myhire.qualification}</td>
+						<td style="text-align: center">${myhire.hirestatus}</td>
+						<td style="text-align: center"><fmt:formatDate value="${myhire.deadline}"
 								pattern="yyyy-MM-dd" /></td>
-						<td align="center">${ datelist[status.index]}일 전</td>
-						<td align="center"><c:if test="${myhire.hide==0}">
+						<td style="text-align: center">${ datelist[status.index]}일 전</td>
+						<td style="text-align: center"><c:if test="${myhire.hide==0}">
 								<div class="w3-tag w3-round w3-red" style="padding:3px; width:65px;">
 									<div class="w3-tag w3-round w3-red w3-border w3-border-white" style="width:60px;">
 										<font style="color: white;">미승인</font>
@@ -106,23 +151,26 @@
 									</div>
 								</div>
 							</c:if></td>
-						<td align="center"><a
+						<td style="text-align: center"><a class="button"
 							href="../../hire/supUpdateHireForm.jsy?hireno=${myhire.hireno}&pageNum=${pageNum}"
-							id="updateBtn">수정</a> <a
+							id="updateBtn">수정</a> <a class="button"
 							href="javascript:hireDeleteAction('${myhire.hireno}')"
 							name="deleteBtn">삭제</a></td>
 					</tr>
 				</c:forEach>
-			</c:if>
+				</c:if>
+				
 		</table>
+		
 		<div class="w3-bar w3-center">
+		<br>
 				<c:if test="${pageNum >1}">
 							<a href="javascript:myhirelist(${pageNum -1})">[이전]</a>
 						</c:if> &nbsp; <c:if test="${pageNum <= 1}">[이전]</c:if>&nbsp; <c:forEach
 							var="a" begin="${startpage}" end="${endpage}">
-							<c:if test="${a == pageNum}">${a}</c:if>
+							<c:if test="${a == pageNum}">[${a}]</c:if>
 							<c:if test="${a != pageNum}">
-								<a href="javascript:myhirelist(${a})">${a}</a>
+								<a href="javascript:myhirelist(${a})">[${a}]</a>
 							</c:if>
 						</c:forEach> <c:if test="${pageNum < maxpage}">
 							<a href="javascript:myhirelist(${pageNum + 1})">[다음]</a>
@@ -149,8 +197,8 @@
 								}
 							</script>
 							<input type="text" name="searchContent"
-								value="${param.searchContent}"> <input type="submit"
-								value="검색"></span>
+								value="${param.searchContent}"> 
+							<input type="submit" class="button" value="검색"></span>
 						</form>
 						
 					</div>

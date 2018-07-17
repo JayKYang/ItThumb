@@ -160,14 +160,14 @@
 				<table class="board_view" style="width: 100%;">
 
 					<tr>
-						<th style="text-align: center;"><b style="font-size: 30px">제목</b>&nbsp;<font
+						<th style="text-align: left;"><b style="font-size: 30px">제목</b>&nbsp;<font
 							color="red"><form:errors path="subject" /></font></th>
 					</tr>
 					<tr>
 						<td><form:input path="subject" class="w3-input w3-border" /></td>
 					</tr>
 					<tr>
-						<th style="text-align: center;"><b style="font-size: 30px;">내용</b>&nbsp;<font
+						<th style="text-align: left;"><b style="font-size: 30px;">내용</b>&nbsp;<font
 							color="red"><form:errors path="content" /></font></th>
 					</tr>
 					<tr>
