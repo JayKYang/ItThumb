@@ -198,26 +198,24 @@
 			&nbsp;
 		</div>
 		<br>
-		<form action="comList.jsy" method="post" name="searchform"
-			onsubmit="return list(1)">
-			<input type="hidden" name="pageNum" value="1"> <input
-				type="hidden" name="communitykind" value="${communitykind}">
-			<span style="float: right"> <select name="searchType"
-				id="searchType">
+		<form action="comList.jsy" method="post" name="searchform" onsubmit="return list(1,${communitykind})">
+			<input type="hidden" name="pageNum" value="1"> 
+			<input type="hidden" name="communitykind" value="${communitykind}">
+			<span style="float: right"> 
+			<select name="searchType" id="searchType">
 					<option value="" disabled selected>선택하세요</option>
 					<option value="subject">제목</option>
 					<option value="content">내용</option>
 					<c:if test="${communitykind==1 || communitykind==2}">
 						<option value="memberid">작성자</option>
 					</c:if>
-
 			</select>>&nbsp; <script type="text/javascript">
 				if ('${param.searchType}' != '') {
 					document.getElementById("searchType").value = '${param.searchType}'
 				}
-			</script> <input type="text" name="searchContent"
-				value="${param.searchContent }"> <input type="submit"
-				class="button" value="검색">
+			</script> 
+			<input type="text" name="searchContent" value="${param.searchContent }"> 
+			<input type="submit" class="button" value="검색">
 			</span>
 		</form>
 	</div>
