@@ -119,24 +119,7 @@
 }
 </style>
 </head>
-<style>
-.w3-row-padding img {
-	margin-bottom: 12px
-}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {
-	width: 120px;
-	background: #222;
-}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {
-	#main {
-		margin-left: 0
-	}
-}
-</style>
 <body>
-	<a href="#about"></a>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange" style="width:100%;">
 		<!-- Avatar image in top left corner -->
@@ -186,7 +169,7 @@
 
 	<!-- Page Content -->
 	<!-- Header/Home -->
-	<div class="portfoliopage w3-content w3-container w3-animate-left"
+	<div class="portfoliopage w3-content w3-container"
 		id="about">
 		<div class="w3-center">
 			<p>
@@ -219,34 +202,60 @@
 				<tr>
 					<td><i
 						class="fa fa-calendar fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"><fmt:formatDate
-								value="${user.birth}" type="both" pattern="yyyy" /></a>년<a
-						class="w3-xlarge w3-hover-opacity"><fmt:formatDate
-								value="${user.birth}" type="both" pattern="MM" /></a>월 <a
-						class="w3-xlarge w3-hover-opacity"><fmt:formatDate
-								value="${user.birth}" type="both" pattern="dd" /></a>일</td>
-				</tr>
-				<tr>
-					<td><i
-						class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity">${user.address }</a>거주
+					<td>
+						<c:if test="${!empty user.birth }">
+							<a class="w3-xlarge w3-hover-opacity"><fmt:formatDate
+									value="${user.birth}" type="both" pattern="yyyy" /></a>년<a
+							class="w3-xlarge w3-hover-opacity"><fmt:formatDate
+									value="${user.birth}" type="both" pattern="MM" /></a>월 <a
+							class="w3-xlarge w3-hover-opacity"><fmt:formatDate
+									value="${user.birth}" type="both" pattern="dd" /></a>일
+						</c:if>
+						<c:if test="${empty user.birth }">
+							<a class="w3-xlarge w3-text-gray">비공개</a>
+						</c:if>
 					</td>
 				</tr>
 				<tr>
-					<td><i
-						class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity">${user.tel }</a></td>
+					<td>
+						<i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i>
+					</td>
+					<td>
+						<c:if test="${!empty user.address }">
+							<a class="w3-xlarge w3-hover-opacity">${user.address }</a>거주
+						</c:if>
+						<c:if test="${empty user.address }">
+							<a class="w3-xlarge w3-text-gray">비공개</a>
+						</c:if>
+					</td>
 				</tr>
 				<tr>
-					<td><i
-						class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
+					<td>
+						<i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i>
+					</td>
+					<td>
+						<c:if test="${!empty user.tel }">
+							<a class="w3-xlarge w3-hover-opacity">${user.tel }</a>
+						</c:if>
+						<c:if test="${empty user.tel }">
+							<a class="w3-xlarge w3-text-gray">비공개</a>
+						</c:if>
+					</td>
+				</tr>
+				<tr>
+					<td><i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
 					<td><a class="w3-xlarge w3-hover-opacity">${user.memberid }</a></td>
 				</tr>
 				<tr>
-					<td><i
-						class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
-					<td><a class="w3-xlarge w3-hover-opacity"
-						href="http://${user.site }">${user.site }</a></td>
+					<td><i class="fa fa-link fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i></td>
+					<td>
+						<c:if test="${!empty user.site }">
+							<a class="w3-xlarge w3-hover-opacity" href="http://${user.site }">${user.site }</a>
+						</c:if>
+						<c:if test="${empty user.site }">
+							<a class="w3-xlarge w3-text-gray">비공개</a>
+						</c:if>
+					</td>
 				</tr>
 			</table>
 			<c:if test="${!status.last }">
@@ -260,16 +269,19 @@
 					<h3 class="w3-center">
 						<a class="w3-xxxlarge">EXPERIENCE</a><a class="w3-large"></a>
 					</h3>
-				<div class="w3-container" style="float: left; margin-bottom:50px;">
+				<div class="w3-container" style="float: left; margin-bottom:50px; width:100%;">
 					<c:forEach items="${user.historyList }" var="history">
 						<c:if test="${history.kindno == 0 }">
-							<fmt:formatDate value="${history.getdate }" type="both"
-								pattern="yyyy-MM-dd" />
-							<c:if test="${history.enddate != null }">
-				  			 ~ <fmt:formatDate value="${history.enddate }" type="both"
+						<br>
+							<div class="w3-center w3-orange" style="width:100%; height:70px; border-radius:25px;"><br>
+								<fmt:formatDate value="${history.getdate }" type="both"
 									pattern="yyyy-MM-dd" />
-							</c:if>
-							 : ${history.content }<br>
+								<c:if test="${history.enddate != null }">
+					  			 ~ <fmt:formatDate value="${history.enddate }" type="both"
+										pattern="yyyy-MM-dd" />
+								</c:if>
+								 : ${history.content }
+							</div>
 						</c:if>
 					</c:forEach>
 				</div>
@@ -280,9 +292,12 @@
 					<div id="licenseform" style="width: 100%">
 						<c:forEach items="${user.historyList }" var="history">
 							<c:if test="${history.kindno == 2 }">
+							<br>
+							<div class="w3-center w3-orange" style="width:100%; height:70px; border-radius:25px;"><br>
 								<fmt:formatDate value="${history.getdate }" type="both"
 									pattern="yyyy-MM-dd" var="getdate" />
-									${getdate } : ${history.content }<br>
+									${getdate } : ${history.content }
+							</div>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -298,8 +313,21 @@
 						<c:if test="${history.kindno == 1 }">
 							<p class="w3-wide">${history.content }</p>
 							<div class="fullbar">
-								<div class="skills"
-									style="width:${history.skillful }%; background-color: #808080;">${history.skillful }%</div>
+								<c:if test="${history.skillful >= 90}">
+									<div class="skills"	style="width:${history.skillful }%; background-color:#ff4000;">${history.skillful }%</div>
+								</c:if>
+								<c:if test="${history.skillful < 90  && history.skillful >= 70}">
+									<div class="skills"	style="width:${history.skillful }%; background-color:#ff8000;">${history.skillful }%</div>
+								</c:if>
+								<c:if test="${history.skillful < 70 && history.skillful >= 50}">
+									<div class="skills"	style="width:${history.skillful }%; background-color:#ffbf00;">${history.skillful }%</div>
+								</c:if>
+								<c:if test="${history.skillful < 50 && history.skillful >= 30}">
+									<div class="skills"	style="width:${history.skillful }%; background-color:#ffecb3;">${history.skillful }%</div>
+								</c:if>
+								<c:if test="${history.skillful < 30 }">
+									<div class="skills"	style="width:${history.skillful }%; background-color:#fff9e6;">${history.skillful }%</div>
+								</c:if>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -309,7 +337,7 @@
 		</c:if>
 	</div>
 
-	<div class="portfoliopage w3-container w3-animate-right" id="project" style="display: none; margin-left:20%;margin-right:20%;">
+	<div class="portfoliopage w3-container" id="project" style="display: none; margin-left:20%;margin-right:20%;">
 	<div class="w3-center">
 		<p style="margin-top:5%;">
 			<span class="w3-content w3-text-orange w3-xxlarge w3-padding-32">프로젝트</span>
@@ -375,11 +403,11 @@
 				</table>
 			</div>
 			<div class="w3-container">
-				<table>
-					<tr><td colspan="2"><a class="w3-text-orange w3-large">내용</a></td></tr>
+				<table class="w3-table" style="width:100%;">
+					<tr><td colspan="2" style="width:100%;padding-left:3%;"><a class="w3-text-orange w3-large">내용</a><hr></td></tr>
 					<c:if test="${!empty project.content }">
 						<tr>
-							<td colspan="2"><a class="w3-large" style="padding:10%">${project.content }</a></td>
+							<td colspan="2"><a class="w3-large" style="padding-left:3%">${project.content }</a></td>
 						</tr>
 					</c:if>
 				</table>
@@ -438,11 +466,11 @@
 				<input type="file" name="imagefile" id="imagefile" style="display: none" />
 			</div>
 			<div class="w3-container">
-				<table>
-					<tr><td colspan="2"><a class="w3-text-orange w3-large">내용</a></td></tr>
+				<table class="w3-table" style="width:100%;">
+					<tr><td colspan="2" style="width:100%;padding-left:3%;"><a class="w3-text-orange w3-large">내용</a><hr></td></tr>
 					<c:if test="${!empty project.content }">
 						<tr>
-							<td colspan="2"><a class="w3-large" style="padding:10%">${project.content }</a></td>
+							<td colspan="2"><a class="w3-large" style="padding-left:3%">${project.content }</a></td>
 						</tr>
 					</c:if>
 				</table>

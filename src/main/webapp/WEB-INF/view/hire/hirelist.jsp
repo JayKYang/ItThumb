@@ -345,6 +345,10 @@ function hirelist(pageNum){
 </style>
 </head>
 <body>
+<div class="w3-bar w3-small w3-left w3-indigo" style="width: 100%;">
+		<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+		</div> 
+</div>
 <div class="w3-content">
 	<p>
 		<span class="w3-content w3-text-indigo w3-xxlarge">채용공고</span>
@@ -427,13 +431,13 @@ function hirelist(pageNum){
 						<div>
 							<div>
 							<fmt:formatDate value="${popBoard.deadline}" var="date"	pattern="yyyyMMdd" />
-							<c:if test="${date-now != 0 }">
-								<p>마감 ${date - now } 일 전</p>
+							<c:if test="${popDatelist[status.index] >= 0 }">
+								<p>마감 ${popDatelist[status.index]} 일 전</p>
 								<c:if test="${date-now < 3 }">
 									<a class="w3-text-red w3-tag">마감 임박</a>
 								</c:if>
 							</c:if>
-							<c:if test="${date-now == 0 }">
+							<c:if test="${popDatelist[status.index] <= 0 }">
 								<a class="w3-text-red">마감 공고입니다.</a>
 							</c:if>
 						</div>
@@ -454,21 +458,25 @@ function hirelist(pageNum){
 		<tr>
 			<td colspan="8">
 				<p>
-					<span class="w3-content w3-text-indigo w3-xlarge">인기공고</span>
+					<span class="w3-content w3-text-indigo w3-xlarge">전체 채용공고</span>
 				</p>
 			</td>
 		</tr>
 		
 		<tr align="center" valign="middle" bordercolor="#212121">
 				<th width="10%" height="26">기업명</th>
-				<th width="34" height="26">제목</th>
-				<th width="14%" height="26">지원자격</th>
-				<th width="10%">경력</th>
+				<th width="43%" height="26">제목</th>
+				<th width="13%" height="26">지원자격</th>
+				<th width="8%">경력</th>
 				<th width="6%" height="26">근무조건</th>
-				<th width="8%" height="26">작성일</th>
-				<th width="8%" height="26">마감일</th>
-				<th width="5%" height="26">마감상태</th>
+				<th width="9%" height="26">마감일</th>
+				<th width="6%" height="26">마감상태</th>
 			</tr>
+			<c:if test="${empty boardlist}">
+				<tr>
+					<td colspan="8" style="text-align: center">등록된 채용공고 게시물이 없습니다.</td>
+				</tr>
+			</c:if>
 			<c:forEach var="hireboard" items="${boardlist}" varStatus="status">
 			<c:if test="${hireboard.hide==1}">
 			<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.color='#1DDB16', this.style.border='2px solid'" onmouseout="this.style.color=''">
@@ -481,9 +489,6 @@ function hirelist(pageNum){
 					<td align="center">${hireboard.qualification}</td>
 					<td align="center">${hireboard.career} <br>${hireboard.careerdate}</td>
 					<td align="center">${hireboard.hirestatus}</td>
-					<td align="left">
-						<fmt:formatDate value="${hireboard.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
-					</td>
 					<td align="center">
 					<fmt:formatDate value="${hireboard.deadline}" pattern="yyyy-MM-dd" var="end"/>
 					${end}
@@ -513,6 +518,7 @@ function hirelist(pageNum){
 					</c:if> &nbsp;
 				</td>
 			</tr>
+<<<<<<< HEAD
 			
 				<c:if test="${listcount==0}">
 			<tr>
@@ -520,6 +526,9 @@ function hirelist(pageNum){
 			</tr>
 		</c:if>
 		<%-- <c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
+=======
+		<c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
+>>>>>>> branch 'master' of https://github.com/JayKYang/ItThumb.git
 			<tr>
 				<td align="right" colspan="8">
 					<!-- <button onclick="location.href='hirewrite.jsy'">글쓰기</button>

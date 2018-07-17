@@ -55,6 +55,51 @@
 		return false;
 	}
 </script>
+<style>
+	.button{
+		width:50px;
+		height:30px;
+	}
+   	.button {
+	  border-radius: 4px;
+	  background-color: skyblue;
+	  border: none;
+	  color: #FFFFFF;
+	  text-align: center;
+	  font-size: 18px;
+	  padding: 5px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	}
+	.button:hover {
+	  background-color: pink;
+	}
+	
+	.button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+	
+	.button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+	
+	.button:hover span {
+	  padding-right: 25px;
+	}
+	
+	.button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+</style>
 </head>
 <body>
 	<div class="w3-content">
@@ -65,45 +110,46 @@
 		</div>
 		<table class="w3-table w3-bordered">
 			<tr>
-				<th>공고번호</th>
-				<th>회사명</th>
-				<th>제목</th>
-				<th>지원조건</th>
-				<th>고용상태</th>
-				<th>마감일</th>
-				<th>마감상태</th>
-				<th>항목체크</th>
+				<th style="text-align:center">공고번호</th>
+				<th style="text-align:center">회사명</th>
+				<th style="text-align:center">제목</th>
+				<th style="text-align:center">지원조건</th>
+				<th style="text-align:center">고용상태</th>
+				<th style="text-align:center">마감일</th>
+				<th style="text-align:center">마감상태</th>
+				<th style="text-align:center">항목체크</th>
 			</tr>
 			<c:if test="${scraphirecount >0 }">
 				<c:forEach var="scraphire" items="${scraphirelist}"
 					varStatus="status">
 					<tr>
-						<td align="center">${scraphire.hireno}</td>
-						<td>${scraphire.company}</td>
-						<td><a
+						<td style="text-align:center">${scraphire.hireno}</td>
+						<td style="text-align:center">${scraphire.company}</td>
+						<td style="text-align:left"><a
 							href="../../hire/hiredetail.jsy?hireno=${scraphire.hireno}&pageNum=${pageNum}">${scraphire.subject}</a>
 						</td>
-						<td>${scraphire.qualification}</td>
-						<td>${scraphire.hirestatus}</td>
-						<td><fmt:formatDate value="${scraphire.deadline}"
+						<td style="text-align:center">${scraphire.qualification}</td>
+						<td style="text-align:center">${scraphire.hirestatus}</td>
+						<td style="text-align:center"><fmt:formatDate value="${scraphire.deadline}"
 								pattern="yyyy-MM-dd" /></td>
-						<td align="center">${ datelist[status.index]}일 전</td>
-						<td align="center"><input type="checkbox" class="scrchk"
+						<td style="text-align:center">${ datelist[status.index]}일 전</td>
+						<td style="text-align:center"><input type="checkbox" class="scrchk"
 							name="scrapchk" value="${scraphire.hireno}"></td>
-						<td align="center"><a href="javascript:selectDelete(scrapchk)"
+						<td style="text-align:center"><a class="button" href="javascript:selectDelete(scrapchk)"
 						id="selDelete">스크랩 해제</a></td>
 					</tr>
 				</c:forEach>
 			</c:if>
 			<c:if test="${scraphirecount ==0 }">
 				<tr>
-					<td colspan="8">
+					<td colspan="8" style="text-align: center">
 						<p>해당 목록이 비어있습니다.</p>
 					</td>
 				</tr>
 			</c:if>
 			</table>
 			<div class="w3-bar w3-center">
+				<br>
 				<c:if test="${pageNum > 1 }">
 					<a href="javascript:hirelist(${pageNum -1})">[이전]</a>
 				</c:if>
@@ -143,7 +189,7 @@
 						}
 					</script> 
 					<input type="text" name="searchContent" value="${param.searchContent }"> 
-					<input type="submit" value="검색">
+					<input type="submit" class="button" value="검색">
 				</span>
 			</form>
 	</div>

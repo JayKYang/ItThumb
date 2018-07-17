@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,18 +41,42 @@ public class UserController {
 	JsyService service;
 	
 	@RequestMapping("main")
-	public ModelAndView main() {
+	public ModelAndView main() throws ParseException {
 		ModelAndView mav = new ModelAndView();
 		List<Hire> popBoardlist2 = service.popHirelist(4);
 		List<Hire> popBoardlist = new ArrayList<Hire>();
+
 		
+
+		List popDatelist = new ArrayList();
+		String strDate = null;
+		String strEndDate = null;
+		Date beginDate = null;
+		Date endDate = null;
+		Date date = new Date(); // 현재 날짜
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+		long diff = 0;
+		long diffDays = 0;
+		int popListcount = service.popBoardcount();
+		int popLimit = 10;
+
 		for(Hire h : popBoardlist2) {
 			User user = service.getUser(h.getMemberid());
 			h.setUser(user);
 			popBoardlist.add(h);
 		}
+		for(int i=0; i<popBoardlist2.size(); i++) {
+			strDate = formatter.format(date);
+			strEndDate = formatter.format(popBoardlist2.get(i).getDeadline());
+			beginDate = formatter.parse(strDate);
+			endDate = formatter.parse(strEndDate);
+		    diff = endDate.getTime() - beginDate.getTime();
+			 diffDays = diff / (24 * 60 * 60 * 1000);
+			 popDatelist.add(diffDays);
+		}
 		
 		System.out.println(popBoardlist);
+		mav.addObject("popDatelist", popDatelist);
 		mav.addObject("popBoardlist",popBoardlist);
 		return mav;
 	}

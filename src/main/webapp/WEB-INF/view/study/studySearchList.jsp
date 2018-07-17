@@ -55,8 +55,6 @@
 	right: 0;
 }
 </style>
-</head>
-<body>
 <script type="text/javascript">
 	function list(pageNum) {
 		var searchType = document.searchform.searchType.value;
@@ -72,9 +70,15 @@
 		return false;
 	}
 </script>
-
+</head>
+<body>
+	<div class="w3-bar w3-small w3-left w3-pink" style="width: 100%;">
+		<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+		</div> 
+	</div>
+	
 	<div id="main" class="w3-content">
-		<br>
+		
 		<div class="w3-center" style="width:100%;">
 			<p>
 				<span class="w3-content w3-text-pink w3-xxlarge">스터디 검색</span>

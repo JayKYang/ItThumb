@@ -79,15 +79,15 @@ h1,h2,h3,h4,h5,h6 {
 </head>
 <body>
 	<div class="w3-bar w3-small w3-left w3-green" style="width: 100%;">
-		<a href="messageList.jsy?sort=1" style="width:10%;"
+		<a href="messageList.jsy?sort=1" style="width:20%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-envelope-o  w3-xxlarge"></i>
 			<p>받은 쪽지함</p>
-		</a> <a href="messageList.jsy?sort=2" style="width:10%;"
+		</a> <a href="messageList.jsy?sort=2" style="width:20%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-pencil-square-o  w3-xxlarge"></i>
 			<p>보낸 쪽지함</p>
-		</a> <a href="messageWrite.jsy" style="width:10%;"
+		</a> <a href="messageWrite.jsy" style="width:20%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-send w3-xxlarge"></i>
 			<p>쪽지 보내기</p>
@@ -115,6 +115,12 @@ h1,h2,h3,h4,h5,h6 {
 				<input type="hidden" name="messageno" value="${messageno}">
 				<input type="hidden" name="pageNum" value="${pageNum}">
 				<input type="hidden" name="idchks" value="${message.messageno}">
+				<c:if test="${sort==1}">
+					<input type="hidden" name="id" value="${message.receiver}">
+				</c:if>
+				<c:if test="${sort==2}">
+					<input type="hidden" name="id" value="${message.sender}">
+				</c:if>
 				<table class="board_view" style="width: 100%;">
 					<c:if test="${sort==1}">
 						<tr>

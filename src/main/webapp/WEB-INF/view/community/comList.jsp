@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
-<title>communityBoard</title>
+<title>잇썸 > 커뮤니티</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -154,8 +154,8 @@
 						<c:set var="num" value="${num - 1 }"></c:set>
 						<c:set var="subjectText" value="${com.subject}" />
 						<td style="text-align: center;"><a
-							href="comInfo.jsy?communitykind=${communitykind}&communityno=${com.communityno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 10)}
-								<c:if test="${fn:length(subjectText)>10}">...
+							href="comInfo.jsy?communitykind=${communitykind}&communityno=${com.communityno}&pageNum=${pageNum}">${fn:substring(subjectText, 0, 20)}
+								<c:if test="${fn:length(subjectText)>20}">...
 						</c:if>
 						</a></td>
 						<td style="text-align: center;">${com.memberid }</td>
@@ -198,26 +198,24 @@
 			&nbsp;
 		</div>
 		<br>
-		<form action="comList.jsy" method="post" name="searchform"
-			onsubmit="return list(1)">
-			<input type="hidden" name="pageNum" value="1"> <input
-				type="hidden" name="communitykind" value="${communitykind}">
-			<span style="float: right"> <select name="searchType"
-				id="searchType">
+		<form action="comList.jsy" method="post" name="searchform" onsubmit="return list(1,${communitykind})">
+			<input type="hidden" name="pageNum" value="1"> 
+			<input type="hidden" name="communitykind" value="${communitykind}">
+			<span style="float: right"> 
+			<select name="searchType" id="searchType">
 					<option value="" disabled selected>선택하세요</option>
 					<option value="subject">제목</option>
 					<option value="content">내용</option>
 					<c:if test="${communitykind==1 || communitykind==2}">
 						<option value="memberid">작성자</option>
 					</c:if>
-
 			</select>>&nbsp; <script type="text/javascript">
 				if ('${param.searchType}' != '') {
 					document.getElementById("searchType").value = '${param.searchType}'
 				}
-			</script> <input type="text" name="searchContent"
-				value="${param.searchContent }"> <input type="submit"
-				class="button" value="검색">
+			</script> 
+			<input type="text" name="searchContent" value="${param.searchContent }"> 
+			<input type="submit" class="button" value="검색">
 			</span>
 		</form>
 	</div>

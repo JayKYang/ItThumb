@@ -102,29 +102,29 @@ h1,h2,h3,h4,h5,h6 {
 </head>
 <body>
 	<div class="w3-bar w3-small w3-left w3-green" style="width: 100%;">
-		<a href="messageList.jsy?sort=1" style="width:10%;"
+		<a href="messageList.jsy?sort=1" style="width:20%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-envelope-o  w3-xxlarge"></i>
 			<p>받은 쪽지함</p>
-		</a> <a href="messageList.jsy?sort=2" style="width:10%;"
+		</a> <a href="messageList.jsy?sort=2" style="width:20%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-pencil-square-o  w3-xxlarge"></i>
 			<p>보낸 쪽지함</p>
-		</a> <a href="messageWrite.jsy" style="width:10%;"
+		</a> <a href="messageWrite.jsy" style="width:20%;"
 			class="w3-bar-item w3-button w3-padding-large w3-hover-light-green">
 			<i class="fa fa-send w3-xxlarge"></i>
 			<p>쪽지 보내기</p>
 		</a>
 	</div>
 	<div class="w3-content w3-container" id="main">
-		<c:if test="${sort.equals('1')}">
+		<c:if test="${sort==1}">
 			<div class="w3-center" style="width: 100%;">
 				<p>
 					<span class="w3-content w3-text-green w3-xxlarge">받은 쪽지함</span>
 				</p>
 			</div>
 		</c:if>
-		<c:if test="${sort.equals('2')}">
+		<c:if test="${sort==2}">
 			<div class="w3-center" style="width: 100%">
 				<p>
 					<span class="w3-content w3-text-green w3-xxlarge">보낸 쪽지함</span>
@@ -219,7 +219,7 @@ h1,h2,h3,h4,h5,h6 {
 		</div>
 		<br>
 		<form action="messageList.jsy" method="post" name="searchform"
-			onsubmit="return list(1)">
+			onsubmit="return list(1,${sort})">
 			<input type="hidden" name="pageNum" value="1"> <input
 				type="hidden" name="sort" value="${sort }"> <span
 				style="float: right"> <select name="searchType"

@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
-<title>communityWrite</title>
+<title>잇썸 > 커뮤니티 > ${community.subject }</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 	
 	function deleteConfirm(pageNum, communityno, memberid, communitykind) {
@@ -34,6 +35,13 @@
 			return;
 		}
 	}
+	
+	function message_open(url) {
+		var h = screen.height * (3 / 4);
+		var w = screen.width * (1.3 / 3);
+		window.open(url, "message", "width=" + w + ", height=" + h
+				+ ", left=100, top=100");
+	}
 
 	$(document).ready(function() {
 		
@@ -52,9 +60,42 @@
 				function upchange_${status.index}() {
 					$('#upinput_'+${status.index}).toggle();
 				}
+				
+				/* 클릭 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
+				$('#Select_'+${status.index}).click(function(e){
+					var sWidth = window.innerWidth;
+					var sHeight = window.innerHeight;
+
+					var oWidth = $('#popupLayer_'+${status.index}).width();
+					var oHeight = $('#popupLayer_'+${status.index}).height();
+
+					// 레이어가 나타날 위치를 셋팅한다.
+					var divLeft = e.clientX;
+					var divTop = e.clientY;
+
+					// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+					if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+					if( divTop + oHeight > sHeight ) divTop -= oHeight;
+					
+					// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+					if( divLeft < 0 ) divLeft = 0;
+					if( divTop < 0 ) divTop = 0;
+
+					$('#popupLayer_'+${status.index}).css({
+						"top": divTop,
+						"left": divLeft,
+						"position": "fiexd"
+					}).show();
+				});
+				$('#popupLayer_'+${status.index}).on('mousewheel DOMMouseScroll', function(e) {
+					$('#popupLayer_'+${status.index}).hide();
+	            });
+				$('#popupLayer_'+${status.index}).mouseleave(function() {
+					$('#popupLayer_'+${status.index}).hide();
+				});
+				
 			</c:forEach>
 	});
-
 </script>
 <style type="text/css">
 .scale {
@@ -119,6 +160,32 @@
 .button:hover span:after {
 	opacity: 1;
 	right: 0;
+}
+
+/* 여기부터 */
+.Select {
+	cursor: pointer;
+}
+
+.popupLayer {
+	position: fixed;
+	display: none;
+	text-align: center;
+	background-color: #FFE4B5;
+	border: solid 1px #d0d0d0;
+	width: 100px;
+	height: 40px;
+	padding: 10px;
+}
+.popupLayer div {
+	position: fixed;
+	text-align: center;
+	top: 5px;
+	right: 5px
+}
+
+.popupLayer:hover {
+	background-color: #FFE4B5;
 }
 </style>
 </head>
@@ -220,6 +287,7 @@
 				</tr>
 			</c:if>
 			<c:if test="${!empty replyList}">
+				<!-- 여기부터 -->
 				<tr style="border-bottom: 1px solid orange;">
 					<th style="text-align: center; width: 20%;">작성자</th>
 					<th style="text-align: center; width: 40%;">내용</th>
@@ -227,13 +295,19 @@
 					<th style="text-align: center; width: 20%;">비고</th>
 				</tr>
 				<c:forEach var="re" items="${replyList}" varStatus="status">
+				<div class="popupLayer" id="popupLayer_${status.index}">
+					<a onclick="javascript:message_open('../message/messageWrite.jsy?memberid=${re.memberid}')">쪽지 보내기</a>
+				</div>
 					<tr style="border-bottom: 1px solid orange;">
-						<td style="text-align: center;"><c:if
+						<td style="text-align: left;"><c:if
 								test="${re.reflevel > 0 }">
 								<c:forEach begin="1" end="${re.reflevel}">&nbsp;&nbsp;&nbsp;</c:forEach>
 							┖
-						</c:if> ${re.name}&nbsp;[${re.memberid}]</td>
-						<td style="text-align: center;">${re.content}&nbsp;</td>
+						</c:if> 
+							<a class="Select" id="Select_${status.index}">${re.name}</a>
+							
+						</td>
+						<td style="text-align: left;">${re.content}&nbsp;</td>
 						<td style="text-align: center;"><fmt:formatDate
 								value="${re.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regnow" />
 							${regnow}</td>

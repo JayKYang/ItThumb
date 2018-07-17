@@ -24,9 +24,9 @@ public interface JsyService {
 
 	void confirmCode(User user);
 
-	int messagecount(String searchType, String searchContent, String sort, String memberid);
+	int messagecount(String searchType, String searchContent, Integer sort, String memberid);
 
-	List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, String sort, String memberid);
+	List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, Integer sort, String memberid);
 
 	Message messageSelect(Integer messageno);
 
@@ -256,6 +256,7 @@ public interface JsyService {
 
 	void studyGroupLeaderSet(StudyGroup sg);
 
+
 	void comInfoDelete(String memberid);
 
 	int getCompanyHistorylistCount(String memberid);
@@ -267,5 +268,8 @@ public interface JsyService {
 	void deleteCompanyhistory(int historyno);
 
 
+
+
+	List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade, Integer pageNum, Integer limit, int createpf);
 
 }

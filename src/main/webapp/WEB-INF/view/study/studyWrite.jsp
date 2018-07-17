@@ -3,8 +3,8 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
 
-	//FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
-	FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");							
+	FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
+	//FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");							
 	//FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
 
 	BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
@@ -157,6 +157,10 @@ $(document).ready(function() {
 </head>
 
 <body>
+	<div class="w3-bar w3-small w3-left w3-pink" style="width: 100%;">
+		<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+		</div> 
+	</div>
 	<br>
 	<div id="main" class="w3-content">
 		<div class="w3-center" style="width: 100%">
@@ -177,13 +181,13 @@ $(document).ready(function() {
 			</spring:hasBindErrors>
 			<table>
 				<tr>
-					<td><b style="font-size:25px;">제 목</b>&nbsp;<font color="red"><form:errors path="studyname" /></font> </td>
+					<td style="text-align: left;"><b style="font-size:25px;">제 목</b>&nbsp;<font color="red"><form:errors path="studyname" /></font> </td>
 				</tr>
 				<tr>
 					<td><form:input class="w3-input w3-border" path="studyname" size="50" /><br></td>
 				</tr>
 				<tr>
-					<td><b style="font-size:25px;">지 역</b>&nbsp;<font color="red"><form:errors path="region" /></font></td>
+					<td style="text-align: left;"><b style="font-size:25px;">지 역</b>&nbsp;<font color="red"><form:errors path="region" /></font></td>
 				</tr>
 				<tr>
 					<td><select class="w3-select" name="si" id="si" onchange="selectgu(this.form)">
@@ -192,7 +196,7 @@ $(document).ready(function() {
 					</td>
 				</tr>
 				<tr>
-					<td><b style="font-size:25px;">인 원 선 택</b>&nbsp;<font color="red"><form:errors path="limitmember" /></font></td>
+					<td style="text-align: left;"><b style="font-size:25px;">인 원 선 택</b>&nbsp;<font color="red"><form:errors path="limitmember" /></font></td>
 				</tr>
 				<tr>
 					<td><form:select style="text-align:center;" class="w3-select" path="limitmember">
@@ -210,7 +214,7 @@ $(document).ready(function() {
 						</form:select><br><br></td>
 				</tr>
 				<tr>
-					<td><b style="font-size:25px;">요 일 선 택</b>&nbsp;<font color="red"><form:errors path="weekday" /></font></td>
+					<td style="text-align: left;"><b style="font-size:25px;">요 일 선 택</b>&nbsp;<font color="red"><form:errors path="weekday" /></font></td>
 				</tr>
 				<tr>
 					<td>
@@ -228,12 +232,12 @@ $(document).ready(function() {
 					</td>
 				</tr>
 				<tr>
-					<td><b style="font-size:25px;">시 작 시 간</b>&nbsp;<font color="red"><form:errors path="starttime" /></font></td>
+					<td style="text-align: left;"><b style="font-size:25px;">시 작 시 간</b>&nbsp;<font color="red"><form:errors path="starttime" /></font></td>
 				</tr>
 				<tr>
 					<td><form:select class="w3-select" path="starttime">
 							<form:option value="">선택하세요</form:option>
-							<form:option value="오후12시">오후12시</form:option>
+							<form:option value="오전12시">오전12시</form:option>
 							<form:option value="오전1시">오전1시</form:option>
 							<form:option value="오전2시">오전2시</form:option>
 							<form:option value="오전3시">오전3시</form:option>
@@ -245,7 +249,7 @@ $(document).ready(function() {
 							<form:option value="오전9시">오전9시</form:option>
 							<form:option value="오전10시">오전10시</form:option>
 							<form:option value="오전11시">오전11시</form:option>
-							<form:option value="오전12시">오전12시</form:option>
+							<form:option value="오후12시">오후12시</form:option>
 							<form:option value="오후1시">오후1시</form:option>
 							<form:option value="오후2시">오후2시</form:option>
 							<form:option value="오후3시">오후3시</form:option>
@@ -260,12 +264,12 @@ $(document).ready(function() {
 						</form:select><br><br></td>
 				</tr>
 				<tr>
-					<td><b style="font-size:25px;">끝나는 시간</b>&nbsp;<font color="red"><form:errors path="endtime" /></font></td>
+					<td style="text-align: left;"><b style="font-size:25px;">끝나는 시간</b>&nbsp;<font color="red"><form:errors path="endtime" /></font></td>
 				</tr>
 				<tr>
 					<td><form:select class="w3-select" path="endtime">
 							<form:option value="">선택하세요</form:option>
-							<form:option value="오후12시">오후12시</form:option>
+							<form:option value="오전12시">오전12시</form:option>
 							<form:option value="오전1시">오전1시</form:option>
 							<form:option value="오전2시">오전2시</form:option>
 							<form:option value="오전3시">오전3시</form:option>
@@ -277,7 +281,7 @@ $(document).ready(function() {
 							<form:option value="오전9시">오전9시</form:option>
 							<form:option value="오전10시">오전10시</form:option>
 							<form:option value="오전11시">오전11시</form:option>
-							<form:option value="오전12시">오전12시</form:option>
+							<form:option value="오후12시">오후12시</form:option>
 							<form:option value="오후1시">오후1시</form:option>
 							<form:option value="오후2시">오후2시</form:option>
 							<form:option value="오후3시">오후3시</form:option>
@@ -292,7 +296,7 @@ $(document).ready(function() {
 						</form:select><br><br></td>
 				</tr>
 				<tr>
-					<td><b style="font-size:25px;">내 용</b>&nbsp;<font color="red"><form:errors path="content" /></font></td>
+					<td style="text-align: left;"><b style="font-size:25px;">내 용</b>&nbsp;<font color="red"><form:errors path="content" /></font></td>
 				</tr>
 				<tr>
 					<td><form:textarea class="w3-input w3-border" path="content" rows="20" cols="50" /><br></td>

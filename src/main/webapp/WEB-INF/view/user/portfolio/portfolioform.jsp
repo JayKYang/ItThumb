@@ -238,9 +238,13 @@
 </script>
 <script>
 	function pfsubmit(){
-		
-		
-		document.f.submit();
+		//alert(document.f.slogun.value);
+		if(document.f.slogun.value==''){
+			alert("포트폴리오 이름을 입력해주세요.");
+			return document.f.slogun.focus();
+		}else{
+			document.f.submit();
+		}
 	}
 </script>
 <style>
@@ -287,31 +291,7 @@ button:hover span:after {
 }
 </style>
 </head>
-<style>
-body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Montserrat", sans-serif
-}
-
-.w3-row-padding img {
-	margin-bottom: 12px
-}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {
-	width: 120px;
-	background: #222;
-}
-
-#main {
-	margin-left: 120px
-}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {
-	#main {
-		margin-left: 0
-	}
-}
-</style>
-<body class="w3-black">
+<body>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->
@@ -338,7 +318,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		<form:hidden path="imageUrl" />
 		<form:hidden class="w3-input" path="password" value="passwordddddd"/>
 		<h3 class="w3-center">
-			<a class="w3-xxxlarge"><form:input class="w3-input" type="text" placeholder="포트폴리오 이름" path="slogun"/><font color="red"><form:errors path="slogun"/></font></a><input type="checkbox" style="display:none">
+			<a class="w3-xxxlarge"><form:input class="w3-input" name="slogun" type="text" placeholder="포트폴리오 이름" path="slogun"/><font color="red"><form:errors path="slogun"/></font></a><input type="checkbox" style="display:none">
 		</h3>
 			<spring:hasBindErrors name="user">
 				<font color="red">

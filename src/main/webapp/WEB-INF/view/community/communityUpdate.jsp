@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
-<title>communityBoard</title>
+<title>잇썸 > 커뮤니티 > ${community.subject } 수정</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -163,14 +163,14 @@
 
 				<table class="board_view" style="width: 100%;">
 					<tr>
-						<th style="text-align: center;"><b style="font-size: 30px">제목</b>&nbsp;<font
+						<th style="text-align: left;"><b style="font-size: 30px">제목</b>&nbsp;<font
 							color="red"><form:errors path="subject" /></font></th>
 					</tr>
 					<tr>
 						<td><form:input path="subject" class="w3-input w3-border" /></td>
 					</tr>
 					<tr>
-						<th style="text-align: center;"><b style="font-size: 30px;">내용</b>&nbsp;<font
+						<th style="text-align: left;"><b style="font-size: 30px;">내용</b>&nbsp;<font
 							color="red"><form:errors path="content" /></font></th>
 					</tr>
 					<tr>

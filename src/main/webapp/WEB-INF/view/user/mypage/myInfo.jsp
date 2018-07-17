@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>IT Thumb > 마이 페이지 > 회원 정보</title>
+<title>잇썸 > 마이 페이지 > 회원 정보</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script type="text/javascript">
 		$(document).ready(function(){
@@ -167,11 +167,25 @@
 					<font color="red"><form:errors path="password"/></font>
 					</p>
 					<div class="w3-container">
-						<input type="button" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴">
+						<%-- <input type="button" class="button w3-left" onclick="location.href='../delete.jsy?id=${login.memberid}'" value="회원탈퇴"> --%>
+						<input type="button" onclick="document.getElementById('memberdel').style.display='block'" class="button w3-left" value="회원탈퇴">
 						<input type="submit" class="button w3-right" style="margin-left:4px;" value="수정">
 						<input type="button" class="button w3-right" onclick="window.open('myPageCompanyDetail.jsy')" value="기업세부정보"> 
 					</div>
 				</form:form>
+			</div>
+		</div>
+		<div id="memberdel" class="w3-modal">
+    		<div class="w3-modal-content w3-center" style="width:400px;height:250px;">
+    			<div class="w3-container">
+    			<span onclick="document.getElementById('memberdel').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+				<form action="../delete.jsy" method="post" name="deleteform">
+					<p class="w3-xlarge">비밀번호를 한번 더 확인 해주세요</p>
+					<p><input type="hidden" name="id" value="${param.id }"></p>
+					<p>비밀번호 <input type="password" name="password" size="12"></p>
+					<button class="button" onclick="javascript:document.deleteform.submit()">회원탈퇴</button>&nbsp;
+				</form>
+    			</div>
 			</div>
 		</div>
 	</div>

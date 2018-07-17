@@ -82,13 +82,13 @@
 						<div class="w3-container">
 							<fmt:formatDate value="${popBoard.deadline}" var="date"
 								pattern="yyyyMMdd" />
-							<c:if test="${date-now != 0 }">
-								<p>마감 ${date - now } 일 전</p>
+							<c:if test="${date-now >= 0 }">
+								<p>마감 ${popDatelist[status.index]} 일 전</p>
 								<c:if test="${date-now < 3 }">
 									<a class="w3-text-red w3-tag">마감 임박</a>
 								</c:if>
 							</c:if>
-							<c:if test="${date-now == 0 }">
+							<c:if test="${popDatelist[status.index] <= 0 }">
 								<a class="w3-text-red">마감 공고입니다.</a>
 							</c:if>
 							
@@ -109,7 +109,7 @@
 	<div class="w3-row w3-container w3-padding-64" style="margin-left: 5%; margin-right: 5%;">
 		<div class="w3-container w3-half" style="height:150px;">
 			<div class="w3-half" style="width: 20%">
-				<img src="mainimg/manual2.png">
+				<img src="mainimg/manual1.png" style="width:140px; height:140px;">
 			</div>
 			<div class="w3-half">
 				<h5 class="w3-text-orange">1.포트폴리오 작성을 쉽게!</h5>
