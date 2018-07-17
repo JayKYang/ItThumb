@@ -539,7 +539,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myPageCompanyDetail")
-	public ModelAndView myPageCompanyDetail(HttpSession session) {
+	public ModelAndView companyCkmyPageCompanyDetail(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user =(User)session.getAttribute("login");
 		String memberid = user.getMemberid();

@@ -4,8 +4,8 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
 
-	FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
-	//FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");									
+	//FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
+	FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");									
 	//FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
 	
   BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
@@ -285,22 +285,5 @@ sies = new Array(
 			</tr>
 		</table>
 	</form:form>
-	<!-- <table>
-		<tr>
-			<td>
-				<input type="text" name="" class="postcodify_postcode5" value="" />
-			</td>
-			<td>
-				<button id="postcodify_search_button">검색</button><br />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="text" name="" class="postcodify_address" value="" /><br />
-				<input type="text" name="" class="postcodify_details" value="" /><br />
-				<input type="text" name="" class="postcodify_extra_info" value="" /><br />
-			</td>
-		</tr>
-	</table> -->
 </body>
 </html>
