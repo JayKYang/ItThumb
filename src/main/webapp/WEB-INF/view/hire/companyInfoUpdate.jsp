@@ -136,7 +136,7 @@ $(document).ready(function(){
 <body>
 <h4>기업정보</h4>
 <form:form modelAttribute="companyInfo" action="companyInfoUpdate.jsy" method="post" name="f">
-<input type="hidden" name="infono" value="${companyinfo.infono}">
+<input type="hidden" name="infono" value="${companyInfo.infono}">
 <input type="hidden" name="hireno" value="${hireno}">
 
 <table border="1" width="80%">

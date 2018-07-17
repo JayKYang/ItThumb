@@ -689,7 +689,7 @@ public class BoardController {
 	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.POST)
 	public ModelAndView companyCkcompanyInfoUpdate(HttpSession session,@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-	
+		
 		User loginUser = (User)request.getSession().getAttribute("login");
 	      String memberid = loginUser.getMemberid();
 	      
@@ -699,17 +699,18 @@ public class BoardController {
 	         return mav;
 	      }
 	      companyInfo.setMemberid(memberid); 
-	      User user = service.getUser(memberid);
+	      
 	      
 	      try {
 	    	  service.companyInfoUpdate(companyInfo);
 	    	  
 	    	  mav.addObject("msg","기업정보 수정을 성공하였습니다.");
 	    	  mav.addObject("url","../user/mypage/myPageCompanyDetail.jsy");
+	    	  mav.setViewName("alert");
 	      } catch(Exception e) {
 	    	  e.printStackTrace();
 	      }
-	      	mav.setViewName("alert");
+	      
 		
 		return mav;
 	}
