@@ -67,7 +67,7 @@ $(document).ready(function(){
 						<fmt:formatDate value="${hire.deadline}" var="date"	pattern="yyyyMMdd" />
 						<c:if test="${diffDays >= 0 }">
 							(<a class="w3-text-red">${diffDays} 일</a> 남음)
-							<c:if test="${date-now < 3 }">
+							<c:if test="${diffDays < 3 }">
 								<a class="w3-text-red w3-tag">마감 임박</a>
 							</c:if>
 						</c:if>

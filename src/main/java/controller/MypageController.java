@@ -123,7 +123,6 @@ public class MypageController {
 		int endpage = maxpage + 9;
 		if(endpage > maxpage) endpage = maxpage;
 		int usernum = usercount - (pageNum - 1) * limit;
-		
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("maxpage", maxpage);
 		mav.addObject("startpage", startpage);
@@ -540,7 +539,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myPageCompanyDetail")
-	public ModelAndView myPageCompanyDetail(HttpSession session) {
+	public ModelAndView companyCkmyPageCompanyDetail(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User user =(User)session.getAttribute("login");
 		String memberid = user.getMemberid();

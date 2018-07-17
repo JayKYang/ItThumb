@@ -294,7 +294,7 @@ public class AopAspect {
 	///////////////////////////////////HireBoard/////////////////////////////////////////////
 	
 	//기업회원인지 아닌지 확인
-	@Around("execution(* controller.Board*.companyCk*(..))")
+	@Around("execution(* controller.*.companyCk*(..))")
 	public Object CompanyCheck(ProceedingJoinPoint joinPoint) throws Throwable {
 		HttpSession session = (HttpSession) joinPoint.getArgs()[0];// session
 		String path = session.getServletContext().getContextPath()+"/";
