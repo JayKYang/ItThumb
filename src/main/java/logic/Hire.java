@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ public class Hire implements Serializable{
 	private String memberid;
 	private int hide;
 	@Future(message="미래날짜를 적어주세요")
+	@NotNull(message="마감일을 적어주세요")
 	private Date deadline;
 	private int readcnt;
 	@NotEmpty(message="제목을 입력해주세요")

@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.JsyException;
+import logic.CompanyInfo;
+import logic.Companyhistory;
 import logic.Hire;
 import logic.JsyService;
 import logic.Scrap;
@@ -536,4 +538,47 @@ public class MypageController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("user/mypage/myPageCompanyDetail")
+	public ModelAndView myPageCompanyDetail(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User user =(User)session.getAttribute("login");
+		String memberid = user.getMemberid();
+		CompanyInfo companyinfo = new CompanyInfo();
+		String searchType=null;
+		String searchContent=null;
+		
+		
+		try {
+		
+			int infomax = service.companyInfocount(memberid);
+			int maxNum = service.getCompanyHistorylistMaxNum(memberid);
+		if(infomax == 0){
+			mav.addObject("msg","기업세부정보가 입력되있지 않아 쓰기페이지로 이동합니다.");
+			mav.addObject("url","../../hire/companyDetailwrite.jsy");
+			mav.setViewName("alert");
+		} else if (maxNum ==0) {
+			mav.addObject("msg","연혁 및 실적 정보가 입력되있지 않아 쓰기페이지로 이동합니다.");
+			mav.addObject("url","../../hire/companyWrite.jsy");
+			mav.setViewName("alert");
+		}
+		else {
+			user = service.getUser(memberid);
+			List<Companyhistory> comHistorylist= service.getCompanyHistorylist(memberid);
+			int hirelistcount = service.getMyhirecount(memberid, searchType, searchContent);
+			companyinfo = service.getCompanyInfo(memberid);
+			
+			mav.addObject("hirelistcount",hirelistcount);
+			mav.addObject("comHistorylist",comHistorylist);
+			mav.addObject("user",user);
+			mav.addObject("companyinfo",companyinfo);
+			
+		}
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
 }

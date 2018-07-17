@@ -787,13 +787,13 @@ public class JsyServiceImpl implements JsyService{
 
 	@Override
 
-	public void companyDetailwrite(CompanyInfo companyInfo) {
+	public void companyDetailwrite(CompanyInfo companyinfo) {
 		
 		int maxNum = boardDao.companyInfoMaxNum();
 		
-		companyInfo.setInfono(++maxNum);
+		companyinfo.setInfono(++maxNum);
 		
-		boardDao.companyDetailwrite(companyInfo);
+		boardDao.companyDetailwrite(companyinfo);
 	}
 
 	@Override
@@ -830,6 +830,36 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
+	public void comInfoDelete(String memberid) {
+		boardDao.comInfoDelete(memberid);
+		
+	}
+
+	@Override
+	public int getCompanyHistorylistCount(String memberid) {
+		
+		return boardDao.getCompanyHistorylistCount(memberid);
+	}
+
+	@Override
+	public int getCompanyHistorylistMaxNum(String memberid) {
+		
+		return boardDao.getCompanyHistorylistMaxNum(memberid);
+	}
+
+	@Override
+	public int companyInfocount(String memberid) {
+	
+		return boardDao.companyInfocount(memberid);
+	}
+
+	@Override
+	public void deleteCompanyhistory(int historyno) {
+		
+		boardDao.deleteCompanyhistory(historyno);
+	}
+
+
 	public List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade, Integer pageNum, Integer limit, int createpf) {
 		return portfolioDao.portfoliodistinctlist(searchType, searchContent,membergrade, pageNum, limit,createpf);
 	}

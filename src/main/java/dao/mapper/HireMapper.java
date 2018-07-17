@@ -44,7 +44,7 @@ public interface HireMapper {
 	int CompanyInfoMaxNum();
 
 	@Insert("insert into companyinfo (infono, memberid,ceoname,worker,sales,profit,capital,insurance,salsystem,benefit,mood,anniversary,health,office,clothes,meal,supplies,care,supportfund,education,companyevent,traffic,society) values(#{infono},#{memberid},#{ceoname},#{worker},#{sales},#{profit},#{capital},#{insurance},#{salsystem},#{benefit},#{mood},#{anniversary},#{health},#{office},#{clothes},#{meal},#{supplies},#{care},#{supportfund},#{education},#{companyevent},#{traffic},#{society})")
-	void CompanyInfoInsert(CompanyInfo companyInfo);
+	void CompanyInfoInsert(CompanyInfo companyinfo);
 
 	@Select("select ifnull(max(historyno),0) from companyhistory")
 	int CompanyHistoryMaxNum();
@@ -54,4 +54,21 @@ public interface HireMapper {
 	
 	@Update("update companyinfo set ceoname=#{ceoname}, worker=#{worker},sales=#{sales},profit=#{profit},capital=#{capital},insurance=#{insurance},salsystem=#{salsystem},benefit=#{benefit},mood=#{mood},anniversary=#{anniversary},health=#{health},office=#{office},clothes=#{clothes},meal=#{meal},supplies=#{supplies},care=#{care},supportfund=#{supportfund},education=#{education},companyevent=#{companyevent},traffic=#{traffic},society=#{society} where infono = #{infono}")
 	void companyInfoUpdate(CompanyInfo companyinfo);
+
+	@Delete("delete from companyinfo where memberid = #{memberid}")
+	void comInfoDelete(String memberid);
+
+	@Select("select count(*) from companyhistory where memberid = #{memberid}")
+	int getCompanyHistorylistCount(String memberid);
+
+	@Select("select ifnull(max(historyno),0) from companyhistory where memberid=#{memberid}")
+	int getCompanyHistorylistMaxNum(String memberid);
+
+	@Select("select ifnull(max(infono),0) from companyinfo where memberid = #{memberid}")
+	int companyInfocount(String memberid);
+
+	@Delete("delete from companyhistory where historyno = #{historyno}")
+	void deleteCompanyhistory(int historyno);
+
+	
 }

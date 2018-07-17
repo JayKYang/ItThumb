@@ -45,6 +45,9 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		List<Hire> popBoardlist2 = service.popHirelist(4);
 		List<Hire> popBoardlist = new ArrayList<Hire>();
+
+		
+
 		List popDatelist = new ArrayList();
 		String strDate = null;
 		String strEndDate = null;
@@ -56,6 +59,7 @@ public class UserController {
 		long diffDays = 0;
 		int popListcount = service.popBoardcount();
 		int popLimit = 10;
+
 		for(Hire h : popBoardlist2) {
 			User user = service.getUser(h.getMemberid());
 			h.setUser(user);

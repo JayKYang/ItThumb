@@ -3,6 +3,7 @@ package logic;
 import java.io.Serializable;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -11,13 +12,17 @@ public class CompanyInfo implements Serializable{
 	private String memberid;
 	@NotEmpty(message="경영자 이름을 입력해주세요")
 	private String ceoname;
+	@NotNull(message="사원수를 입력해주세요.")
 	@Min(value=1, message="사원수는 1이상 입력해주세요.")
 	private Integer worker;
 	@Min(value=10000, message="매출액금액은 10000원 부터 입력하실수 있습니다.")
+	@NotNull(message="매출액을 입력해주세요")
 	private Integer sales;	//매출액
 	@Min(value=10000, message="영업이익금액은 10000원 부터 입력하실수 있습니다.")
+	@NotNull(message="영업이익을 입력해주세요")
 	private Integer profit;	 //영업이익
 	@Min(value=10000, message="자본금금액은 10000원 부터 입력하실수 있습니다.")
+	@NotNull(message="자본금액을 입력해주세요")
 	private Integer capital; //자본금
 	private String insurance; //보험
 	private String salsystem; //급여제도

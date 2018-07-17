@@ -168,9 +168,30 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute("login");
 		String id = user.getMemberid();
-		user = service.getUser(id);
-		mav.addObject("user", user);
-		mav.addObject("hire", new Hire());
+		CompanyInfo companyinfo = new CompanyInfo();
+		try {
+		
+			int infomax = service.companyInfocount(id);
+			int maxNum = service.getCompanyHistorylistMaxNum(id);
+			
+			
+			
+			if(infomax == 0) {
+				mav.addObject("msg","기업세부정보를 입력해주세요.");
+				mav.addObject("url","companyDetailwrite.jsy");
+				mav.setViewName("alert");
+			} else if(maxNum==0){
+				mav.addObject("msg","연혁 및 실적 정보를 입력해주세요.");
+				mav.addObject("url","companyWrite.jsy");
+				mav.setViewName("alert");
+			}else {
+				user = service.getUser(id);
+				mav.addObject("user", user);
+				mav.addObject("hire", new Hire());
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		return mav;
 	}
 	//로그인확인
@@ -464,17 +485,24 @@ public class BoardController {
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
-
 		
 		
 		
 		User user = new User();
 		try {
 		hire= service.getHire(hireno, searchType, searchContent);
+		
+		String region = hire.getRegion();
+		String regiongu = hire.getRegiongu();
+		String regionetc = hire.getRegionetc();
+		
+		String address = region + regiongu;
+		
 		user= service.getUser(hire.getMemberid());
 		companyinfo = service.getCompanyInfo(hire.getMemberid());
 		List<Companyhistory> comHistorylist= service.getCompanyHistorylist(hire.getMemberid());
 		List<Hire> hirelist = service.getMyHireList(searchType, searchContent, pageNum, limit, hire.getMemberid());
+		
 		int hirelistcount = service.getMyhirecount(hire.getMemberid(), searchType, searchContent);
 		
 		
@@ -484,6 +512,11 @@ public class BoardController {
 		if(endpage > maxpage) endpage = maxpage;
 		int boardcnt = hirelistcount - (pageNum -1) * limit;
 		
+		
+		
+		
+		
+		mav.addObject("address",address);
 		mav.addObject("companyinfo",companyinfo);
 		mav.addObject("comHistorylist",comHistorylist);
 		mav.addObject("hireno",hireno);
@@ -510,40 +543,35 @@ public class BoardController {
 		
 		User loginuser = (User)request.getSession().getAttribute("login");
 		String memberid = loginuser.getMemberid();
-		CompanyInfo companyInfo = new CompanyInfo();
+		CompanyInfo companyinfo = new CompanyInfo();
 		try {
+			
 		if(loginuser.getMembergrade()==2) {
 			
-			companyInfo = service.getCompanyInfo(memberid);
 			
-			if(companyInfo != null) {
-				mav.addObject("msg","기업정보입력이 확인되어 채용공고 쓰기 페이지로 갑니다.");
-				mav.addObject("url","hirewrite.jsy");
+			int infomax = service.companyInfocount(memberid);
+			
+			if(infomax==0) {
+				User user = service.getUser(memberid);
+				
+				mav.addObject("user",user);
+				mav.addObject("companyInfo",companyinfo);	
+				
+			} else {
+				mav.addObject("msg","기업회원정보가 조회되어 연혁 및 실적 쓰기 페이지로이동합니다.");
+				mav.addObject("url","companyWrite.jsy");
 				mav.setViewName("alert");
 			}
-			else {
 			
-			User user = service.getUser(memberid);
-		
-			mav.addObject("user",user);
-			mav.addObject("companyInfo",companyInfo);
-			}
-		} else {
-			
+		} else {	
 			mav.addObject("msg","기업회원이 아닙니다.");
-
 			mav.addObject("url","hire/hirelist.jsy?pageNum="+pageNum);
-
-			/*mav.addObject("url","hirelist.jsy");*/
-
 			mav.setViewName("alert");
-		}
-		
+		}		
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new JsyException("회사정보 쓰기에 실패했습니다.","hirelist.jsy");
 		}
-		
 		return mav;
 	}
 	
@@ -551,17 +579,18 @@ public class BoardController {
 	@RequestMapping(value="hire/companyDetailwrite",method=RequestMethod.POST)
 	   public ModelAndView companyDetailwrite(@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 	      ModelAndView mav = new ModelAndView();
-	      User user = (User)request.getSession().getAttribute("login");
-	      String memberid = user.getMemberid();
+	      User loginUser = (User)request.getSession().getAttribute("login");
+	      String memberid = loginUser.getMemberid();
 	      companyInfo.setMemberid(memberid);
-	      
+	      User user = service.getUser(memberid);
+	     
 	      if(bindingResult.hasErrors()) {
 	         mav.getModel().putAll(bindingResult.getModel());
-	         mav.addObject("companyInfo",companyInfo);
+	         System.out.println(bindingResult.getModel());
+	         //mav.addObject("user",user);
+	         //mav.addObject("companyinfo",companyinfo);
 	         return mav;
 	      }
-	      
-	      
 	      
 	      
 	      try {
@@ -581,13 +610,29 @@ public class BoardController {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy");
 		User user = (User)request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
+		CompanyInfo companyinfo = new CompanyInfo();
 		
-		Date date = new Date();// 현재날짜
-		int nowdate = Integer.parseInt(df.format(date)); // 2018
-		int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
-		
-		mav.addObject("birth",birth);
-		mav.addObject("companyhistory",companyhistory);
+		try {
+			
+			int infomax = service.companyInfocount(memberid);
+			
+			if(infomax == 0) {
+				mav.addObject("msg","기업정보를 입력해주세요");
+				mav.addObject("url","companyDetailwrite.jsy");
+				mav.setViewName("alert");
+				
+			} else {
+				
+				Date date = new Date();// 현재날짜
+				int nowdate = Integer.parseInt(df.format(date)); // 2018
+				int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
+				mav.addObject("birth",birth);
+				mav.addObject("companyhistory",companyhistory);
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		return mav;	
 	}
@@ -612,7 +657,7 @@ public class BoardController {
 			service.insertCompanyHistory(ch);
 		}
 		
-		mav.setViewName("redirect:/hire/hirewrite.jsy");
+		mav.setViewName("redirect:../user/mypage/myPageCompanyDetail.jsy");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -624,16 +669,15 @@ public class BoardController {
 	public ModelAndView companyInfoUpdate(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
-		int hireno = Integer.parseInt(request.getParameter("hireno"));
-		
 		String memberid = loginUser.getMemberid();
 		try {
 		User user = service.getUser(memberid);
 		CompanyInfo companyinfo = service.getCompanyInfo(memberid);
 		
-		mav.addObject("hireno",hireno);
+	
 		mav.addObject("user",user);
-		mav.addObject("companyinfo",companyinfo);
+		mav.addObject("companyInfo",companyinfo);
+		
 		System.out.println(companyinfo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -642,26 +686,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.POST)
-	public ModelAndView companyInfoUpdate(@Valid CompanyInfo companyinfo, BindingResult bindingResult,HttpServletRequest request) {
+	public ModelAndView companyInfoUpdate(@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(companyinfo);
-		User user = (User)request.getSession().getAttribute("login");
-	      String memberid = user.getMemberid();
-	      companyinfo.setMemberid(memberid); 
-	      int hireno = Integer.parseInt(request.getParameter("hireno"));
+	
+		User loginUser = (User)request.getSession().getAttribute("login");
+	      String memberid = loginUser.getMemberid();
 	      
 	      if(bindingResult.hasErrors()) {
 	         mav.getModel().putAll(bindingResult.getModel());
-	         mav.addObject("companyinfo",companyinfo);
 	         
 	         return mav;
 	      }
+	      companyInfo.setMemberid(memberid); 
+	      User user = service.getUser(memberid);
 	      
 	      try {
-	    	  service.companyInfoUpdate(companyinfo);
+	    	  service.companyInfoUpdate(companyInfo);
 	    	  
 	    	  mav.addObject("msg","기업정보 수정을 성공하였습니다.");
-	    	  mav.addObject("url","companyDetail.jsy?hireno="+hireno);
+	    	  mav.addObject("url","../user/mypage/myPageCompanyDetail.jsy");
 	      } catch(Exception e) {
 	    	  e.printStackTrace();
 	      }
@@ -669,4 +712,88 @@ public class BoardController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("hire/comInfoDelete")
+	public ModelAndView comInfoDelete(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		
+		
+		try {
+			service.comInfoDelete(memberid);
+			mav.setViewName("redirect:hire/hirelist.jsy");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="hire/companyHistoryUpdate",method=RequestMethod.GET)
+	public ModelAndView companyHistoryUpdate(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User)session.getAttribute("login");
+		String memberid = loginUser.getMemberid();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		Companyhistory companyhistory = new Companyhistory();
+		try {
+			Date date = new Date();// 현재날짜
+			int nowdate = Integer.parseInt(df.format(date)); // 2018
+			int birth = Integer.parseInt(df.format(loginUser.getBirth())); // 설립일 년도
+			
+			List<Companyhistory> comHislist = service.getCompanyHistorylist(memberid);
+			int comhislistcount = service.getCompanyHistorylistCount(memberid);
+
+			int maxNum = service.getCompanyHistorylistMaxNum(memberid);
+			
+			
+			mav.addObject("maxNum",maxNum);
+			mav.addObject("comhislistcount",comhislistcount);
+			mav.addObject("companyhistory",companyhistory);
+			mav.addObject("birth",birth);
+			mav.addObject("comHislist",comHislist);
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+		
+	}
+	
+	
+	@RequestMapping(value="hire/companyHistoryreWrite",method=RequestMethod.GET)
+	public ModelAndView companyHistoryreWrite(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Companyhistory companyhistory = new Companyhistory();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		CompanyInfo companyinfo = new CompanyInfo();
+		try {
+			
+			List<Companyhistory> ch = service.getCompanyHistorylist(memberid);
+			
+			for(int i=0; i<ch.size(); i++) {
+				int historyno = ch.get(i).getHistoryno();
+				service.deleteCompanyhistory(historyno);
+			}
+			
+				Date date = new Date();// 현재날짜
+				int nowdate = Integer.parseInt(df.format(date)); // 2018
+				int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
+				mav.addObject("birth",birth);
+				mav.addObject("companyhistory",companyhistory);
+		
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;	
+	}
+	
 }

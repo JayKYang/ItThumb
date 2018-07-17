@@ -244,8 +244,7 @@ public interface JsyService {
 
 	Hire selectHire(int hireno);
 
-
-	void companyDetailwrite(CompanyInfo companyInfo);
+	void companyDetailwrite(CompanyInfo companyinfo);
 
 	void insertCompanyHistory(Companyhistory ch);
 
@@ -256,6 +255,20 @@ public interface JsyService {
 	void companyInfoUpdate(CompanyInfo companyinfo);
 
 	void studyGroupLeaderSet(StudyGroup sg);
+
+
+	void comInfoDelete(String memberid);
+
+	int getCompanyHistorylistCount(String memberid);
+
+	int getCompanyHistorylistMaxNum(String memberid);
+
+	int companyInfocount(String memberid);
+
+	void deleteCompanyhistory(int historyno);
+
+
+
 
 	List<User> portfoliodistinctlist(String searchType, String searchContent,int membergrade, Integer pageNum, Integer limit, int createpf);
 
