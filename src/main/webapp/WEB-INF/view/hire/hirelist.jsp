@@ -400,6 +400,15 @@ function hirelist(pageNum){
 	return false;
 	}
 </script>
+<script>
+
+function companyDetail(url){
+	var h = screen.height*(3/4);
+	var w = screen.width*(1.9/3);
+	window.open(url,"Company Infomation","width="+w+", height="+h+", left=100, top=100");
+}
+
+</script>
 <style type="text/css">
 #aa, #bb,#cc {
 	border: 1px solid #000000;
@@ -489,7 +498,7 @@ function hirelist(pageNum){
 						</div>
 						<div>
 							<h4>
-								<a href="companyDetail.jsy?hireno=${popBoard.hireno}&pageNum=${pageNum}" style="text-decoration:none; font-size:20px;" target="_blank"><b>${popBoard.company }</b></a>
+								<a href="javascript:companyDetail('companyDetail.jsy?hireno=${popBoard.hireno}&pageNum=1')" style="text-decoration:none; font-size:20px;"><b>${popBoard.company }</b></a>
 							</h4>
 						</div>
 						<div>
@@ -548,7 +557,7 @@ function hirelist(pageNum){
 			<c:if test="${hireboard.hide==1}">
 			<tr>
 				<td>
-						${hireboard.company}			
+					<a href="javascript:companyDetail('companyDetail.jsy?hireno=${hireboard.hireno}&pageNum=1')" style="text-decoration:none;">${hireboard.company }</a>
 				</td>
 				<td>
 						<a href="hiredetail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>

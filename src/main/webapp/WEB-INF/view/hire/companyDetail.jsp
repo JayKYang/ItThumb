@@ -12,8 +12,13 @@
 <title>잇썸 > 기업 정보</title>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=qDOuw0wNL1zXEzspRGUC&submodules=geocoder"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
+<script>
+function detailhirelist(pageNum){
+	var i = $("#hireno").val();
+	location.href = "companyDetail.jsy?hireno=" + i+"&pageNum="+pageNum;
+	return true;
+}
+</script>
 <style type="text/css">
  #comDiv,#comrepDiv {
  	border : 1px solid #000000;
@@ -30,111 +35,394 @@
  }
  
 
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body {font-family: 'Do Hyeon', sans-serif;}
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Playfair Display";
+    /* font-family: 'Song Myung', serif; */
+    /* font-family: 'Nanum Gothic Coding', monospace; 
+    font-family: 'Sunflower', sans-serif; */
+    letter-spacing: 5px;
+} 
 
  
  
 </style>
-
-
-
 </head>
 <body>
     <!-- About Section -->
-<div width="80%" align="center">
-<div class="w3-container" style="padding:128px 16px" id="about">
+<div style="width:100%;">
+<div class="w3-indigo" style="padding:100px;opacity:0.7;">
   <h2 class="w3-center"><b>${user.name}</b></h2>
-  <br>
-  <br>
-  <p class="w3-center w3-large"></p>
-  <div class="w3-row-padding w3-center" style="margin-top:64px">
-    <div class="w3-quarter">
+</div>
+  <div class="w3-center">
+    <div class="w3-quarter w3-border" style="padding-top:50px;padding-bottom:50px;">
       <i class="fa fa-drivers-license-o w3-margin-bottom w3-jumbo w3-center"></i>
       <p class="w3-large">The Date of Incorporation</p>
       <p><fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" /></p>
     </div>
-    <div class="w3-quarter">
+    <div class="w3-quarter w3-border" style="padding-top:50px;padding-bottom:50px;">
         <i class="fa fa-file-text-o w3-margin-bottom w3-jumbo"></i>
       <p class="w3-large">Type of Business</p>
       <p>${user.industy}</p>
     </div>
-    <div class="w3-quarter">
+    <div class="w3-quarter w3-border" style="padding-top:50px;padding-bottom:50px;">
       <i class="fa fa-location-arrow w3-margin-bottom w3-jumbo"></i>
       <p class="w3-large">Business Address</p>
 
       <p>${user.address}</p>
     </div>
-    <div class="w3-quarter">
+    <div class="w3-quarter w3-border" style="padding-top:50px;padding-bottom:50px;">
          <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
       <p class="w3-large">Site</p>
       <p><a href="${user.site}">${user.site}</a></p>
     </div>
   </div>
 </div>
-<h2 style="font-family:'Raleway', sans-serif;">Post a Job Opening</h2>
-<br>
-<br>
-<table width="80%">
-		<c:if test="${hirelistcount>0}">
-	<c:if test="${hire.hide==1}">
-    <div class="w3-row-padding" style="margin:0 -16px">
-    <c:forEach items="${hirelist}" var="hire">
-		
-     <!-- Pricing Tables -->
-      <div class="w3-third w3-margin-bottom" id="listDiv">
-        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-dark-gray w3-xlarge w3-padding-32"><a href="hiredetail.jsy?hireno=${hire.hireno}">${hire.subject}</a></li>
-          <li class="w3-padding-16">${hire.qualification}</li>
-          <li class="w3-padding-16">${hire.hirestatus}</li>
-          <li class="w3-padding-16">${hire.region} ${hire.regiongu}</li>
-          <li class="w3-padding-16">${hire.workday}</li>
-        </ul>
-      </div>
-</c:forEach>
-     </div> 
-     <div>
-     <form name="f">
-     <input type="hidden" name="hireno" value="${param.hireno}">
-     <table align="center">
-     					<tr align="center" height="26">
-			<td colspan="8">
-				<c:if test="${pageNum >1}">
-					<a href="javascript:detailhirelist(${pageNum -1})">PREV</a>
-				</c:if> &nbsp;
-				<c:if test="${pageNum <= 1}">PREV</c:if>&nbsp;
-				<c:forEach var="a" begin="${startpage}" end = "${endpage}">
-					<c:if test="${a == pageNum}">${a}</c:if>
-					<c:if test="${a != pageNum}">
-					<a href="javascript:detailhirelist(${a})">${a}</a>
-					</c:if>
-				</c:forEach>
-				<c:if test="${pageNum < maxpage}">
-					<a href="javascript:detailhirelist(${pageNum + 1})">NEXT</a>
-				</c:if> &nbsp;
-				<c:if test="${pageNum >= maxpage}">NEXT
-				</c:if> &nbsp;
+<div class="w3-container" style="width:100%;">
+	<p><span class="w3-large w3-text-indigo"><b>지난 채용 공고</b></span></p>
+	<div style="width:100%;height:360px;">
+		<c:forEach items="${hirelist}" var="hire">
+			<c:if test="${hirelistcount>0}">
+				<c:if test="${hire.hide==1}">
+			      <div class="w3-third w3-margin-bottom" id="listDiv" style="width:33%;">
+			        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+			          <li class="w3-indigo w3-xlarge w3-padding-32" style="opacity:0.6;height:120px;"><a href="hiredetail.jsy?hireno=${hire.hireno}">${hire.subject}</a></li>
+			          <li class="w3-padding-16">${hire.qualification}</li>
+			          <li class="w3-padding-16">${hire.hirestatus}</li>
+			          <li class="w3-padding-16">${hire.region} ${hire.regiongu}</li>
+			          <li class="w3-padding-16">${hire.workday}</li>
+			        </ul>
+			      </div>
+				</c:if>
+			</c:if>
+			<c:if test="${hirelistcount==0}">
+				<h2>해당 목록이 비어있습니다.</h2>
+			</c:if>
+		</c:forEach>
+	</div>
+	<div class="w3-center" style="width:100%;">
+		<input id="hireno" type="hidden" name="hireno" value="${param.hireno}">
+		<c:if test="${pageNum >1}">
+			<a href="javascript:detailhirelist(${pageNum -1})">[이전]</a>
+		</c:if> &nbsp;
+		<c:if test="${pageNum <= 1}">[이전]</c:if>&nbsp;
+		<c:forEach var="a" begin="${startpage}" end = "${endpage}">
+			<c:if test="${a == pageNum}">[${a}]</c:if>
+			<c:if test="${a != pageNum}">
+			<a href="javascript:detailhirelist(${a})">[${a}]</a>
+			</c:if>
+		</c:forEach>
+		<c:if test="${pageNum < maxpage}">
+			<a href="javascript:detailhirelist(${pageNum + 1})">[다음]</a>
+		</c:if> &nbsp;
+		<c:if test="${pageNum >= maxpage}">[다음]
+		</c:if> &nbsp;
+	</div>
+	<p><span class="w3-large w3-text-indigo"><b>기업 정보</b></span></p>
+	<div class="content">
+	<table class="w3-table" style="width:100%;">
+		<tr>
+			<td style="background-color:#e6e6ff;">
+				기업명
+			</td>
+			<td>
+				${user.name}
+			</td>
+			<td style="background-color:#e6e6ff;">
+				대표자명
+			</td>
+			<td>
+				${companyinfo.ceoname}
 			</td>
 		</tr>
-     </table>
-     </form>
-     <script type="text/javascript">
-function detailhirelist(pageNum){
-		var i = document.f.hireno.value
-		location.href = "companyDetail.jsy?hireno=" + i+"&pageNum="+pageNum;
-		return true;
-}
+			<tr>
+			<td style="background-color:#e6e6ff;">
+				업종
+			</td>
+			<td>
+				${user.industy}
+			</td>
+			<td style="background-color:#e6e6ff;">
+				영업이익
+			</td>
+			<td>
+				${companyinfo.profit}
+			</td>
+		</tr>
+		<tr>
+			<td style="background-color:#e6e6ff;">
+				설립일
+			</td>
+			<td>
+				<fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
+			</td>
+			<td style="background-color:#e6e6ff;">
+				채용 현황
+			</td>
+			<td>
+				${hirelistcount} 건
+			</td>
+		</tr>
+			<tr>
+			<td style="background-color:#e6e6ff;">
+				사원수
+			</td>
+			<td>
+				${companyinfo.worker}
+			</td>
+			<td style="background-color:#e6e6ff;">
+				매출액
+			</td>
+			<td>
+				${companyinfo.sales}
+			</td>
+		</tr>
+			<tr>
+			<td style="background-color:#e6e6ff;">
+				자본금
+			</td>
+			<td>
+				${companyinfo.capital}
+			</td>
+		</tr>
+			<tr>
+			<td style="background-color:#e6e6ff;">
+				회사 주소
+			</td>
+			<td colspan="3">
+				${user.address}
+			</td>
+		</tr>
+			<tr>
+			<td style="background-color:#e6e6ff;">
+				사이트
+			</td>
+			<td colspan="3">
+				${user.site}
+			</td>
+		</tr>
+	</table>
+	</div>
+	<div class="w3-content w3-margin-top" style="max-width:1400px;">
+	  <div class="w3-row-padding">
+	    <div class="w3-twothird">
+	      <div class="w3-container w3-card w3-white w3-margin-bottom">
+	        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>연혁 및 실적</h2>
+	        <a href="companyHistoryUpdate.jsy">수정</a>
+	        <a>삭제</a>
+	        <c:forEach items="${comHistorylist}" var="comHislist">
+	        <div class="w3-container">
+	          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>${comHislist.historydate}</h6>
+	          <h5 class="w3-opacity"><b>${comHislist.content}</b></h5>
+	          <hr>
+	        </div>
+			</c:forEach>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<p><span class="w3-large w3-text-indigo"><b>근무 조건</b></span></p>
+	<div>
+	<table class="w3-table">
+	<tr>
+		<td style="width:15%;background-color:#e6e6ff;">
+			연금보험
+		</td>
+		<td style="width:30%">
+			${companyinfo.insurance}
+		</td>
+		<td style="width:15%; background-color:#e6e6ff;">
+			급여제도
+		</td>
+		<td style="width:30%">
+			${companyinfo.salsystem}
+		</td>
+	</tr>
+	<tr>
+		<td style="background-color:#e6e6ff;">
+			동호회/조직
+		</td>
+		<td>
+			${companyinfo.society}
+		</td>
+		<td style="background-color:#e6e6ff;">
+			회사분위기
+		</td>
+		<td>
+			${companyinfo.mood}
+		</td>
+	</tr>
+	<tr>
+		<td style="background-color:#e6e6ff;">
+			명절/기념일
+		</td>
+		<td>
+			${companyinfo.anniversary }
+		</td>
+		<td style="background-color:#e6e6ff;">
+			의료/건강
+		</td>
+		<td>
+			${companyinfo.health}
+		</td>
+	</tr>
+	<tr>
+		<td style="background-color:#e6e6ff;">
+			출산/육아
+		</td>
+		<td>
+			${companyinfo.care}
+		</td>
+		<td style="background-color:#e6e6ff;">
+			사무실 환경
+		</td>
+		<td>
+			${companyinfo.office}
+		</td>
+	</tr>
+		<tr>
+		<td style="background-color:#e6e6ff;">
+			의복관련
+		</td>
+		<td>
+			${companyinfo.clothes}
+		</td>
+		<td style="background-color:#e6e6ff;">
+			식사관련
+		</td>
+		<td>
+			${companyinfo.meal}
+		</td>
+	</tr>
+	<tr>
+		<td style="background-color:#e6e6ff;">
+			교통 출퇴근
+		</td>
+		<td>
+			${companyinfo.traffic}
+		</td>
+		<td style="background-color:#e6e6ff;">
+			지급품
+		</td>
+		<td>
+			${companyinfo.supplies}
+		</td>
+	</tr>
+		<tr>
+		<td style="background-color:#e6e6ff;">
+			지원금/대출
+		</td>
+		<td>
+			${companyinfo.supportfund}
+		</td>
+		<td style="background-color:#e6e6ff;">
+			회사 행사
+		</td>
+		<td>
+			${companyinfo.companyevent}
+		</td>
+	</tr>
+	<tr>
+		<td style="background-color:#e6e6ff;">
+			교육관련
+		</td>
+		<td colspan="3">
+			${companyinfo.education}
+		</td>
+	</tr>
+</table>
+</div>
+<div id="map" style="width:100%;height:400px;"></div>
+</div>
+<script type="text/javascript">
+	var map = new naver.maps.Map('map');
+    var myaddress = '${address}';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+    	
+      
+      naver.maps.Service.geocode({address: myaddress}, function(status, response) {
+          if (status !== naver.maps.Service.Status.OK) {
+              return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+          }
+          var result = response.result;
+          // 검색 결과 갯수: result.total
+          // 첫번째 결과 결과 주소: result.items[0].address
+          // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+          var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+          map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+          // 마커 표시
+          var marker = new naver.maps.Marker({
+            position: myaddr,
+            map: map
+          });
+          // 마커 클릭 이벤트 처리
+          naver.maps.Event.addListener(marker, "click", function(e) {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+          });
+          // 마크 클릭시 인포윈도우 오픈
+          var infowindow = new naver.maps.InfoWindow({
+              content: '<h4> [네이버 개발자센터]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
+          });
+      });
 </script>
-     </div>
-</c:if>
-</c:if>
-	<c:if test="${hirelistcount==0}">
-				<tr>
-					<td>
-						<h2>해당 목록이 비어있습니다.</h2>
+</body>
+</html>
+
+<%-- <p><span class="w3-large">지난 채용 공고</span></p>
+	<table>
+			<c:if test="${hirelistcount>0}">
+		<c:if test="${hire.hide==1}">
+	    <div class="w3-row-padding" style="margin:0 -16px">
+		    <c:forEach items="${hirelist}" var="hire">
+		      <div class="w3-third w3-margin-bottom" id="listDiv" style="height:300px;">
+		        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
+		          <li class="w3-dark-gray w3-xlarge w3-padding-32"><a href="hiredetail.jsy?hireno=${hire.hireno}">${hire.subject}</a></li>
+		          <li class="w3-padding-16">${hire.qualification}</li>
+		          <li class="w3-padding-16">${hire.hirestatus}</li>
+		          <li class="w3-padding-16">${hire.region} ${hire.regiongu}</li>
+		          <li class="w3-padding-16">${hire.workday}</li>
+		        </ul>
+		      </div>
+			</c:forEach>
+	     </div> 
+	     <div>
+		     <input type="hidden" name="hireno" value="${param.hireno}">
+		    <table>
+		     	<tr align="center" height="26">
+					<td colspan="8">
+						<c:if test="${pageNum >1}">
+							<a href="javascript:detailhirelist(${pageNum -1})">PREV</a>
+						</c:if> &nbsp;
+						<c:if test="${pageNum <= 1}">PREV</c:if>&nbsp;
+						<c:forEach var="a" begin="${startpage}" end = "${endpage}">
+							<c:if test="${a == pageNum}">${a}</c:if>
+							<c:if test="${a != pageNum}">
+							<a href="javascript:detailhirelist(${a})">${a}</a>
+							</c:if>
+						</c:forEach>
+						<c:if test="${pageNum < maxpage}">
+							<a href="javascript:detailhirelist(${pageNum + 1})">NEXT</a>
+						</c:if> &nbsp;
+						<c:if test="${pageNum >= maxpage}">NEXT
+						</c:if> &nbsp;
 					</td>
 				</tr>
-			</c:if>
-</table>
+		   </table>
+	     </div>
+	</c:if>
+	</c:if>
+		<c:if test="${hirelistcount==0}">
+					<tr>
+						<td>
+							<h2>해당 목록이 비어있습니다.</h2>
+						</td>
+					</tr>
+				</c:if>
+	</table>
+</div>
 <h4>기업정보</h4>
 <table border="1" width="80%">
 	<tr>
@@ -384,8 +672,4 @@ function detailhirelist(pageNum){
           });
       });
 
-      </script>
-</div>
-</div>
-</body>
-</html>
+      </script> --%>

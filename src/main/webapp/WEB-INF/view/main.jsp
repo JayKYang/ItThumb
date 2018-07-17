@@ -49,6 +49,15 @@
   right: 0;
 }
 </style>
+<script>
+
+function companyDetail(url){
+	var h = screen.height*(3/4);
+	var w = screen.width*(1.9/3);
+	window.open(url,"Company Infomation","width="+w+", height="+h+", left=100, top=100");
+}
+
+</script>
 </head>
 <body>
 	<header class="w3-wide" style="width: 100%;">
@@ -73,7 +82,7 @@
 						</div>
 						<div class="w3-container">
 							<h3>
-								<a href="hire/companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none; font-size:20px;" target="_blank"><b>${popBoard.company }</b></a>
+								<a href="javascript:companyDetail('hire/companyDetail.jsy?hireno=${popBoard.hireno}&pageNum=1')" style="text-decoration:none; font-size:20px;"><b>${popBoard.company }</b></a>
 							</h3>
 						</div>
 						<div class="w3-container">
