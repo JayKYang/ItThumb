@@ -547,7 +547,7 @@ public class BoardController {
 		CompanyInfo companyinfo = new CompanyInfo();
 		try {
 			
-		if(loginuser.getMembergrade()==2) {
+		if(loginuser.getMembergrade()==2 || loginuser.getMembergrade()==0) {
 			
 			
 			int infomax = service.companyInfocount(memberid);
@@ -564,11 +564,7 @@ public class BoardController {
 				mav.setViewName("alert");
 			}
 			
-		} else {	
-			mav.addObject("msg","기업회원이 아닙니다.");
-			mav.addObject("url","hire/hirelist.jsy?pageNum="+pageNum);
-			mav.setViewName("alert");
-		}		
+		} 
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw new JsyException("회사정보 쓰기에 실패했습니다.","hirelist.jsy");
