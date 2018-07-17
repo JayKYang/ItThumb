@@ -135,11 +135,11 @@ button:hover span:after {
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->
-		<a class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
+		<a class="w3-bar-item w3-button w3-padding-large w3-hover-amber" style="width:10%;" href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid}'">
 		    <i class="fa fa-user w3-xxlarge"></i>
 		    <p>ABOUT ME</p>
 	    </a>
-		<a href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid }#project'" class="w3-bar-item w3-button w3-padding-large w3-hover-gray"  onclick="openPortfolio('project')">
+		<a href="javascript:location.href='portfolioform.jsy?id=${sessionScope.login.memberid }#project'" style="width:10%;" class="w3-bar-item w3-button w3-padding-large w3-hover-amber"  onclick="openPortfolio('project')">
 			<i class="fa fa-eye w3-xxlarge"></i>
 			<p>MY WORK</p>
 		</a>

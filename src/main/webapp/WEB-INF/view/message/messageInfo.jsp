@@ -115,6 +115,12 @@ h1,h2,h3,h4,h5,h6 {
 				<input type="hidden" name="messageno" value="${messageno}">
 				<input type="hidden" name="pageNum" value="${pageNum}">
 				<input type="hidden" name="idchks" value="${message.messageno}">
+				<c:if test="${sort==1}">
+					<input type="hidden" name="id" value="${message.receiver}">
+				</c:if>
+				<c:if test="${sort==2}">
+					<input type="hidden" name="id" value="${message.sender}">
+				</c:if>
 				<table class="board_view" style="width: 100%;">
 					<c:if test="${sort==1}">
 						<tr>

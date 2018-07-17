@@ -157,6 +157,10 @@ $(document).ready(function() {
 </head>
 
 <body>
+	<div class="w3-bar w3-small w3-left w3-pink" style="width: 100%;">
+		<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+		</div> 
+	</div>
 	<br>
 	<div id="main" class="w3-content">
 		<div class="w3-center" style="width: 100%">
