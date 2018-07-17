@@ -291,31 +291,7 @@ button:hover span:after {
 }
 </style>
 </head>
-<style>
-body, h1, h2, h3, h4, h5, h6 {
-	font-family: "Montserrat", sans-serif
-}
-
-.w3-row-padding img {
-	margin-bottom: 12px
-}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {
-	width: 120px;
-	background: #222;
-}
-
-#main {
-	margin-left: 120px
-}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {
-	#main {
-		margin-left: 0
-	}
-}
-</style>
-<body class="w3-black">
+<body>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange w3-card" style="width:100%;">
 		<!-- Avatar image in top left corner -->

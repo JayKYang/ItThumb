@@ -119,24 +119,7 @@
 }
 </style>
 </head>
-<style>
-.w3-row-padding img {
-	margin-bottom: 12px
-}
-/* Set the width of the sidebar to 120px */
-.w3-sidebar {
-	width: 120px;
-	background: #222;
-}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {
-	#main {
-		margin-left: 0
-	}
-}
-</style>
 <body>
-	<a href="#about"></a>
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<div class="w3-bar w3-small w3-left w3-orange" style="width:100%;">
 		<!-- Avatar image in top left corner -->
@@ -186,7 +169,7 @@
 
 	<!-- Page Content -->
 	<!-- Header/Home -->
-	<div class="portfoliopage w3-content w3-container w3-animate-left"
+	<div class="portfoliopage w3-content w3-container"
 		id="about">
 		<div class="w3-center">
 			<p>
@@ -354,7 +337,7 @@
 		</c:if>
 	</div>
 
-	<div class="portfoliopage w3-container w3-animate-right" id="project" style="display: none; margin-left:20%;margin-right:20%;">
+	<div class="portfoliopage w3-container" id="project" style="display: none; margin-left:20%;margin-right:20%;">
 	<div class="w3-center">
 		<p style="margin-top:5%;">
 			<span class="w3-content w3-text-orange w3-xxlarge w3-padding-32">프로젝트</span>

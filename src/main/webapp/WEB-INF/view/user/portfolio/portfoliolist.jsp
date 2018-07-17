@@ -32,41 +32,81 @@
 		return false;
 	}
 </script>
-<!-- <style>
+<style>
+button {
+	width: 60px;
+	height: 30px;
+}
+button {
+	border-radius: 4px;
+	background-color: orange;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	transition: all 0.5s;
+	cursor: pointer;
+	font-size: 12px;
+	padding: 10px;
+	transition: all 0.5s;
+	margin: 5px;
+}
+button:hover {
+  background-color: #ffe4b3;
+}
+
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
+}
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
+<style>
 .skillhover {
 	cursor: pointer;
 }
 
-.popupLayer {
+.skillss {
 	position: absolute;
 	display: none;
 	background-color: #ffffff;
 	border: solid 2px #d0d0d0;
-	width: 350px;
-	height: 150px;
 	padding: 10px;
-}
-.popupLayer div {
-	position: absolute;
-	top: 5px;
-	right: 5px
 }
 </style>
 <script>
-function closeLayer( obj ) {
+/* function closeLayer( obj ) {
 	$(obj).parent().parent().hide();
-}
+} */
 
-$(function(){
-
-	/* 클릭 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
-	$('.skillhover').hover(function(e)
-	{
+$(document).ready(function (){
+	var skilllist = null;
+	$('.skillhover').hover(function(e){
+		skilllist =  $('#skilllist_'+e.target.id);
+		//alert(e.target.id);
 		var sWidth = window.innerWidth;
 		var sHeight = window.innerHeight;
 
-		var oWidth = $('.popupLayer').width();
-		var oHeight = $('.popupLayer').height();
+		var oWidth = $('#skilllist_'+e.target.id).width();
+		var oHeight = $('#skilllist_'+e.target.id).height();
 
 		// 레이어가 나타날 위치를 셋팅한다.
 		var divLeft = e.clientX + 10;
@@ -79,53 +119,69 @@ $(function(){
 		// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
 		if( divLeft < 0 ) divLeft = 0;
 		if( divTop < 0 ) divTop = 0;
-
-		$('.popupLayer').css({
+		
+		$('#skilllist_'+e.target.id).css({
 			"top": divTop,
 			"left": divLeft,
 			"position": "absolute"
 		}).show();
-	});
-
-</script> -->
+	},function()// 마우스가 떠났을때
+	{
+		skilllist.hide();
+	}); 
+});
+</script>
 </head>
 <body>
-	<div class="w3-content w3-padding-64">
-		<form action="messagedelete.jsy" method="post">
+	<div class="w3-center w3-content">
+			<p>
+				<span class="w3-content w3-text-orange w3-xxlarge">포트폴리오 보기</span>
+			</p>
+		</div>
+	<div class="w3-content">
 			<input type="hidden" name="pageNum" value="${pageNum}"> 
-	  		<input type="hidden" name="sort" value="${sort }">	
-  		<table class="w3-table w3-bordered">
+	<table class="w3-table w3-bordered">
     <tr>
       	<th>이름</th>
         <th>스킬</th>
         <th>포트폴리오 명</th>
         <th>최종수정일</th>
     </tr>
-	    <c:forEach items="${portfoliolist }" var="portfolio">
+	    <c:forEach items="${portfoliolist }" var="portfolio" varStatus="status">
+	      <c:set var="skilllist" value=""/>
 	    <c:if test="${portfolio.createpf == 1 }">
 	    <tr>
 	      <td align="center">${portfolio.name}</td>
 	      <td align="center">
 	      <c:set var="skillcnt" value="0"/>
 	      <c:forEach items="${portfolio.historyList }" var="skill" varStatus="index">
+	      	<c:if test="${skill.kindno == 1}">
+		      	<c:if test="${skillcnt == 0}">
+	            	<c:set var="skilllist" value="${skill.content }"/>
+	            </c:if>
+		      	<c:if test="${skillcnt != 0}">
+	            	<c:set var="skilllist" value="${skilllist },${skill.content }"/>
+	            </c:if>
+	      	</c:if>
 	      	<c:if test="${skill.kindno == 1 && skillcnt <= 2}">
 	      		<c:set var="skillcnt" value="${skillcnt+1 }"/>
 	      		${skill.content}
 	      		 <c:if test="${!index.last && skillcnt <= 2}">, </c:if>
+		      	<c:if test="${skill.kindno == 1 && skillcnt > 2}">
+		      		<a id="${status.count }" class="skillhover">...</a>
+		      	</c:if>
 	      	</c:if>
-	      	<%-- <c:if test="${skill.kindno == 1 && index.last}">
-	      		<a class="skillhover">...</a>
-	      	</c:if>
-	      	<div class="popupLayer">
-	      		 	<ul>
-	      		 		<li>
-	      		 			<c:if test="${skill.kindno == 1}">
-				      		${skill.content}
-				      		</c:if>
-				      	</li>
-	      		 	</ul>
-	      		 </div> --%>
 	      </c:forEach>
+	      <div id="skilllist_${status.count }" class="skillss" style="display:none;">
+				<ul>
+					<c:forEach items="${fn:split(skilllist,',') }" var="sk">
+						<li>${sk}&nbsp;&nbsp;</li>
+					</c:forEach>
+				</ul>
+	      </div>
+	      <c:if test="${skillcnt == 0}">
+			비어있음.
+     	  </c:if>
 	      </td>
 	      <td><a href="myportfolio.jsy?id=${portfolio.memberid}&pageNum=${pageNum}">${portfolio.slogun }</a></td>
 	      <td><fmt:formatDate value="${portfolio.modifydate }" type="both" pattern="yyyy-MM-dd"/></td>
@@ -136,7 +192,6 @@ $(function(){
 	    	<tr><td colspan="4">포트폴리오가 없습니다.</td></tr>
 	    </c:if>
   </table>
-  </form>
   <div class="w3-bar w3-center">
 			<c:if test="${pageNum > 1 }">
 				<a href="javascript:list(${pageNum - 1})">[이전]</a>
@@ -175,7 +230,7 @@ $(function(){
 		</script>
 		
 		<input type="text" name="searchContent" value="${param.searchContent }">
-		<input type="submit" value="검색">
+		<button type="submit">검색</button>
 		</span>
 	</form>
 	</div>

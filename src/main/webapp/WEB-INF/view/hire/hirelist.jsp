@@ -461,11 +461,10 @@ function hirelist(pageNum){
 		
 		<tr align="center" valign="middle" bordercolor="#212121">
 				<th width="10%" height="26">기업명</th>
-				<th width="34" height="26">제목</th>
+				<th width="43%" height="26">제목</th>
 				<th width="13%" height="26">지원자격</th>
 				<th width="8%">경력</th>
 				<th width="6%" height="26">근무조건</th>
-				<th width="9%" height="26">작성일</th>
 				<th width="9%" height="26">마감일</th>
 				<th width="6%" height="26">마감상태</th>
 			</tr>
@@ -481,9 +480,6 @@ function hirelist(pageNum){
 					<td align="center">${hireboard.qualification}</td>
 					<td align="center">${hireboard.career} <br>${hireboard.careerdate}</td>
 					<td align="center">${hireboard.hirestatus}</td>
-					<td align="left">
-						<fmt:formatDate value="${hireboard.regdate}" pattern="yyyy-MM-dd"/>
-					</td>
 					<td align="center">
 					<fmt:formatDate value="${hireboard.deadline}" pattern="yyyy-MM-dd" var="end"/>
 					${end}
