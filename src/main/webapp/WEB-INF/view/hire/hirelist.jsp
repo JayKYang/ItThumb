@@ -518,17 +518,14 @@ function hirelist(pageNum){
 					</c:if> &nbsp;
 				</td>
 			</tr>
-		<%-- <c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
-=======
 		<c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
->>>>>>> branch 'master' of https://github.com/JayKYang/ItThumb.git
 			<tr>
 				<td align="right" colspan="8">
 					<!-- <button onclick="location.href='hirewrite.jsy'">글쓰기</button>
 					<button style="width:140px; "onclick="window.open('companyDetailwrite.jsy')">기업세부정보 변경</button> -->
 				</td>
 			</tr>
-		</c:if> --%>
+		</c:if>
 	</table>
 </div>
 </body>

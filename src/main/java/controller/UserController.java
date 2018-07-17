@@ -280,9 +280,20 @@ public class UserController {
 	public ModelAndView logcondelete(HttpSession session, String id) {
 		System.out.println("[UserController] => user/delete[GET]");
 		ModelAndView mav = new ModelAndView();
+		User loginUser = (User) session.getAttribute("login");
 		User user = service.getUser(id);
-		mav.addObject("user", user);
-		return mav; // 뷰이름만 리턴
+		if (user == null) {
+			throw new JsyException("삭제 대상 사용자가 존재하지 않습니다.", "mypage/manageuser.jsy");
+		}
+		if (loginUser.getMembergrade()!=0) {  // 관리자가 아닐때
+			throw new JsyException("관리자만 이용가능합니다.", "../main.jsy");
+		}else { // 관리자일때
+			service.deleteUser(id);
+			mav.addObject("msg",id+"회원 탈퇴가 완료되었습니다.");
+			mav.addObject("url","mypage/manageuser.jsy");
+			mav.setViewName("alert");
+			return mav;
+		}
 	}
 	
 	@RequestMapping(value = "user/delete", method = RequestMethod.POST)
@@ -300,7 +311,7 @@ public class UserController {
 			e1.printStackTrace();
 		}
 		if (user == null) {
-			throw new JsyException("삭제 대상 사용자가 존재하지 않습니다.", "delete.jsy?id=" + id);
+			throw new JsyException("삭제 대상 사용자가 존재하지 않습니다.", "mypage/myInfo.jsy?id=" + id);
 		}
 		if (loginUser.getMembergrade()==0) { // 관리자인 경우
 			if (!loginUser.getPassword().equals(pw)) {

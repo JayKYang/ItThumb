@@ -74,13 +74,13 @@
 
 					<table>
 						<tr>
-							<th>글번호</th>
-							<th>아이디</th>
-							<th>기업명</th>
-							<th>채용글</th>
-							<th>등록일</th>
-							<th>마감일</th>
-							<th></th>
+							<th style="width:5%">글번호</th>
+							<th style="width:15%">아이디</th>
+							<th style="width:15%">기업명</th>
+							<th style="width:35%">채용글</th>
+							<th style="width:10%">등록일</th>
+							<th style="width:10%">마감일</th>
+							<th style="width:10%"></th>
 						</tr>
 						<c:if test="${empty hirelist }">
 							<tr>
@@ -89,23 +89,23 @@
 						</c:if>
 						<c:forEach items="${hirelist }" var="hire" varStatus="status">
 							<tr>
-								<td>${hire.hireno }</td>
-								<td>${hire.memberid }</td>
-								<td>${hire.company }</td>
-								<td><a
+								<td style="text-align: center">${hire.hireno }</td>
+								<td style="text-align: center">${hire.memberid }</td>
+								<td style="text-align: center">${hire.company }</td>
+								<td style="text-align: center"><a
 									href="../../hire/hiredetail.jsy?hireno=${hire.hireno}">${hire.subject }</a></td>
-								<td><fmt:formatDate	value="${hire.regdate }" type="both" pattern="yyyy-MM-dd" /></td>
-								<td><fmt:formatDate	value="${hire.deadline }" type="both" pattern="yyyy-MM-dd" /></td>
+								<td style="text-align: center"><fmt:formatDate	value="${hire.regdate }" type="both" pattern="yyyy-MM-dd" /></td>
+								<td style="text-align: center"><fmt:formatDate	value="${hire.deadline }" type="both" pattern="yyyy-MM-dd" /></td>
 								<c:if test="${hire.hide == 0}">
-								<td><div class="w3-tag w3-round w3-red" style="padding:3px; width:75px;">
+								<td style="text-align: center"><div class="w3-tag w3-round w3-red" style="padding:3px; width:75px;">
 									<div class="w3-tag w3-round w3-red w3-border w3-border-white" style="width:70px;">
 										<font style="color: white;">승인대기</font>
 									</div>
 								</div></td>
-								<td><button	onclick="location.href='recognizeHire.jsy?hireno=${hire.hireno}'">승인</button></td>
+								<td style="text-align: center"><button	onclick="location.href='recognizeHire.jsy?hireno=${hire.hireno}'">승인</button></td>
 								</c:if>
 								<c:if test="${hire.hide != 0 }">
-								<td>
+								<td style="text-align: center">
 								<div class="w3-tag w3-round w3-indigo" style="padding:3px; width:75px;">
 									<div class="w3-tag w3-round w3-indigo w3-border w3-border-white" style="width:70px;">
 										<font style="color: white;">승인완료</font>
