@@ -82,42 +82,42 @@ $(document).ready(function(){
 		event.preventDefault();
 		  var html = "";
 		   
-		/*    html += '<tr name="insertTr">'
-		   html +=   '<td>' */
-		   html += '<div class="w3-container_'+count+'" id="addTable_'+count+'">'
+
+		   	html += '<div class="w3-container_'+count+'" id="addTable_'+count+'">'
 		    html += '<h6 class="w3-text-teal" name="career" id="click_'+count+'"><i class="fa fa-calendar fa-fw w3-margin-right"></i></h6>'
-		   	html +=	 '<input type="text" id="careerYear_'+count+'">'
-			html +=  '<input type="text" id="careerMonth_'+count+'">'
+		   	html +=	 '<input type="hidden" id="careerYear_'+count+'">'
+			html +=  '<input type="hidden" id="careerMonth_'+count+'">'
 			html +=  '<input type="text" name="historydate" id="Date_'+count+'">'
 		    html += '<h5 class="w3-opacity">내용<input type="text" name="content"></h5>'
 		    html += '<hr>'
 		    html += '<a id="divDelete_'+count+'">삭제</a>'
 		    html += '</div>'
-		 /*    html += '</td>'
-		    html += '</tr>' */
+
 		     
 		    $('#addTable').append(html)
 		    
 		    
 		    datePlus(count);
-		   	
+		    /* href="javascript:divDelete('+count+')" */
 		    
 			$('#divDelete_'+count).click(function(){
 				event.preventDefault();
-				alert("asfasf");
-				$("#addTable_"+count).remove();
+				$(this).parent().remove();
+				
 			})		
 		    
-		    
-		    
-		    
 		   	count = count+1;
-
 	})
 
 	
 	
 }); //document.ready 끝
+
+function divDelete(count){
+	alert("asfasf")
+	$('input[name="addTable_'+count+'"]').parent().remove();
+}
+
 
 function datePlus(count){
 	var array = []
@@ -205,11 +205,10 @@ function datePlus(count){
                <div class="w3-container_0" id="addTable">
                   <h6 class="w3-text-teal" name="career" id="click_0"><i class="fa fa-calendar fa-fw w3-margin-right"></i>
 				  </h6>
-				  <input type="text" id="careerYear_0">
-				  <input type="text" id="careerMonth_0">
+				  <input type="hidden" id="careerYear_0">
+				  <input type="hidden" id="careerMonth_0">
 				  <input type="text" name="historydate" id="Date_0">
                   <h5 class="w3-opacity">내용<input type="text" name="content"></h5>
-            	  <a id="divDelete_0">삭제</a>
                    <hr>
               </div>
           	</td>

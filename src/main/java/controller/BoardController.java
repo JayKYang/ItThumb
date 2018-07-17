@@ -53,6 +53,8 @@ public class BoardController {
 	@RequestMapping("hire/hirelist")
 	public ModelAndView logconhirelist (HttpSession session,Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
 		
+	
+		
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -96,6 +98,7 @@ public class BoardController {
 			List popDatelist = new ArrayList();
 			int popListcount = service.popBoardcount();
 			int popLimit = 10;
+			
 			List<Hire> popBoardlist2 = service.popHirelist(4);
 			List<Hire> popBoardlist = new ArrayList<Hire>();
 			for(Hire h : popBoardlist2) {
@@ -113,11 +116,11 @@ public class BoardController {
 				 popDatelist.add(diffDays);
 			}
 			
-			
-			
-			int listcount = service.boardcount(searchRegion, searchEdu,  searchCarr,searchCareer,searchCareerDate);
+			int listcount = service.boardcount(searchRegion, searchEdu, searchCarr,searchCareer,searchCareerDate);
 			int limit = 10;
-			List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate,pageNum, limit);
+			
+			List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate,pageNum,limit);
+			
 			
 			for(int i=0; i<boardlist.size(); i++) {
 			
@@ -132,14 +135,12 @@ public class BoardController {
 			
 			
 			
-			
 			int maxpage = (int)((double)listcount/limit + 0.95);
 			int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
 			int endpage = maxpage + 9;
 			
 			if(endpage > maxpage) endpage = maxpage;
 			int boardcnt = listcount - (pageNum -1) * limit;
-			
 			
 			mav.addObject("popDatelist", popDatelist);
 			mav.addObject("datelist",datelist);
@@ -152,6 +153,7 @@ public class BoardController {
 			mav.addObject("boardcnt", boardcnt);
 			mav.addObject("popBoardlist",popBoardlist);
 			mav.addObject("popListcount",popListcount);
+			
 			
 		
 			}
@@ -197,7 +199,6 @@ public class BoardController {
 	//로그인확인
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.POST)
 	public ModelAndView logconhirewrite(HttpSession session, @Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
-		System.out.println(hire);
 		ModelAndView mav = new ModelAndView();
 		String salary = request.getParameter("salary");
 		hire.setSalary(salary);

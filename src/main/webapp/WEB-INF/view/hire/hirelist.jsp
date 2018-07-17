@@ -66,6 +66,7 @@ $(document).ready(function(){
 		//if(i==5){
 		html += '<br>';
 		//}
+		
 	}
 	$("#region").append(html);	
 	
@@ -102,10 +103,71 @@ $(document).ready(function(){
 		}
 		html += '</select>'
 	$("#carrarea").append(html4);
-		$("select[name=inputCareerDate]").attr("disabled",true);
+	
 
 	
-	//checkbox 
+	
+	
+		
+	if($('input[name="searchRegion"]').val() != null){
+		var str = $('input[name="searchRegion"]').val()
+		var array = []
+		array = str.split(",");
+		
+		for(var i=0; i<array.length; i++){
+			
+			$('input:checkbox[value="'+array[i]+'"]').prop("checked", true);
+			$('input:checkbox[value="'+array[i]+'"]').attr('checked', 'checked');
+
+			
+		}
+		
+		
+	}
+	
+	if($('input[name="searchEdu"]').val() != null){
+		var str = $('input[name="searchEdu"]').val()
+		$('input:radio[value="'+str+'"]').prop("checked", true);
+		$('input:radio[value="'+str+'"]').attr('checked', 'checked');
+		
+	}
+	
+	if($('input[name="searchCarr"]').val() != null){
+		var str = $('input[name="searchCarr"]').val()
+		var array = []
+		array = str.split(",");
+		
+		for(var i=0; i<array.length; i++){
+			
+			$('input:checkbox[value="'+array[i]+'"]').prop("checked", true);
+			$('input:checkbox[value="'+array[i]+'"]').attr('checked', 'checked');
+			
+		}
+	}
+	
+	if($('input[name="searchCareer"]').val() != null){
+		var str = $('input[name="searchCareer"]').val()
+		var array = []
+		array = str.split(",");
+		
+		for(var i=0; i<array.length; i++){
+			
+			$('input:checkbox[value="'+array[i]+'"]').prop("checked", true);
+			$('input:checkbox[value="'+array[i]+'"]').attr('checked', 'checked');
+			
+		}
+	}
+
+	if($('input[name="searchCareerDate"]').val() != null){
+		var str = $('input[name="searchCareerDate"]').val()
+		$('select[name=inputCareerDate]').val(str).prop("selected", true);
+		$("select[name=inputCareerDate]").attr("disabled",false);
+		
+	} else {
+		$("select[name=inputCareerDate]").attr("disabled",true);
+	}
+	
+	
 	
 	$('input[name="bbb"]').click(function(i){
 		var classRegion = "classRegion";
@@ -122,6 +184,7 @@ $(document).ready(function(){
 				}
 			}
 		} 
+	
    divchkdisp(classRegion);
  		$('input[name="searchRegion"]').val(null);	
 		$('input[name="bbb"]:checked').each(function(){
@@ -225,6 +288,7 @@ $(document).ready(function(){
 	 		alert("경력을 선택해 주세요.");
 	 	}
 	 	$('input[name="searchCareerDate"]').val(e);
+	 	
        var i=0;
        for(i=0;i<idx;i++) {
 			if(divchkarr[i].indexOf("이하") > 0) {
@@ -238,7 +302,7 @@ $(document).ready(function(){
 	         divchkarr[idx++] = e;
       }      
      divchkdisp(inputCareerDate);		
-	}) //
+	}) 
 	
 
 
@@ -318,12 +382,17 @@ function hirelist(pageNum){
 	var searchCareerDate = document.searchform.searchCareerDate.value;
 	
 	
+	console.log(searchRegion);
+	console.log(searchEdu);
+	console.log(searchCareer);
+	console.log(searchCareerDate);
 	
 	
+	 
 	if(searchRegion==null&&searchEdu==null&&searchCarr==null&&searchCareer==null&&searchCareerDate==null|| searchRegion.length==0&&searchEdu.length==0&&searchCarr.length==0&&searchCareer.length==0&&searchCareerDate.length==0){
 		document.searchform.pageNum.value = "1";
 		location.href = "hirelist.jsy?pageNum=" + pageNum;
-	} else{
+	} else{ 
 		document.searchform.pageNum.value = pageNum;
 		document.searchform.submit();
 		return true;
@@ -380,18 +449,16 @@ function hirelist(pageNum){
 					<td colspan="8" align="center">
 						<input type="hidden" name="pageNum" value="1">
 						<input type="hidden" name="popPageNum" value="1">
-						<input type="hidden" name="searchRegion" id="searchRegion" value="${param.searchRegion}">
-						<input type="hidden" name="searchEdu" value="${param.searchEdu}">
-						<input type="hidden" name="searchCarr" value="${param.searchCarr}">
-						<input type="hidden" name="searchCareer" value="${param.searchCareer }">
-						<input type="hidden" name="searchCareerDate" value="${param.searchCareerDate}">
+						<input type="text" name="searchRegion" id="searchRegion" value="${param.searchRegion}">
+						<input type="text" name="searchEdu" value="${param.searchEdu}">
+						<input type="text" name="searchCarr" value="${param.searchCarr}">
+						<input type="text" name="searchCareer" value="${param.searchCareer}">
+						<input type="text" name="searchCareerDate" value="${param.searchCareerDate}">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="8" width="90%" height="100px" id="allchk">
-							<div id="divchk">
-							
-							</div>
+							<div id="divchk"></div>
 					</td>
 				</tr>
 				<tr><td><button class="w3-right" onclick="javascript:document.searchform.submit()" >조회하기</button></td></tr>
@@ -412,7 +479,7 @@ function hirelist(pageNum){
 				<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${now}" var="now" pattern="yyyyMMdd" />
 		<div class="w3-row-padding">
-			<c:if test="${!empty popBoardlist }">
+			<c:if test="${!empty popBoardlist}">
 				<c:forEach var="popBoard" items="${popBoardlist}" varStatus="status">
 					<div
 						class="w3-quarter w3-container w3-card w3-center w3-padding-16"
@@ -422,7 +489,7 @@ function hirelist(pageNum){
 						</div>
 						<div class="w3-container">
 							<h4>
-								<a href="companyDetail.jsy?hireno=${popBoard.hireno }&pageNum=${pageNum}" style="text-decoration:none; font-size:20px;" target="_blank"><b>${popBoard.company }</b></a>
+								<a href="companyDetail.jsy?hireno=${popBoard.hireno}&pageNum=${pageNum}" style="text-decoration:none; font-size:20px;" target="_blank"><b>${popBoard.company }</b></a>
 							</h4>
 						</div>
 						<div class="w3-container">
@@ -433,7 +500,7 @@ function hirelist(pageNum){
 							<fmt:formatDate value="${popBoard.deadline}" var="date"	pattern="yyyyMMdd" />
 							<c:if test="${popDatelist[status.index] >= 0 }">
 								<p>마감 ${popDatelist[status.index]} 일 전</p>
-								<c:if test="${date-now < 3 }">
+								<c:if test="${popDatelist[status.index] < 3 }">
 									<a class="w3-text-red w3-tag">마감 임박</a>
 								</c:if>
 							</c:if>
@@ -518,14 +585,22 @@ function hirelist(pageNum){
 					</c:if> &nbsp;
 				</td>
 			</tr>
-		<c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
+
+			
+		<c:if test="${listcount==0}">
+			<tr>
+				<td colspan="8">등록된 채용공고 게시물이 없습니다.</td>
+			</tr>
+		</c:if>
+		
+		<%-- <c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
 			<tr>
 				<td align="right" colspan="8">
 					<!-- <button onclick="location.href='hirewrite.jsy'">글쓰기</button>
 					<button style="width:140px; "onclick="window.open('companyDetailwrite.jsy')">기업세부정보 변경</button> -->
 				</td>
 			</tr>
-		</c:if>
+		</c:if> --%>
 	</table>
 </div>
 </body>
