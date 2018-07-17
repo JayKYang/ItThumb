@@ -133,6 +133,10 @@ $(document).ready(function (){
 </script>
 </head>
 <body>
+	<div class="w3-bar w3-small w3-left w3-orange" style="width: 100%;">
+		<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+		</div> 
+	</div>
 	<div class="w3-center w3-content">
 			<p>
 				<span class="w3-content w3-text-orange w3-xxlarge">포트폴리오 보기</span>
