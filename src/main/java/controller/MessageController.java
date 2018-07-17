@@ -23,10 +23,8 @@ public class MessageController {
 	JsyService service;
 	
 	@RequestMapping("message/messageList")
-	public ModelAndView mesLogConmessageList(HttpSession session,HttpServletRequest request,Integer pageNum, String searchType, String searchContent) {
+	public ModelAndView mesLogConmessageList(HttpSession session,HttpServletRequest request,Integer pageNum, String searchType, String searchContent,Integer sort) {
 		ModelAndView mav = new ModelAndView();
-		String sort = request.getParameter("sort");
-		sort = sort.substring(0, 1);
 		User user = (User) request.getSession().getAttribute("login");
 		String memberid = user.getMemberid();
 		

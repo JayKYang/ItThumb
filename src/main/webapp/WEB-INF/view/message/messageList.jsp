@@ -117,14 +117,14 @@ h1,h2,h3,h4,h5,h6 {
 		</a>
 	</div>
 	<div class="w3-content w3-container" id="main">
-		<c:if test="${sort.equals('1')}">
+		<c:if test="${sort==1}">
 			<div class="w3-center" style="width: 100%;">
 				<p>
 					<span class="w3-content w3-text-green w3-xxlarge">받은 쪽지함</span>
 				</p>
 			</div>
 		</c:if>
-		<c:if test="${sort.equals('2')}">
+		<c:if test="${sort==2}">
 			<div class="w3-center" style="width: 100%">
 				<p>
 					<span class="w3-content w3-text-green w3-xxlarge">보낸 쪽지함</span>
@@ -219,7 +219,7 @@ h1,h2,h3,h4,h5,h6 {
 		</div>
 		<br>
 		<form action="messageList.jsy" method="post" name="searchform"
-			onsubmit="return list(1)">
+			onsubmit="return list(1,${sort})">
 			<input type="hidden" name="pageNum" value="1"> <input
 				type="hidden" name="sort" value="${sort }"> <span
 				style="float: right"> <select name="searchType"

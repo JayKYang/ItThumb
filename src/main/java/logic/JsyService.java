@@ -24,9 +24,9 @@ public interface JsyService {
 
 	void confirmCode(User user);
 
-	int messagecount(String searchType, String searchContent, String sort, String memberid);
+	int messagecount(String searchType, String searchContent, Integer sort, String memberid);
 
-	List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, String sort, String memberid);
+	List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, Integer sort, String memberid);
 
 	Message messageSelect(Integer messageno);
 

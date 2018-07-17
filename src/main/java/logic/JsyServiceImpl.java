@@ -219,12 +219,12 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public int messagecount(String searchType, String searchContent, String sort, String memberid) {
+	public int messagecount(String searchType, String searchContent, Integer sort, String memberid) {
 		return messageDao.messagecount(searchType, searchContent, sort, memberid);
 	}
 
 	@Override
-	public List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, String sort, String memberid) {
+	public List<Message> messagelist(String searchType, String searchContent, Integer pageNum, int limit, Integer sort, String memberid) {
 
 		return messageDao.messagelist(searchType, searchContent, pageNum, limit, sort, memberid);
 	}
