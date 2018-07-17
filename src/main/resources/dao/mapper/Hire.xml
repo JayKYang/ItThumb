@@ -13,10 +13,10 @@
 		and	hirestatus in (${searchCarr})
 			</if>
 			<if test="searchCareer !=null">
-			and career in (${searchCareer})
+		and career in (${searchCareer})
 			</if>
 			<if test="searchCareerDate !=null">
-			and careerdate = #{searchCareerDate}
+		and careerdate = #{searchCareerDate}
 			</if>
 		</select>
 		<select id="hirelist" resultType="Hire" parameterType="map">
@@ -44,6 +44,7 @@
 			</if>
 			order by regdate desc limit #{startrow}, #{limit}
 		</select>
+		
 		<select id="popBoardcount" resultType="Integer">
 			select count(*) from hireboard where hide =1 order by (scrapnum+readcnt) desc
 		</select>

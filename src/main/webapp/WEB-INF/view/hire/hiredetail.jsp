@@ -270,11 +270,11 @@ function companyDetail(url){
 				<c:if test="${scrapComfirm==1}">
 					<a id="scrap" class="button w3-button w3-center w3-xlarge"><i id="scrap2" class="fa fa-heart"></i>스크랩</a>
 				</c:if> --%>					
-				<button class="w3-center w3-xlarge" onclick="location.href='hirelist.jsy?pageNum=${param.pageNum}'"><i class="fa fa-list"></i>목록</button>
 						<%-- <a href="hirelist.jsy?pageNum=${param.pageNum}">목록</a>		 --%>			
 				<c:if test="${sessionScope.login.membergrade ==0 }">
-						<a href="../admin/superviseHire.jsy">채용관리</a>
-					</c:if>
+					<button class="w3-center w3-xlarge" onclick="location.href='../user/mypage/confirmHire.jsy'">채용관리</button>
+				</c:if>
+				<button class="w3-center w3-xlarge" onclick="location.href='hirelist.jsy?pageNum=${param.pageNum}'">목록</button>
 					</td>
 				</tr>
 			</table>

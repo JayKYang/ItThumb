@@ -91,7 +91,7 @@ $(document).ready(function(){
 			html +=  '<input type="text" name="historydate" id="Date_'+count+'">'
 		    html += '<h5 class="w3-opacity">내용<input type="text" name="content"></h5>'
 		    html += '<hr>'
-		    html += '<a id="divDelete_'+count+'">삭제</a>'
+		    html += '<a id="divDelete('+count+')">삭제</a>'
 		    html += '</div>'
 		 /*    html += '</td>'
 		    html += '</tr>' */
@@ -104,13 +104,9 @@ $(document).ready(function(){
 		    
 			$('#divDelete_'+count).click(function(){
 				event.preventDefault();
-				alert("asfasf");
-				$("#addTable_"+count).remove();
+				$("#divDelete_"+count).parent().remove();
 			})		
-		    
-		    
-		    
-		    
+		     
 		   	count = count+1;
 
 	})

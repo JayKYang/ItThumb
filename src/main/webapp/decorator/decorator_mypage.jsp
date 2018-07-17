@@ -137,6 +137,11 @@ function find_password(url) {
 		</c:if>
 		<c:if test="${sessionScope.login.membergrade == 2}">
 			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
+				<a href="myPageCompanyDetail.jsy" style="text-decoration: none;"><p>기업 세부 정보</p></a>
+			</div>
+		</c:if>
+		<c:if test="${sessionScope.login.membergrade == 2}">
+			<div class="w3-container w3-cell w3-cell-middle w3-button w3-hover-blue" style="width:200px; float:left;">
 				<a href="myhirelist.jsy" style="text-decoration: none;"><p>내가 쓴 채용공고</p></a>
 			</div>
 		</c:if>

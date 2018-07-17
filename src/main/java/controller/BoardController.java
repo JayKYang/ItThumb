@@ -53,6 +53,8 @@ public class BoardController {
 	@RequestMapping("hire/hirelist")
 	public ModelAndView logconhirelist (HttpSession session,Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request){
 		
+	
+		
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
@@ -96,6 +98,7 @@ public class BoardController {
 			List popDatelist = new ArrayList();
 			int popListcount = service.popBoardcount();
 			int popLimit = 10;
+			
 			List<Hire> popBoardlist2 = service.popHirelist(4);
 			List<Hire> popBoardlist = new ArrayList<Hire>();
 			for(Hire h : popBoardlist2) {
@@ -113,10 +116,11 @@ public class BoardController {
 				 popDatelist.add(diffDays);
 			}
 			
-			
 			int listcount = service.boardcount(searchRegion, searchEdu, searchCarr,searchCareer,searchCareerDate);
 			int limit = 10;
-			List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate,pageNum, limit);
+			
+			List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate,pageNum,limit);
+			
 			
 			for(int i=0; i<boardlist.size(); i++) {
 			
@@ -138,7 +142,6 @@ public class BoardController {
 			if(endpage > maxpage) endpage = maxpage;
 			int boardcnt = listcount - (pageNum -1) * limit;
 			
-			
 			mav.addObject("popDatelist", popDatelist);
 			mav.addObject("datelist",datelist);
 			mav.addObject("pageNum",pageNum);
@@ -150,6 +153,7 @@ public class BoardController {
 			mav.addObject("boardcnt", boardcnt);
 			mav.addObject("popBoardlist",popBoardlist);
 			mav.addObject("popListcount",popListcount);
+			
 			
 		
 			}
@@ -195,7 +199,6 @@ public class BoardController {
 	//로그인확인
 	@RequestMapping(value="hire/hirewrite", method=RequestMethod.POST)
 	public ModelAndView logconhirewrite(HttpSession session, @Valid Hire hire, BindingResult bindingResult,HttpServletRequest request) {
-		System.out.println(hire);
 		ModelAndView mav = new ModelAndView();
 		String salary = request.getParameter("salary");
 		hire.setSalary(salary);
@@ -682,17 +685,14 @@ public class BoardController {
 	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.POST)
 	public ModelAndView companyCkcompanyInfoUpdate(HttpSession session,@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-	
 		User loginUser = (User)request.getSession().getAttribute("login");
 	      String memberid = loginUser.getMemberid();
 	      
 	      if(bindingResult.hasErrors()) {
 	         mav.getModel().putAll(bindingResult.getModel());
-	         
 	         return mav;
 	      }
 	      companyInfo.setMemberid(memberid); 
-	      User user = service.getUser(memberid);
 	      
 	      try {
 	    	  service.companyInfoUpdate(companyInfo);
