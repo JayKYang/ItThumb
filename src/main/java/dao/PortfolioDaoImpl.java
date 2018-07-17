@@ -121,4 +121,25 @@ public class PortfolioDaoImpl implements PortFolioDao{
 		param.put("limit", limit);
 		return sqlSession.selectList(NS+"list", param);
 	}
+	@Override
+	public List<User> portfoliodistinctlist(String searchType, String searchContent, int membergrade, Integer pageNum, Integer limit,int createpf) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		int startrow = 0;
+		if(pageNum != null) {
+			startrow = (pageNum - 1) * limit;
+		}
+		if(searchType == null/* || searchType.equals("1") || searchType.equals("2")*/) {
+			param.put("searchType", null);
+			param.put("searchContent", null);
+		}else {
+//			System.out.println(searchType + "," + searchContent + "@@@"  );
+			param.put("searchType", searchType);
+			param.put("searchContent", searchContent);
+		}
+		param.put("membergrade", membergrade);
+		param.put("createpf",createpf);
+		param.put("startrow", startrow);
+		param.put("limit", limit);
+		return sqlSession.selectList(NS+"distinctlist", param);
+	}
 }

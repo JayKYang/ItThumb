@@ -10,6 +10,26 @@
 			and projectno = ${projectno}
 		</if>
 	</select>
+	<select id="distinctlist" resultType="User" parameterType="map">
+		select distinct u.memberid, name, regdate, tel, membergrade, recognizecode, image as imageUrl, birth, industy, site, slogun, introduce, modifydate, address, locking, createpf 
+		from user u
+		<if test="searchType != null">
+		, history h
+		where membergrade = ${membergrade}
+		and u.memberid = h.memberid
+		</if>
+		<if test="searchType == null">
+		where membergrade = ${membergrade}
+		</if>
+		<if test="searchType != null and (!searchType.equals('2') and !searchType.equals('1')) and searchContent != null">
+			and h.kindno = ${searchType}
+			and h.content like '%${searchContent}%'
+		</if>
+		<if test="createpf != null">
+			and createpf = ${createpf}
+		</if>
+			order by memberid limit #{startrow}, #{limit}
+	</select>
 	<select id="count" resultType="Integer" parameterType="map">
 		select count(*) 
 		<!-- from user

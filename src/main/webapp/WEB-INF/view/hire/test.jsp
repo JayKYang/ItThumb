@@ -1,231 +1,203 @@
-<%@page import="java.io.*,java.util.*"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/jspHeader.jsp" %>
-<%
-   FileReader fi = new FileReader("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
-
-   BufferedReader br = new BufferedReader(fi);
-   String line = null;
-   br.readLine();
-   Map<String, Set<String>> sidomap = new TreeMap<String, Set<String>>();
-   while ((line = br.readLine()) != null) {
-      try {
-         String[] sido = line.split("\t");
-         String[] si = sido[1].split(" ");
-         Set<String> silist = sidomap.get(si[0]);
-         if (silist == null) {
-            silist = new TreeSet<String>();
-         }
-         silist.add(si[1]);
-         sidomap.put(si[0], silist);
-      } catch (ArrayIndexOutOfBoundsException e) {
-      }
-   }
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>study write</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=qDOuw0wNL1zXEzspRGUC&submodules=geocoder"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-sies = new Array(
-<c:forEach items="<%=sidomap%>" var="si">
-      new Option("${si.key}"),
-</c:forEach>   
-);
-   gues = new Array();
-   <c:forEach items="<%=sidomap%>" var="si" varStatus="stat1">
-        gues[${stat1.index}] = new Array();
-        <c:forEach items="${si.value}" var="gu" varStatus="stat2">
-           gues[${stat1.index}][${stat2.index}] = new Option("${gu}"),
-        </c:forEach>   
-   </c:forEach>   
-   //html 시작시 호출되는 함수 설정
-   window.onload = function() {
-      document.f.si.options[0] = new Option("선택하세요");
-      document.f.gu.options[0] = new Option("선택하세요");
-      for (i = 1; i <= sies.length; i++) {
-         document.f.si.options[i] = sies[i-1];
-      }
-   }
-   //f : form 객체를 저장
-   function selectgu(f) {
-      var opcnt = f.gu.options.length
-      for (i = opcnt-1; i >= 0; i--) {
-         f.gu.options[i] = null; //기존 Option 객체 제거
-      }
-      
-      siidx = f.si.selectedIndex;
-      
-      document.f.gu.options[0] = new Option("선택하세요");
-      for (i = 0; i < gues[siidx].length; i++) {
-         document.f.gu.options[i+1] = gues[siidx-1][i];
-      }
-   }
-</script>
-<script type="text/javascript">
-$(document).ready(function() {
-   $("#si").change(function(){
-      var si = $("#si option:selected").val();
-      if(si=="선택하세요"){
-         si = "";
-      }
-      $('input[name="region"]').val(si);
-   })
-   $("#gu").change(function(){
-      var si = $("#si option:selected").val();
-      var gu = $("#gu option:selected").val();
-      $('input[name="region"]').val(si+" "+gu);
-   })
-})
-</script>
-</head>
+$(document).ready(function(){
+	var array = []
+	var month = new Date();
+		month = ${birth}; // 1990 - 설립일
+	
+	var now = new Date(); // 현재날짜 20180713..
+	now = now.getFullYear(); 
+	
+	for(var i=month; i<=now; i++){ // 설립일 1990~2018
+		array.push(i);
+	}
+	
+	var a = array.join(",");
+	var b = a.split(",");
+		console.log(a);
+	
+	var html = "";
+		html += '<select id="selectCareerYear" name="selectCareerYear">'
+		html += '<option>선택해주세요</option>';
+		for(var i=0; i<array.length;i++){
+			html+= '<option name="year" value="'+array[i]+'">'+array[i]+'</option>';
+		}
+		html+='</select>';
 
+	array=[]
+	for(var i=1; i<13; i++){
+		array.push(i);
+	};
+		html += '<select id="selectCareerMonth" name="selectCareerMonth">'
+		html += '<option>선택해주세요</option>';
+	for(var i=0; i<array.length; i++){
+		html+= '<option name="month" value="'+array[i]+'">'+array[i]+'</option>';
+	}
+		html+='</select>';
+	
+	array =[]
+	for(var i=1; i<32; i++){
+		array.push(i);
+	};
+		html += '<select id="selectCareerDay" name="selectCareerDay">'
+		html += '<option>선택해주세요</option>';
+		for(var i=0; i<array.length; i++){
+			html+= '<option name="day" value="'+array[i]+'">'+array[i]+'</option>';
+		}
+		html+='</select>';
+		$("#career").append(html);
+	
+	$('select[name="selectCareerYear"]').change(function(){
+			if($(this).val()=='선택해주세요'){
+						alert("년도를 선택해주세요");
+						$("#careerYear").val('');
+			}else{
+		$("#careerYear").val($(this).val());
+		}
+	})
+	$('select[name="selectCareerMonth"]').change(function(){
+		if($(this).val()=='선택해주세요'){
+			alert("달을 선택해주세요");
+			$("#careerMonth").val('');
+		}else{
+		$("#careerMonth").val($(this).val());
+		}
+	})
+	$('select[name="selectCareerDay"]').change(function(){
+		if($(this).val()=='선택해주세요'){
+			alert("일을 선택해주세요");
+			$("#careerDay").val('');
+		}else{
+		$("#careerDay").val($(this).val());
+		}
+	})
+	
+});
+</script>
+<style type="text/css">
+ #comDiv,#comrepDiv {
+ 	border : 1px solid #000000;
+ }
+ 
+ #comDiv{
+ 	width : 500px;
+ 	height : 150px;
+ 	float : left;
+ }
+ #comrepDiv{
+ 	width : 500px;
+ 	height : 150px;
+ }
+ tr {
+ 	border-bottom : 1px solid #000000;
+ }
+</style>
+ </head>
 <body>
-<form:form modelAttribute="study" action="studyWrite.jsy" method="post" name="f">
-   <spring:hasBindErrors name="study">
-      <font color="red">
-         <c:forEach items="${errors.globalErrors }" var="error">
-            <spring:message code="${error.code }"></spring:message>
-         </c:forEach>
-      </font>
-   </spring:hasBindErrors>
-   <table>
-      <tr>
-         <td><b>제 목</b></td>
-      </tr>
-      <tr>
-         <td ><form:input path="studyname" size="50"/><font color="red"><form:errors path="studyname"/></font></td>
-      </tr>
-      <tr>
-         <td><b>지 역</b></td>
-      </tr>
-      <tr>
-         <td>
-            <select name="si" id="si" onchange="selectgu(this.form)">
-            </select>
-            <select name="gu" id="gu">
-            </select>
-              <form:hidden path="region"/><font color="red"><form:errors path="region"/></font>
-           </td>
-      </tr>
-      <tr>
-         <td ><b>인 원 선 택</b></td>
-      </tr>
-      <tr>
-         <td >
-            <form:select path="limitmember">
-            <form:option value="1">1</form:option>
-            <form:option value="2">2</form:option>
-            <form:option value="3">3</form:option>
-            <form:option value="4">4</form:option>
-            <form:option value="5">5</form:option>
-            <form:option value="6">6</form:option>
-            <form:option value="7">7</form:option>
-            <form:option value="8">8</form:option>
-            <form:option value="9">9</form:option>
-            <form:option value="10">10</form:option>
-            <form:option value="100">10명이상</form:option>
-            </form:select>
-            <font color="red"><form:errors path="limitmember"/></font>
-         </td>
-      </tr>
-      <tr>
-         <td ><b>요 일 선 택</b></td>
-      </tr>
-      <tr>
-         <td >
-            <form:checkbox path="weekday" value="월"/>
-            <form:checkbox path="weekday" value="화"/>
-            <form:checkbox path="weekday" value="수"/>
-            <form:checkbox path="weekday" value="목"/>
-            <form:checkbox path="weekday" value="금"/>
-            <form:checkbox path="weekday" value="토"/>
-            <form:checkbox path="weekday" value="일"/>
-            <form:checkbox path="weekday" value="평일5일"/>
-            <form:checkbox path="weekday" value="주말"/>
-            <font color="red"><form:errors path="weekday"/></font>
-         </td>
-      </tr>
-      <tr>
-         <td ><b>시 작 시 간</b></td>
-      </tr>
-      <tr>
-         <td >
-         <form:select path="starttime">
-         <form:option value="00:00">00:00</form:option>
-         <form:option value="01:00">01:00</form:option>
-         <form:option value="02:00">02:00</form:option>
-         <form:option value="03:00">03:00</form:option>
-         <form:option value="04:00">04:00</form:option>
-         <form:option value="05:00">05:00</form:option>
-         <form:option value="06:00">06:00</form:option>
-         <form:option value="07:00">07:00</form:option>
-         <form:option value="08:00">08:00</form:option>
-         <form:option value="09:00">09:00</form:option>
-         <form:option value="10:00">10:00</form:option>
-         <form:option value="11:00">11:00</form:option>
-         <form:option value="12:00">12:00</form:option>
-         <form:option value="13:00">13:00</form:option>
-         <form:option value="14:00">14:00</form:option>
-         <form:option value="15:00">15:00</form:option>
-         <form:option value="16:00">16:00</form:option>
-         <form:option value="17:00">17:00</form:option>
-         <form:option value="18:00">18:00</form:option>
-         <form:option value="19:00">19:00</form:option>
-         <form:option value="20:00">20:00</form:option>
-         <form:option value="21:00">21:00</form:option>
-         <form:option value="22:00">22:00</form:option>
-         <form:option value="23:00">23:00</form:option>
-         </form:select>
-         <font color="red"><form:errors path="starttime"/></font>
-         </td>
-      </tr>
-      <tr>
-         <td ><b>끝나는 시간</b></td>
-      </tr>
-      <tr>
-         <td >
-            <form:select path="endtime">
-            <form:option value="00:00">00:00</form:option>
-            <form:option value="01:00">01:00</form:option>
-            <form:option value="02:00">02:00</form:option>
-            <form:option value="03:00">03:00</form:option>
-            <form:option value="04:00">04:00</form:option>
-            <form:option value="05:00">05:00</form:option>
-            <form:option value="06:00">06:00</form:option>
-            <form:option value="07:00">07:00</form:option>
-            <form:option value="08:00">08:00</form:option>
-            <form:option value="09:00">09:00</form:option>
-            <form:option value="10:00">10:00</form:option>
-            <form:option value="11:00">11:00</form:option>
-            <form:option value="12:00">12:00</form:option>
-            <form:option value="13:00">13:00</form:option>
-            <form:option value="14:00">14:00</form:option>
-            <form:option value="15:00">15:00</form:option>
-            <form:option value="16:00">16:00</form:option>
-            <form:option value="17:00">17:00</form:option>
-            <form:option value="18:00">18:00</form:option>
-            <form:option value="19:00">19:00</form:option>
-            <form:option value="20:00">20:00</form:option>
-            <form:option value="21:00">21:00</form:option>
-            <form:option value="22:00">22:00</form:option>
-            <form:option value="23:00">23:00</form:option>
-            </form:select>
-            <font color="red"><form:errors path="endtime"/></font>
-         </td>
-      </tr>
-      <tr>
-         <td ><b>내 용</b></td>
-      </tr>
-      <tr>
-         <td ><form:textarea path="content" rows="40" cols="50"/><font color="red"><form:errors path="content"/></font></td>
-      </tr>
-      <tr>
-         <td><input type="submit" value="등 록 하 기"></td>
-      </tr>
-   </table>
-</form:form>
+<div class="w3-container" style="padding:128px 16px" id="about">
+  <h2 class="w3-center"><b>${user.name}</b></h2>
+  <br>
+  <br>
+  <p class="w3-center w3-large"></p>
+  <div class="w3-row-padding w3-center" style="margin-top:64px">
+    <div class="w3-quarter">
+      <i class="fa fa-drivers-license-o w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">The Date of Incorporation</p>
+      <p><fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" /></p>
+    </div>
+    <div class="w3-quarter">
+        <i class="fa fa-file-text-o w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Type of Business</p>
+      <p>${user.industy}</p>
+    </div>
+    <div class="w3-quarter">
+      <i class="fa fa-location-arrow w3-margin-bottom w3-jumbo"></i>
+      <p class="w3-large">Business Address</p>
+      <p>${user.address}</p>
+    </div>
+    <div class="w3-quarter">
+         <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
+      <p class="w3-large">Site</p>
+      <p><a href="${user.site}">${user.site}</a></p>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+	<form modelAttribute="" action="companyDetailwrite.jsy" method="post" enctype="multipart/form-data" name="f">
+<table width="80%" border="1">
+	<tr>
+		<td>기업명</td>
+		<td>${user.name}</td>
+		
+		<td>대표자명</td>
+		<td colspan="3">
+			<input type="text">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			사업내용
+		</td>
+		<td colspan="5">
+			${user.industy}
+		</td>
+	</tr>
+	<tr>
+		<td>설립일</td>
+		<td>
+		<fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
+		</td>
+
+		<td>사원수</td>
+		<td><input type="text"></td>
+	</tr>
+	<tr>
+		<td>자본금</td>
+		<td><input type="text"></td>
+		<td>매출액</td>
+		<td><input type="text"></td>
+	</tr>
+	<tr>
+	<td>영업이익</td>
+		<td>
+		<input type="text">
+		</td>
+	</tr>
+	<tr>
+		<td>연혁 및 실적
+		</td>
+		<td>
+			<div id="career">
+			</div>
+		</td>
+		<td colspan="4">		
+				<input type="text" id="careerEtc">
+				<input type="hidden" id="careerYear">
+				<input type="hidden" id="careerMonth">
+				<input type="hidden" id="careerDay">	
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6" align="center">
+			<a href="javascript:document.f.submit()">신청하기</a>
+			<a href="hirelist.jsy">LIST</a>
+		</td>
+	</tr>
+</table>
+	</form>
 </body>
 </html>

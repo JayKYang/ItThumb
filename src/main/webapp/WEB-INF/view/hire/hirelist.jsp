@@ -454,7 +454,7 @@ function hirelist(pageNum){
 		<tr>
 			<td colspan="8">
 				<p>
-					<span class="w3-content w3-text-indigo w3-xlarge">인기공고</span>
+					<span class="w3-content w3-text-indigo w3-xlarge">전체 채용공고</span>
 				</p>
 			</td>
 		</tr>
@@ -462,12 +462,12 @@ function hirelist(pageNum){
 		<tr align="center" valign="middle" bordercolor="#212121">
 				<th width="10%" height="26">기업명</th>
 				<th width="34" height="26">제목</th>
-				<th width="14%" height="26">지원자격</th>
-				<th width="10%">경력</th>
+				<th width="13%" height="26">지원자격</th>
+				<th width="8%">경력</th>
 				<th width="6%" height="26">근무조건</th>
-				<th width="8%" height="26">작성일</th>
-				<th width="8%" height="26">마감일</th>
-				<th width="5%" height="26">마감상태</th>
+				<th width="9%" height="26">작성일</th>
+				<th width="9%" height="26">마감일</th>
+				<th width="6%" height="26">마감상태</th>
 			</tr>
 			<c:if test="${empty boardlist}">
 				<tr>
@@ -487,7 +487,7 @@ function hirelist(pageNum){
 					<td align="center">${hireboard.career} <br>${hireboard.careerdate}</td>
 					<td align="center">${hireboard.hirestatus}</td>
 					<td align="left">
-						<fmt:formatDate value="${hireboard.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
+						<fmt:formatDate value="${hireboard.regdate}" pattern="yyyy-MM-dd"/>
 					</td>
 					<td align="center">
 					<fmt:formatDate value="${hireboard.deadline}" pattern="yyyy-MM-dd" var="end"/>

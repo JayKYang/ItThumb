@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import logic.CompanyInfo;
+import logic.Companyhistory;
 import logic.Hire;
 import logic.Scrap;
 import logic.User;
@@ -54,6 +56,20 @@ public interface BoardDao {
 			String searchCareerDate);
 
 	Hire selectHire(int hireno);
+
+	void companyDetailwrite(CompanyInfo companyInfo);
+
+	int companyInfoMaxNum();
+
+	int companyHistoryMaxNum();
+
+	void insertCompanyHistory(Companyhistory ch);
+
+	CompanyInfo getCompanyInfo(String memberid);
+
+	List<Companyhistory> getCompanyHistorylist(String memberid);
+
+	void companyInfoUpdate(CompanyInfo companyinfo);
 
 
 }

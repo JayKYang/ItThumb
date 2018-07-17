@@ -30,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sun.mail.iap.Response;
 
 import exception.JsyException;
+import logic.CompanyInfo;
+import logic.Companyhistory;
 import logic.Hire;
 import logic.JsyService;
 import logic.Scrap;
@@ -437,14 +439,20 @@ public class BoardController {
 		String searchType= null;
 		String searchContent = null;
 		int limit = 3;
+		CompanyInfo companyinfo = new CompanyInfo();
 		if(pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
 		}
+
+		
+		
 		
 		User user = new User();
 		try {
 		hire= service.getHire(hireno, searchType, searchContent);
 		user= service.getUser(hire.getMemberid());
+		companyinfo = service.getCompanyInfo(hire.getMemberid());
+		List<Companyhistory> comHistorylist= service.getCompanyHistorylist(hire.getMemberid());
 		List<Hire> hirelist = service.getMyHireList(searchType, searchContent, pageNum, limit, hire.getMemberid());
 		int hirelistcount = service.getMyhirecount(hire.getMemberid(), searchType, searchContent);
 		
@@ -455,10 +463,8 @@ public class BoardController {
 		if(endpage > maxpage) endpage = maxpage;
 		int boardcnt = hirelistcount - (pageNum -1) * limit;
 		
-		
-		
-		
-		
+		mav.addObject("companyinfo",companyinfo);
+		mav.addObject("comHistorylist",comHistorylist);
 		mav.addObject("hireno",hireno);
 		mav.addObject("maxpage", maxpage);
 		mav.addObject("startpage", startpage);
@@ -475,28 +481,40 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="hire/companyDetailwrite",method=RequestMethod.GET)
-	public ModelAndView companyDetailwrite(HttpServletRequest request) {
+	public ModelAndView companyDetailwrite(HttpServletRequest request, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
+		if(pageNum==null|| pageNum.toString().equals("")) {
+			pageNum =1;
+		}
+		
 		User loginuser = (User)request.getSession().getAttribute("login");
 		String memberid = loginuser.getMemberid();
-		Hire hire = new Hire();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		CompanyInfo companyInfo = new CompanyInfo();
 		try {
 		if(loginuser.getMembergrade()==2) {
+			
+			companyInfo = service.getCompanyInfo(memberid);
+			
+			if(companyInfo != null) {
+				mav.addObject("msg","기업정보입력이 확인되어 채용공고 쓰기 페이지로 갑니다.");
+				mav.addObject("url","hirewrite.jsy");
+				mav.setViewName("alert");
+			}
+			else {
+			
 			User user = service.getUser(memberid);
-			
-			Date date = new Date();// 현재날짜
-			int nowdate = Integer.parseInt(df.format(date)); // 2018
-			int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
-			
-			
-			
-			mav.addObject("birth",birth);
+		
 			mav.addObject("user",user);
-			mav.addObject("hire",hire);
+			mav.addObject("companyInfo",companyInfo);
+			}
 		} else {
+			
 			mav.addObject("msg","기업회원이 아닙니다.");
-			mav.addObject("url","hirelist.jsy");
+
+			mav.addObject("url","hire/hirelist.jsy?pageNum="+pageNum);
+
+			/*mav.addObject("url","hirelist.jsy");*/
+
 			mav.setViewName("alert");
 		}
 		
@@ -509,5 +527,125 @@ public class BoardController {
 	}
 	
 	
+	@RequestMapping(value="hire/companyDetailwrite",method=RequestMethod.POST)
+	   public ModelAndView companyDetailwrite(@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
+	      ModelAndView mav = new ModelAndView();
+	      User user = (User)request.getSession().getAttribute("login");
+	      String memberid = user.getMemberid();
+	      companyInfo.setMemberid(memberid);
+	      
+	      if(bindingResult.hasErrors()) {
+	         mav.getModel().putAll(bindingResult.getModel());
+	         mav.addObject("companyInfo",companyInfo);
+	         return mav;
+	      }
+	      
+	      
+	      
+	      
+	      try {
+	         service.companyDetailwrite(companyInfo);
+	         mav.setViewName("redirect:/hire/companyWrite.jsy");
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return mav;   
+	   }
 	
+	@RequestMapping(value="hire/companyWrite",method=RequestMethod.GET)
+	public ModelAndView companyWrite(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Companyhistory companyhistory = new Companyhistory();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		
+		Date date = new Date();// 현재날짜
+		int nowdate = Integer.parseInt(df.format(date)); // 2018
+		int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
+		
+		mav.addObject("birth",birth);
+		mav.addObject("companyhistory",companyhistory);
+		
+		return mav;	
+	}
+	
+	
+	@RequestMapping(value="hire/companyWrite",method=RequestMethod.POST)
+	public ModelAndView companyWrite(Companyhistory companyhistory, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		
+		String[] hisContent = companyhistory.getContent().split(",");
+		String[] hisDate  = companyhistory.getHistorydate().split(",");
+		User user = (User)request.getSession().getAttribute("login");
+		String memberid = user.getMemberid();
+		
+		Companyhistory ch = new Companyhistory();
+		
+		try {
+		for(int i=0; i<hisContent.length; i++) {
+			ch.setContent(hisContent[i]);
+			ch.setHistorydate(hisDate[i]);
+			ch.setMemberid(memberid);
+			service.insertCompanyHistory(ch);
+		}
+		
+		mav.setViewName("redirect:/hire/hirewrite.jsy");
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.GET)
+	public ModelAndView companyInfoUpdate(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User loginUser = (User)request.getSession().getAttribute("login");
+		int hireno = Integer.parseInt(request.getParameter("hireno"));
+		
+		String memberid = loginUser.getMemberid();
+		try {
+		User user = service.getUser(memberid);
+		CompanyInfo companyinfo = service.getCompanyInfo(memberid);
+		
+		mav.addObject("hireno",hireno);
+		mav.addObject("user",user);
+		mav.addObject("companyinfo",companyinfo);
+		System.out.println(companyinfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.POST)
+	public ModelAndView companyInfoUpdate(@Valid CompanyInfo companyinfo, BindingResult bindingResult,HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(companyinfo);
+		User user = (User)request.getSession().getAttribute("login");
+	      String memberid = user.getMemberid();
+	      companyinfo.setMemberid(memberid); 
+	      int hireno = Integer.parseInt(request.getParameter("hireno"));
+	      
+	      if(bindingResult.hasErrors()) {
+	         mav.getModel().putAll(bindingResult.getModel());
+	         mav.addObject("companyinfo",companyinfo);
+	         
+	         return mav;
+	      }
+	      
+	      try {
+	    	  service.companyInfoUpdate(companyinfo);
+	    	  
+	    	  mav.addObject("msg","기업정보 수정을 성공하였습니다.");
+	    	  mav.addObject("url","companyDetail.jsy?hireno="+hireno);
+	      } catch(Exception e) {
+	    	  e.printStackTrace();
+	      }
+	      	mav.setViewName("alert");
+		
+		return mav;
+	}
 }
