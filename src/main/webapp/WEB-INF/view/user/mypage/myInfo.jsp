@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>IT Thumb > 마이 페이지 > 회원 정보</title>
+<title>잇썸 > 마이 페이지 > 회원 정보</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script type="text/javascript">
 		$(document).ready(function(){
