@@ -33,18 +33,70 @@ $(document).ready(function(){
 </script>
 <script>
 
-					function companyDetail(url){
-						var h = screen.height*(3/4);
-						var w = screen.width*(1.9/3);
-						window.open(url,"Company Infomation","width="+w+", height="+h+", left=100, top=100");
-					}
-					
-					</script>
+function companyDetail(url){
+	var h = screen.height*(3/4);
+	var w = screen.width*(1.9/3);
+	window.open(url,"Company Infomation","width="+w+", height="+h+", left=100, top=100");
+}
+
+</script>
+<style>
+	button{
+		width:150px;
+		height:50px;
+	}
+   	button {
+	  border-radius: 4px;
+	  background-color: blue;
+	  border: none;
+	  color: #FFFFFF;
+	  text-align: center;
+	  font-size: 18px;
+	  padding: 5px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	}
+	button:hover {
+	  background-color: skyblue;
+	}
+	
+	button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+	
+	button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+	
+	button:hover span {
+	  padding-right: 25px;
+	}
+	
+	button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+</style>
 </head>
 <body>
+	<div class="w3-bar w3-small w3-left w3-indigo" style="width: 100%;">
+			<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+			</div> 
+	</div>
 	<jsp:useBean id="now" class="java.util.Date" />
 	<fmt:formatDate value="${now}" var="now" pattern="yyyyMMdd" />
-	<div class="w3-content" style="margin-top:10%">
+	<div class="w3-content">
+	<p>
+		<span class="w3-content w3-text-indigo w3-xxlarge">채용공고상세</span>
+	</p>
 		<div class="w3-border" style="padding:2%;">
 			<table>
 				<tr>
@@ -52,10 +104,10 @@ $(document).ready(function(){
 					<td style="padding-left:5%;">
 						<a class="w3-xlarge" href="javascript:companyDetail('companyDetail.jsy?hireno=${hire.hireno}&pageNum=1')" name="company" id="company">${user.name}</a>
 						<c:if test="${scrapComfirm==0}">
-							<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> SCRAP</a>
+							<a id="scrap" class="button w3-button w3-center w3-xlarge"><i id="scrap2" class="fa fa-heart-o"></i></a>
 						</c:if>
 						<c:if test="${scrapComfirm==1}">
-							<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a>
+							<a id="scrap" class="button w3-button w3-center w3-xlarge"><i id="scrap2" class="fa fa-heart"></i></a>
 						</c:if>
 					</td>
 				</tr>
@@ -78,8 +130,8 @@ $(document).ready(function(){
 				</tr>
 				<tr>
 					<td style="padding-left:5%;">
-						<div class="w3-border" style="padding:2%; width:135px;">
-							<a class="w3-button" href="${user.site}" target="_blank">당사 홈페이지</a>
+						<div>
+							<button onclick="window.open('${user.site}')" target="_blank">당사 홈페이지</button>
 						</div>
 					</td>
 				</tr>
@@ -212,16 +264,17 @@ $(document).ready(function(){
 			<table>
 			<tr>
 				<td colspan="4">
-				<c:if test="${scrapComfirm==0}">
-					<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> SCRAP</a>
+<%-- 				<c:if test="${scrapComfirm==0}">
+					<a id="scrap" class="button w3-button w3-center w3-xlarge"><i id="scrap2" class="fa fa-heart-o"></i>스크랩</a>
 				</c:if>
 				<c:if test="${scrapComfirm==1}">
-					<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a>
-				</c:if>
-						<a href="hirelist.jsy?pageNum=${param.pageNum}">목록</a>					
+					<a id="scrap" class="button w3-button w3-center w3-xlarge"><i id="scrap2" class="fa fa-heart"></i>스크랩</a>
+				</c:if> --%>					
+						<%-- <a href="hirelist.jsy?pageNum=${param.pageNum}">목록</a>		 --%>			
 				<c:if test="${sessionScope.login.membergrade ==0 }">
-						<a href="../admin/superviseHire.jsy">채용관리</a>
-					</c:if>
+					<button class="w3-center w3-xlarge" onclick="location.href='../user/mypage/confirmHire.jsy'">채용관리</button>
+				</c:if>
+				<button class="w3-center w3-xlarge" onclick="location.href='hirelist.jsy?pageNum=${param.pageNum}'">목록</button>
 					</td>
 				</tr>
 			</table>
@@ -229,158 +282,3 @@ $(document).ready(function(){
 	</div>
 </body>
 </html>
-
-<%-- 
-<table border="1" cellpadding="0" cellspacing="0" align="center">
-			<tr>
-				<td>
-					<h5>제목</h5>
-				</td>
-				<td colspan="3">
-					${hire.subject}
-				</td>
-			</tr>
-			<tr>
-				<td rowspan="2" colspan="2">
-					<img src="../photo/${user.imageUrl}" width="210" height="130">
-				</td>
-				<td colspan="2"><h5>지원자격</h5></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					${hire.qualification}
-				</td>
-			</tr>
-			<tr>			
-				<td colspan="2"><h5>기업명</h5></td>
-		
-				<td colspan="2">
-					<a href="javascript:companyDetail('companyDetail.jsy?hireno=${hire.hireno}&pageNum=1')" name="company" id="company">${user.name}</a>
-					<script>
-
-					function companyDetail(url){
-						var h = screen.height*(3/4);
-						var w = screen.width*(1.9/3);
-						window.open(url,"Company Infomation","width="+w+", height="+h+", left=100, top=100");
-					}
-					
-					</script>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-				<h6>기업정보</h6>
-				</td>
-			</tr>
-			<tr>
-				<td><h6>설립일</h6></td>
-				<td>
-					<fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd" /> 
-				</td>
-				<td><h6>사업</h6></td>
-				<td>
-						${user.industy}
-				</td>
-			</tr>
-			<tr>
-				<td><h6>지역</h6></td>
-				<td>
-					${user.address}
-				</td>
-				<td><h6>사이트</h6></td>
-				<td>
-					<a href="${user.site}">${user.site}</a>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<h6>근무조건</h6>
-				</td>
-			</tr>
-			<tr>
-				<td><h6>근무지역</h6></td>
-				<td>
-					${hire.region} ${hire.regiongu} ${hire.regionetc }
-				</td>
-				<td><h6>고용형태</h6></td>
-				<td>
-					${hire.hirestatus}
-				</td>
-			</tr>
-			<tr>
-				<td><h6>연봉</h6></td>
-				<td>
-				   <c:choose>
-     	  <c:when test="${hire.salary==0}">
-      	    협상 후 연봉결정
-      		 </c:when>
-       		  <c:when test="${hire.salary=='2200'}">
-           2200만원 이상
-       </c:when>
-        <c:when test="${hire.salary=='2400'}">
-           2400만원 이상
-       </c:when>
-           <c:when test="${hire.salary==2600}">
-            2600만원 이상
-       </c:when>
-           <c:when test="${hire.salary==2800}">
-            2800만원 이상
-       </c:when>
-           <c:when test="${hire.salary==3000}">
-            3000만원 이상
-       </c:when>
-       <c:otherwise>
-           ${hire.salary}
-       </c:otherwise>
-   </c:choose>			
-				
-				</td>
-				<td><h6>근무일</h6></td>
-				<td>
-					${hire.workday}
-				</td>
-			</tr>
-			<tr>
-				<td><h6>마감일</h6></td>
-				<td>
-					<fmt:formatDate value="${hire.deadline}" pattern="yyyy-MM-dd" /> 
-				</td>
-				<td><h6>경력</h6></td>
-				<td>
-					${hire.career} ${hire.careerdate}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<img src="../hireimg/${hire.imageUrl}" style="width:80%;">
-				</td>
-			</tr>
-			<c:if test="${sessionScope.login.memberid == 'admin@admin' }">
-			<tr>
-				<td colspan="4">
-					<h6>내용</h6>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-				${hire.content}
-				</td>
-			</tr>
-			</c:if>
-			<tr>
-				<td colspan="4" align="center">
-			
-			<c:if test="${scrapComfirm==0}">
-				<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart-o"></i> SCRAP</a>
-			</c:if>
-			<c:if test="${scrapComfirm==1}">
-				<a id="scrap" class="w3-button w3-large" style="border:1px solid black; border-radius:15px; "><i id="scrap2" class="fa fa-heart"></i> SCRAP</a>
-			</c:if>
-					<a href="hirelist.jsy?pageNum=${param.pageNum}">LIST</a>					
-			<c:if test="${sessionScope.login.membergrade ==0 }">
-					<a href="../admin/superviseHire.jsy">채용관리</a>
-				</c:if>
-				</td>
-			</tr>
-		</table>
-	 --%>

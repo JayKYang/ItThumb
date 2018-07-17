@@ -400,6 +400,15 @@ function hirelist(pageNum){
 	return false;
 	}
 </script>
+<script>
+
+function companyDetail(url){
+	var h = screen.height*(3/4);
+	var w = screen.width*(1.9/3);
+	window.open(url,"Company Infomation","width="+w+", height="+h+", left=100, top=100");
+}
+
+</script>
 <style type="text/css">
 #aa, #bb,#cc {
 	border: 1px solid #000000;
@@ -465,7 +474,7 @@ function hirelist(pageNum){
 			</table>
 		</form>	
 	</div>
-	<table>
+	<table class="w3-table">
 		<tr>
 			<td colspan="8">
 				<p>
@@ -484,15 +493,15 @@ function hirelist(pageNum){
 					<div
 						class="w3-quarter w3-container w3-card w3-center w3-padding-16"
 						style="width:25%; height: 350px;">
-						<div class="w3-container" style="height:100px;">
+						<div style="height:100px;">
 							<img src="../photo/${popBoard.user.imageUrl }" style="width: 60%; height:100%;">
 						</div>
-						<div class="w3-container">
+						<div>
 							<h4>
-								<a href="companyDetail.jsy?hireno=${popBoard.hireno}&pageNum=${pageNum}" style="text-decoration:none; font-size:20px;" target="_blank"><b>${popBoard.company }</b></a>
+								<a href="javascript:companyDetail('companyDetail.jsy?hireno=${popBoard.hireno}&pageNum=1')" style="text-decoration:none; font-size:20px;"><b>${popBoard.company }</b></a>
 							</h4>
 						</div>
-						<div class="w3-container">
+						<div>
 							<h6><a href="hiredetail.jsy?hireno=${popBoard.hireno }" style="text-decoration:none; font-size:12px;" target="_blank">${popBoard.subject }</a></h6>
 						</div>
 						<div>
@@ -531,13 +540,13 @@ function hirelist(pageNum){
 		</tr>
 		
 		<tr align="center" valign="middle" bordercolor="#212121">
-				<th width="10%" height="26">기업명</th>
-				<th width="43%" height="26">제목</th>
-				<th width="13%" height="26">지원자격</th>
+				<th width="12%" height="26">기업명</th>
+				<th width="39%" height="26">제목</th>
+				<th width="9%" height="26">지원자격</th>
 				<th width="8%">경력</th>
-				<th width="6%" height="26">근무조건</th>
+				<th width="9%" height="26">근무조건</th>
 				<th width="9%" height="26">마감일</th>
-				<th width="6%" height="26">마감상태</th>
+				<th width="9%" height="26">마감상태</th>
 			</tr>
 			<c:if test="${empty boardlist}">
 				<tr>
@@ -546,9 +555,9 @@ function hirelist(pageNum){
 			</c:if>
 			<c:forEach var="hireboard" items="${boardlist}" varStatus="status">
 			<c:if test="${hireboard.hide==1}">
-			<tr align="center" valign="middle" bordercolor="#333333" onmouseover="this.style.color='#1DDB16', this.style.border='2px solid'" onmouseout="this.style.color=''">
+			<tr>
 				<td>
-						${hireboard.company}			
+					<a href="javascript:companyDetail('companyDetail.jsy?hireno=${hireboard.hireno}&pageNum=1')" style="text-decoration:none;">${hireboard.company }</a>
 				</td>
 				<td>
 						<a href="hiredetail.jsy?hireno=${hireboard.hireno}&pageNum=${pageNum}">${hireboard.subject}</a>
@@ -566,7 +575,9 @@ function hirelist(pageNum){
 			</tr>
 			</c:if>
 			</c:forEach>
-					<tr align="center" height="26">
+	</table>
+	<table class="w3-center" style="width:100%">
+	<tr align="center" height="26">
 				<td colspan="8">
 					<c:if test="${pageNum >1}">
 						<a href="javascript:hirelist(${pageNum -1})">[이전]</a>
@@ -585,22 +596,6 @@ function hirelist(pageNum){
 					</c:if> &nbsp;
 				</td>
 			</tr>
-
-			
-		<c:if test="${listcount==0}">
-			<tr>
-				<td colspan="8">등록된 채용공고 게시물이 없습니다.</td>
-			</tr>
-		</c:if>
-		
-		<%-- <c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
-			<tr>
-				<td align="right" colspan="8">
-					<!-- <button onclick="location.href='hirewrite.jsy'">글쓰기</button>
-					<button style="width:140px; "onclick="window.open('companyDetailwrite.jsy')">기업세부정보 변경</button> -->
-				</td>
-			</tr>
-		</c:if> --%>
 	</table>
 </div>
 </body>

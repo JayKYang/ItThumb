@@ -19,7 +19,7 @@
 	  color: #FFFFFF;
 	  text-align: center;
 	  font-size: 18px;
-	  padding: 20px;
+	  padding: 5px;
 	  transition: all 0.5s;
 	  cursor: pointer;
 	}
