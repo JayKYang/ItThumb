@@ -285,9 +285,6 @@ sies = new Array(
 			</tr>
 		</table>
 	</form:form>
-<<<<<<< HEAD
-	
-=======
 	<!-- <table>
 		<tr>
 			<td>
@@ -305,6 +302,5 @@ sies = new Array(
 			</td>
 		</tr>
 	</table> -->
->>>>>>> branch 'master' of https://github.com/JayKYang/ItThumb.git
 </body>
 </html>

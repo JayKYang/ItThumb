@@ -167,3 +167,10 @@ create table companyinfo(
 );
 
 
+CREATE TABLE companyhistory (
+
+    historyno int primary key,
+    memberid varchar(30),
+    historydate varchar(20),
+    content varchar(100)
+);
