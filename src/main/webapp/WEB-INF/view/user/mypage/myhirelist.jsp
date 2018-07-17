@@ -103,7 +103,7 @@
 	<div class="w3-content">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">내가 쓴 채용공고</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">내가 쓴 채용공고</span>
 			</p>
 		</div>
 		<table class="w3-table w3-bordered">

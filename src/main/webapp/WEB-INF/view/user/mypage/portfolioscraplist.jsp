@@ -57,7 +57,7 @@
 	<div class="w3-content">
 		<div class="w3-center">
 			<p>
-				<span class="w3-content w3-text-purple w3-xxlarge">스크랩 포트폴리오</span>
+				<span class="w3-content w3-text-blue w3-xxlarge">스크랩 포트폴리오</span>
 			</p>
 		</div>
 		<input type="hidden" name="pageNum" value="${pageNum}">
@@ -84,13 +84,13 @@
 							<img src="../../photo/defaultphoto.png" style="width:50px;height:50px;">
 						</c:if></td>
 					
-					<td style="text-align:center; ">${scrap.memberid }</td>
+					<td style="text-align:center; "><p>${scrap.memberid }</p></td>
 					
-					<td style="text-align:center;">${scrap.name }</td>
-					<td style="text-align:center; ">${scrap.slogun }</td>
-					<td style="text-align:center; ">${scrap.address }</td>
-					<td style="text-align:center; "><fmt:formatDate value="${scrap.modifydate}" type="both"
-							pattern="yyyy-MM-dd" /></td>
+					<td style="text-align:center;"><p>${scrap.name }</p></td>
+					<td style="text-align:center; "><p>${scrap.slogun }</p></td>
+					<td style="text-align:center; "><p>${scrap.address }</</td>
+					<td style="text-align:center; "><p><fmt:formatDate value="${scrap.modifydate}" type="both"
+							pattern="yyyy-MM-dd" /></p></td>
 					<td style="text-align:center; "><a
 						href="../portfolio/myportfolio.jsy?id=${scrap.memberid}"><i	class="fa fa-eye w3-button w3-xlarge"></i></a> <a
 						onclick="javascript:message_open('../../message/messageWrite.jsy?memberid=${scrap.memberid}')">
