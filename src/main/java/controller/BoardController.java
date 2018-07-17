@@ -114,8 +114,7 @@ public class BoardController {
 			}
 			
 			
-			
-			int listcount = service.boardcount(searchRegion, searchEdu,  searchCarr,searchCareer,searchCareerDate);
+			int listcount = service.boardcount(searchRegion, searchEdu, searchCarr,searchCareer,searchCareerDate);
 			int limit = 10;
 			List<Hire> boardlist = service.hirelist(searchRegion, searchEdu,searchCarr,searchCareer,searchCareerDate,pageNum, limit);
 			
@@ -129,7 +128,6 @@ public class BoardController {
 			    diffDays = diff / (24 * 60 * 60 * 1000);
 			    datelist.add(diffDays);
 			}
-			
 			
 			
 			

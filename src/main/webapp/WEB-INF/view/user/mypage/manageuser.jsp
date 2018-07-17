@@ -103,7 +103,7 @@
 				</tr>
 				<c:if test="${empty userlist }">
 					<tr>
-						<td colspan="4">목록이 존재하지 않습니다.</td>
+						<td colspan="5" style="text-align:center">목록이 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 				<c:forEach items="${userlist }" var="user" varStatus="status">

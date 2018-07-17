@@ -7,7 +7,7 @@
 		and	region in (${searchRegion})
 			</if>
 			<if test="searchEdu !=null">
-		and	qualification = #{searchEdu}
+		and	qualification = ${searchEdu}
 			</if>
 			<if test="searchCarr !=null">
 		and	hirestatus in (${searchCarr})

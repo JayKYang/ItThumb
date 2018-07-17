@@ -433,7 +433,7 @@ function hirelist(pageNum){
 							<fmt:formatDate value="${popBoard.deadline}" var="date"	pattern="yyyyMMdd" />
 							<c:if test="${popDatelist[status.index] >= 0 }">
 								<p>마감 ${popDatelist[status.index]} 일 전</p>
-								<c:if test="${date-now < 3 }">
+								<c:if test="${popDatelist[status.index] < 3 }">
 									<a class="w3-text-red w3-tag">마감 임박</a>
 								</c:if>
 							</c:if>
