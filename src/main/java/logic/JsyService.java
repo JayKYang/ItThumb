@@ -15,7 +15,7 @@ public interface JsyService {
 	int boardcount(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate);
 
 	List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate,  Integer pageNum, int limit);
-
+	
 	void hireWrite(Hire hire, HttpServletRequest request);
 
 	void updateUser(User user, HttpServletRequest request);

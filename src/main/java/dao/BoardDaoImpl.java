@@ -33,6 +33,7 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("searchCarr", searchCarr);
 		map.put("searchCareer", searchCareer);
 		map.put("searchCareerDate", searchCareerDate);
+		
 		Integer ret = SqlSession.selectOne(NS+"count",map);
 		
 		return ret;
@@ -40,6 +41,7 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public List<Hire> hirelist(String searchRegion, String searchEdu, String searchCarr,String searchCareer,String searchCareerDate, Integer pageNum, int limit) {
+		
 		Map<String, Object> map = new HashMap<String,Object>();
 		int startrow = (pageNum -1) * limit;
 		map.put("searchRegion", searchRegion);
@@ -49,7 +51,6 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("searchCareerDate", searchCareerDate);
 		map.put("startrow", startrow);
 		map.put("limit", limit);
-		
 		return SqlSession.selectList(NS+"hirelist", map);
 	}
 
@@ -74,6 +75,7 @@ public class BoardDaoImpl implements BoardDao{
 	map.put("limit", 1);
 	map.put("searchType", searchType);
 	map.put("searchContent", searchContent);
+	
 		return SqlSession.selectOne(NS+"hirelist", map);
 	}
 
