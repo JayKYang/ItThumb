@@ -4,8 +4,8 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <%
 
-	FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
-	//FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");									
+	//FileInputStream fi = new FileInputStream("C:/Users/user/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt"); 
+	FileInputStream fi = new FileInputStream("C:/Users/Winhyoni/Desktop/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");									
 	//FileInputStream fi = new FileInputStream("C:/Users/dumby/git/ItThumb/src/main/webapp/WEB-INF/법정동코드+전체자료.txt");
 	
   BufferedReader br = new BufferedReader(new InputStreamReader(fi,"UTF-8"));
@@ -285,9 +285,7 @@ sies = new Array(
 			</tr>
 		</table>
 	</form:form>
-<<<<<<< HEAD
-	
-=======
+
 	<!-- <table>
 		<tr>
 			<td>
@@ -305,6 +303,6 @@ sies = new Array(
 			</td>
 		</tr>
 	</table> -->
->>>>>>> branch 'master' of https://github.com/JayKYang/ItThumb.git
+
 </body>
 </html>

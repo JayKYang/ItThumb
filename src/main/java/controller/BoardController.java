@@ -425,7 +425,7 @@ public class BoardController {
 	
 	
 	@RequestMapping("hire/calender")
-	public ModelAndView calender(Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request) {
+	public ModelAndView logconcalender(HttpSession session,Integer pageNum ,String searchRegion, String searchEdu, String searchCarr ,String searchCareer, String searchCareerDate, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum==null||pageNum.toString().equals("")) {
 			pageNum=1;
@@ -475,7 +475,7 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="hire/companyDetail",method=RequestMethod.GET)
-	public ModelAndView companyDetail(int hireno, HttpServletRequest request,Integer pageNum) {
+	public ModelAndView logconcompanyDetail(HttpSession session,int hireno, HttpServletRequest request,Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		Hire hire = new Hire();
 		String searchType= null;
@@ -535,7 +535,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="hire/companyDetailwrite",method=RequestMethod.GET)
-	public ModelAndView companyDetailwrite(HttpServletRequest request, Integer pageNum) {
+	public ModelAndView companyCkcompanyDetailwrite(HttpSession session,HttpServletRequest request, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		if(pageNum==null|| pageNum.toString().equals("")) {
 			pageNum =1;
@@ -577,7 +577,7 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="hire/companyDetailwrite",method=RequestMethod.POST)
-	   public ModelAndView companyDetailwrite(@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
+	   public ModelAndView companyCkcompanyDetailwrite(HttpSession session,@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 	      ModelAndView mav = new ModelAndView();
 	      User loginUser = (User)request.getSession().getAttribute("login");
 	      String memberid = loginUser.getMemberid();
@@ -604,7 +604,7 @@ public class BoardController {
 	   }
 	
 	@RequestMapping(value="hire/companyWrite",method=RequestMethod.GET)
-	public ModelAndView companyWrite(HttpServletRequest request) {
+	public ModelAndView companyCkcompanyWrite(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Companyhistory companyhistory = new Companyhistory();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy");
@@ -639,7 +639,7 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="hire/companyWrite",method=RequestMethod.POST)
-	public ModelAndView companyWrite(Companyhistory companyhistory, HttpServletRequest request) {
+	public ModelAndView companyCkcompanyWrite(HttpSession session,Companyhistory companyhistory, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		
 		String[] hisContent = companyhistory.getContent().split(",");
@@ -666,7 +666,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.GET)
-	public ModelAndView companyInfoUpdate(HttpServletRequest request) {
+	public ModelAndView companyCkcompanyInfoUpdate(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)request.getSession().getAttribute("login");
 		String memberid = loginUser.getMemberid();
@@ -686,7 +686,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="hire/companyInfoUpdate",method=RequestMethod.POST)
-	public ModelAndView companyInfoUpdate(@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
+	public ModelAndView companyCkcompanyInfoUpdate(HttpSession session,@Valid CompanyInfo companyInfo, BindingResult bindingResult,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 	
 		User loginUser = (User)request.getSession().getAttribute("login");
@@ -714,7 +714,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("hire/comInfoDelete")
-	public ModelAndView comInfoDelete(HttpServletRequest request) {
+	public ModelAndView companyCkcomInfoDelete(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		
 		User user = (User)request.getSession().getAttribute("login");
@@ -733,7 +733,7 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="hire/companyHistoryUpdate",method=RequestMethod.GET)
-	public ModelAndView companyHistoryUpdate(HttpSession session) {
+	public ModelAndView companyCkcompanyHistoryUpdate(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User loginUser = (User)session.getAttribute("login");
 		String memberid = loginUser.getMemberid();
@@ -766,7 +766,7 @@ public class BoardController {
 	
 	
 	@RequestMapping(value="hire/companyHistoryreWrite",method=RequestMethod.GET)
-	public ModelAndView companyHistoryreWrite(HttpServletRequest request) {
+	public ModelAndView companyCkcompanyHistoryreWrite(HttpSession session,HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Companyhistory companyhistory = new Companyhistory();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy");
