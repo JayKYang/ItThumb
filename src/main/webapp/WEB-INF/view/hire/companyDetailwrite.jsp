@@ -181,23 +181,8 @@ oTbl.deleteRow(oTbl.clickedRowIndex);
 
 
 </script>
-<style type="text/css">
- #comDiv,#comrepDiv {
-    border : 1px solid #000000;
- }
- 
- #comDiv{
-    width : 500px;
-    height : 150px;
-    float : left;
- }
- #comrepDiv{
-    width : 500px;
-    height : 150px;
- }
 
-</style>
-<style>
+<style type="text/css">
 .button {
 	width: 80px;
 	height: 40px;

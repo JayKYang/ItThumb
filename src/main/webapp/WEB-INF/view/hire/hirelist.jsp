@@ -585,14 +585,6 @@ function hirelist(pageNum){
 					</c:if> &nbsp;
 				</td>
 			</tr>
-
-			
-		<c:if test="${listcount==0}">
-			<tr>
-				<td colspan="8">등록된 채용공고 게시물이 없습니다.</td>
-			</tr>
-		</c:if>
-		
 		<%-- <c:if test="${sessionScope.login.membergrade==0 || sessionScope.login.membergrade==2}">
 			<tr>
 				<td align="right" colspan="8">
