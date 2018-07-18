@@ -147,7 +147,7 @@ public class UserController {
 				service.createNormalUser(user, request);
 				//메일 셋팅
 				sm.senmail(user.getMemberid(), user.getRecognizecode(), "[ITThumb] 가입 인증 메일입니다.", "링크를 누르시면 인증이 완료됩니다.<br>"
-						+ "<a href='http://localhost:8080/itthumb/confirm.jsy?id="+user.getMemberid()+"&code="+user.getRecognizecode()+"'>인증완료</a>");
+						+ "<a href='http://192.168.0.71:8080/itthumb/confirm.jsy?id="+user.getMemberid()+"&code="+user.getRecognizecode()+"'>인증완료</a>");
 				
 				mav.addObject("msg","회원가입이 완료되었습니다. 메일에서 인증해주세요.");
 				mav.addObject("url","login.jsy");
@@ -378,7 +378,7 @@ public class UserController {
 		System.out.println(dbUser);
 		service.updateRecognize(dbUser); // 인증번호 재발급
 		sm.senmail(dbUser.getMemberid(), dbUser.getRecognizecode(), "[ITThumb] 비밀번호 분실확인 메일", "링크를 누르시면 비밀번호 변경화면으로 이동됩니다.<br>"
-				+ "<a href='http://localhost:8080/itthumb/passconfirm.jsy?id="+dbUser.getMemberid()+"&code="+dbUser.getRecognizecode()+"'>비밀번호 변경하로 가기</a>");
+				+ "<a href='http://192.168.0.71:8080/itthumb/passconfirm.jsy?id="+dbUser.getMemberid()+"&code="+dbUser.getRecognizecode()+"'>비밀번호 변경하로 가기</a>");
 		
 		mav.addObject("msg","메일 전송이 완료되었습니다. 이메일을 확인해주세요.");
 		mav.addObject("url","../close.jsy");

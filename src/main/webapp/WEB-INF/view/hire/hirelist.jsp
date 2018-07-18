@@ -457,7 +457,6 @@ function companyDetail(url){
 		<h4 class="w3-text-indigo">학력</h4>
 		<div id="levelofedu" >
 		</div>
-		<a id="radiochkdelete" style="font-size:3pt;">체크 해제</a>
 	</div>
 	<div class="w3-quarter" style="overflow-y: scroll; height:300px;">
 		<h4 class="w3-text-indigo">고용형태</h4>
@@ -519,7 +518,7 @@ function companyDetail(url){
 							</h4>
 						</div>
 						<div>
-							<h6><a href="hiredetail.jsy?hireno=${popBoard.hireno }" style="text-decoration:none; font-size:12px;" target="_blank">${popBoard.subject }</a></h6>
+							<h6><a href="hiredetail.jsy?hireno=${popBoard.hireno }" style="text-decoration:none; font-size:12px;">${popBoard.subject }</a></h6>
 						</div>
 						<div>
 							<div>

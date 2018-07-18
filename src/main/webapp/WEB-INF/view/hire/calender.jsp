@@ -141,7 +141,7 @@ button:hover span:after {
 	<label id="calenderlabel">게시글 : 마감날짜 공고제목형식</label>
 <div id='calendar'>
 
-<button class="w3-right" onclick="location.href='hirelist.jsy?pageNum=${param.pageNum}'">게시판</button>
+<button class="w3-right" onclick="location.href='hirelist.jsy?pageNum=${param.pageNum}'">목록</button>
 </div>
 </div>
 </body>

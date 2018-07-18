@@ -65,22 +65,22 @@
 </style>
 </head>
 <body>
-<div class="w3-content w3-padding-64">
+<div class="w3-content w3-padding-64" >
 	<div>
 		<p>
 			<span class="w3-content w3-text-indigo w3-xxlarge">새 비밀번호 변경</span>
 		</p>
 	</div>
-	<div class="w3-content">
+	<div class="w3-content w3-padding-64" style="margin-bottom:150px;">
 		<div class="w3-half w3-center" style="width:50%">
 			<img src="../mainimg/logo.png" style="width:90%">
 		</div>
-		<hr>
 		<div class="w3-half" style="width:50%;">
 			<form:form modelAttribute="user" method="post" name="f" action="repasswordform.jsy">
 				<p>
 				<label>아이디</label>
 				${user.memberid }
+				<form:hidden class="w3-input" path="memberid" />
 				<font color="red"><form:errors path="memberid"/></font>
 				</p>
 				<p>

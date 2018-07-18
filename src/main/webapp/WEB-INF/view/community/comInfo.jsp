@@ -296,7 +296,7 @@
 				</tr>
 				<c:forEach var="re" items="${replyList}" varStatus="status">
 				<div class="popupLayer" id="popupLayer_${status.index}">
-					<a onclick="javascript:message_open('../message/messageWrite.jsy?memberid=${re.memberid}')">쪽지 보내기</a>
+					<a onclick="javascript:message_open('../message/messageWrite.jsy?memberid=${re.memberid}')" style="cursor:pointer">쪽지 보내기</a>
 				</div>
 					<tr style="border-bottom: 1px solid orange;">
 						<td style="text-align: left;"><c:if

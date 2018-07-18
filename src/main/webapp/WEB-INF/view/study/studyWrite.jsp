@@ -178,7 +178,7 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div class="w3-center" style="margin-left: 300px">
-		<form:form modelAttribute="study" name="f" action="studyWrite.jsy"
+		<form:form modelAttribute="study" action="studyWrite.jsy"
 			method="post" name="f">
 			<spring:hasBindErrors name="study">
 				<font color="red"> <c:forEach items="${errors.globalErrors }"

@@ -14,11 +14,11 @@
 		var checkarr = []
 		var str = "";
 		$('#selDelete').click(function(i) {
+			event.preventDefault();
 			checkarr = []
 			$('input:checkbox[name="scrapchk"]:checked').each(function() {
 				checkarr.push($(this).val());
 			})
-			event.preventDefault();
 
 			str = checkarr.join(',');
 

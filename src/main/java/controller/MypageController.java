@@ -319,7 +319,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/myStudyInfo")
-	public ModelAndView MPConmyStudyInfo(HttpSession session, Integer studyno, Integer smkind, Integer pageNum) {
+	public ModelAndView myStudyInfo(HttpSession session, Integer studyno, Integer smkind, Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Study study = service.studySelect(studyno);
@@ -335,7 +335,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping("user/mypage/leaveStudy")
-	public ModelAndView MPConleaveStudy(HttpSession session, Integer studyno, Integer smkind,  Integer pageNum) {
+	public ModelAndView leaveStudy(HttpSession session, Integer studyno, Integer smkind,  Integer pageNum) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) session.getAttribute("login");
 		String memberid = user.getMemberid();
