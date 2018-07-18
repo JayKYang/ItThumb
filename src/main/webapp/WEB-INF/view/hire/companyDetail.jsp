@@ -221,10 +221,9 @@ h1,h2,h3,h4,h5,h6 {
 	</table>
 	<label id ="label1">매출액,자본금,영업이익 : 백만단위 기준</label>
 	</div>
+	<c:if test="${!empty comHistorylist}">
 	<div class="w3-content w3-margin-top" style="max-width:1400px;">
 	  <div class="w3-row-padding">
-	    
-	      
 	      <p><span class="w3-large w3-text-indigo"><b>연혁 및 실적</b></span></p>
 	   
 	        <c:forEach items="${comHistorylist}" var="comHislist">
@@ -234,10 +233,9 @@ h1,h2,h3,h4,h5,h6 {
 	          <hr>
 	        </div>
 			</c:forEach>
-		    
-		  
 		</div>
 	</div>
+	</c:if>
 	<p><span class="w3-large w3-text-indigo"><b>근무 조건</b></span></p>
 	<br>
 	<div>
