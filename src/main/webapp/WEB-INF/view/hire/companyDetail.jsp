@@ -44,7 +44,20 @@ h1,h2,h3,h4,h5,h6 {
     letter-spacing: 5px;
 } 
 
+.trName{
+	text-align:center;
+}
  
+ .tdCon{
+ 	text-align:left;
+ 	 font-size : 13px;
+ }
+ 
+ #label1{
+ 	text-align:right;
+ 	align : right;
+ 	font-size :7pt;
+ }
  
 </style>
 </head>
@@ -79,7 +92,9 @@ h1,h2,h3,h4,h5,h6 {
   </div>
 </div>
 <div class="w3-container" style="width:100%;">
+	<br>
 	<p><span class="w3-large w3-text-indigo"><b>지난 채용 공고</b></span></p>
+	<br>
 	<div style="width:100%;height:360px;">
 		<c:forEach items="${hirelist}" var="hire">
 			<c:if test="${hirelistcount>0}">
@@ -119,220 +134,228 @@ h1,h2,h3,h4,h5,h6 {
 		</c:if> &nbsp;
 	</div>
 	<p><span class="w3-large w3-text-indigo"><b>기업 정보</b></span></p>
+	
+	<br>
 	<div class="content">
-	<table class="w3-table" style="width:100%;">
-		<tr>
-			<td style="background-color:#e6e6ff;">
+	<table style="width:100%; align:center; height:450px;">
+		<tr class="trName">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				기업명
 			</td>
-			<td>
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				${user.name}
 			</td>
-			<td style="background-color:#e6e6ff;">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				대표자명
 			</td>
-			<td>
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				${companyinfo.ceoname}
 			</td>
 		</tr>
-			<tr>
-			<td style="background-color:#e6e6ff;">
+		<tr class="trName" style="border-bottom:1px solid #CFCFCF;">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				업종
 			</td>
-			<td>
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				${user.industy}
 			</td>
-			<td style="background-color:#e6e6ff;">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				영업이익
 			</td>
-			<td>
-				${companyinfo.profit}
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
+				${companyinfo.profit} (전년대비 기준)
 			</td>
 		</tr>
-		<tr>
-			<td style="background-color:#e6e6ff;">
+		<tr class="trName">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				설립일
 			</td>
-			<td>
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				<fmt:formatDate value="${user.birth}" pattern="yyyy년 MM월 dd일" />
 			</td>
-			<td style="background-color:#e6e6ff;">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				채용 현황
 			</td>
-			<td>
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				${hirelistcount} 건
 			</td>
 		</tr>
-			<tr>
-			<td style="background-color:#e6e6ff;">
+			<tr class="trName">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				사원수
 			</td>
-			<td>
-				${companyinfo.worker}
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
+				${companyinfo.worker} 명
 			</td>
-			<td style="background-color:#e6e6ff;">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				매출액
 			</td>
-			<td>
-				${companyinfo.sales}
+			<td class="tdCon" style="border-bottom:1px solid #CFCFCF;">
+				${companyinfo.sales} (전년대비 기준)
 			</td>
 		</tr>
-			<tr>
-			<td style="background-color:#e6e6ff;">
+			<tr class="trName">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				자본금
 			</td>
-			<td>
-				${companyinfo.capital}
+			<td colspan="3" class="tdCon" style="border-bottom:1px solid #CFCFCF;">
+				${companyinfo.capital} (전년대비 기준)
 			</td>
 		</tr>
-			<tr>
-			<td style="background-color:#e6e6ff;">
+			<tr class="trName">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				회사 주소
 			</td>
-			<td colspan="3">
+			<td colspan="3" class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				${user.address}
 			</td>
 		</tr>
-			<tr>
-			<td style="background-color:#e6e6ff;">
+			<tr class="trName">
+			<td style="background-color:#e6e6ff; font-weight:bold;">
 				사이트
 			</td>
-			<td colspan="3">
+			<td colspan="3" class="tdCon" style="border-bottom:1px solid #CFCFCF;">
 				${user.site}
 			</td>
 		</tr>
 	</table>
+	<label id ="label1">매출액,자본금,영업이익 : 백만단위 기준</label>
 	</div>
 	<div class="w3-content w3-margin-top" style="max-width:1400px;">
 	  <div class="w3-row-padding">
-	    <div class="w3-twothird">
-	      <div class="w3-container w3-card w3-white w3-margin-bottom">
-	        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>연혁 및 실적</h2>
-	        <a href="companyHistoryUpdate.jsy">수정</a>
-	        <a>삭제</a>
+	    
+	      
+	      <p><span class="w3-large w3-text-indigo"><b>연혁 및 실적</b></span></p>
+	   
 	        <c:forEach items="${comHistorylist}" var="comHislist">
 	        <div class="w3-container">
 	          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>${comHislist.historydate}</h6>
-	          <h5 class="w3-opacity"><b>${comHislist.content}</b></h5>
+	          <h6 class="w3-opacity"><b>${comHislist.content}</b></h6>
 	          <hr>
 	        </div>
 			</c:forEach>
-		    </div>
-		  </div>
+		    
+		  
 		</div>
 	</div>
 	<p><span class="w3-large w3-text-indigo"><b>근무 조건</b></span></p>
+	<br>
 	<div>
-	<table class="w3-table">
-	<tr>
-		<td style="width:15%;background-color:#e6e6ff;">
+	<table style="width:100%; align:center; height:500px;">
+	<tr class="trName">
+		<td style="width:10%;background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			연금보험
 		</td>
-		<td style="width:30%">
+		<td style="width:35%; border-bottom:1px solid #CFCFCF;" class="tdCon">
 			${companyinfo.insurance}
 		</td>
-		<td style="width:15%; background-color:#e6e6ff;">
+		<td style="width:10%; background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			급여제도
 		</td>
-		<td style="width:30%">
+		<td style="width:35%; border-bottom:1px solid #CFCFCF;" class="tdCon">
 			${companyinfo.salsystem}
 		</td>
 	</tr>
-	<tr>
-		<td style="background-color:#e6e6ff;">
+	<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			동호회/조직
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.society}
 		</td>
-		<td style="background-color:#e6e6ff;">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			회사분위기
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.mood}
 		</td>
 	</tr>
-	<tr>
-		<td style="background-color:#e6e6ff;">
+	<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			명절/기념일
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.anniversary }
 		</td>
-		<td style="background-color:#e6e6ff;">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			의료/건강
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.health}
 		</td>
 	</tr>
-	<tr>
-		<td style="background-color:#e6e6ff;">
+	<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			출산/육아
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.care}
 		</td>
-		<td style="background-color:#e6e6ff;">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			사무실 환경
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.office}
 		</td>
 	</tr>
-		<tr>
-		<td style="background-color:#e6e6ff;">
+		<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			의복관련
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.clothes}
 		</td>
-		<td style="background-color:#e6e6ff;">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			식사관련
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.meal}
 		</td>
 	</tr>
-	<tr>
-		<td style="background-color:#e6e6ff;">
+	<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			교통 출퇴근
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.traffic}
 		</td>
-		<td style="background-color:#e6e6ff;">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			지급품
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.supplies}
 		</td>
 	</tr>
-		<tr>
-		<td style="background-color:#e6e6ff;">
+		<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			지원금/대출
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.supportfund}
 		</td>
-		<td style="background-color:#e6e6ff;">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			회사 행사
 		</td>
-		<td>
+		<td class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.companyevent}
 		</td>
 	</tr>
-	<tr>
-		<td style="background-color:#e6e6ff;">
+	<tr class="trName">
+		<td style="background-color:#e6e6ff; font-weight:bold; font-size : 10pt;">
 			교육관련
 		</td>
-		<td colspan="3">
+		<td colspan="3" class="tdCon" style=" border-bottom:1px solid #CFCFCF;">
 			${companyinfo.education}
 		</td>
 	</tr>
 </table>
 </div>
+<br>
+<p><span class="w3-large w3-text-indigo"><b>회사 위치</b></span></p>
+<br>
 <div id="map" style="width:100%;height:400px;"></div>
+<br>
+<br>
 </div>
 <script type="text/javascript">
 	var map = new naver.maps.Map('map');

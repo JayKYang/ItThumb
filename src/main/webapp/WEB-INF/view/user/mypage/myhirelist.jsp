@@ -151,9 +151,9 @@
 									</div>
 								</div>
 							</c:if></td>
-						<td style="text-align: center"><a class="button"
+						<td style="text-align: center"><c:if test="${myhire.hide==0}"><a class="button"
 							href="../../hire/supUpdateHireForm.jsy?hireno=${myhire.hireno}&pageNum=${pageNum}"
-							id="updateBtn">수정</a> <a class="button"
+							id="updateBtn">수정</a></c:if> <a class="button"
 							href="javascript:hireDeleteAction('${myhire.hireno}')"
 							name="deleteBtn">삭제</a></td>
 					</tr>

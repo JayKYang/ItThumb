@@ -304,7 +304,24 @@ $(document).ready(function(){
      divchkdisp(inputCareerDate);		
 	}) 
 	
-
+	
+	
+	$("#radiochkdelete").click(function(){
+		event.preventDefault();
+		var str = $('input[name="searchEdu"]').val();
+		$('input:radio[value="'+str+'"]').prop("checked", false);
+		$('input:radio[value="'+str+'"]').attr('checked', 'unchecked');
+		$('input[name="searchEdu"]').val(null);
+		 var i =0;
+	       for(i=0;i<idx;i++) {
+			         if($(this).val() == divchkarr[i]) {
+			        
+				         divchkarr.splice(i,1);
+				         idx--;
+				         break;
+					}
+				}
+	})
 
 	
 	
@@ -440,6 +457,7 @@ function companyDetail(url){
 		<h4 class="w3-text-indigo">학력</h4>
 		<div id="levelofedu" >
 		</div>
+		<a id="radiochkdelete" style="font-size:3pt;">체크 해제</a>
 	</div>
 	<div class="w3-quarter" style="overflow-y: scroll; height:300px;">
 		<h4 class="w3-text-indigo">고용형태</h4>
@@ -458,11 +476,11 @@ function companyDetail(url){
 					<td colspan="8" align="center">
 						<input type="hidden" name="pageNum" value="1">
 						<input type="hidden" name="popPageNum" value="1">
-						<input type="text" name="searchRegion" id="searchRegion" value="${param.searchRegion}">
-						<input type="text" name="searchEdu" value="${param.searchEdu}">
-						<input type="text" name="searchCarr" value="${param.searchCarr}">
-						<input type="text" name="searchCareer" value="${param.searchCareer}">
-						<input type="text" name="searchCareerDate" value="${param.searchCareerDate}">
+						<input type="hidden" name="searchRegion" id="searchRegion" value="${param.searchRegion}">
+						<input type="hidden" name="searchEdu" value="${param.searchEdu}">
+						<input type="hidden" name="searchCarr" value="${param.searchCarr}">
+						<input type="hidden" name="searchCareer" value="${param.searchCareer}">
+						<input type="hidden" name="searchCareerDate" value="${param.searchCareerDate}">
 					</td>
 				</tr>
 				<tr>
@@ -480,7 +498,6 @@ function companyDetail(url){
 				<p>
 					<span class="w3-content w3-text-indigo w3-xlarge">인기공고</span>
 				</p>
-				<a href="calender.jsy">달력</a>
 			</td>
 		</tr>
 		<tr>
@@ -535,6 +552,7 @@ function companyDetail(url){
 			<td colspan="8">
 				<p>
 					<span class="w3-content w3-text-indigo w3-xlarge">전체 채용공고</span>
+					<a href="calender.jsy?pageNum=${param.pageNum}">달력</a>
 				</p>
 			</td>
 		</tr>

@@ -16,12 +16,14 @@
 
 	$(document).ready(function() {
 	
+		
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
 		
 		$('#calendar').fullCalendar({
+			defaultView: 'basicWeek',
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -31,12 +33,13 @@
 			events: [
 				<c:forEach var="listhire" items="${hirelist}" varStatus="status">
 				{
-					title: '${listhire.subject}',
+					title: '${deadlinelist[status.index]} ${listhire.subject}',
 					start: '${datelist[status.index]}',
-					url:'hiredetail.jsy?hireno=${listhire.hireno}'
+					url:'hiredetail.jsy?hireno=${listhire.hireno}&pageNum=${param.pageNum}'
 				},
-				</c:forEach>
-			]
+				</c:forEach>	 
+			],
+			 eventColor: '#FF0000'
 		});
 		
 	});
@@ -72,11 +75,74 @@
 		margin: 0 auto;
 		}
 
+button {
+  border-radius: 4px;
+  background-color: blue;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 6px;
+  width: 90px;
+  height:30px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover {
+  background-color: skyblue;
+}
+
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+button:hover span {
+  padding-right: 25px;
+}
+
+button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#calenderlabel{
+	font-size : 12pt;
+	align : right;
+	text-align : right;
+}
+
+#labelDiv{
+
+}
 </style>
 </head>
 <body>
+<div class="w3-bar w3-small w3-left w3-indigo" style="width: 100%;">
+		<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+		</div> 
+</div>
+<div class="w3-content">
+	<p>
+		<span class="w3-content w3-text-indigo w3-xxlarge">채용공고</span>
+	</p>
+	<label id="calenderlabel">게시글 : 마감날짜 공고제목형식</label>
 <div id='calendar'>
 
+<button class="w3-right" onclick="location.href='hirelist.jsy?pageNum=${param.pageNum}'">게시판</button>
+</div>
 </div>
 </body>
 </html>

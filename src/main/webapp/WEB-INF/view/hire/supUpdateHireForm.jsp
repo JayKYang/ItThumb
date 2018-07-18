@@ -147,11 +147,20 @@ sies = new Array(
 </script>
 </head>
 <body>
+<div class="w3-bar w3-small w3-left w3-indigo" style="width: 100%;">
+			<div style="width:115.39px; height:102px;" class="w3-bar-item w3-padding-large">
+			</div> 
+	</div>
+<div class="w3-content">
+	<p>
+		<span class="w3-content w3-text-indigo w3-xxlarge">내가 쓴 채용공고 수정</span>
+	</p>
 	<form:form modelAttribute="hire" action="hireUpdate.jsy" method="post" enctype="multipart/form-data" name="f">	
-		<input type="text" value="${hire.imageUrl}" name="file2">
-		<input type="text" value="${hire.hireno}" name="hireno">
-		<input type="text" value="${param.pageNum}" name="pageNum">
-		<table border="1" cellpadding="0" cellspacing="0" align="center">
+		<input type="hidden" value="${hire.imageUrl}" name="file2">
+		<input type="hidden" value="${hire.hireno}" name="hireno">
+		<input type="hidden" value="${param.pageNum}" name="pageNum">
+		<div class="w3-border">
+		<table border="1" cellpadding="0" cellspacing="0" align="center"class="w3-table">
 			<tr>
 				<td>
 					<h5>제목</h5>
@@ -199,8 +208,8 @@ sies = new Array(
  	</div>
  	<div id="guchk" name="guchk">
  </div>
-					<form:input path="region"/><font color="orange"><form:errors path="region" /></font>
-					<form:input path="regiongu"/><font color="orange"><form:errors path="regiongu"/></font>
+					<form:hidden path="region"/><font color="orange"><form:errors path="region" /></font>
+					<form:hidden path="regiongu"/><font color="orange"><form:errors path="regiongu"/></font>
 					<form:input path="regionetc"/><font color="orange"><form:errors path="regionetc"/></font>
 					<br>
 					<label style="font-size:8pt;">세부주소를 같이 입력해주세요.</label>
@@ -304,6 +313,8 @@ sies = new Array(
 				</td>
 			</tr>
 		</table>
+		</div>
 	</form:form>
+	</div>
 </body>
 </html>
