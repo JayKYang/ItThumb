@@ -224,9 +224,7 @@
 
   <div class="w3-row-padding">
   
-    
-    
-        <h3>연혁 및 실적</h3>
+       <h3>연혁 및 실적</h3>
         <c:forEach items="${comHistorylist}" var="comHislist">
         <div class="w3-container">
           <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>${comHislist.historydate}</h6>

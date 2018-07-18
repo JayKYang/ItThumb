@@ -454,6 +454,8 @@ public class BoardController {
 		List datelist = new ArrayList();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
+		List deadlinelist = new ArrayList();
+		SimpleDateFormat deaddf = new SimpleDateFormat("MM/dd");
 		try {
 		int hirelistcount = service.hireboardcount(searchRegion,searchEdu,searchCarr,searchCareer,searchCareerDate);
 		
@@ -462,8 +464,12 @@ public class BoardController {
 		for(int i=0; i<hirelist.size(); i++) {
 			
 			datelist.add(df.format(hirelist.get(i).getRegdate()));
+			deadlinelist.add(deaddf.format(hirelist.get(i).getDeadline()));
 		}
 		
+		
+		mav.addObject("deadlinelist",deadlinelist);
+		mav.addObject("pageNum",pageNum);
 		mav.addObject("datelist",datelist);
 		mav.addObject("hirelistcount",hirelistcount);
 		mav.addObject("hirelist",hirelist);
@@ -647,6 +653,17 @@ public class BoardController {
 		Companyhistory ch = new Companyhistory();
 		
 		try {
+			
+		List<Companyhistory> comhistory = service.getCompanyHistorylist(memberid);
+		
+		if(comhistory != null) {
+			for(int i=0; i<comhistory.size(); i++) {
+				int historyno = comhistory.get(i).getHistoryno();
+				service.deleteCompanyhistory(historyno);
+			}
+		}
+			
+			
 		for(int i=0; i<hisContent.length; i++) {
 			ch.setContent(hisContent[i]);
 			ch.setHistorydate(hisDate[i]);
@@ -771,14 +788,7 @@ public class BoardController {
 		String memberid = user.getMemberid();
 		CompanyInfo companyinfo = new CompanyInfo();
 		try {
-			
-			List<Companyhistory> ch = service.getCompanyHistorylist(memberid);
-			
-			for(int i=0; i<ch.size(); i++) {
-				int historyno = ch.get(i).getHistoryno();
-				service.deleteCompanyhistory(historyno);
-			}
-			
+		
 				Date date = new Date();// 현재날짜
 				int nowdate = Integer.parseInt(df.format(date)); // 2018
 				int birth = Integer.parseInt(df.format(user.getBirth())); // 설립일 년도
