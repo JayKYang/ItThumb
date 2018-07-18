@@ -67,7 +67,9 @@ sies = new Array(
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-
+	var te = document.getElementById("content");
+	te.value = $('#content').val().replace(/<br>/g,"\r\n");
+		
 	var selday="${param.day}";
 	if(selday!=null && !selday==""){
 		$("#day").val(selday);	
@@ -105,6 +107,13 @@ $(document).ready(function() {
 	}
 
 })
+
+	function studyupdate(){
+		var trans_text = document.getElementById("content");
+		trans_text.value = $('#content').val().replace(/\n/g,"<br>");
+		
+		document.f.submit();
+	}
 </script>
 <style>
 .button {
@@ -319,14 +328,14 @@ $(document).ready(function() {
 		</tr>
 		<tr>
 			<td >
-				<form:textarea class="w3-input w3-border" path="content" rows="20" cols="50"/>
+				<form:textarea id="content" class="w3-input w3-border" path="content" rows="20" cols="50"/>
 				<br><br>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<input type="button" class="button" onclick="location.href='studyInfo.jsy?pageNum=${pageNum}&studyno=${study.studyno}'" value="취소">&nbsp;&nbsp;
-				<input type="submit" class="button" value="수 정 하 기">
+				<input type="button" class="button" onclick="javascript:studyupdate();" value="수 정 하 기">
 			</td>
 		</tr>
 	</table>

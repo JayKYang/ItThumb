@@ -196,8 +196,7 @@ public interface JsyService {
 
 	List<Hire> getMyHireList(String searchType, String searchContent, Integer pageNum, int limit, String memberid);
 
-	int getMyhirecount(String memberid, String searchType, String searchContent);
-
+	int getMyhirecount(String memberid, String searchType, String searchContent,Integer hide);
 
 	int getScrapmembercount(String searchType, String searchContent, String memberid);
 

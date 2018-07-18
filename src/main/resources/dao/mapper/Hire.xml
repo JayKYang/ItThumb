@@ -109,6 +109,9 @@
 			<if test="memberid != null">
 				and memberid = '${memberid}'
 			</if>
+			<if test="hide !=null">
+				and hide = ${hide}
+			</if>
 			<if test="searchType != null and searchContent != null">
 				and ${searchType} like '%${searchContent}%'
 			</if>

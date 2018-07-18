@@ -132,6 +132,14 @@
    }
         
     </script>
+<script>
+	function hiresubmit(){
+		var trans_text = document.getElementById("content");
+		trans_text.value = $('#content').val().replace(/\n/g,"<br>");
+		
+		document.f.submit();
+	}
+</script>
 <script type="text/javascript">
 sies = new Array(
 <c:forEach items="<%=sidomap%>" var="si">
@@ -335,14 +343,14 @@ sies = new Array(
 					<tr>
 						<td>신청 내용</td>
 						<td colspan="4">
-							<form:textarea rows="15" cols="80" path="content"  placeholder="신청시 운영자에게 전달할 내용"/>
+							<form:textarea id="content" rows="15" cols="80" path="content"  placeholder="신청시 운영자에게 전달할 내용"/>
 							<font color="orange"><form:errors path="content" /></font>
 						</td>
 					</tr>
 				</table>
 			</div><br>
 			<div class="w3-right">
-				<button onclick="javascript:document.f.submit()">신청</button>
+				<button onclick="javascript:hiresubmit();">신청</button>
 				<button onclick="location.href='hirelist.jsy'">목록</button>
 			</div>
 	</form:form>

@@ -12,6 +12,11 @@
 <head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script>
+$(document).ready(function(){
+	var te = document.getElementById("content");
+	te.value = $('#content').val().replace(/<br>/g,"\r\n");
+	
+});
 	$(function() {
 	    $("#imagefile").on('change', function(){
 	        readURL(this);
@@ -82,7 +87,8 @@
 </script>
 <script>
 	function pfsubmit(){
-		
+		var trans_text = document.getElementById("content");
+		trans_text.value = $('#content').val().replace(/\n/g,"<br>");
 		
 		document.f.submit();
 	}
@@ -189,13 +195,13 @@ button:hover span:after {
 					<td colspan="2">내용</td>
 				</tr>
 				<tr>
-					<td colspan="2"><form:textarea path="content" class="" placeholder="프로젝트 내용" cols="120" rows="50"/></td>
+					<td colspan="2"><form:textarea id="content" path="content" class="" placeholder="프로젝트 내용" cols="120" rows="50"/></td>
 				</tr>
 			</table>
 			</form:form>
 			<table style="width: 98%">
 				<tr>
-					<td colspan="3" align="right"><button class="w3-xlarge" onclick="javascript:document.f.submit();"><i class="fa fa-floppy-o"></i> 저장하기</button></td>
+					<td colspan="3" align="right"><button class="w3-xlarge" onclick="javascript:pfsubmit();"><i class="fa fa-floppy-o"></i> 저장하기</button></td>
 				</tr>
 			</table>
 		</div>

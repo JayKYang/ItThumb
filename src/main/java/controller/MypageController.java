@@ -497,7 +497,7 @@ public class MypageController {
 		
 		try {
 			List<Hire> myhirelist = service.getMyHireList(searchType,searchContent,pageNum,limit,memberid);
-			int myhirecount = service.getMyhirecount(memberid, searchType, searchContent);
+			int myhirecount = service.getMyhirecount(memberid, searchType, searchContent,null);
 			
 			List datelist = new ArrayList();
 			Date startDate = new Date();
@@ -564,7 +564,7 @@ public class MypageController {
 		else {
 			user = service.getUser(memberid);
 			List<Companyhistory> comHistorylist= service.getCompanyHistorylist(memberid);
-			int hirelistcount = service.getMyhirecount(memberid, searchType, searchContent);
+			int hirelistcount = service.getMyhirecount(memberid, searchType, searchContent,null);
 			companyinfo = service.getCompanyInfo(memberid);
 			
 			mav.addObject("hirelistcount",hirelistcount);

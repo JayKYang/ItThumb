@@ -487,8 +487,6 @@ public class BoardController {
 			pageNum = 1;
 		}
 		
-		
-		
 		User user = new User();
 		try {
 		hire= service.getHire(hireno, searchType, searchContent);
@@ -496,7 +494,6 @@ public class BoardController {
 		String region = hire.getRegion();
 		String regiongu = hire.getRegiongu();
 		String regionetc = hire.getRegionetc();
-		
 		String address = region + regiongu;
 		
 		user= service.getUser(hire.getMemberid());
@@ -504,18 +501,12 @@ public class BoardController {
 		List<Companyhistory> comHistorylist= service.getCompanyHistorylist(hire.getMemberid());
 		List<Hire> hirelist = service.getMyHireList(searchType, searchContent, pageNum, limit, hire.getMemberid());
 		
-		int hirelistcount = service.getMyhirecount(hire.getMemberid(), searchType, searchContent);
-		
-		
+		int hirelistcount = service.getMyhirecount(hire.getMemberid(), searchType, searchContent,1);
 		int maxpage = (int)((double)hirelistcount/limit + 0.95);
 		int startpage = ((int)((pageNum/10.0 + 0.9) -1)) * 10 +1;
 		int endpage = maxpage + 9;
 		if(endpage > maxpage) endpage = maxpage;
 		int boardcnt = hirelistcount - (pageNum -1) * limit;
-		
-		
-		
-		
 		
 		mav.addObject("address",address);
 		mav.addObject("companyinfo",companyinfo);

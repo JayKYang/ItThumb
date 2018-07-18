@@ -180,10 +180,11 @@ public class BoardDaoImpl implements BoardDao{
 		
 			return SqlSession.selectList(NS+"getMyHireList",map);
 	}
-
+	
 	@Override
-	public int getMyhirecount(String memberid, String searchType, String searchContent) {
+	public int getMyhirecount(String memberid, String searchType, String searchContent, Integer hide) {
 		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("hide", hide);
 		map.put("memberid", memberid);
 		map.put("searchType", searchType);
 		map.put("searchContent", searchContent);
@@ -319,8 +320,6 @@ public class BoardDaoImpl implements BoardDao{
 	
 		SqlSession.getMapper(HireMapper.class).deleteCompanyhistory(historyno);
 	}
-
-
 
 
 }

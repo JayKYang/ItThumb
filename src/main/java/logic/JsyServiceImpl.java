@@ -664,9 +664,9 @@ public class JsyServiceImpl implements JsyService{
 	}
 
 	@Override
-	public int getMyhirecount(String memberid, String searchType, String searchContent) {
+	public int getMyhirecount(String memberid, String searchType, String searchContent, Integer hide) {
 		
-		return boardDao.getMyhirecount(memberid, searchType, searchContent);
+		return boardDao.getMyhirecount(memberid, searchType, searchContent,hide);
 		
 	}
 

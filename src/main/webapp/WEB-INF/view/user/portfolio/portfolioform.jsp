@@ -13,6 +13,9 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 <script>
 	$(document).ready(function(){
+		var te = document.getElementById("introduce");
+		te.value = $('#introduce').val().replace(/<br>/g,"\r\n");
+		
 		url = document.URL.split("#");
 		if(url[1]!=null){
 			openPortfolio(url[1]);
@@ -242,9 +245,12 @@
 		if(document.f.slogun.value==''){
 			alert("포트폴리오 이름을 입력해주세요.");
 			return document.f.slogun.focus();
-		}else{
-			document.f.submit();
 		}
+		
+		var trans_text = document.getElementById("introduce");
+		trans_text.value = $('#introduce').val().replace(/\n/g,"<br>");
+		
+		document.f.submit();
 	}
 </script>
 <style>
@@ -306,7 +312,7 @@ button:hover span:after {
 	</div>
 	<!-- Page Content -->
 	<!-- Header/Home -->
-	<div class="portfoliopage w3-content w3-container w3-animate-left" id="about">
+	<div class="portfoliopage w3-content w3-container" id="about">
 		<div class="w3-center">
 			<p>
 				<span class="w3-content w3-text-orange w3-xxlarge">포트폴리오</span>
@@ -378,7 +384,7 @@ button:hover span:after {
 				<tr>
 					<td colspan="3">
 						<p class="w3-center">
-							<a class="w3-xlarge"><form:textarea class="w3-input" cols="50" rows="10" placeholder="자기소개" path="introduce" value=""></form:textarea><font color="red"><form:errors path="introduce"/></font></a><input type="checkbox" style="display:none">
+							<a class="w3-xlarge"><form:textarea id="introduce" class="w3-input" cols="50" rows="10" placeholder="자기소개" path="introduce" value=""></form:textarea><font color="red"><form:errors path="introduce"/></font></a><input type="checkbox" style="display:none">
 						</p>
 					</td>
 				</tr>
@@ -481,7 +487,7 @@ button:hover span:after {
 
 
 
-	<div class="portfoliopage w3-content w3-container w3-animate-right" id="project" style="display: none">
+	<div class="portfoliopage w3-content w3-container" id="project" style="display: none">
 		<div class="w3-center">
 			<p>
 				<span class="w3-content w3-text-orange w3-xxlarge">프로젝트</span>
@@ -492,7 +498,15 @@ button:hover span:after {
 				<tr><th style="width:10%">순서</th><th style="width:40%">대표사진</th><th style="width:40%">제목</th><th style="width:10%;"></th></tr>
 				<c:if test="${!empty projectList }">
 						<c:forEach items="${projectList }" var="project" varStatus="status">
-							<tr><td>${status.count }</td><td><img src="../../projectimg/${project.imagefileUrl }" style="width:30%"></td><td>${project.subject }</td><td><a href="projectform.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">수정</a>
+							<tr><td>${status.count }</td>
+							<td>
+								<c:if test="${empty project.imagefileUrl }">
+									<img class="w3-circle w3-card" src="../../photo/defaultphoto.png" style="width:30%">
+								</c:if> 
+								<c:if test="${!empty project.imagefileUrl }">
+									<img src="../../projectimg/${project.imagefileUrl }" style="width:30%">
+								</c:if>
+							</td><td>${project.subject }</td><td><a href="projectform.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">수정</a>
 							<a href="deleteproject.jsy?id=${sessionScope.login.memberid }&projectno=${project.projectno}">삭제</a></td></tr>
 						</c:forEach>
 				</c:if>

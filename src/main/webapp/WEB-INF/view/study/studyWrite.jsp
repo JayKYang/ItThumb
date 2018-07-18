@@ -107,6 +107,14 @@ $(document).ready(function() {
 	}	
 });
 </script>
+<script>
+	function studysubmit(){
+		var trans_text = document.getElementById("content");
+		trans_text.value = $('#content').val().replace(/\n/g,"<br>");
+		
+		document.f.submit();
+	}
+</script>
 <style>
 .button {
 	width: 100px;
@@ -170,7 +178,7 @@ $(document).ready(function() {
 		</div>
 		<br>
 		<div class="w3-center" style="margin-left: 300px">
-		<form:form modelAttribute="study" action="studyWrite.jsy"
+		<form:form modelAttribute="study" name="f" action="studyWrite.jsy"
 			method="post" name="f">
 			<spring:hasBindErrors name="study">
 				<font color="red"> <c:forEach items="${errors.globalErrors }"
@@ -299,10 +307,10 @@ $(document).ready(function() {
 					<td style="text-align: left;"><b style="font-size:25px;">내 용</b>&nbsp;<font color="red"><form:errors path="content" /></font></td>
 				</tr>
 				<tr>
-					<td><form:textarea class="w3-input w3-border" path="content" rows="20" cols="50" /><br></td>
+					<td><form:textarea id="content" class="w3-input w3-border" path="content" rows="20" cols="50" /><br></td>
 				</tr>
 				<tr>
-					<td><input class="button" style="height: 50px;" type="submit" value="등 록 하 기"></td>
+					<td><input class="button" style="height: 50px;" type="button" onclick="javascript:studysubmit();" value="등 록 하 기"></td>
 				</tr>
 			</table>
 		</form:form>

@@ -33,6 +33,12 @@
 <style type="text/css">
 </style>
 <script type="text/javascript">
+$(document).ready(function(){
+	var te = document.getElementById("content");
+	te.value = $('#content').val().replace(/<br>/g,"\r\n");
+	
+});
+
         $(function() {
             $("#image").on('change', function(){
                 readURL(this);
@@ -130,6 +136,14 @@ sies = new Array(
 	}
    
    
+</script>
+<script>
+	function hireupdate(){
+		var trans_text = document.getElementById("content");
+		trans_text.value = $('#content').val().replace(/\n/g,"<br>");
+		
+		document.f.submit();
+	}
 </script>
 </head>
 <body>
@@ -279,13 +293,13 @@ sies = new Array(
 			</tr>
 			<tr>
 				<td colspan="4">
-					<form:textarea rows="15" cols="80" path="content" value="${hire.content}"/>
+					<form:textarea id="content" rows="15" cols="80" path="content" value="${hire.content}"/>
 					<font color="orange"><form:errors path="content" /></font>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">
-					<a href="javascript:document.f.submit()">수정하기</a>
+					<a href="javascript:hireupdate()">수정하기</a>
 					<a href="hirelist.jsy">LIST</a>
 				</td>
 			</tr>

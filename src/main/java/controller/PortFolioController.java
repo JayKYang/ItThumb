@@ -310,7 +310,6 @@ public class PortFolioController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("[PortFolioController] => user/portfolio/projectform[POST]");
 		User loginUser = (User) request.getSession().getAttribute("login"); 
-
 		System.out.println(project);
 		if(project.getProjectno()==0) { // insert
 			int pno = service.maxProjectno();

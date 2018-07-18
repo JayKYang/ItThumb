@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/jspHeader.jsp" %>
 <!DOCTYPE html>
 <html>
-<title>messagewrite</title>
+<title>잇썸 > 쪽지 쓰기</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -123,6 +123,14 @@ ul{
 	list-style:none;
 }
 </style>
+<script>
+function mssubmit(){
+	var trans_text = document.getElementById("content");
+	trans_text.value = $('#content').val().replace(/\n/g,"<br>");
+	
+	document.f.submit();
+}
+</script>
 </head>
 <body>
 <div class="w3-bar w3-small w3-left w3-green" style="width: 100%;">
@@ -148,7 +156,7 @@ ul{
 				</p>
 			</div>
 	<div style="margin-left: 15%; margin-right: 15%;">
-	<form:form modelAttribute="message" action="messageWrite.jsy" method="post">
+	<form:form modelAttribute="message" action="messageWrite.jsy" name="f" method="post">
 	<spring:hasBindErrors name="message">
 		<font color="red">
 			<c:forEach items="${errors.globalErrors }" var="error">
@@ -205,13 +213,13 @@ ul{
 		</tr>
 		<tr>
 			<td style="text-align: left;">
-				<form:textarea class="w3-input w3-border" path="content" rows="10" cols="30"/>
+				<form:textarea id="content" class="w3-input w3-border" path="content" rows="10" cols="30"/>
 				<br><br>
 			</td>
 		</tr>	
 	</table>
 	<div class="w3-right">
-		<input type="submit" class="button" value="보내기">
+		<input type="button" class="button" onclick="javascript:mssubmit();" value="보내기">
 	</div>
 	<br><br><br>
 	</form:form>
